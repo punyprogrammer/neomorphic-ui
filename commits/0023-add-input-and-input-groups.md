@@ -8,7 +8,7 @@ insertions: 1204
 deletions: 3
 ---
 
-<!-- nav --> [← 0021](0021-add-spinner-loader.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0021](0021-add-spinner-loader.md) · [Index](README.md) · [0025 →](0025-add-phase-2-components.md)
 
 # 0023 · add-input-and-input-groups
 
