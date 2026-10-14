@@ -20,10 +20,12 @@
     "./button": "./src/button.tsx",
     "./button-group": "./src/button-group.tsx",
     "./checkbox": "./src/checkbox.tsx",
+    "./page-indicator": "./src/page-indicator.tsx",
     "./progress": "./src/progress.tsx",
     "./radio-group": "./src/radio-group.tsx",
     "./select": "./src/select.tsx",
     "./slider": "./src/slider.tsx",
+    "./spinner": "./src/spinner.tsx",
     "./surface": "./src/surface.tsx",
     "./switch": "./src/switch.tsx",
     "./textarea": "./src/textarea.tsx",
@@ -81,6 +83,10 @@
         "types": "./dist/checkbox.d.ts",
         "default": "./dist/checkbox.js"
       },
+      "./page-indicator": {
+        "types": "./dist/page-indicator.d.ts",
+        "default": "./dist/page-indicator.js"
+      },
       "./progress": {
         "types": "./dist/progress.d.ts",
         "default": "./dist/progress.js"
@@ -96,6 +102,10 @@
       "./slider": {
         "types": "./dist/slider.d.ts",
         "default": "./dist/slider.js"
+      },
+      "./spinner": {
+        "types": "./dist/spinner.d.ts",
+        "default": "./dist/spinner.js"
       },
       "./surface": {
         "types": "./dist/surface.d.ts",
