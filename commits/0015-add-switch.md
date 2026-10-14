@@ -8,7 +8,7 @@ insertions: 416
 deletions: 5
 ---
 
-<!-- nav --> [← 0013](0013-add-checkbox-and-radiogroup.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0013](0013-add-checkbox-and-radiogroup.md) · [Index](README.md) · [0017 →](0017-add-textarea-and-select.md)
 
 # 0015 · add-switch
 
