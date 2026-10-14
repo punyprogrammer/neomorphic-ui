@@ -86,8 +86,8 @@ then a component set on the Figma `Components` page.
 | [x] | Badge: `count`/`max`/`showZero`, `dot`, raised/inset + token fills, sm/md/lg; `BadgeAnchor` + `placement` (4 logical corners) and `overlap="circular"`; 23 tests, 8 stories incl. kit replica | Bell "3", cart "17" (`1:2`) | `badge.tsx` | ⛔ |
 | [ ] | Chip (new): icon + label status pill ("Paid", "Due soon"), `icon` + `iconPosition` like Button, raised/inset + token fills; later removable and selectable chips | None in kit (split from Badge) | `tag.tsx`, `tag-group.tsx` | [ ] |
 | [x] | ButtonGroup: prev/next stepper as one raised slab with grooves, segments sink while pressed/`aria-pressed`, `ButtonGroupText` readout, horizontal/vertical, rounded/pill; 10 tests, 8 stories incl. kit replica and live pager | ‹ › pair (`1:2`) | `button-group.tsx` | ⛔ |
-| [ ] | Toggle: round icon toggles, tile toggle | Heart/like/star/bookmark (`3:71`), airplane tile (`3:71`) | `toggle.tsx` | [ ] |
-| [ ] | ToggleGroup: segmented control | OFF/ON, music transport (`3:731`) | `toggle-group.tsx` | [ ] |
+| [x] | Toggle: raised off / pressed-in on, `--toggle-on` colour, `iconFill`, round icon toggles and rounded tiles, sm/md/lg; 10 tests, 6 stories incl. kit social row and airplane tile | Heart/like/star/bookmark (`3:71`), airplane tile (`3:71`) | `toggle.tsx` | ⛔ |
+| [x] | ToggleGroup: segmented control on the ButtonGroup slab, arrow-key focus, single/`multiple`, horizontal/vertical, rounded/pill, group `size`; 8 tests, 6 stories incl. kit OFF/ON and transport | OFF/ON, music transport (`3:731`) | `toggle-group.tsx` | ⛔ |
 | [ ] | Checkbox | Check / empty box (`1:2`) | `checkbox.tsx` | [ ] |
 | [ ] | RadioGroup | Filled / empty circle (`1:2`) | `radio-group.tsx` | [ ] |
 | [ ] | Switch | Off / on toggle (`1:2`) | `switch.tsx` | [ ] |
@@ -100,7 +100,7 @@ then a component set on the Figma `Components` page.
 | [ ] | PageIndicator (new) | Three dots (`1:2`) | carousel dots | [ ] |
 | [ ] | Spinner | Loader (`1:2`) | `spinner.tsx` | [ ] |
 
-**Phase 1 progress: 3 / 17**
+**Phase 1 progress: 5 / 17**
 
 ---
 

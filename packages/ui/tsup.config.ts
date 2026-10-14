@@ -6,6 +6,8 @@ export default defineConfig((options) => ({
     "src/button-group.tsx",
     "src/button.tsx",
     "src/surface.tsx",
+    "src/toggle-group.tsx",
+    "src/toggle.tsx",
     "src/utils.ts",
   ],
   format: ["esm"],

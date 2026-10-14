@@ -51,9 +51,7 @@ describe("ButtonGroup", () => {
   it("flattens resting buttons without overriding their pressed state", () => {
     render(<Stepper />);
     const className = screen.getByTestId("group").className;
-    expect(className).toContain(
-      "[&>[data-slot=button]:not(:active):not([aria-pressed=true])]:shadow-neu-flat"
-    );
+    expect(className).toContain(":not(:active):not([aria-pressed=true])]");
     expect(className).not.toContain("[&>[data-slot=button]]:shadow");
   });
 

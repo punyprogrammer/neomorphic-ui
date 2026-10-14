@@ -12,3 +12,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0004 | 2026-10-14 | [add-button](0004-add-button.md) | 13 | +977 −24 |
 | 0007 | 2026-10-14 | [add-badge](0007-add-badge.md) | 8 | +715 −4 |
 | 0008 | 2026-10-14 | [add-button-group](0008-add-button-group.md) | 7 | +562 −2 |
+| 0011 | 2026-10-14 | [add-toggle-components](0011-add-toggle-components.md) | 12 | +994 −15 |
