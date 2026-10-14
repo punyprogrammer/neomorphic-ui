@@ -8,14 +8,25 @@
     "test": "turbo run test",
     "check": "ultracite check",
     "fix": "ultracite fix",
+    "add:component": "node scripts/add-component.mjs",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo run build --filter=@neomorphic-ui/react && changeset publish",
     "docs:commit": "node scripts/commit-docs.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.15",
+    "@changesets/cli": "^3.0.3",
     "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "turbo": "^2.11.7",
     "ultracite": "7.12.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,mjs,cjs,ts,tsx,json,jsonc,css}": [
+      "ultracite fix"
+    ]
   },
   "packageManager": "pnpm@10.34.6"
 }
