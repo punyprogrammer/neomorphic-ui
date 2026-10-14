@@ -108,16 +108,16 @@ then a component set on the Figma `Components` page.
 
 | Done | Component | Kit reference | Based on Keystone | Figma |
 |---|---|---|---|---|
-| [ ] | Card | Info card, big info card, info box (`3:731`) | `card.tsx` | [ ] |
-| [ ] | Item: list rows | Credit cards list (`3:731`) | `item.tsx` | [ ] |
-| [ ] | Separator: solid, perforated | Boarding ticket tear line (`3:731`) | `separator.tsx` | [ ] |
-| [ ] | Calendar: inset day rings, month nav | March 2020 (`3:71`) | `calendar.tsx` | [ ] |
-| [ ] | Dial (new): circular value control with gradient arc | Volume knob 0–100 (`3:731`) | `circular-progress.tsx` | [ ] |
-| [ ] | BarMeter (new): vertical inset bars | Weather week (`3:71`) | `progress.tsx` | [ ] |
-| [ ] | Avatar | Info box thumbnail (`3:731`) | `avatar.tsx` | [ ] |
-| [ ] | Tooltip | — | `tooltip.tsx` | [ ] |
+| [x] | Card: raised/inset/flat panel, sm/md/lg spacing via `--card-spacing`, edge-to-edge images, `CardHeader`/`Title`/`Description`/`Action`/`Content`/`Footer`, `render` for links; 7 tests, 5 stories incl. kit travel card and nested wells | Info card, big info card, info box (`3:731`) | `card.tsx` | ⛔ |
+| [x] | Item: list rows in an `ItemGroup` (list semantics), flat/raised/inset, sm/md, links and buttons rise and press, `ItemMedia` icon tile/image, `ItemContent`/`Title`/`Description`/`Actions`/`Header`/`Footer`, `ItemSeparator`; 6 tests, 5 stories incl. kit credit-card list | Credit cards list (`3:731`) | `item.tsx` | ⛔ |
+| [x] | Separator: solid groove (dark line + light edge) or perforated tear line, horizontal/vertical, decorative by default or semantic `role="separator"`; 6 tests, 4 stories incl. kit boarding pass | Boarding ticket tear line (`3:731`) | `separator.tsx` | ⛔ |
+| [x] | Calendar: react-day-picker month grid raised like a `Surface`, flat days that rise on hover, today in a sunken well with a dot, raised `--calendar-fill` selection, tinted range band, raised round nav, month/year pills over native selects, `--cell-size`; 9 tests, 6 stories incl. kit March 2020 card | March 2020 (`3:71`) | `calendar.tsx` | ⛔ |
+| [x] | Dial (new): circular `role="slider"`, raised knob in a ring well with a 270° `--dial-fill` gradient arc and indicator dot, drag around the ring (dead centre, gap holds the nearer end), arrows/Page/Home/End, `step`, controlled or not, `name` for forms, sm/md/lg; 10 tests, 5 stories incl. kit volume knob and thermostat | Volume knob 0–100 (`3:731`) | `circular-progress.tsx` | ⛔ |
+| [x] | BarMeter (new): row of vertical meters, each a well with a raised `--bar-meter-fill` gradient rising from its foot, `BarMeterValue` above and `BarMeterLabel` below, `format`, sm/md/lg and `--bar-meter-height`; 6 tests, 4 stories incl. kit weather week | Weather week (`3:71`) | `progress.tsx` | ⛔ |
+| [x] | Avatar: raised frame around image or fallback initials, circle/rounded, sm/md/lg/xl, `AvatarBadge` status dot, overlapping `AvatarGroup` with `AvatarGroupCount`; 7 tests, 5 stories incl. kit info box thumbnail | Info box thumbnail (`3:731`) | `avatar.tsx` | ⛔ |
+| [x] | Tooltip: raised popup above the trigger (all four sides), `TooltipProvider` shared delay, scale/fade in, `--z-tooltip`; 5 tests, 3 stories incl. icon toolbar | — | `tooltip.tsx` | ⛔ |
 
-**Phase 2 progress: 0 / 8**
+**Phase 2 progress: 8 / 8**
 
 ---
 
