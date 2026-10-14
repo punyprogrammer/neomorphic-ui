@@ -18,3 +18,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0017 | 2026-10-14 | [add-textarea-and-select](0017-add-textarea-and-select.md) | 10 | +1115 −3 |
 | 0019 | 2026-10-14 | [add-progress-slider](0019-add-progress-slider.md) | 11 | +964 −3 |
 | 0021 | 2026-10-15 | [add-spinner-loader](0021-add-spinner-loader.md) | 10 | +902 −3 |
+| 0023 | 2026-10-15 | [add-input-and-input-groups](0023-add-input-and-input-groups.md) | 10 | +1204 −3 |
