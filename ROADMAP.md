@@ -34,10 +34,11 @@ measurement for web.
 - [x] Git repository and first commit (`0001` initial-code-setup, pushed to `origin/main`)
 - [x] Husky hooks (`prepare` script installs them on `pnpm install`)
 - [x] Per-commit docs: `post-commit` hook writes `commits/NNNN-<subject>.md` and folds it into the same commit (`pnpm docs:commit --rev <sha>` to backfill)
-- [ ] Changesets for versioning
-- [ ] lint-staged pre-commit hook (`ultracite fix` on staged files)
-- [ ] CI: install, `check`, `test`, `build`
-- [ ] `add:component` scaffolding script (port from `../react/scripts`)
+- [x] Changesets for versioning: `pnpm changeset`, `pnpm version-packages`; private workspaces are never versioned; commit docs list changesets added/consumed and version bumps
+- [x] lint-staged pre-commit hook (`ultracite fix` on staged JS/TS/JSON/CSS)
+- [x] CI (`.github/workflows/ci.yml`): Biome check, then unit tests, Storybook interaction tests and full build in parallel
+- [x] `pnpm add:component <Name>`: component (`useRender` + cva, both shadow slots), unit tests, story with a `play` check, `exports` + `tsup` entry
+- [ ] Release workflow: Changesets version PR + npm publish (with "Publish to npm" below)
 
 ### Tokens (`theme.css`, `base.css`)
 
@@ -62,7 +63,7 @@ measurement for web.
 - [x] Stories: Default, Basic States (kit replica), Elevations, Depths, Press Transition, As Section
 - [x] Foundations stories: Colors, Shadows, Radius
 - [x] Visual check against the kit's Basic States at 1x
-- [ ] Run Storybook interaction tests (`play` functions) in CI
+- [x] Run Storybook interaction tests (`play` functions) in CI
 
 ### Figma foundations
 

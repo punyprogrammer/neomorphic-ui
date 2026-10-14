@@ -51,6 +51,9 @@ const LIST_ITEM_RE = /^\+\s*[-*]\s*\[([ x])\]\s*(.+)$/gim;
 const TABLE_ITEM_RE = /^\+\s*\|\s*\[([ x])\]\s*\|\s*([^|]+?)\s*\|/gim;
 const EXPORT_ALIAS_RE = /\s+as\s+/;
 const FRONT_MATTER_PAIR_RE = /:\s(.*)/s;
+const CHANGESET_RE = /^\.changeset\/(?!README)[^/]+\.md$/;
+const CHANGESET_BUMP_RE =
+  /^["']?([^"':]+)["']?\s*:\s*(major|minor|patch)\s*$/gm;
 
 const STATUS = { A: "Added", M: "Modified", D: "Deleted", T: "Type changed" };
 const DEP_FIELDS = ["dependencies", "devDependencies", "peerDependencies"];
@@ -440,6 +443,68 @@ function sectionDependencies(meta, files) {
     : "";
 }
 
+function parseChangeset(source) {
+  const front = source?.match(FRONT_MATTER_RE);
+  if (!front) {
+    return null;
+  }
+  const bumps = [...front[1].matchAll(CHANGESET_BUMP_RE)].map(
+    (m) => `${code(m[1])} ${m[2]}`
+  );
+  const summary = source
+    .slice(front[0].length)
+    .trim()
+    .replace(WHITESPACE_RE, " ");
+  return { bumps: bumps.join(", ") || "none", summary };
+}
+
+function versionOf(json) {
+  try {
+    return json ? JSON.parse(json).version : undefined;
+  } catch {
+    return null;
+  }
+}
+
+function sectionVersioning(meta, files) {
+  const changesets = files
+    .filter((f) => CHANGESET_RE.test(f.path) && f.status !== "M")
+    .map((f) => {
+      const added = f.status === "A";
+      const parsed = parseChangeset(
+        added ? after(meta, f.path) : before(meta, f.path)
+      );
+      return [
+        added ? "Added" : "Consumed",
+        code(f.path.split("/").pop()),
+        parsed?.bumps ?? "",
+        parsed?.summary ?? "",
+      ];
+    });
+  const bumps = files
+    .filter((f) => f.status === "M" && f.path.endsWith("package.json"))
+    .map((f) => {
+      const was = versionOf(before(meta, f.path));
+      const now = versionOf(after(meta, f.path));
+      return was && now && was !== now
+        ? [
+            code(packageName(meta.sha, workspaceOf(f.path)) ?? f.path),
+            `${code(was)} → ${code(now)}`,
+          ]
+        : null;
+    })
+    .filter(Boolean);
+  const parts = [
+    changesets.length
+      ? `### Changesets\n\n${table(["Status", "File", "Bumps", "Summary"], changesets)}`
+      : "",
+    bumps.length
+      ? `### Package versions\n\n${table(["Package", "Version"], bumps)}`
+      : "",
+  ].filter(Boolean);
+  return parts.length ? `## Versioning\n\n${parts.join("\n\n")}` : "";
+}
+
 function sectionRoadmap(meta, files) {
   if (!files.some((f) => f.path === "ROADMAP.md")) {
     return "";
@@ -533,6 +598,7 @@ function render(meta, files, { selfReferencing }) {
     sectionTests(meta, files),
     sectionStories(meta, files),
     sectionTokens(meta, files),
+    sectionVersioning(meta, files),
     sectionDependencies(meta, files),
     sectionRoadmap(meta, files),
     files.length

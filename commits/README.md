@@ -8,3 +8,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | --- | --- | --- | --- | --- |
 | 0001 | 2026-10-14 | [initial-code-setup](0001-initial-code-setup.md) | 34 | +7076 −0 |
 | 0002 | 2026-10-14 | [add-commit-doc](0002-add-commit-doc.md) | 7 | +734 −4 |
+| 0003 | 2026-10-14 | [add-changeset-ci-cd](0003-add-changeset-ci-cd.md) | 10 | +869 −8 |

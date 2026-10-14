@@ -36,7 +36,10 @@ packages/ui/src/           @neomorphic-ui/react, one flat .tsx per component
   base.css                 library mechanism: shadow + radius scales, motion
   theme.css                default consumer-owned tokens
 packages/typescript-config/
+scripts/add-component.mjs  pnpm add:component scaffolder
 scripts/commit-docs.mjs    per-commit doc generator (run by .husky/post-commit)
+.changeset/                pending version bumps for @neomorphic-ui/react
+.github/workflows/ci.yml   check → unit tests, Storybook tests, build
 commits/                   generated, one NNNN-<subject>.md per commit; do not edit by hand
 ```
 
@@ -45,9 +48,14 @@ amended into the same commit. Write a commit body (not just `-m "subject"`) to
 record the why; it is quoted at the top of the doc. Backfill or regenerate with
 `pnpm docs:commit --rev <sha>` or `--all`.
 
-Adding a component: create `packages/ui/src/<name>.tsx` with its test, add it
-to `package.json` `exports` + `publishConfig.exports` and to
-`tsup.config.ts` `entryPoints`, then write `apps/storybook/stories/<name>.stories.tsx`.
+Adding a component: `pnpm add:component <Name>` creates the component, its test
+and its story, and registers it in `package.json` `exports` +
+`publishConfig.exports` and `tsup.config.ts` `entryPoints`. Then add a
+changeset (`pnpm changeset`, `minor` for a new component).
+
+Hooks: `pre-commit` runs `ultracite fix` on staged files (lint-staged);
+`post-commit` writes the commit doc. CI runs `check`, then unit tests,
+Storybook interaction tests and `build`.
 
 ## Neomorphic rules
 

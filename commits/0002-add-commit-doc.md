@@ -8,7 +8,7 @@ insertions: 734
 deletions: 4
 ---
 
-<!-- nav --> [← 0001](0001-initial-code-setup.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0001](0001-initial-code-setup.md) · [Index](README.md) · [0003 →](0003-add-changeset-ci-cd.md)
 
 # 0002 · add-commit-doc
 
