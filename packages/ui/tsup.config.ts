@@ -3,6 +3,7 @@ import { defineConfig } from "tsup";
 export default defineConfig((options) => ({
   entryPoints: [
     "src/badge.tsx",
+    "src/button-group.tsx",
     "src/button.tsx",
     "src/surface.tsx",
     "src/utils.ts",
