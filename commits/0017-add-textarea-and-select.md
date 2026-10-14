@@ -8,7 +8,7 @@ insertions: 1115
 deletions: 3
 ---
 
-<!-- nav --> [← 0015](0015-add-switch.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0015](0015-add-switch.md) · [Index](README.md) · [0019 →](0019-add-progress-slider.md)
 
 # 0017 · add-textarea-and-select
 
