@@ -14,3 +14,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0008 | 2026-10-14 | [add-button-group](0008-add-button-group.md) | 7 | +562 −2 |
 | 0011 | 2026-10-14 | [add-toggle-components](0011-add-toggle-components.md) | 12 | +994 −15 |
 | 0013 | 2026-10-14 | [add-checkbox-and-radiogroup](0013-add-checkbox-and-radiogroup.md) | 10 | +830 −3 |
+| 0015 | 2026-10-14 | [add-switch](0015-add-switch.md) | 8 | +416 −5 |

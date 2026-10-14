@@ -90,7 +90,7 @@ then a component set on the Figma `Components` page.
 | [x] | ToggleGroup: segmented control on the ButtonGroup slab, arrow-key focus, single/`multiple`, horizontal/vertical, rounded/pill, group `size`; 8 tests, 6 stories incl. kit OFF/ON and transport | OFF/ON, music transport (`3:731`) | `toggle-group.tsx` | ⛔ |
 | [x] | Checkbox: empty well / raised with check, `indeterminate` dash, `aria-invalid` ring, sm/md/lg, native input for forms; 10 tests, 6 stories incl. kit pair and select-all | Check / empty box (`1:2`) | `checkbox.tsx` | ⛔ |
 | [x] | RadioGroup: empty round well / raised with dot, arrow-key choice, group `size`, stacked or row; 7 tests, 6 stories incl. kit pair and card options | Filled / empty circle (`1:2`) | `radio-group.tsx` | ⛔ |
-| [ ] | Switch | Off / on toggle (`1:2`) | `switch.tsx` | [ ] |
+| [x] | Switch: well track off / dark `--primary` track on, raised thumb that slides (RTL-aware), sm/md/lg, `aria-invalid` ring, native input for forms; 10 tests, 6 stories incl. kit pair and settings card | Off / on toggle (`1:2`) | `switch.tsx` | ⛔ |
 | [ ] | Input | Search pill (`1:2`) | `input.tsx` | [ ] |
 | [ ] | InputGroup: addon icon, attached button | Search, Subscribe (`3:71`), chat composer (`3:731`) | `input-group.tsx` | [ ] |
 | [ ] | Textarea | "Your message here…" (`1:2`) | `textarea.tsx` | [ ] |
@@ -100,7 +100,7 @@ then a component set on the Figma `Components` page.
 | [ ] | PageIndicator (new) | Three dots (`1:2`) | carousel dots | [ ] |
 | [ ] | Spinner | Loader (`1:2`) | `spinner.tsx` | [ ] |
 
-**Phase 1 progress: 7 / 17**
+**Phase 1 progress: 8 / 17**
 
 ---
 
