@@ -6,6 +6,8 @@ export default defineConfig((options) => ({
     "src/button-group.tsx",
     "src/button.tsx",
     "src/checkbox.tsx",
+    "src/input-group.tsx",
+    "src/input.tsx",
     "src/page-indicator.tsx",
     "src/progress.tsx",
     "src/radio-group.tsx",

@@ -20,6 +20,8 @@
     "./button": "./src/button.tsx",
     "./button-group": "./src/button-group.tsx",
     "./checkbox": "./src/checkbox.tsx",
+    "./input": "./src/input.tsx",
+    "./input-group": "./src/input-group.tsx",
     "./page-indicator": "./src/page-indicator.tsx",
     "./progress": "./src/progress.tsx",
     "./radio-group": "./src/radio-group.tsx",
@@ -82,6 +84,14 @@
       "./checkbox": {
         "types": "./dist/checkbox.d.ts",
         "default": "./dist/checkbox.js"
+      },
+      "./input": {
+        "types": "./dist/input.d.ts",
+        "default": "./dist/input.js"
+      },
+      "./input-group": {
+        "types": "./dist/input-group.d.ts",
+        "default": "./dist/input-group.js"
       },
       "./page-indicator": {
         "types": "./dist/page-indicator.d.ts",

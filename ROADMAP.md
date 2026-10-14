@@ -91,8 +91,8 @@ then a component set on the Figma `Components` page.
 | [x] | Checkbox: empty well / raised with check, `indeterminate` dash, `aria-invalid` ring, sm/md/lg, native input for forms; 10 tests, 6 stories incl. kit pair and select-all | Check / empty box (`1:2`) | `checkbox.tsx` | ⛔ |
 | [x] | RadioGroup: empty round well / raised with dot, arrow-key choice, group `size`, stacked or row; 7 tests, 6 stories incl. kit pair and card options | Filled / empty circle (`1:2`) | `radio-group.tsx` | ⛔ |
 | [x] | Switch: well track off / dark `--primary` track on, raised thumb that slides (RTL-aware), sm/md/lg, `aria-invalid` ring, native input for forms; 10 tests, 6 stories incl. kit pair and settings card | Off / on toggle (`1:2`) | `switch.tsx` | ⛔ |
-| [ ] | Input | Search pill (`1:2`) | `input.tsx` | [ ] |
-| [ ] | InputGroup: addon icon, attached button | Search, Subscribe (`3:71`), chat composer (`3:731`) | `input-group.tsx` | [ ] |
+| [x] | Input: Base UI `Input` (works in a `Field`), well that deepens on focus, shallower read-only, invalid ring, rounded/pill, sm/md/lg, `htmlSize`; 7 tests, 6 stories incl. kit search pill and native types | Search pill (`1:2`) | `input.tsx` | ⛔ |
+| [x] | InputGroup: one well around a bare input or growing textarea, lit by the control's focus/invalid/disabled, press-to-focus; addons inline/block with icons, `InputGroupText`, `InputGroupButton` fitted to group size and shape (4px inset); 8 tests, 7 stories incl. kit search, Subscribe and chat composer | Search, Subscribe (`3:71`), chat composer (`3:731`) | `input-group.tsx` | ⛔ |
 | [x] | Textarea: well that deepens on focus, `autoResize` (`field-sizing`), invalid/read-only/disabled; 8 tests, 5 stories incl. kit field and live counter | "Your message here…" (`1:2`) | `textarea.tsx` | ⛔ |
 | [x] | Select: raised uppercase trigger with solid caret, pressed while open, raised popup with sunken highlight and check, label/groups/separator, sm/md/lg; 8 tests, 6 stories incl. kit trigger and grouped time zones | Select category (`1:2`) | `select.tsx` | ⛔ |
 | [x] | Slider: groove track, `--slider-fill` gradient, raised pill thumb with grip grooves that sinks while dragged, edge-aligned, ranges, vertical, `SliderLabel`/`SliderValue`, sm/md/lg; 10 tests, 7 stories incl. kit music sliders and equaliser | Music sliders (`3:731`) | `slider.tsx` | ⛔ |
@@ -100,7 +100,7 @@ then a component set on the Figma `Components` page.
 | [x] | PageIndicator (new): well dots with a raised `--page-indicator-fill` current dot, passive image or page buttons (`onValueChange`) with `aria-current`, roving focus, arrows/Home/End (RTL-aware), 24px targets, horizontal/vertical, sm/md/lg; 9 tests, 6 stories incl. kit dots and onboarding card | Three dots (`1:2`) | carousel dots | ⛔ |
 | [x] | Spinner: ring groove around a raised hub with a `--spinner-fill` arc, `role="status"` (decorative when `aria-hidden`), still under reduced motion, sm/md/lg; 7 tests, 5 stories incl. kit loader and loading card | Loader (`1:2`) | `spinner.tsx` | ⛔ |
 
-**Phase 1 progress: 14 / 17**
+**Phase 1 progress: 16 / 17**
 
 ---
 

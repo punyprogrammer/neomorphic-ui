@@ -8,7 +8,7 @@ insertions: 902
 deletions: 3
 ---
 
-<!-- nav --> [← 0019](0019-add-progress-slider.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0019](0019-add-progress-slider.md) · [Index](README.md) · [0023 →](0023-add-input-and-input-groups.md)
 
 # 0021 · add-spinner-loader
 
