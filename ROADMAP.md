@@ -93,14 +93,14 @@ then a component set on the Figma `Components` page.
 | [x] | Switch: well track off / dark `--primary` track on, raised thumb that slides (RTL-aware), sm/md/lg, `aria-invalid` ring, native input for forms; 10 tests, 6 stories incl. kit pair and settings card | Off / on toggle (`1:2`) | `switch.tsx` | ⛔ |
 | [ ] | Input | Search pill (`1:2`) | `input.tsx` | [ ] |
 | [ ] | InputGroup: addon icon, attached button | Search, Subscribe (`3:71`), chat composer (`3:731`) | `input-group.tsx` | [ ] |
-| [ ] | Textarea | "Your message here…" (`1:2`) | `textarea.tsx` | [ ] |
-| [ ] | Select | Select category (`1:2`) | `select.tsx` | [ ] |
+| [x] | Textarea: well that deepens on focus, `autoResize` (`field-sizing`), invalid/read-only/disabled; 8 tests, 5 stories incl. kit field and live counter | "Your message here…" (`1:2`) | `textarea.tsx` | ⛔ |
+| [x] | Select: raised uppercase trigger with solid caret, pressed while open, raised popup with sunken highlight and check, label/groups/separator, sm/md/lg; 8 tests, 6 stories incl. kit trigger and grouped time zones | Select category (`1:2`) | `select.tsx` | ⛔ |
 | [ ] | Slider: grip thumb, gradient fill | Music sliders (`3:731`) | `slider.tsx` | [ ] |
 | [ ] | Progress: inset track, gradient fill, label | Progress 40% (`3:71`) | `progress.tsx` | [ ] |
 | [ ] | PageIndicator (new) | Three dots (`1:2`) | carousel dots | [ ] |
 | [ ] | Spinner | Loader (`1:2`) | `spinner.tsx` | [ ] |
 
-**Phase 1 progress: 8 / 17**
+**Phase 1 progress: 10 / 17**
 
 ---
 

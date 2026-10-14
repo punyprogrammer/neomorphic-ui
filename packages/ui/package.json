@@ -21,8 +21,10 @@
     "./button-group": "./src/button-group.tsx",
     "./checkbox": "./src/checkbox.tsx",
     "./radio-group": "./src/radio-group.tsx",
+    "./select": "./src/select.tsx",
     "./surface": "./src/surface.tsx",
     "./switch": "./src/switch.tsx",
+    "./textarea": "./src/textarea.tsx",
     "./toggle": "./src/toggle.tsx",
     "./toggle-group": "./src/toggle-group.tsx",
     "./utils": "./src/utils.ts",
@@ -81,6 +83,10 @@
         "types": "./dist/radio-group.d.ts",
         "default": "./dist/radio-group.js"
       },
+      "./select": {
+        "types": "./dist/select.d.ts",
+        "default": "./dist/select.js"
+      },
       "./surface": {
         "types": "./dist/surface.d.ts",
         "default": "./dist/surface.js"
@@ -88,6 +94,10 @@
       "./switch": {
         "types": "./dist/switch.d.ts",
         "default": "./dist/switch.js"
+      },
+      "./textarea": {
+        "types": "./dist/textarea.d.ts",
+        "default": "./dist/textarea.js"
       },
       "./toggle": {
         "types": "./dist/toggle.d.ts",
