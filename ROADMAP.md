@@ -6,6 +6,9 @@ React component library built on the same architecture as Keystone UI
 
 **Legend:** `[x]` done · `[ ]` to do · ⛔ blocked
 
+Every commit is documented in [`commits/`](commits/README.md), numbered in
+order, so progress can be traced commit by commit.
+
 ## Design reference
 
 The kit is drawn at 2x as flat layers (no Figma components). Halve every
@@ -28,9 +31,11 @@ measurement for web.
 - [x] `@neomorphic-ui/react` package: tsup build, subpath exports, Vitest + jsdom
 - [x] Storybook 10 app on port 6007, theme background on canvas and docs
 - [x] `AGENTS.md` with neomorphic rules
-- [ ] Git repository and first commit
+- [x] Git repository and first commit (`0001` initial-code-setup, pushed to `origin/main`)
+- [x] Husky hooks (`prepare` script installs them on `pnpm install`)
+- [x] Per-commit docs: `post-commit` hook writes `commits/NNNN-<subject>.md` and folds it into the same commit (`pnpm docs:commit --rev <sha>` to backfill)
 - [ ] Changesets for versioning
-- [ ] Husky + lint-staged pre-commit hooks
+- [ ] lint-staged pre-commit hook (`ultracite fix` on staged files)
 - [ ] CI: install, `check`, `test`, `build`
 - [ ] `add:component` scaffolding script (port from `../react/scripts`)
 

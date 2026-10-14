@@ -36,7 +36,14 @@ packages/ui/src/           @neomorphic-ui/react, one flat .tsx per component
   base.css                 library mechanism: shadow + radius scales, motion
   theme.css                default consumer-owned tokens
 packages/typescript-config/
+scripts/commit-docs.mjs    per-commit doc generator (run by .husky/post-commit)
+commits/                   generated, one NNNN-<subject>.md per commit; do not edit by hand
 ```
+
+Every commit gets a doc in `commits/`, numbered by its position in history and
+amended into the same commit. Write a commit body (not just `-m "subject"`) to
+record the why; it is quoted at the top of the doc. Backfill or regenerate with
+`pnpm docs:commit --rev <sha>` or `--all`.
 
 Adding a component: create `packages/ui/src/<name>.tsx` with its test, add it
 to `package.json` `exports` + `publishConfig.exports` and to
