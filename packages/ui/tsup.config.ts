@@ -1,7 +1,12 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig((options) => ({
-  entryPoints: ["src/button.tsx", "src/surface.tsx", "src/utils.ts"],
+  entryPoints: [
+    "src/badge.tsx",
+    "src/button.tsx",
+    "src/surface.tsx",
+    "src/utils.ts",
+  ],
   format: ["esm"],
   // tsup's dts step needs the TypeScript JS API, which TS 7 doesn't ship, so
   // this package pins `typescript` to the @typescript/typescript6 bridge.

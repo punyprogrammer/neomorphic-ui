@@ -10,3 +10,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0002 | 2026-10-14 | [add-commit-doc](0002-add-commit-doc.md) | 7 | +734 −4 |
 | 0003 | 2026-10-14 | [add-changeset-ci-cd](0003-add-changeset-ci-cd.md) | 10 | +869 −8 |
 | 0004 | 2026-10-14 | [add-button](0004-add-button.md) | 13 | +977 −24 |
+| 0007 | 2026-10-14 | [add-badge](0007-add-badge.md) | 8 | +715 −4 |

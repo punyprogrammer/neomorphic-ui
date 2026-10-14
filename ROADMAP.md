@@ -83,7 +83,8 @@ then a component set on the Figma `Components` page.
 | Done | Component | Kit reference | Based on Keystone | Figma |
 |---|---|---|---|---|
 | [x] | Button: `icon` (any element) + `iconPosition` (start, end, top, bottom), icon tiles, pill/circle, default/primary/destructive/ghost, sm/md/lg, loading, `aria-pressed`; 28 tests, 10 stories incl. kit replica | Sign in, Share, icon buttons (`1:2`) | `button.tsx` | ⛔ |
-| [ ] | Badge: count overlay on icon button | Bell "3", cart "17" (`1:2`) | `badge.tsx` | [ ] |
+| [x] | Badge: `count`/`max`/`showZero`, `dot`, raised/inset + token fills, sm/md/lg; `BadgeAnchor` + `placement` (4 logical corners) and `overlap="circular"`; 23 tests, 8 stories incl. kit replica | Bell "3", cart "17" (`1:2`) | `badge.tsx` | ⛔ |
+| [ ] | Chip (new): icon + label status pill ("Paid", "Due soon"), `icon` + `iconPosition` like Button, raised/inset + token fills; later removable and selectable chips | None in kit (split from Badge) | `tag.tsx`, `tag-group.tsx` | [ ] |
 | [ ] | ButtonGroup: prev/next stepper | ‹ › pair (`1:2`) | `button-group.tsx` | [ ] |
 | [ ] | Toggle: round icon toggles, tile toggle | Heart/like/star/bookmark (`3:71`), airplane tile (`3:71`) | `toggle.tsx` | [ ] |
 | [ ] | ToggleGroup: segmented control | OFF/ON, music transport (`3:731`) | `toggle-group.tsx` | [ ] |
@@ -99,7 +100,7 @@ then a component set on the Figma `Components` page.
 | [ ] | PageIndicator (new) | Three dots (`1:2`) | carousel dots | [ ] |
 | [ ] | Spinner | Loader (`1:2`) | `spinner.tsx` | [ ] |
 
-**Phase 1 progress: 0 / 16**
+**Phase 1 progress: 2 / 17**
 
 ---
 
