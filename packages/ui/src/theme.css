@@ -8,7 +8,9 @@
    Contrast against --background (WCAG 2.2):
      --foreground        5.55:1
      --muted-foreground  4.77:1
-     --primary           7.93:1  (also --primary-foreground on --primary) */
+     --primary           7.93:1  (also --primary-foreground on --primary)
+     --destructive       5.26:1  (4.91:1 on the darker end of bg-neu-convex,
+                                  so it can colour text on a raised button) */
 
 @theme inline {
   --color-background: var(--background);
@@ -57,7 +59,7 @@
   --muted-foreground: oklch(0.519 0.022 262.9);
   --accent: oklch(0.914 0.008 278.6);
   --accent-foreground: oklch(0.4 0.017 258.4);
-  --destructive: oklch(0.577 0.245 27.325);
+  --destructive: oklch(0.52 0.2 27.325);
   --destructive-foreground: oklch(0.971 0.013 17.38);
 
   /* --success-foreground and --warning-foreground are deliberately dark:

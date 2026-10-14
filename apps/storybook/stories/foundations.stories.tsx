@@ -1,5 +1,6 @@
 import { Surface } from "@neomorphic-ui/react/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect } from "storybook/test";
 
 const meta = {
   title: "Foundations/Tokens",
@@ -16,30 +17,45 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+// Full class names (not built from `token`) so Tailwind's scanner finds them,
+// and as classes rather than inline styles so they replace the raised
+// surface's gradient instead of sitting underneath it.
 const COLORS = [
-  { token: "background", note: "Page and every surface" },
-  { token: "foreground", note: "Body text · 5.55:1" },
-  { token: "muted-foreground", note: "Secondary text · 4.77:1" },
-  { token: "primary", note: "On / selected · 7.93:1" },
-  { token: "muted", note: "Subtle fill" },
-  { token: "border", note: "Hairlines only" },
-  { token: "destructive", note: "Errors" },
-  { token: "success", note: "Positive status" },
-  { token: "warning", note: "Caution status" },
-  { token: "neu-light", note: "Highlight, cast up-left" },
-  { token: "neu-dark", note: "Shadow, cast down-right" },
+  {
+    token: "background",
+    swatch: "bg-background",
+    note: "Page and every surface",
+  },
+  { token: "foreground", swatch: "bg-foreground", note: "Body text · 5.55:1" },
+  {
+    token: "muted-foreground",
+    swatch: "bg-muted-foreground",
+    note: "Secondary text · 4.77:1",
+  },
+  { token: "primary", swatch: "bg-primary", note: "On / selected · 7.93:1" },
+  { token: "muted", swatch: "bg-muted", note: "Subtle fill" },
+  { token: "border", swatch: "bg-border", note: "Hairlines only" },
+  {
+    token: "destructive",
+    swatch: "bg-destructive",
+    note: "Errors, destructive text · 5.26:1",
+  },
+  { token: "success", swatch: "bg-success", note: "Positive status" },
+  { token: "warning", swatch: "bg-warning", note: "Caution status" },
+  {
+    token: "neu-light",
+    swatch: "bg-neu-light",
+    note: "Highlight, cast up-left",
+  },
+  { token: "neu-dark", swatch: "bg-neu-dark", note: "Shadow, cast down-right" },
 ];
 
 export const Colors: Story = {
   render: () => (
     <div className="grid grid-cols-[repeat(auto-fill,minmax(10rem,1fr))] gap-8 p-10">
-      {COLORS.map(({ token, note }) => (
+      {COLORS.map(({ token, swatch, note }) => (
         <div className="flex flex-col gap-3" key={token}>
-          <Surface
-            className="h-20"
-            depth="sm"
-            style={{ backgroundColor: `var(--${token})` }}
-          />
+          <Surface className={`h-20 ${swatch}`} data-token={token} depth="sm" />
           <div className="flex flex-col">
             <code className="font-bold text-sm">--{token}</code>
             <span className="text-muted-foreground text-xs">{note}</span>
@@ -48,6 +64,17 @@ export const Colors: Story = {
       ))}
     </div>
   ),
+  play: async ({ canvasElement }) => {
+    const swatches = [...canvasElement.querySelectorAll("[data-token]")].map(
+      (el) => getComputedStyle(el)
+    );
+    await expect(swatches.map((s) => s.backgroundImage)).not.toContain(
+      expect.stringContaining("gradient")
+    );
+    await expect(new Set(swatches.map((s) => s.backgroundColor)).size).toBe(
+      COLORS.length
+    );
+  },
 };
 
 const SHADOWS = [

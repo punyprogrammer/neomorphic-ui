@@ -50,6 +50,7 @@ measurement for web.
 - [x] Two-layer `-flat` values so raised ↔ pressed transitions ease instead of snapping
 - [x] `bg-neu-convex` utility for the kit's top-left-lit raised fill
 - [x] Motion and z-index tokens, hover gating, reduced-motion rule
+- [x] `--destructive` darkened to 5.26:1 (4.91:1 on the raised fill) so red text on a raised button passes AA
 - [x] `tailwind-merge` resolves `shadow-neu-*`, `inset-shadow-neu-*` and `bg-neu-convex` overrides correctly
 - [ ] Accent tokens for the kit's widget colours: purple (calendar), orange (music), magenta (progress), yellow → blue (weather)
 - [ ] `--font-heading` falling back to `--font-sans` (kit uses Sofia Pro for headings, Roboto for controls)
@@ -81,7 +82,7 @@ then a component set on the Figma `Components` page.
 
 | Done | Component | Kit reference | Based on Keystone | Figma |
 |---|---|---|---|---|
-| [ ] | Button: text, icon, leading/trailing icon, pill | Sign in, Share, icon buttons (`1:2`) | `button.tsx` | [ ] |
+| [x] | Button: `icon` (any element) + `iconPosition` (start, end, top, bottom), icon tiles, pill/circle, default/primary/destructive/ghost, sm/md/lg, loading, `aria-pressed`; 28 tests, 10 stories incl. kit replica | Sign in, Share, icon buttons (`1:2`) | `button.tsx` | ⛔ |
 | [ ] | Badge: count overlay on icon button | Bell "3", cart "17" (`1:2`) | `badge.tsx` | [ ] |
 | [ ] | ButtonGroup: prev/next stepper | ‹ › pair (`1:2`) | `button-group.tsx` | [ ] |
 | [ ] | Toggle: round icon toggles, tile toggle | Heart/like/star/bookmark (`3:71`), airplane tile (`3:71`) | `toggle.tsx` | [ ] |

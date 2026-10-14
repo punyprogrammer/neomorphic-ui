@@ -352,7 +352,7 @@ ${updated.map(show).join("\n")}
 
 Next:
   1. Build it from the kit board in AGENTS.md (halve the 2x measurements)
-  2. pnpm dev --filter=@neomorphic-ui/storybook   → http://localhost:6007
+  2. pnpm storybook   → http://localhost:6007
   3. pnpm test --filter=${PACKAGE}
   4. pnpm changeset   (minor: new component)
 `);

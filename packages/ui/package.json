@@ -16,6 +16,7 @@
     "!src/test"
   ],
   "exports": {
+    "./button": "./src/button.tsx",
     "./surface": "./src/surface.tsx",
     "./utils": "./src/utils.ts",
     "./base.css": "./src/base.css",
@@ -53,6 +54,10 @@
   "publishConfig": {
     "access": "public",
     "exports": {
+      "./button": {
+        "types": "./dist/button.d.ts",
+        "default": "./dist/button.js"
+      },
       "./surface": {
         "types": "./dist/surface.d.ts",
         "default": "./dist/surface.js"
