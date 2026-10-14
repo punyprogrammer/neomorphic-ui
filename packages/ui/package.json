@@ -18,6 +18,7 @@
   "exports": {
     "./badge": "./src/badge.tsx",
     "./button": "./src/button.tsx",
+    "./button-group": "./src/button-group.tsx",
     "./surface": "./src/surface.tsx",
     "./utils": "./src/utils.ts",
     "./base.css": "./src/base.css",
@@ -62,6 +63,10 @@
       "./button": {
         "types": "./dist/button.d.ts",
         "default": "./dist/button.js"
+      },
+      "./button-group": {
+        "types": "./dist/button-group.d.ts",
+        "default": "./dist/button-group.js"
       },
       "./surface": {
         "types": "./dist/surface.d.ts",
