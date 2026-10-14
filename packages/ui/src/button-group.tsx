@@ -10,19 +10,18 @@ import { cn } from "./utils";
 // Variants
 // ---------------------------------------------------------------------------
 
-// Buttons at rest: `:not(:active):not([aria-pressed=true])` lifts these rules
-// above Button's own rest and hover shadows while leaving its pressed classes
+// Segments (Buttons and Toggles) drop their own shadow and convex fill; the
+// group is one raised slab, like a single Button, split by grooves.
+// `:not(:active):not([aria-pressed=true])` lifts the rest rule above a
+// segment's own rest and hover shadows while leaving its pressed classes
 // untouched, so a held or toggled segment still sinks into the slab.
-const REST = "[&>[data-slot=button]:not(:active):not([aria-pressed=true])]";
-
-// Segments drop their own shadow and convex fill; the group is one raised
-// slab, like a single Button, split by grooves.
+// Class strings stay literal: Tailwind only generates what it can read.
 const buttonGroupVariants = cva(
   [
     "inset-shadow-neu-flat inline-flex w-fit items-stretch bg-neu-convex shadow-neu",
-    `${REST}:shadow-neu-flat ${REST}:inset-shadow-neu-flat`,
-    "[&>[data-slot=button]:is([data-variant=default],[data-variant=destructive])]:bg-none [&>[data-slot=button]:is([data-variant=default],[data-variant=destructive])]:bg-transparent",
-    "[&>*]:focus-visible:z-10 [&>[data-slot=button]]:rounded-none",
+    "[&>:is([data-slot=button],[data-slot=toggle]):not(:active):not([aria-pressed=true])]:inset-shadow-neu-flat [&>:is([data-slot=button],[data-slot=toggle]):not(:active):not([aria-pressed=true])]:shadow-neu-flat",
+    "[&>:is([data-slot=button][data-variant=default],[data-slot=button][data-variant=destructive],[data-slot=toggle])]:bg-none [&>:is([data-slot=button][data-variant=default],[data-slot=button][data-variant=destructive],[data-slot=toggle])]:bg-transparent",
+    "[&>*]:focus-visible:z-10 [&>:is([data-slot=button],[data-slot=toggle])]:rounded-none",
     // Groove: a dark line with a highlight on its lit side.
     "[&>[data-slot]~[data-slot]]:before:pointer-events-none [&>[data-slot]~[data-slot]]:before:absolute [&>[data-slot]~[data-slot]]:before:bg-[var(--neu-dark)] [&>[data-slot]~[data-slot]]:before:content-['']",
   ],

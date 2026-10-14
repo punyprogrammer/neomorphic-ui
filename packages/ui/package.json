@@ -20,6 +20,8 @@
     "./button": "./src/button.tsx",
     "./button-group": "./src/button-group.tsx",
     "./surface": "./src/surface.tsx",
+    "./toggle": "./src/toggle.tsx",
+    "./toggle-group": "./src/toggle-group.tsx",
     "./utils": "./src/utils.ts",
     "./base.css": "./src/base.css",
     "./theme.css": "./src/theme.css"
@@ -71,6 +73,14 @@
       "./surface": {
         "types": "./dist/surface.d.ts",
         "default": "./dist/surface.js"
+      },
+      "./toggle": {
+        "types": "./dist/toggle.d.ts",
+        "default": "./dist/toggle.js"
+      },
+      "./toggle-group": {
+        "types": "./dist/toggle-group.d.ts",
+        "default": "./dist/toggle-group.js"
       },
       "./utils": {
         "types": "./dist/utils.d.ts",

@@ -8,7 +8,7 @@ insertions: 562
 deletions: 2
 ---
 
-<!-- nav --> [← 0007](0007-add-badge.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0007](0007-add-badge.md) · [Index](README.md) · [0011 →](0011-add-toggle-components.md)
 
 # 0008 · add-button-group
 
