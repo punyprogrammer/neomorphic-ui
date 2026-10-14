@@ -1,0 +1,129 @@
+/* Hover gating for touch devices.
+   Prevents "sticky hover" on touch screens where a tap triggers :hover. */
+@custom-variant hover {
+  @media (hover: hover) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+@theme {
+  /* Motion tokens. Use via `ease-[var(--ease-out)]` /
+     `duration-[var(--duration-base)]` or reference directly in raw CSS. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --duration-fast: 125ms;
+  --duration-base: 180ms;
+  --duration-slow: 250ms;
+
+  /* Z-index scale. Portaled popups sit above modals and drawers. */
+  --z-sticky: 30;
+  --z-drawer: 40;
+  --z-modal: 50;
+  --z-dropdown: 60;
+  --z-popover: 60;
+  --z-tooltip: 70;
+  --z-toast: 80;
+}
+
+/* Radius scale, derived from the consumer-owned --radius token.
+   Ratios rather than pixel offsets, so the scale stays proportional at any
+   base and --radius: 0 gives genuinely square corners. */
+@theme inline {
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Neomorphic elevation scale, derived from three consumer-owned tokens:
+   --neu-light (highlight, cast up-left), --neu-dark (shadow, cast
+   down-right) and --neu-depth (the base unit, 2px by default).
+
+   The ratios reproduce the Light Neomorphic UI Kit, which is drawn at 2x.
+   Its raised default is a 3/3/20 shadow under a -4/-4/30 highlight; halved
+   to web scale that is 1.5/1.5/10 and -2/-2/15, i.e. 0.75d/5d and -1d/7.5d.
+   The highlight sits further out and blurs wider than the shadow: that
+   asymmetry is what makes the light source read as top-left. Its pressed-in
+   look is a 4px inner edge blurred 6px, which is 1d offset, 1.5d blur here.
+
+   Raised tiers live in `shadow-neu-*` and pressed-in tiers in
+   `inset-shadow-neu-*`. Tailwind keeps the two in separate slots of one
+   box-shadow, so a control can move between them.
+
+   Every value, including `-flat`, has exactly two layers. A box-shadow only
+   interpolates between lists of equal length, so a raised→pressed transition
+   must swap `shadow-neu` → `shadow-neu-flat` and `inset-shadow-neu-flat` →
+   `inset-shadow-neu`; dropping to `shadow-none` snaps instead of easing. */
+@theme inline {
+  --shadow-neu-flat: 0 0 0 transparent, 0 0 0 transparent;
+  --shadow-neu-sm:
+    calc(var(--neu-depth) * -0.75) calc(var(--neu-depth) * -0.75)
+    calc(var(--neu-depth) * 3) var(--neu-light),
+    calc(var(--neu-depth) * 0.5) calc(var(--neu-depth) * 0.5)
+    calc(var(--neu-depth) * 3) var(--neu-dark);
+  --shadow-neu:
+    calc(var(--neu-depth) * -1) calc(var(--neu-depth) * -1)
+    calc(var(--neu-depth) * 7.5) var(--neu-light),
+    calc(var(--neu-depth) * 0.75) calc(var(--neu-depth) * 0.75)
+    calc(var(--neu-depth) * 5) var(--neu-dark);
+  --shadow-neu-lg:
+    calc(var(--neu-depth) * -2) calc(var(--neu-depth) * -2)
+    calc(var(--neu-depth) * 10) var(--neu-light),
+    calc(var(--neu-depth) * 1.25) calc(var(--neu-depth) * 1.25)
+    calc(var(--neu-depth) * 7.5) var(--neu-dark);
+
+  --inset-shadow-neu-flat: inset 0 0 0 transparent, inset 0 0 0 transparent;
+  --inset-shadow-neu-sm:
+    inset calc(var(--neu-depth) * 0.5) calc(var(--neu-depth) * 0.5)
+    var(--neu-depth) var(--neu-dark),
+    inset calc(var(--neu-depth) * -0.5) calc(var(--neu-depth) * -0.5)
+    var(--neu-depth) var(--neu-light);
+  --inset-shadow-neu:
+    inset var(--neu-depth) var(--neu-depth) calc(var(--neu-depth) * 1.5)
+    var(--neu-dark),
+    inset calc(var(--neu-depth) * -1) calc(var(--neu-depth) * -1)
+    calc(var(--neu-depth) * 1.5) var(--neu-light);
+  --inset-shadow-neu-lg:
+    inset calc(var(--neu-depth) * 1.5) calc(var(--neu-depth) * 1.5)
+    calc(var(--neu-depth) * 2.5) var(--neu-dark),
+    inset calc(var(--neu-depth) * -1.5) calc(var(--neu-depth) * -1.5)
+    calc(var(--neu-depth) * 2.5) var(--neu-light);
+}
+
+/* Convex fill for raised surfaces, lit from the same top-left source as the
+   shadow scale. A `bg-*` utility rather than a raw class so tailwind-merge
+   treats it as a background: a consumer's `bg-primary` replaces it instead
+   of being painted over by the gradient image. */
+@utility bg-neu-convex {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--neu-convex-from),
+    var(--neu-convex-to)
+  );
+}
+
+/* Reduced motion: kill movement and looping animations, keep instantaneous
+   state changes legible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}

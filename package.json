@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "neomorphic-ui",
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "test": "turbo run test",
+    "check": "ultracite check",
+    "fix": "ultracite fix"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "turbo": "^2.11.7",
+    "ultracite": "7.12.4"
+  },
+  "packageManager": "pnpm@10.34.6"
+}

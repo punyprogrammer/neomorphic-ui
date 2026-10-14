@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+.turbo
+*.log
+dist
+*.local
+.env
+.cache
+storybook-static/
+*.tsbuildinfo
+.vitest/

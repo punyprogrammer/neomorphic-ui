@@ -1,0 +1,92 @@
+/* Default neomorphic theme, taken from the Light Neomorphic UI Kit's layers.
+
+   Theme tokens are consumer-owned: import this file for the defaults, or copy
+   it into your own CSS and edit. Neomorphism only works when every surface
+   shares one colour, so --background, --card, --popover and --secondary are
+   the same value; depth comes from the --neu-* shadows, not from fills.
+
+   Contrast against --background (WCAG 2.2):
+     --foreground        5.55:1
+     --muted-foreground  4.77:1
+     --primary           7.93:1  (also --primary-foreground on --primary) */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-neu-light: var(--neu-light);
+  --color-neu-dark: var(--neu-dark);
+}
+
+:root {
+  /* Kit surface #EDEEF2 */
+  --background: oklch(0.949 0.005 275);
+  /* Kit label and icon colour #575F6B */
+  --foreground: oklch(0.483 0.022 258.4);
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  /* Kit's dark "on" fill runs #575F6B → #2C3036; this is its midpoint */
+  --primary: oklch(0.4 0.017 258.4);
+  --primary-foreground: var(--background);
+  --secondary: var(--background);
+  --secondary-foreground: var(--foreground);
+  /* Kit page gradient end #E1E2E8 */
+  --muted: oklch(0.914 0.008 278.6);
+  --muted-foreground: oklch(0.519 0.022 262.9);
+  --accent: oklch(0.914 0.008 278.6);
+  --accent-foreground: oklch(0.4 0.017 258.4);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.971 0.013 17.38);
+
+  /* --success-foreground and --warning-foreground are deliberately dark:
+     near-white measures below 3.2:1 on both fills. */
+  --success: oklch(0.627 0.194 149.214);
+  --success-foreground: oklch(0.266 0.065 152.934);
+  --warning: oklch(0.769 0.188 70.08);
+  --warning-foreground: oklch(0.279 0.077 45.635);
+
+  --border: oklch(0.882 0.011 269.5);
+  --input: oklch(0.882 0.011 269.5);
+  --ring: oklch(0.4 0.017 258.4);
+
+  /* Kit radii are 20 and 8 at 2x: 10px and 4px here */
+  --radius: 0.625rem;
+
+  /* Kit shadow #24415D at 30% under a solid white highlight */
+  --neu-light: oklch(1 0 0);
+  --neu-dark: oklch(0.366 0.06 249 / 0.3);
+  --neu-depth: 2px;
+
+  /* Kit's raised fill #F2F3F6 → #E5E6EC: light where the highlight falls */
+  --neu-convex-from: oklch(0.964 0.004 271.4);
+  --neu-convex-to: oklch(0.926 0.008 278.6);
+}
+
+@layer base {
+  body {
+    color: var(--foreground);
+    background-color: var(--background);
+  }
+}

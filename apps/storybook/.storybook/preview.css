@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+/* Self-hosted so visual snapshots never race a webfont fetch. Roboto is the
+   kit's component typeface. */
+@import "@fontsource/roboto/400.css";
+@import "@fontsource/roboto/500.css";
+@import "@fontsource/roboto/700.css";
+
+@import "@neomorphic-ui/react/base.css";
+@import "@neomorphic-ui/react/theme.css";
+
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+@source "../stories/**/*.{ts,tsx}";
+
+@theme {
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Storybook's docs pages paint their own white; keep them on the theme
+   surface so shadows in embedded stories still read. */
+.sb-show-main,
+.docs-story {
+  background-color: var(--background) !important;
+}

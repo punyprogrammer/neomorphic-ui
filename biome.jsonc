@@ -1,0 +1,89 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/biome/core", "ultracite/biome/react"],
+  "files": {
+    "includes": ["!**/*.svg"]
+  },
+  "linter": {
+    "rules": {
+      "performance": {
+        "noNamespaceImport": "warn",
+        "noBarrelFile": "off",
+        "noJsxPropsBind": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noArrayIndexKey": "warn",
+        "noLeakedRender": "warn",
+        "noShadow": "warn",
+        "noUnnecessaryConditions": "warn",
+        "noEqualsToNull": "off"
+      },
+      "a11y": {
+        "useSemanticElements": "warn",
+        "useFocusableInteractive": "warn",
+        "useAriaPropsForRole": "warn"
+      },
+      "correctness": {
+        "noNestedComponentDefinitions": "warn"
+      },
+      "style": {
+        "noExportedImports": "off",
+        "useDestructuring": "off",
+        "noIncrementDecrement": "off"
+      }
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        // Alphabetizing would scramble cva variant maps and deliberate prop order
+        "useSortedKeys": "off",
+        "useSortedAttributes": "off",
+        "useSortedPackageJson": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["apps/storybook/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useSemanticElements": "off",
+            "noLabelWithoutControl": "off",
+            "useFocusableInteractive": "off",
+            "noSvgWithoutTitle": "off"
+          },
+          "suspicious": {
+            "noExplicitAny": "off",
+            "noArrayIndexKey": "off"
+          },
+          "correctness": {
+            "useImageSize": "off",
+            "noNestedComponentDefinitions": "off",
+            "useHookAtTopLevel": "off"
+          },
+          "performance": {
+            "noNamespaceImport": "off",
+            "noJsxPropsBind": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["**/*.test.tsx", "**/*.test.ts", "**/test/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noEmptyBlockStatements": "off",
+            "useAwait": "off"
+          },
+          "performance": {
+            "noNamespaceImport": "off"
+          }
+        }
+      }
+    }
+  ]
+}
