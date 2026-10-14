@@ -8,6 +8,7 @@ export default defineConfig((options) => ({
     "src/checkbox.tsx",
     "src/radio-group.tsx",
     "src/surface.tsx",
+    "src/switch.tsx",
     "src/toggle-group.tsx",
     "src/toggle.tsx",
     "src/utils.ts",
