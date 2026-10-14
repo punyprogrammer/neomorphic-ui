@@ -97,10 +97,10 @@ then a component set on the Figma `Components` page.
 | [x] | Select: raised uppercase trigger with solid caret, pressed while open, raised popup with sunken highlight and check, label/groups/separator, sm/md/lg; 8 tests, 6 stories incl. kit trigger and grouped time zones | Select category (`1:2`) | `select.tsx` | ⛔ |
 | [x] | Slider: groove track, `--slider-fill` gradient, raised pill thumb with grip grooves that sinks while dragged, edge-aligned, ranges, vertical, `SliderLabel`/`SliderValue`, sm/md/lg; 10 tests, 7 stories incl. kit music sliders and equaliser | Music sliders (`3:731`) | `slider.tsx` | ⛔ |
 | [x] | Progress: well track with raised `--progress-fill` gradient, `valueInside` (steps past the fill when it won't fit), indeterminate sweep, `ProgressLabel`/`ProgressValue`, sm/md/lg; 8 tests, 6 stories incl. kit PROGRESS card | Progress 40% (`3:71`) | `progress.tsx` | ⛔ |
-| [ ] | PageIndicator (new) | Three dots (`1:2`) | carousel dots | [ ] |
-| [ ] | Spinner | Loader (`1:2`) | `spinner.tsx` | [ ] |
+| [x] | PageIndicator (new): well dots with a raised `--page-indicator-fill` current dot, passive image or page buttons (`onValueChange`) with `aria-current`, roving focus, arrows/Home/End (RTL-aware), 24px targets, horizontal/vertical, sm/md/lg; 9 tests, 6 stories incl. kit dots and onboarding card | Three dots (`1:2`) | carousel dots | ⛔ |
+| [x] | Spinner: ring groove around a raised hub with a `--spinner-fill` arc, `role="status"` (decorative when `aria-hidden`), still under reduced motion, sm/md/lg; 7 tests, 5 stories incl. kit loader and loading card | Loader (`1:2`) | `spinner.tsx` | ⛔ |
 
-**Phase 1 progress: 12 / 17**
+**Phase 1 progress: 14 / 17**
 
 ---
 

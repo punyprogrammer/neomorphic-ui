@@ -8,7 +8,7 @@ insertions: 964
 deletions: 3
 ---
 
-<!-- nav --> [← 0017](0017-add-textarea-and-select.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0017](0017-add-textarea-and-select.md) · [Index](README.md) · [0021 →](0021-add-spinner-loader.md)
 
 # 0019 · add-progress-slider
 
