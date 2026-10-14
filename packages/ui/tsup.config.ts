@@ -5,6 +5,8 @@ export default defineConfig((options) => ({
     "src/badge.tsx",
     "src/button-group.tsx",
     "src/button.tsx",
+    "src/checkbox.tsx",
+    "src/radio-group.tsx",
     "src/surface.tsx",
     "src/toggle-group.tsx",
     "src/toggle.tsx",
