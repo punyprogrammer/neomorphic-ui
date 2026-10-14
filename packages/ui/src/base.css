@@ -18,6 +18,9 @@
   --duration-base: 180ms;
   --duration-slow: 250ms;
 
+  /* Indeterminate progress: a third-width fill sweeping across the track. */
+  --animate-neu-progress: neu-progress 1.4s var(--ease-in-out) infinite;
+
   /* Z-index scale. Portaled popups sit above modals and drawers. */
   --z-sticky: 30;
   --z-drawer: 40;
@@ -26,6 +29,16 @@
   --z-popover: 60;
   --z-tooltip: 70;
   --z-toast: 80;
+
+  /* For --animate-neu-progress. */
+  @keyframes neu-progress {
+    from {
+      translate: -100% 0;
+    }
+    to {
+      translate: 300% 0;
+    }
+  }
 }
 
 /* Radius scale, derived from the consumer-owned --radius token.

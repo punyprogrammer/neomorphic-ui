@@ -20,8 +20,10 @@
     "./button": "./src/button.tsx",
     "./button-group": "./src/button-group.tsx",
     "./checkbox": "./src/checkbox.tsx",
+    "./progress": "./src/progress.tsx",
     "./radio-group": "./src/radio-group.tsx",
     "./select": "./src/select.tsx",
+    "./slider": "./src/slider.tsx",
     "./surface": "./src/surface.tsx",
     "./switch": "./src/switch.tsx",
     "./textarea": "./src/textarea.tsx",
@@ -79,6 +81,10 @@
         "types": "./dist/checkbox.d.ts",
         "default": "./dist/checkbox.js"
       },
+      "./progress": {
+        "types": "./dist/progress.d.ts",
+        "default": "./dist/progress.js"
+      },
       "./radio-group": {
         "types": "./dist/radio-group.d.ts",
         "default": "./dist/radio-group.js"
@@ -86,6 +92,10 @@
       "./select": {
         "types": "./dist/select.d.ts",
         "default": "./dist/select.js"
+      },
+      "./slider": {
+        "types": "./dist/slider.d.ts",
+        "default": "./dist/slider.js"
       },
       "./surface": {
         "types": "./dist/surface.d.ts",

@@ -95,12 +95,12 @@ then a component set on the Figma `Components` page.
 | [ ] | InputGroup: addon icon, attached button | Search, Subscribe (`3:71`), chat composer (`3:731`) | `input-group.tsx` | [ ] |
 | [x] | Textarea: well that deepens on focus, `autoResize` (`field-sizing`), invalid/read-only/disabled; 8 tests, 5 stories incl. kit field and live counter | "Your message here…" (`1:2`) | `textarea.tsx` | ⛔ |
 | [x] | Select: raised uppercase trigger with solid caret, pressed while open, raised popup with sunken highlight and check, label/groups/separator, sm/md/lg; 8 tests, 6 stories incl. kit trigger and grouped time zones | Select category (`1:2`) | `select.tsx` | ⛔ |
-| [ ] | Slider: grip thumb, gradient fill | Music sliders (`3:731`) | `slider.tsx` | [ ] |
-| [ ] | Progress: inset track, gradient fill, label | Progress 40% (`3:71`) | `progress.tsx` | [ ] |
+| [x] | Slider: groove track, `--slider-fill` gradient, raised pill thumb with grip grooves that sinks while dragged, edge-aligned, ranges, vertical, `SliderLabel`/`SliderValue`, sm/md/lg; 10 tests, 7 stories incl. kit music sliders and equaliser | Music sliders (`3:731`) | `slider.tsx` | ⛔ |
+| [x] | Progress: well track with raised `--progress-fill` gradient, `valueInside` (steps past the fill when it won't fit), indeterminate sweep, `ProgressLabel`/`ProgressValue`, sm/md/lg; 8 tests, 6 stories incl. kit PROGRESS card | Progress 40% (`3:71`) | `progress.tsx` | ⛔ |
 | [ ] | PageIndicator (new) | Three dots (`1:2`) | carousel dots | [ ] |
 | [ ] | Spinner | Loader (`1:2`) | `spinner.tsx` | [ ] |
 
-**Phase 1 progress: 10 / 17**
+**Phase 1 progress: 12 / 17**
 
 ---
 

@@ -16,3 +16,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0013 | 2026-10-14 | [add-checkbox-and-radiogroup](0013-add-checkbox-and-radiogroup.md) | 10 | +830 −3 |
 | 0015 | 2026-10-14 | [add-switch](0015-add-switch.md) | 8 | +416 −5 |
 | 0017 | 2026-10-14 | [add-textarea-and-select](0017-add-textarea-and-select.md) | 10 | +1115 −3 |
+| 0019 | 2026-10-14 | [add-progress-slider](0019-add-progress-slider.md) | 11 | +964 −3 |
