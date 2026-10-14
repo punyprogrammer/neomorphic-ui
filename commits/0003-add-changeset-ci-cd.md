@@ -8,7 +8,7 @@ insertions: 869
 deletions: 8
 ---
 
-<!-- nav --> [← 0002](0002-add-commit-doc.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0002](0002-add-commit-doc.md) · [Index](README.md) · [0004 →](0004-add-button.md)
 
 # 0003 · add-changeset-ci-cd
 

@@ -22,7 +22,7 @@ Radix), CVA, Storybook 10, Vitest, Biome via `ultracite`, `lucide-react` icons.
 
 ```bash
 pnpm install
-pnpm dev                                   # Storybook on port 6007
+pnpm storybook                             # Storybook on port 6007
 pnpm build
 pnpm test --filter=@neomorphic-ui/react    # unit tests (Vitest + jsdom)
 pnpm check                                 # Biome

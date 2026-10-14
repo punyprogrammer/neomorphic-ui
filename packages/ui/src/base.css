@@ -99,8 +99,11 @@
 /* Convex fill for raised surfaces, lit from the same top-left source as the
    shadow scale. A `bg-*` utility rather than a raw class so tailwind-merge
    treats it as a background: a consumer's `bg-primary` replaces it instead
-   of being painted over by the gradient image. */
+   of being painted over by the gradient image.
+   The solid colour underneath keeps the element opaque when a state clears
+   the image (`active:bg-none`, `disabled:bg-none`). */
 @utility bg-neu-convex {
+  background-color: var(--color-background);
   background-image: linear-gradient(
     to bottom right,
     var(--neu-convex-from),
