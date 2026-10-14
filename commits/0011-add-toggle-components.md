@@ -8,7 +8,7 @@ insertions: 994
 deletions: 15
 ---
 
-<!-- nav --> [← 0008](0008-add-button-group.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0008](0008-add-button-group.md) · [Index](README.md) · [0013 →](0013-add-checkbox-and-radiogroup.md)
 
 # 0011 · add-toggle-components
 

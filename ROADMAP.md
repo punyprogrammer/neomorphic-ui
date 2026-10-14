@@ -88,8 +88,8 @@ then a component set on the Figma `Components` page.
 | [x] | ButtonGroup: prev/next stepper as one raised slab with grooves, segments sink while pressed/`aria-pressed`, `ButtonGroupText` readout, horizontal/vertical, rounded/pill; 10 tests, 8 stories incl. kit replica and live pager | ‹ › pair (`1:2`) | `button-group.tsx` | ⛔ |
 | [x] | Toggle: raised off / pressed-in on, `--toggle-on` colour, `iconFill`, round icon toggles and rounded tiles, sm/md/lg; 10 tests, 6 stories incl. kit social row and airplane tile | Heart/like/star/bookmark (`3:71`), airplane tile (`3:71`) | `toggle.tsx` | ⛔ |
 | [x] | ToggleGroup: segmented control on the ButtonGroup slab, arrow-key focus, single/`multiple`, horizontal/vertical, rounded/pill, group `size`; 8 tests, 6 stories incl. kit OFF/ON and transport | OFF/ON, music transport (`3:731`) | `toggle-group.tsx` | ⛔ |
-| [ ] | Checkbox | Check / empty box (`1:2`) | `checkbox.tsx` | [ ] |
-| [ ] | RadioGroup | Filled / empty circle (`1:2`) | `radio-group.tsx` | [ ] |
+| [x] | Checkbox: empty well / raised with check, `indeterminate` dash, `aria-invalid` ring, sm/md/lg, native input for forms; 10 tests, 6 stories incl. kit pair and select-all | Check / empty box (`1:2`) | `checkbox.tsx` | ⛔ |
+| [x] | RadioGroup: empty round well / raised with dot, arrow-key choice, group `size`, stacked or row; 7 tests, 6 stories incl. kit pair and card options | Filled / empty circle (`1:2`) | `radio-group.tsx` | ⛔ |
 | [ ] | Switch | Off / on toggle (`1:2`) | `switch.tsx` | [ ] |
 | [ ] | Input | Search pill (`1:2`) | `input.tsx` | [ ] |
 | [ ] | InputGroup: addon icon, attached button | Search, Subscribe (`3:71`), chat composer (`3:731`) | `input-group.tsx` | [ ] |
@@ -100,7 +100,7 @@ then a component set on the Figma `Components` page.
 | [ ] | PageIndicator (new) | Three dots (`1:2`) | carousel dots | [ ] |
 | [ ] | Spinner | Loader (`1:2`) | `spinner.tsx` | [ ] |
 
-**Phase 1 progress: 5 / 17**
+**Phase 1 progress: 7 / 17**
 
 ---
 

@@ -19,6 +19,8 @@
     "./badge": "./src/badge.tsx",
     "./button": "./src/button.tsx",
     "./button-group": "./src/button-group.tsx",
+    "./checkbox": "./src/checkbox.tsx",
+    "./radio-group": "./src/radio-group.tsx",
     "./surface": "./src/surface.tsx",
     "./toggle": "./src/toggle.tsx",
     "./toggle-group": "./src/toggle-group.tsx",
@@ -69,6 +71,14 @@
       "./button-group": {
         "types": "./dist/button-group.d.ts",
         "default": "./dist/button-group.js"
+      },
+      "./checkbox": {
+        "types": "./dist/checkbox.d.ts",
+        "default": "./dist/checkbox.js"
+      },
+      "./radio-group": {
+        "types": "./dist/radio-group.d.ts",
+        "default": "./dist/radio-group.js"
       },
       "./surface": {
         "types": "./dist/surface.d.ts",
