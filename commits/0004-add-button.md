@@ -8,7 +8,7 @@ insertions: 977
 deletions: 24
 ---
 
-<!-- nav --> [← 0003](0003-add-changeset-ci-cd.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0003](0003-add-changeset-ci-cd.md) · [Index](README.md) · [0007 →](0007-add-badge.md)
 
 # 0004 · add-button
 

@@ -16,6 +16,7 @@
     "!src/test"
   ],
   "exports": {
+    "./badge": "./src/badge.tsx",
     "./button": "./src/button.tsx",
     "./surface": "./src/surface.tsx",
     "./utils": "./src/utils.ts",
@@ -54,6 +55,10 @@
   "publishConfig": {
     "access": "public",
     "exports": {
+      "./badge": {
+        "types": "./dist/badge.d.ts",
+        "default": "./dist/badge.js"
+      },
       "./button": {
         "types": "./dist/button.d.ts",
         "default": "./dist/button.js"

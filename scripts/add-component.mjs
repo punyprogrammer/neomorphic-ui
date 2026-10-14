@@ -15,13 +15,14 @@
  *   packages/ui/tsup.config.ts                  entryPoints
  */
 import { execFileSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, utimesSync, writeFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const UI_DIR = join(ROOT, "packages/ui");
 const STORIES_DIR = join(ROOT, "apps/storybook/stories");
+const PREVIEW_CSS = join(ROOT, "apps/storybook/.storybook/preview.css");
 const PACKAGE = "@neomorphic-ui/react";
 
 const CAMEL_BOUNDARY_RE = /([a-z0-9])([A-Z])/g;
@@ -338,6 +339,13 @@ Examples:
     );
   } catch {
     console.warn("Biome reported issues; run `pnpm check` to see them.");
+  }
+
+  // A running Storybook's Tailwind scan misses files created after startup,
+  // so their classes render unstyled until the stylesheet is rebuilt.
+  if (existsSync(PREVIEW_CSS)) {
+    const now = new Date();
+    utimesSync(PREVIEW_CSS, now, now);
   }
 
   const show = (p) => `  ✓ ${relative(ROOT, p)}`;
