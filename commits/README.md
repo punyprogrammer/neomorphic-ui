@@ -24,3 +24,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0029 | 2026-10-15 | [add-chip](0029-add-chip.md) | 8 | +498 −3 |
 | 0031 | 2026-10-15 | [add-phase-4-components](0031-add-phase-4-components.md) | 154 | +25113 −103 |
 | 0033 | 2026-10-15 | [add-optional-deps](0033-add-optional-deps.md) | 8 | +496 −117 |
+| 0034 | 2026-10-15 | [resolveconflict](0034-resolveconflict.md) | 1 | +10 −9 |

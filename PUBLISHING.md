@@ -181,8 +181,7 @@ Install the real tarball into fresh apps before anything goes to npm.
 The first publish is done from your machine: npm only lets you attach a
 trusted publisher (Phase 6) to a package that already exists.
 
-- [ ] On an up-to-date `main` with CI green:
-
+- [x] On an up-to-date `main` with CI green:
   ```sh
   pnpm version-packages     # 0.0.0 → 0.1.0, writes CHANGELOG.md, removes the changesets
   pnpm install              # refresh the lockfile
@@ -191,8 +190,7 @@ trusted publisher (Phase 6) to a package that already exists.
 
   Commit this on its own, as `.changeset/README.md` asks; the `post-commit`
   hook writes its commit doc.
-- [ ] Publish:
-
+- [x] Publish:
   ```sh
   pnpm release              # builds, then changeset publish (asks for your 2FA code)
   git push --follow-tags
@@ -201,11 +199,14 @@ trusted publisher (Phase 6) to a package that already exists.
   `changeset publish` creates the `@neomorphic-ui/react@0.1.0` git tag; pushing
   it lets you draft a GitHub release from it.
 - [ ] Verify:
-  - [npmjs.com/package/@neomorphic-ui/react](https://www.npmjs.com/package/@neomorphic-ui/react)
-    shows `0.1.0`, the README and the files list
-  - `npm view @neomorphic-ui/react` lists the peer dependencies
-  - `pnpm add @neomorphic-ui/react` in the Phase 3 Vite app works from the
-    registry
+  - [x] [npmjs.com/package/@neomorphic-react/ui](https://www.npmjs.com/package/@neomorphic-react/ui)
+  shows `0.1.0`, the README and the files list. A brand-new package takes a
+  few minutes to process: until then the registry answers 404 (even to the
+  owner) and the website shows an empty page. `0.1.0` was published at
+  14:35 on 15 Oct 2026 and served from 14:40.
+  - [x] `npm view @neomorphic-react/ui` lists the peer dependencies
+  - [ ] `pnpm add @neomorphic-react/ui` in the Phase 3 Vite app works from the
+  registry
 
 If something is wrong, publish a fixed `0.1.1`. `npm unpublish` is only
 allowed within 72 hours, and the version number can never be reused.
