@@ -37,7 +37,8 @@ measurement for web.
 - [x] lint-staged pre-commit hook (`ultracite fix` on staged JS/TS/JSON/CSS)
 - [x] CI (`.github/workflows/ci.yml`): Biome check, then unit tests, Storybook interaction tests and full build in parallel
 - [x] `pnpm add:component <Name>`: component (`useRender` + cva, both shadow slots), unit tests, story with a `play` check, `exports` + `tsup` entry
-- [ ] Release workflow: Changesets version PR + npm publish (Phase 6 of [`PUBLISHING.md`](PUBLISHING.md))
+- [x] Release workflow (`.github/workflows/release.yml`): Changesets version PR, then npm publish through the trusted publisher with provenance (Phase 6 of [`PUBLISHING.md`](PUBLISHING.md))
+- [x] Storybook deployed to [GitHub Pages](https://punyprogrammer.github.io/neomorphic-ui/) by CI from `main` once tests pass
 
 ### Tokens (`theme.css`, `base.css`)
 
@@ -266,7 +267,7 @@ The Phase 3 chat thread block now uses Bubble, Message, Marker (the "Today" sepa
 - [x] Decide on overlays not in the kit: Popover, DropdownMenu, Modal, Drawer, Toast, Alert (planned in Phase 4)
 - [ ] Docs site (Fumadocs) with demos and LLMs.txt
 - [ ] shadcn-compatible registry
-- [ ] Publish `@neomorphic-react/ui` to npm (step-by-step plan in [`PUBLISHING.md`](PUBLISHING.md))
+- [x] Publish [`@neomorphic-react/ui`](https://www.npmjs.com/package/@neomorphic-react/ui) to npm: `0.1.0` on 15 Oct 2026 (step-by-step plan in [`PUBLISHING.md`](PUBLISHING.md))
 - [ ] Figma Code Connect mappings (requires Figma Organization or Enterprise plan)
 - [ ] Dark theme
 
