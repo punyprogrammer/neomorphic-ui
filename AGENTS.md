@@ -37,6 +37,8 @@ apps/storybook/            stories, one file per component
   blocks/                  Phase 3 blocks composed only from library components;
                            their stories are in stories/blocks/ (Blocks/…).
                            Never part of the npm package
+packages/ui/README.md      the npm page: add new components to its table, and
+                           new optional peers to its install table
 packages/ui/src/           @neomorphic-react/ui, one flat .tsx per component
   base.css                 library mechanism: shadow + radius scales, motion
   theme.css                default consumer-owned tokens
@@ -44,6 +46,7 @@ packages/typescript-config/
 scripts/add-component.mjs  pnpm add:component scaffolder
 scripts/commit-docs.mjs    per-commit doc generator (run by .husky/post-commit)
 scripts/check-pack.mjs     pnpm check:pack, fails if the tarball holds anything extra
+scripts/lint-package.mjs   pnpm lint:package, publint + attw on the packed tarball
 .changeset/                pending version bumps for @neomorphic-react/ui
 .github/workflows/ci.yml   check → unit tests, Storybook tests, build
 commits/                   generated, one NNNN-<subject>.md per commit; do not edit by hand
@@ -61,7 +64,7 @@ changeset (`pnpm changeset`, `minor` for a new component).
 
 Hooks: `pre-commit` runs `ultracite fix` on staged files (lint-staged);
 `post-commit` writes the commit doc. CI runs `check`, then unit tests,
-Storybook interaction tests and `build` + `check:pack`.
+Storybook interaction tests and `build` + `check:pack` + `lint:package`.
 
 Blocks (Music Player, Payment Methods, Newsletter Signup, …) are Storybook
 examples, not library components: they stay in `apps/storybook/blocks/` and

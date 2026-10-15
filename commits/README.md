@@ -25,3 +25,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0031 | 2026-10-15 | [add-phase-4-components](0031-add-phase-4-components.md) | 154 | +25113 −103 |
 | 0033 | 2026-10-15 | [add-optional-deps](0033-add-optional-deps.md) | 8 | +496 −117 |
 | 0034 | 2026-10-15 | [initial-packaging](0034-initial-packaging.md) | 122 | +1672 −1072 |
+| 0035 | 2026-10-15 | [setup-npm-packaging](0035-setup-npm-packaging.md) | 33 | +778 −212 |

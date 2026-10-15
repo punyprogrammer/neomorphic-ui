@@ -8,7 +8,7 @@ insertions: 1672
 deletions: 1072
 ---
 
-<!-- nav --> [← 0033](0033-add-optional-deps.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0033](0033-add-optional-deps.md) · [Index](README.md) · [0035 →](0035-setup-npm-packaging.md)
 
 # 0034 · initial-packaging
 

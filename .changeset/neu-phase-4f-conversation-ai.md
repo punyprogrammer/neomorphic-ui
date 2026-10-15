@@ -1,5 +1,0 @@
----
-"@neomorphic-react/ui": minor
----
-
-Add the Phase 4 conversation and AI components: `Bubble` (primary, raised, inset, tinted, outline, ghost and destructive chat bubbles, with `BubbleReactions`), `Message` (row layout with avatar, header and footer), `Marker` (inline status or "Today" separator, optional shimmer), `Attachment` (raised file tile with uploading, processing, error and done states, and a snapping `AttachmentGroup` row), `Trace` (agent steps with running, pending and error status and collapsible detail), `CodeBlock` (inset well with copy and wrap actions, line numbers, diff lines and Show more), `MessageScroller` (opens at the latest turn, follows streamed output only at the live edge, anchors new questions near the top, keeps place when history is prepended, and offers a jump-to-latest button) and `Questionnaire` (one question per step, choice cards with number-key shortcuts, validation, conditional and resumable steps). Syntax highlighting is opt-in through `useHighlightedCode` (`@neomorphic-react/ui/use-highlighted-code`), which loads `shiki`, a new optional peer dependency, on first use.
