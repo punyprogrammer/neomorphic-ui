@@ -41,15 +41,24 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      embla-carousel-react:
+        specifier: ^8.6.0
+        version: 8.6.0(react@19.3.0)
       lucide-react:
         specifier: ^1.55.0
         version: 1.57.0(@types/react@19.3.0)(react@19.3.0)
       react:
         specifier: ^19.3.0
         version: 19.3.0
+      react-day-picker:
+        specifier: ^10.0.2
+        version: 10.0.2(@types/react@19.3.0)(react@19.3.0)
       react-dom:
         specifier: ^19.3.0
         version: 19.3.0(react@19.3.0)
+      react-resizable-panels:
+        specifier: ^4.14.5
+        version: 4.14.5(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       recharts:
         specifier: ^3.10.1
         version: 3.10.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-is@17.0.2)(react@19.3.0)(redux@5.0.1)
@@ -125,21 +134,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      embla-carousel-react:
-        specifier: ^8.6.0
-        version: 8.6.0(react@19.3.0)
       lucide-react:
         specifier: ^1.55.0
         version: 1.57.0(@types/react@19.3.0)(react@19.3.0)
-      react-day-picker:
-        specifier: ^10.0.2
-        version: 10.0.2(@types/react@19.3.0)(react@19.3.0)
-      react-resizable-panels:
-        specifier: ^4.14.5
-        version: 4.14.5(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-      recharts:
-        specifier: ^3.10.1
-        version: 3.10.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-is@17.0.2)(react@19.3.0)(redux@5.0.1)
       tailwind-merge:
         specifier: ^3.7.0
         version: 3.7.0
@@ -165,15 +162,27 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^6.1.2
         version: 6.1.2(vite@8.3.4(esbuild@0.27.7)(jiti@2.7.0)(yaml@2.9.1))
+      embla-carousel-react:
+        specifier: ^8.6.0
+        version: 8.6.0(react@19.3.0)
       jsdom:
         specifier: ^30.1.2
         version: 30.1.2
       react:
         specifier: ^19.3.0
         version: 19.3.0
+      react-day-picker:
+        specifier: ^10.0.2
+        version: 10.0.2(@types/react@19.3.0)(react@19.3.0)
       react-dom:
         specifier: ^19.3.0
         version: 19.3.0(react@19.3.0)
+      react-resizable-panels:
+        specifier: ^4.14.5
+        version: 4.14.5(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+      recharts:
+        specifier: ^3.10.1
+        version: 3.10.1(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react-is@17.0.2)(react@19.3.0)(redux@5.0.1)
       shiki:
         specifier: ^4.5.0
         version: 4.5.0

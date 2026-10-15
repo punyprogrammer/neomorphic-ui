@@ -1,10 +1,12 @@
 # AGENTS.md
 
-Neomorphic UI is a React component library built on the same architecture as
-the Keystone UI library in `../react`. Its conventions apply here unless this
-file says otherwise: read `../react/AGENTS.md` and
-`../react/.cursor/rules/{component-architecture,design-tokens}.mdc` before
-adding a component.
+Neomorphic UI is a React component library: unstyled `@base-ui/react`
+primitives given a neomorphic treatment with Tailwind CSS v4. Read the
+component and neomorphic rules below before adding a component.
+
+The repo is self-contained: code, comments and docs never mention or point
+to other libraries' source or other local repositories. Explain a decision
+in place instead of citing where it came from.
 
 Design reference: the Light Neomorphic UI Kit fork in Figma
 (`VPwMxUooz8MVDV283LV5Rp`). The kit is drawn at 2x, as flat layers rather
@@ -59,6 +61,38 @@ Hooks: `pre-commit` runs `ultracite fix` on staged files (lint-staged);
 `post-commit` writes the commit doc. CI runs `check`, then unit tests,
 Storybook interaction tests and `build`.
 
+## Component rules
+
+- **Flat, single-file components.** Every component is one `.tsx` in
+  `packages/ui/src/`: types, variants, context and parts together. The only
+  subfolder is `test/` (shared setup). Tests sit beside the file
+  (`button.test.tsx`).
+- **No barrel.** Each file is its own entry point. Inside the package, import
+  siblings relatively (`import { cn } from "./utils"`); consumers import
+  subpaths (`@neomorphic-ui/react/button`).
+- **File layout.** `"use client"`, external imports, sibling imports, then
+  sections split by `// ----` divider comments (variants, context, each part),
+  and named exports at the bottom: `export type { … }; export { … };`.
+- **React 19.** No `forwardRef`: take `ref` as a prop.
+- **Primitives.** `@base-ui/react` only, never Radix. Use `useRender` +
+  `mergeProps` so parts accept a `render` prop; state passed to `useRender`
+  becomes `data-*` attributes.
+- **Variants.** `cva` for variants, `cn` (clsx + tailwind-merge) to merge the
+  consumer's `className` last.
+- **`data-slot` on every part,** in kebab case (`card-header`), so parents and
+  consumers can target parts. Size and orientation are exposed as
+  `data-size` / `data-orientation`; named groups use the component name
+  (`group/card`).
+- **JSDoc on every exported part,** describing behaviour and accessibility,
+  not implementation.
+- **Hover is gated.** `base.css` redefines `hover:` behind
+  `@media (hover: hover)`. Never write `:hover` inside an arbitrary selector
+  (`[&>a:hover]:…`); split it (`[&>a]:hover:…`) so the gate applies.
+- **Assert computed styles in Storybook, not jsdom.** The unit-test setup
+  loads no CSS, so `getComputedStyle` measures nothing there. Unit tests check
+  behaviour, ARIA, `data-slot` and events; anything that depends on which CSS
+  rule wins goes in a story's `play` function, which runs in real Chromium.
+
 ## Neomorphic rules
 
 - **One surface colour.** Components use `bg-background`, or `bg-neu-convex`
@@ -74,5 +108,10 @@ Storybook interaction tests and `build`.
   raised ↔ pressed transitions interpolate; `shadow-none` makes them snap.
 - **State needs more than depth.** Shadow edges do not reach WCAG 1.4.11's 3:1,
   so checked, selected and on states also change colour (`bg-primary`) or
-  show a mark, and focus keeps Keystone's visible outline.
+  show a mark, and focus always shows a visible outline
+  (`focus-visible:outline-2 focus-visible:outline-ring/50
+  focus-visible:outline-offset-2`).
+- **Invalid and disabled.** Invalid controls get
+  `aria-invalid:ring-1 aria-invalid:ring-destructive/70`; disabled ones drop
+  to `opacity-50` with `cursor-not-allowed` (raised buttons also go flat).
 - **Light only for v1.** No `dark:` variants yet.

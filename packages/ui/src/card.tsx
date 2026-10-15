@@ -13,8 +13,9 @@ import { cn } from "./utils";
 
 // Padding and gaps all resolve from `--card-spacing`, emitted as one
 // unmodified class per size so a consumer's `[--card-spacing:0px]` always
-// wins (see Keystone's card.tsx). An image as the first or last child runs to
-// the card's edge.
+// wins: tailwind-merge keeps a `data-[size=…]:` variant, whose attribute
+// selector would out-specify the consumer's class. An image as the first or
+// last child runs to the card's edge.
 const cardVariants = cva(
   "group/card flex flex-col gap-(--card-spacing) overflow-hidden py-(--card-spacing) text-foreground text-sm has-[>img:first-child]:pt-0 has-[>img:last-child]:pb-0 *:[img:first-child]:w-full *:[img:last-child]:w-full *:[img]:object-cover",
   {

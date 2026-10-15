@@ -8,7 +8,7 @@ insertions: 25113
 deletions: 103
 ---
 
-<!-- nav --> [← 0029](0029-add-chip.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0029](0029-add-chip.md) · [Index](README.md) · [0033 →](0033-add-optional-deps.md)
 
 # 0031 · add-phase-4-components
 

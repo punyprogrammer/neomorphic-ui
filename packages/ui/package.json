@@ -106,9 +106,13 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "embla-carousel-react": "^8.6.0",
     "jsdom": "^30.1.2",
     "react": "^19.3.0",
+    "react-day-picker": "^10.0.2",
     "react-dom": "^19.3.0",
+    "react-resizable-panels": "^4.14.5",
+    "recharts": "^3.10.1",
     "shiki": "^4.5.0",
     "tsup": "^8.5.1",
     "typescript": "npm:@typescript/typescript6@^6.0.2",
@@ -118,11 +122,7 @@
     "@base-ui/react": "1.9.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^1.55.0",
-    "react-day-picker": "^10.0.2",
-    "react-resizable-panels": "^4.14.5",
-    "recharts": "^3.10.1",
     "tailwind-merge": "^3.7.0"
   },
   "publishConfig": {
@@ -421,11 +421,27 @@
     }
   },
   "peerDependencies": {
+    "embla-carousel-react": "^8.0.0",
     "react": "^19.2.0",
+    "react-day-picker": "^10.0.0",
     "react-dom": "^19.2.0",
+    "react-resizable-panels": "^4.0.0",
+    "recharts": "^3.0.0",
     "shiki": "^4.0.0"
   },
   "peerDependenciesMeta": {
+    "embla-carousel-react": {
+      "optional": true
+    },
+    "react-day-picker": {
+      "optional": true
+    },
+    "react-resizable-panels": {
+      "optional": true
+    },
+    "recharts": {
+      "optional": true
+    },
     "shiki": {
       "optional": true
     }

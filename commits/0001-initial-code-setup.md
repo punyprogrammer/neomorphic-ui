@@ -168,7 +168,7 @@ Checklist as first written in `ROADMAP.md`.
 - [ ] Changesets for versioning
 - [ ] Husky + lint-staged pre-commit hooks
 - [ ] CI: install, `check`, `test`, `build`
-- [ ] `add:component` scaffolding script (port from `../react/scripts`)
+- [ ] `add:component` scaffolding script
 - [ ] Accent tokens for the kit's widget colours: purple (calendar), orange (music), magenta (progress), yellow → blue (weather)
 - [ ] `--font-heading` falling back to `--font-sans` (kit uses Sofia Pro for headings, Roboto for controls)
 - [ ] Document font handling in `theme.css` and `AGENTS.md`
@@ -177,7 +177,7 @@ Checklist as first written in `ROADMAP.md`.
 - [ ] ⛔ `Foundations` page: colour, radius and depth variables with code syntax, raised/inset effect styles, specimens (blocked: Figma Starter plan MCP call limit)
 - [ ] ⛔ `Surface` component set: Elevation × Shape variants
 - [ ] Decide on overlays not in the kit: Popover, DropdownMenu, Modal, Drawer, Toast, Alert
-- [ ] Docs site (Fumadocs) with demos and LLMs.txt, as in `../react/apps/docs`
+- [ ] Docs site (Fumadocs) with demos and LLMs.txt
 - [ ] shadcn-compatible registry
 - [ ] Publish `@neomorphic-ui/react` to npm
 - [ ] Figma Code Connect mappings (requires Figma Organization or Enterprise plan)

@@ -1,8 +1,7 @@
 # Neomorphic UI Roadmap
 
-React component library built on the same architecture as Keystone UI
-(`../react`), styled from the Light Neomorphic UI Kit fork in Figma
-(`VPwMxUooz8MVDV283LV5Rp`). See `AGENTS.md` for conventions.
+React component library built on Base UI and Tailwind CSS v4, styled from
+the Light Neomorphic UI Kit fork in Figma (`VPwMxUooz8MVDV283LV5Rp`). See `AGENTS.md` for conventions.
 
 **Legend:** `[x]` done · `[ ]` to do · ⛔ blocked
 
@@ -38,7 +37,7 @@ measurement for web.
 - [x] lint-staged pre-commit hook (`ultracite fix` on staged JS/TS/JSON/CSS)
 - [x] CI (`.github/workflows/ci.yml`): Biome check, then unit tests, Storybook interaction tests and full build in parallel
 - [x] `pnpm add:component <Name>`: component (`useRender` + cva, both shadow slots), unit tests, story with a `play` check, `exports` + `tsup` entry
-- [ ] Release workflow: Changesets version PR + npm publish (with "Publish to npm" below)
+- [ ] Release workflow: Changesets version PR + npm publish (Phase 6 of [`PUBLISHING.md`](PUBLISHING.md))
 
 ### Tokens (`theme.css`, `base.css`)
 
@@ -80,25 +79,25 @@ Each component: source + tests in `packages/ui/src`, story in
 `apps/storybook/stories`, exports in `package.json` and `tsup.config.ts`,
 then a component set on the Figma `Components` page.
 
-| Done | Component | Kit reference | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Button: `icon` (any element) + `iconPosition` (start, end, top, bottom), icon tiles, pill/circle, default/primary/destructive/ghost, sm/md/lg, loading, `aria-pressed`; 28 tests, 10 stories incl. kit replica | Sign in, Share, icon buttons (`1:2`) | `button.tsx` | ⛔ |
-| [x] | Badge: `count`/`max`/`showZero`, `dot`, raised/inset + token fills, sm/md/lg; `BadgeAnchor` + `placement` (4 logical corners) and `overlap="circular"`; 23 tests, 8 stories incl. kit replica | Bell "3", cart "17" (`1:2`) | `badge.tsx` | ⛔ |
-| [x] | Chip (new): icon + label status pill ("Paid", "Due soon"), decorative `icon` + `iconPosition` (start/end, RTL-aware) like Button, raised/inset + token fills with paired foregrounds, sm/md/lg, `render` (e.g. `<li>`); 15 tests, 6 stories incl. invoice list and live status. Removable and selectable chips still to come | None in kit (split from Badge) | `tag.tsx`, `tag-group.tsx` | ⛔ |
-| [x] | ButtonGroup: prev/next stepper as one raised slab with grooves, segments sink while pressed/`aria-pressed`, `ButtonGroupText` readout, horizontal/vertical, rounded/pill; 10 tests, 8 stories incl. kit replica and live pager | ‹ › pair (`1:2`) | `button-group.tsx` | ⛔ |
-| [x] | Toggle: raised off / pressed-in on, `--toggle-on` colour, `iconFill`, round icon toggles and rounded tiles, sm/md/lg; 10 tests, 6 stories incl. kit social row and airplane tile | Heart/like/star/bookmark (`3:71`), airplane tile (`3:71`) | `toggle.tsx` | ⛔ |
-| [x] | ToggleGroup: segmented control on the ButtonGroup slab, arrow-key focus, single/`multiple`, horizontal/vertical, rounded/pill, group `size`; 8 tests, 6 stories incl. kit OFF/ON and transport | OFF/ON, music transport (`3:731`) | `toggle-group.tsx` | ⛔ |
-| [x] | Checkbox: empty well / raised with check, `indeterminate` dash, `aria-invalid` ring, sm/md/lg, native input for forms; 10 tests, 6 stories incl. kit pair and select-all | Check / empty box (`1:2`) | `checkbox.tsx` | ⛔ |
-| [x] | RadioGroup: empty round well / raised with dot, arrow-key choice, group `size`, stacked or row; 7 tests, 6 stories incl. kit pair and card options | Filled / empty circle (`1:2`) | `radio-group.tsx` | ⛔ |
-| [x] | Switch: well track off / dark `--primary` track on, raised thumb that slides (RTL-aware), sm/md/lg, `aria-invalid` ring, native input for forms; 10 tests, 6 stories incl. kit pair and settings card | Off / on toggle (`1:2`) | `switch.tsx` | ⛔ |
-| [x] | Input: Base UI `Input` (works in a `Field`), well that deepens on focus, shallower read-only, invalid ring, rounded/pill, sm/md/lg, `htmlSize`; 7 tests, 6 stories incl. kit search pill and native types | Search pill (`1:2`) | `input.tsx` | ⛔ |
-| [x] | InputGroup: one well around a bare input or growing textarea, lit by the control's focus/invalid/disabled, press-to-focus; addons inline/block with icons, `InputGroupText`, `InputGroupButton` fitted to group size and shape (4px inset); 8 tests, 7 stories incl. kit search, Subscribe and chat composer | Search, Subscribe (`3:71`), chat composer (`3:731`) | `input-group.tsx` | ⛔ |
-| [x] | Textarea: well that deepens on focus, `autoResize` (`field-sizing`), invalid/read-only/disabled; 8 tests, 5 stories incl. kit field and live counter | "Your message here…" (`1:2`) | `textarea.tsx` | ⛔ |
-| [x] | Select: raised uppercase trigger with solid caret, pressed while open, raised popup with sunken highlight and check, label/groups/separator, sm/md/lg; 8 tests, 6 stories incl. kit trigger and grouped time zones | Select category (`1:2`) | `select.tsx` | ⛔ |
-| [x] | Slider: groove track, `--slider-fill` gradient, raised pill thumb with grip grooves that sinks while dragged, edge-aligned, ranges, vertical, `SliderLabel`/`SliderValue`, sm/md/lg; 10 tests, 7 stories incl. kit music sliders and equaliser | Music sliders (`3:731`) | `slider.tsx` | ⛔ |
-| [x] | Progress: well track with raised `--progress-fill` gradient, `valueInside` (steps past the fill when it won't fit), indeterminate sweep, `ProgressLabel`/`ProgressValue`, sm/md/lg; 8 tests, 6 stories incl. kit PROGRESS card | Progress 40% (`3:71`) | `progress.tsx` | ⛔ |
-| [x] | PageIndicator (new): well dots with a raised `--page-indicator-fill` current dot, passive image or page buttons (`onValueChange`) with `aria-current`, roving focus, arrows/Home/End (RTL-aware), 24px targets, horizontal/vertical, sm/md/lg; 9 tests, 6 stories incl. kit dots and onboarding card | Three dots (`1:2`) | carousel dots | ⛔ |
-| [x] | Spinner: ring groove around a raised hub with a `--spinner-fill` arc, `role="status"` (decorative when `aria-hidden`), still under reduced motion, sm/md/lg; 7 tests, 5 stories incl. kit loader and loading card | Loader (`1:2`) | `spinner.tsx` | ⛔ |
+| Done | Component | Kit reference | Figma |
+|---|---|---|---|
+| [x] | Button: `icon` (any element) + `iconPosition` (start, end, top, bottom), icon tiles, pill/circle, default/primary/destructive/ghost, sm/md/lg, loading, `aria-pressed`; 28 tests, 10 stories incl. kit replica | Sign in, Share, icon buttons (`1:2`) | ⛔ |
+| [x] | Badge: `count`/`max`/`showZero`, `dot`, raised/inset + token fills, sm/md/lg; `BadgeAnchor` + `placement` (4 logical corners) and `overlap="circular"`; 23 tests, 8 stories incl. kit replica | Bell "3", cart "17" (`1:2`) | ⛔ |
+| [x] | Chip (new): icon + label status pill ("Paid", "Due soon"), decorative `icon` + `iconPosition` (start/end, RTL-aware) like Button, raised/inset + token fills with paired foregrounds, sm/md/lg, `render` (e.g. `<li>`); 15 tests, 6 stories incl. invoice list and live status. Removable and selectable chips still to come | None in kit (split from Badge) | ⛔ |
+| [x] | ButtonGroup: prev/next stepper as one raised slab with grooves, segments sink while pressed/`aria-pressed`, `ButtonGroupText` readout, horizontal/vertical, rounded/pill; 10 tests, 8 stories incl. kit replica and live pager | ‹ › pair (`1:2`) | ⛔ |
+| [x] | Toggle: raised off / pressed-in on, `--toggle-on` colour, `iconFill`, round icon toggles and rounded tiles, sm/md/lg; 10 tests, 6 stories incl. kit social row and airplane tile | Heart/like/star/bookmark (`3:71`), airplane tile (`3:71`) | ⛔ |
+| [x] | ToggleGroup: segmented control on the ButtonGroup slab, arrow-key focus, single/`multiple`, horizontal/vertical, rounded/pill, group `size`; 8 tests, 6 stories incl. kit OFF/ON and transport | OFF/ON, music transport (`3:731`) | ⛔ |
+| [x] | Checkbox: empty well / raised with check, `indeterminate` dash, `aria-invalid` ring, sm/md/lg, native input for forms; 10 tests, 6 stories incl. kit pair and select-all | Check / empty box (`1:2`) | ⛔ |
+| [x] | RadioGroup: empty round well / raised with dot, arrow-key choice, group `size`, stacked or row; 7 tests, 6 stories incl. kit pair and card options | Filled / empty circle (`1:2`) | ⛔ |
+| [x] | Switch: well track off / dark `--primary` track on, raised thumb that slides (RTL-aware), sm/md/lg, `aria-invalid` ring, native input for forms; 10 tests, 6 stories incl. kit pair and settings card | Off / on toggle (`1:2`) | ⛔ |
+| [x] | Input: Base UI `Input` (works in a `Field`), well that deepens on focus, shallower read-only, invalid ring, rounded/pill, sm/md/lg, `htmlSize`; 7 tests, 6 stories incl. kit search pill and native types | Search pill (`1:2`) | ⛔ |
+| [x] | InputGroup: one well around a bare input or growing textarea, lit by the control's focus/invalid/disabled, press-to-focus; addons inline/block with icons, `InputGroupText`, `InputGroupButton` fitted to group size and shape (4px inset); 8 tests, 7 stories incl. kit search, Subscribe and chat composer | Search, Subscribe (`3:71`), chat composer (`3:731`) | ⛔ |
+| [x] | Textarea: well that deepens on focus, `autoResize` (`field-sizing`), invalid/read-only/disabled; 8 tests, 5 stories incl. kit field and live counter | "Your message here…" (`1:2`) | ⛔ |
+| [x] | Select: raised uppercase trigger with solid caret, pressed while open, raised popup with sunken highlight and check, label/groups/separator, sm/md/lg; 8 tests, 6 stories incl. kit trigger and grouped time zones | Select category (`1:2`) | ⛔ |
+| [x] | Slider: groove track, `--slider-fill` gradient, raised pill thumb with grip grooves that sinks while dragged, edge-aligned, ranges, vertical, `SliderLabel`/`SliderValue`, sm/md/lg; 10 tests, 7 stories incl. kit music sliders and equaliser | Music sliders (`3:731`) | ⛔ |
+| [x] | Progress: well track with raised `--progress-fill` gradient, `valueInside` (steps past the fill when it won't fit), indeterminate sweep, `ProgressLabel`/`ProgressValue`, sm/md/lg; 8 tests, 6 stories incl. kit PROGRESS card | Progress 40% (`3:71`) | ⛔ |
+| [x] | PageIndicator (new): well dots with a raised `--page-indicator-fill` current dot, passive image or page buttons (`onValueChange`) with `aria-current`, roving focus, arrows/Home/End (RTL-aware), 24px targets, horizontal/vertical, sm/md/lg; 9 tests, 6 stories incl. kit dots and onboarding card | Three dots (`1:2`) | ⛔ |
+| [x] | Spinner: ring groove around a raised hub with a `--spinner-fill` arc, `role="status"` (decorative when `aria-hidden`), still under reduced motion, sm/md/lg; 7 tests, 5 stories incl. kit loader and loading card | Loader (`1:2`) | ⛔ |
 
 **Phase 1 progress: 17 / 17**
 
@@ -106,16 +105,16 @@ then a component set on the Figma `Components` page.
 
 ## Phase 2: Composites
 
-| Done | Component | Kit reference | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Card: raised/inset/flat panel, sm/md/lg spacing via `--card-spacing`, edge-to-edge images, `CardHeader`/`Title`/`Description`/`Action`/`Content`/`Footer`, `render` for links; 7 tests, 5 stories incl. kit travel card and nested wells | Info card, big info card, info box (`3:731`) | `card.tsx` | ⛔ |
-| [x] | Item: list rows in an `ItemGroup` (list semantics), flat/raised/inset, sm/md, links and buttons rise and press, `ItemMedia` icon tile/image, `ItemContent`/`Title`/`Description`/`Actions`/`Header`/`Footer`, `ItemSeparator`; 6 tests, 5 stories incl. kit credit-card list | Credit cards list (`3:731`) | `item.tsx` | ⛔ |
-| [x] | Separator: solid groove (dark line + light edge) or perforated tear line, horizontal/vertical, decorative by default or semantic `role="separator"`; 6 tests, 4 stories incl. kit boarding pass | Boarding ticket tear line (`3:731`) | `separator.tsx` | ⛔ |
-| [x] | Calendar: react-day-picker month grid raised like a `Surface`, flat days that rise on hover, today in a sunken well with a dot, raised `--calendar-fill` selection, tinted range band, raised round nav, month/year pills over native selects, `--cell-size`; 9 tests, 6 stories incl. kit March 2020 card | March 2020 (`3:71`) | `calendar.tsx` | ⛔ |
-| [x] | Dial (new): circular `role="slider"`, raised knob in a ring well with a 270° `--dial-fill` gradient arc and indicator dot, drag around the ring (dead centre, gap holds the nearer end), arrows/Page/Home/End, `step`, controlled or not, `name` for forms, sm/md/lg; 10 tests, 5 stories incl. kit volume knob and thermostat | Volume knob 0–100 (`3:731`) | `circular-progress.tsx` | ⛔ |
-| [x] | BarMeter (new): row of vertical meters, each a well with a raised `--bar-meter-fill` gradient rising from its foot, `BarMeterValue` above and `BarMeterLabel` below, `format`, sm/md/lg and `--bar-meter-height`; 6 tests, 4 stories incl. kit weather week | Weather week (`3:71`) | `progress.tsx` | ⛔ |
-| [x] | Avatar: raised frame around image or fallback initials, circle/rounded, sm/md/lg/xl, `AvatarBadge` status dot, overlapping `AvatarGroup` with `AvatarGroupCount`; 7 tests, 5 stories incl. kit info box thumbnail | Info box thumbnail (`3:731`) | `avatar.tsx` | ⛔ |
-| [x] | Tooltip: raised popup above the trigger (all four sides), `TooltipProvider` shared delay, scale/fade in, `--z-tooltip`; 5 tests, 3 stories incl. icon toolbar | — | `tooltip.tsx` | ⛔ |
+| Done | Component | Kit reference | Figma |
+|---|---|---|---|
+| [x] | Card: raised/inset/flat panel, sm/md/lg spacing via `--card-spacing`, edge-to-edge images, `CardHeader`/`Title`/`Description`/`Action`/`Content`/`Footer`, `render` for links; 7 tests, 5 stories incl. kit travel card and nested wells | Info card, big info card, info box (`3:731`) | ⛔ |
+| [x] | Item: list rows in an `ItemGroup` (list semantics), flat/raised/inset, sm/md, links and buttons rise and press, `ItemMedia` icon tile/image, `ItemContent`/`Title`/`Description`/`Actions`/`Header`/`Footer`, `ItemSeparator`; 6 tests, 5 stories incl. kit credit-card list | Credit cards list (`3:731`) | ⛔ |
+| [x] | Separator: solid groove (dark line + light edge) or perforated tear line, horizontal/vertical, decorative by default or semantic `role="separator"`; 6 tests, 4 stories incl. kit boarding pass | Boarding ticket tear line (`3:731`) | ⛔ |
+| [x] | Calendar: react-day-picker month grid raised like a `Surface`, flat days that rise on hover, today in a sunken well with a dot, raised `--calendar-fill` selection, tinted range band, raised round nav, month/year pills over native selects, `--cell-size`; 9 tests, 6 stories incl. kit March 2020 card | March 2020 (`3:71`) | ⛔ |
+| [x] | Dial (new): circular `role="slider"`, raised knob in a ring well with a 270° `--dial-fill` gradient arc and indicator dot, drag around the ring (dead centre, gap holds the nearer end), arrows/Page/Home/End, `step`, controlled or not, `name` for forms, sm/md/lg; 10 tests, 5 stories incl. kit volume knob and thermostat | Volume knob 0–100 (`3:731`) | ⛔ |
+| [x] | BarMeter (new): row of vertical meters, each a well with a raised `--bar-meter-fill` gradient rising from its foot, `BarMeterValue` above and `BarMeterLabel` below, `format`, sm/md/lg and `--bar-meter-height`; 6 tests, 4 stories incl. kit weather week | Weather week (`3:71`) | ⛔ |
+| [x] | Avatar: raised frame around image or fallback initials, circle/rounded, sm/md/lg/xl, `AvatarBadge` status dot, overlapping `AvatarGroup` with `AvatarGroupCount`; 7 tests, 5 stories incl. kit info box thumbnail | Info box thumbnail (`3:731`) | ⛔ |
+| [x] | Tooltip: raised popup above the trigger (all four sides), `TooltipProvider` shared delay, scale/fade in, `--z-tooltip`; 5 tests, 3 stories incl. icon toolbar | — | ⛔ |
 
 **Phase 2 progress: 8 / 8**
 
@@ -162,78 +161,78 @@ groups or earlier phases.
 - [x] Backdrop: `--neu-backdrop` (surface tint + light blur) for Dialog, Alert Dialog, Sheet and Drawer; `--z-*` tokens already exist in `base.css`
 - [x] `animate-neu-shimmer` utility for loading text and placeholders (Skeleton, Attachment, Trace, Marker), static under `prefers-reduced-motion` (`neu-shimmer` for surfaces, `neu-shimmer-text` for text)
 - [x] Chart tokens `--chart-1`…`--chart-5`, folded into the Phase 0 accent tokens (each at least 3:1 against the surface)
-- [x] New dependencies (each component on its own subpath so unused ones never ship): `embla-carousel-react` (Carousel), `react-resizable-panels` (Resizable), `recharts` (Chart), `@tanstack/react-table` (Data Table block only), `shiki` (optional highlighting for Code Block)
+- [x] New dependencies (each component on its own subpath so unused ones never ship): `embla-carousel-react` (Carousel), `react-resizable-panels` (Resizable), `recharts` (Chart), `@tanstack/react-table` (Data Table block only), `shiki` (optional highlighting for Code Block); all except `@tanstack/react-table` are optional peer dependencies of the package, installed only by apps that use those components
 - [x] Keep the "no Radix" rule: use Base UI Autocomplete instead of `cmdk`, Base UI Drawer instead of `vaul`, Base UI Toast instead of `sonner`
 
 ### 4a: Forms and text
 
-| Done | Component | Built on | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Label: styled `<label>`, disabled/invalid states follow the control (`peer`/`group` data attributes); `labelClassName` exported; tested with Field, `PlainLabel` story | native | `label.tsx` | ⛔ |
-| [x] | Field: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `FieldGroup`, `FieldSet`/`FieldLegend`, `FieldSeparator`, vertical/horizontal/responsive; wires `aria-describedby`/`aria-invalid` into Input, Textarea, Select, Checkbox, Radio Group, Switch, Slider. `FieldLabel` around a `Field` makes a raised choice card that presses in when checked; `FieldError` shows given `errors` or children without waiting for native validity; label and description fall back to plain elements outside a `Field`; 8 tests, 5 stories | Base UI Field, Fieldset | `field.tsx` | ⛔ |
-| [x] | Native Select: native `<select>` in an Input-style well with a caret icon, sm/md/lg, `NativeSelectOption`/`OptGroup`; 4 tests, 3 stories | native | `native-select.tsx` | ⛔ |
-| [x] | Input OTP: slots as small wells, active slot sinks deeper with a caret, `InputOTPGroup`/`Separator`, digits/alphanumeric pattern, paste fills all slots, sm/md/lg; 4 tests, 3 stories | Base UI OTP Field | `input-otp.tsx` | ⛔ |
-| [x] | Kbd: static raised key cap, `KbdGroup` for chords, sm/md; 3 tests, 2 stories | native | `kbd.tsx` | ⛔ |
-| [x] | Typography: `h1`–`h4`, paragraph, lead, large, small, muted, blockquote (inset well with a primary rule), list, inline code (inset); headings use `--font-heading` when set; every part takes `render`; 4 tests, 2 stories | native | — | ⛔ |
-| [x] | Alert: inset well with a coloured rule and icon, `AlertTitle`/`AlertDescription`/`AlertAction`, default/info/success/warning/destructive, `role="status"` by default and `role="alert"` only for urgent messages; 4 tests, 3 stories | native | `alert.tsx` | ⛔ |
-| [x] | Empty: centred empty state with a raised icon tile (or Avatar), `EmptyHeader`/`Media`/`Title`/`Description`/`Content` for actions, flat or inset; 3 tests, 2 stories | native | `empty.tsx` | ⛔ |
-| [x] | Skeleton: inset placeholder with the shared shimmer, line/circle/rect presets, `aria-hidden`; 2 tests, 2 stories | native | `skeleton.tsx` | ⛔ |
-| [x] | Aspect Ratio: `aspect-ratio` wrapper for images and video in Card, Carousel and Attachment; 2 tests, 2 stories | native | `aspect-ratio.tsx` | ⛔ |
-| [x] | Direction: `DirectionProvider`/`useDirection` re-export; Slider, Dial, Page Indicator, Chip and Carousel read it for RTL; 2 tests, 1 story (RTL slider) | Base UI Direction Provider | — | ⛔ |
-| [x] | Scroll Area: groove track with a raised pill thumb that appears on hover/scroll, vertical/horizontal/both, optional edge fade, focusable viewport when it overflows; 2 tests, 2 stories | Base UI Scroll Area | — | ⛔ |
+| Done | Component | Built on | Figma |
+|---|---|---|---|
+| [x] | Label: styled `<label>`, disabled/invalid states follow the control (`peer`/`group` data attributes); `labelClassName` exported; tested with Field, `PlainLabel` story | native | ⛔ |
+| [x] | Field: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `FieldGroup`, `FieldSet`/`FieldLegend`, `FieldSeparator`, vertical/horizontal/responsive; wires `aria-describedby`/`aria-invalid` into Input, Textarea, Select, Checkbox, Radio Group, Switch, Slider. `FieldLabel` around a `Field` makes a raised choice card that presses in when checked; `FieldError` shows given `errors` or children without waiting for native validity; label and description fall back to plain elements outside a `Field`; 8 tests, 5 stories | Base UI Field, Fieldset | ⛔ |
+| [x] | Native Select: native `<select>` in an Input-style well with a caret icon, sm/md/lg, `NativeSelectOption`/`OptGroup`; 4 tests, 3 stories | native | ⛔ |
+| [x] | Input OTP: slots as small wells, active slot sinks deeper with a caret, `InputOTPGroup`/`Separator`, digits/alphanumeric pattern, paste fills all slots, sm/md/lg; 4 tests, 3 stories | Base UI OTP Field | ⛔ |
+| [x] | Kbd: static raised key cap, `KbdGroup` for chords, sm/md; 3 tests, 2 stories | native | ⛔ |
+| [x] | Typography: `h1`–`h4`, paragraph, lead, large, small, muted, blockquote (inset well with a primary rule), list, inline code (inset); headings use `--font-heading` when set; every part takes `render`; 4 tests, 2 stories | native | ⛔ |
+| [x] | Alert: inset well with a coloured rule and icon, `AlertTitle`/`AlertDescription`/`AlertAction`, default/info/success/warning/destructive, `role="status"` by default and `role="alert"` only for urgent messages; 4 tests, 3 stories | native | ⛔ |
+| [x] | Empty: centred empty state with a raised icon tile (or Avatar), `EmptyHeader`/`Media`/`Title`/`Description`/`Content` for actions, flat or inset; 3 tests, 2 stories | native | ⛔ |
+| [x] | Skeleton: inset placeholder with the shared shimmer, line/circle/rect presets, `aria-hidden`; 2 tests, 2 stories | native | ⛔ |
+| [x] | Aspect Ratio: `aspect-ratio` wrapper for images and video in Card, Carousel and Attachment; 2 tests, 2 stories | native | ⛔ |
+| [x] | Direction: `DirectionProvider`/`useDirection` re-export; Slider, Dial, Page Indicator, Chip and Carousel read it for RTL; 2 tests, 1 story (RTL slider) | Base UI Direction Provider | ⛔ |
+| [x] | Scroll Area: groove track with a raised pill thumb that appears on hover/scroll, vertical/horizontal/both, optional edge fade, focusable viewport when it overflows; 2 tests, 2 stories | Base UI Scroll Area | ⛔ |
 
 **4a progress: 12 / 12**
 
 ### 4b: Disclosure and navigation
 
-| Done | Component | Built on | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Collapsible: trigger with a rotating chevron (`CollapsibleIndicator`), animated height via `--collapsible-panel-height`, `keepMounted`, `hiddenUntilFound`; 3 tests, 2 stories | Base UI Collapsible | `collapsible.tsx` | ⛔ |
-| [x] | Accordion: items as raised panels, open trigger presses in and its chevron turns over in the primary colour, single/multiple, disabled items, `flat` variant with grooves for use in a Card; headers sit in the Tab order (Base UI 1.9 dropped arrow-key roving per the APG update); 5 tests, 4 stories | Base UI Accordion | `accordion.tsx` | ⛔ |
-| [x] | Tabs: tab list as a Toggle Group-style slab, a well slides under the active tab (Base UI Indicator), which also takes `--tabs-active` colour and weight, `line` variant with a primary bar, horizontal/vertical, `TabsContent` panels; 5 tests, 4 stories | Base UI Tabs | `tabs.tsx` | ⛔ |
-| [x] | Breadcrumb: `nav` > `ol`, custom separators, `BreadcrumbEllipsis` (collapsed items in a Dropdown Menu once 4c lands), current page pressed in with `aria-current="page"`, `render` for router links; 6 tests, 3 stories | native | `breadcrumb.tsx` | ⛔ |
-| [x] | Pagination: raised page buttons, current page pressed in and primary with `aria-current="page"`, previous/next, ellipsis, sm/md, `render` for router links; 5 tests, 2 stories | native + Button | `pagination.tsx`, `table-pagination.tsx` | ⛔ |
-| [x] | Table: rows split by grooves, uppercase muted header over a groove (no well: per-cell wells seam), `TableCaption`/`Footer`, sticky header, flat/raised/inset container, selected rows (`aria-selected`) take a primary tint and a leading bar; 6 tests, 3 stories | native | `table.tsx` | ⛔ |
+| Done | Component | Built on | Figma |
+|---|---|---|---|
+| [x] | Collapsible: trigger with a rotating chevron (`CollapsibleIndicator`), animated height via `--collapsible-panel-height`, `keepMounted`, `hiddenUntilFound`; 3 tests, 2 stories | Base UI Collapsible | ⛔ |
+| [x] | Accordion: items as raised panels, open trigger presses in and its chevron turns over in the primary colour, single/multiple, disabled items, `flat` variant with grooves for use in a Card; headers sit in the Tab order (Base UI 1.9 dropped arrow-key roving per the APG update); 5 tests, 4 stories | Base UI Accordion | ⛔ |
+| [x] | Tabs: tab list as a Toggle Group-style slab, a well slides under the active tab (Base UI Indicator), which also takes `--tabs-active` colour and weight, `line` variant with a primary bar, horizontal/vertical, `TabsContent` panels; 5 tests, 4 stories | Base UI Tabs | ⛔ |
+| [x] | Breadcrumb: `nav` > `ol`, custom separators, `BreadcrumbEllipsis` (collapsed items in a Dropdown Menu once 4c lands), current page pressed in with `aria-current="page"`, `render` for router links; 6 tests, 3 stories | native | ⛔ |
+| [x] | Pagination: raised page buttons, current page pressed in and primary with `aria-current="page"`, previous/next, ellipsis, sm/md, `render` for router links; 5 tests, 2 stories | native + Button | ⛔ |
+| [x] | Table: rows split by grooves, uppercase muted header over a groove (no well: per-cell wells seam), `TableCaption`/`Footer`, sticky header, flat/raised/inset container, selected rows (`aria-selected`) take a primary tint and a leading bar; 6 tests, 3 stories | native | ⛔ |
 
 **4b progress: 6 / 6**
 
 ### 4c: Overlays
 
-| Done | Component | Built on | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Popover: raised popup (no arrow, like Tooltip), `side`/`align`/`sideOffset`, `PopoverHeader`/`Title`/`Description`/`Close`, focus moves in and returns, `--z-popover`; 3 tests, 2 stories | Base UI Popover | `popover.tsx` | ⛔ |
-| [x] | Hover Card: raised preview card on hover/focus, `delay`/`closeDelay` on the trigger (rendered as a primary link); 2 tests, 1 story | Base UI Preview Card | — | ⛔ |
-| [x] | Dialog: raised panel over a blurred backdrop, sm/md/lg, `DialogHeader`/`Title`/`Description`/`Body`/`Footer`/`Close`, X button (`showCloseButton`), focus trap, `DialogBody` scrolls; 4 tests, 2 stories | Base UI Dialog | `modal.tsx` | ⛔ |
-| [x] | Alert Dialog: needs an explicit choice (no outside dismiss), default/sm sizes (sm centres and splits the footer), raised `AlertDialogMedia` tile, `AlertDialogAction`/`Cancel` as Buttons (destructive via `variant`); 4 tests, 2 stories | Base UI Alert Dialog | `alert-dialog.tsx` | ⛔ |
-| [x] | Sheet: Dialog sliding in from top/bottom/start/end/left/right (start/end follow RTL), sm–xl widths, only the inner edge rounded; 3 tests, 2 stories | Base UI Dialog | — | ⛔ |
-| [x] | Drawer: `direction` top/bottom/left/right, raised grip on bottom drawers, swipe to dismiss (backdrop fades with swipe progress), snap points; 3 tests, 3 stories | Base UI Drawer | `drawer.tsx` | ⛔ |
-| [x] | Dropdown Menu: raised popup, highlighted item sinks, checkbox/radio items with primary marks (radio closes on click), labels, groove separators, submenus, plain-text shortcuts, destructive items; parts shared with Context Menu and Menubar via `menu-parts.tsx`; 6 tests, 2 stories | Base UI Menu | `dropdown-menu.tsx` | ⛔ |
-| [x] | Context Menu: same item parts as Dropdown Menu, opened on right-click/long-press; 1 test, 1 story | Base UI Context Menu | — | ⛔ |
-| [x] | Menubar: raised slab of menu triggers, open trigger pressed in and primary, arrow keys move between menus; 2 tests, 1 story | Base UI Menubar | — | ⛔ |
-| [x] | Navigation Menu: site nav with a raised viewport panel that resizes and slides between triggers, open trigger pressed in, links sink on hover, `data-active` link primary, `navigationMenuTriggerStyle()`, `render` for router links; 3 tests, 1 story | Base UI Navigation Menu | — | ⛔ |
-| [x] | Toast: stacked raised toasts with coloured icons (Alert colours), title/description/action/close, swipe to dismiss, `Toaster` (position, limit, duration) + `toast()` with `.success`/`.info`/`.warning`/`.error`/`.loading`/`.promise`/`.dismiss`, `--z-toast`; 5 tests, 3 stories | Base UI Toast | `toast.tsx` | ⛔ |
+| Done | Component | Built on | Figma |
+|---|---|---|---|
+| [x] | Popover: raised popup (no arrow, like Tooltip), `side`/`align`/`sideOffset`, `PopoverHeader`/`Title`/`Description`/`Close`, focus moves in and returns, `--z-popover`; 3 tests, 2 stories | Base UI Popover | ⛔ |
+| [x] | Hover Card: raised preview card on hover/focus, `delay`/`closeDelay` on the trigger (rendered as a primary link); 2 tests, 1 story | Base UI Preview Card | ⛔ |
+| [x] | Dialog: raised panel over a blurred backdrop, sm/md/lg, `DialogHeader`/`Title`/`Description`/`Body`/`Footer`/`Close`, X button (`showCloseButton`), focus trap, `DialogBody` scrolls; 4 tests, 2 stories | Base UI Dialog | ⛔ |
+| [x] | Alert Dialog: needs an explicit choice (no outside dismiss), default/sm sizes (sm centres and splits the footer), raised `AlertDialogMedia` tile, `AlertDialogAction`/`Cancel` as Buttons (destructive via `variant`); 4 tests, 2 stories | Base UI Alert Dialog | ⛔ |
+| [x] | Sheet: Dialog sliding in from top/bottom/start/end/left/right (start/end follow RTL), sm–xl widths, only the inner edge rounded; 3 tests, 2 stories | Base UI Dialog | ⛔ |
+| [x] | Drawer: `direction` top/bottom/left/right, raised grip on bottom drawers, swipe to dismiss (backdrop fades with swipe progress), snap points; 3 tests, 3 stories | Base UI Drawer | ⛔ |
+| [x] | Dropdown Menu: raised popup, highlighted item sinks, checkbox/radio items with primary marks (radio closes on click), labels, groove separators, submenus, plain-text shortcuts, destructive items; parts shared with Context Menu and Menubar via `menu-parts.tsx`; 6 tests, 2 stories | Base UI Menu | ⛔ |
+| [x] | Context Menu: same item parts as Dropdown Menu, opened on right-click/long-press; 1 test, 1 story | Base UI Context Menu | ⛔ |
+| [x] | Menubar: raised slab of menu triggers, open trigger pressed in and primary, arrow keys move between menus; 2 tests, 1 story | Base UI Menubar | ⛔ |
+| [x] | Navigation Menu: site nav with a raised viewport panel that resizes and slides between triggers, open trigger pressed in, links sink on hover, `data-active` link primary, `navigationMenuTriggerStyle()`, `render` for router links; 3 tests, 1 story | Base UI Navigation Menu | ⛔ |
+| [x] | Toast: stacked raised toasts with coloured icons (Alert colours), title/description/action/close, swipe to dismiss, `Toaster` (position, limit, duration) + `toast()` with `.success`/`.info`/`.warning`/`.error`/`.loading`/`.promise`/`.dismiss`, `--z-toast`; 5 tests, 3 stories | Base UI Toast | ⛔ |
 
 **4c progress: 11 / 11**
 
 ### 4d: Pickers
 
-| Done | Component | Built on | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Combobox: `ComboboxInput` in an `InputGroup` well with chevron and clear buttons, raised filtered list (highlight sinks, chosen row checked and primary), groups with `ComboboxCollection`, `ComboboxEmpty`, `multiple` values as raised `ComboboxChip`s in a `ComboboxChips` well (`useComboboxAnchor`), `ComboboxTrigger` for a searchable select; 7 tests, 4 stories | Base UI Combobox | `combobox.tsx` | ⛔ |
-| [x] | Command: always-open search list (`CommandInput`/`List`/`Group` with `heading`/`Collection`/`Item`/`Empty`/`Separator`/`Shortcut`), first match stays highlighted, running an item keeps the query, `CommandDialog` for a ⌘K palette (bare inside the raised dialog); 5 tests, 2 stories | Base UI Autocomplete + Dialog | `command.tsx` (uses `cmdk`, not reused) | ⛔ |
-| [x] | Date Picker: `DatePicker` (closes on pick) and `DateRangePicker` (two months, stays open) behind a raised field trigger, `presets` column (matching one pressed in), `DatePickerInput` typed date in a well that syncs with the Calendar both ways and flags unparseable text on blur, `formatDate`/`parseDate`, `name` adds a `yyyy-mm-dd` hidden input; 5 tests, 4 stories | Calendar + Popover | `date-input.tsx` | ⛔ |
+| Done | Component | Built on | Figma |
+|---|---|---|---|
+| [x] | Combobox: `ComboboxInput` in an `InputGroup` well with chevron and clear buttons, raised filtered list (highlight sinks, chosen row checked and primary), groups with `ComboboxCollection`, `ComboboxEmpty`, `multiple` values as raised `ComboboxChip`s in a `ComboboxChips` well (`useComboboxAnchor`), `ComboboxTrigger` for a searchable select; 7 tests, 4 stories | Base UI Combobox | ⛔ |
+| [x] | Command: always-open search list (`CommandInput`/`List`/`Group` with `heading`/`Collection`/`Item`/`Empty`/`Separator`/`Shortcut`), first match stays highlighted, running an item keeps the query, `CommandDialog` for a ⌘K palette (bare inside the raised dialog); 5 tests, 2 stories | Base UI Autocomplete + Dialog | ⛔ |
+| [x] | Date Picker: `DatePicker` (closes on pick) and `DateRangePicker` (two months, stays open) behind a raised field trigger, `presets` column (matching one pressed in), `DatePickerInput` typed date in a well that syncs with the Calendar both ways and flags unparseable text on blur, `formatDate`/`parseDate`, `name` adds a `yyyy-mm-dd` hidden input; 5 tests, 4 stories | Calendar + Popover | ⛔ |
 
 **4d progress: 3 / 3**
 
 ### 4e: Layout and data
 
-| Done | Component | Built on | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Resizable: panel groups split by a groove handle (primary while hovered, focused or dragged) with an optional raised grip that presses in while dragged, keyboard resize, horizontal/vertical, sizes as pixels (numbers) or percentages (strings); 2 tests, 2 stories | `react-resizable-panels` v4 | `resizable.tsx` | ⛔ |
-| [x] | Carousel: track with raised round previous/next buttons and a `PageIndicator` (`CarouselIndicator`), horizontal/vertical, `opts` (loop, align) and `plugins` (autoplay off unless added), `gap`, arrow keys (RTL-aware), `onSlideChange`/`setApi`, labelled `region` with `aria-roledescription` carousel/slide, viewport padding so raised slides' shadows aren't clipped; 3 tests, 3 stories | `embla-carousel-react` | `carousel.tsx` | ⛔ |
-| [x] | Sidebar: raised side panel (`sidebar`/`floating`/`inset` variants, left/right), `SidebarProvider` (⌘B/Ctrl+B, `sidebar_state` cookie, controlled `open`), collapses `offcanvas` or to `icon`s with labels in tooltips, Sheet below `md`, header/footer/content/groups with label and action, menus with badge (inset pill), hover-only actions, sub-menus off a groove (wrap in Collapsible), rows rise on hover and the active row presses in, rail, skeleton rows; 6 tests, 5 stories | Sheet, Tooltip, Skeleton, Separator, Input | — | ⛔ |
-| [x] | Data Table: block in `apps/storybook/blocks/data-table.tsx` (like shadcn's guide, not a package component): raised Table, sortable ghost-button headers with `aria-sort`, passenger filter Input, column visibility Dropdown Menu, row selection Checkboxes with an indeterminate select-all, status Chips, row action menus, Pagination rendered as buttons; 2 stories | `@tanstack/react-table` + Table | `table.tsx`, `table-pagination.tsx` | ⛔ |
-| [x] | Chart: `ChartContainer` turns `ChartConfig` into `--color-*`, `--fill-*` (BarMeter gradient, darker at the base) and `--area-*` (fading) variables and styles axes, grid and cursor for the surface; small raised `ChartTooltipContent` (dot/line/dashed indicator, `hideLabel`/`hideIndicator`, `formatter`, `nameKey`/`labelKey`), `ChartLegendContent`; 4 tests, 6 stories (area, bar, line, pie, radar, radial) | `recharts` v3 | — | ⛔ |
+| Done | Component | Built on | Figma |
+|---|---|---|---|
+| [x] | Resizable: panel groups split by a groove handle (primary while hovered, focused or dragged) with an optional raised grip that presses in while dragged, keyboard resize, horizontal/vertical, sizes as pixels (numbers) or percentages (strings); 2 tests, 2 stories | `react-resizable-panels` v4 | ⛔ |
+| [x] | Carousel: track with raised round previous/next buttons and a `PageIndicator` (`CarouselIndicator`), horizontal/vertical, `opts` (loop, align) and `plugins` (autoplay off unless added), `gap`, arrow keys (RTL-aware), `onSlideChange`/`setApi`, labelled `region` with `aria-roledescription` carousel/slide, viewport padding so raised slides' shadows aren't clipped; 3 tests, 3 stories | `embla-carousel-react` | ⛔ |
+| [x] | Sidebar: raised side panel (`sidebar`/`floating`/`inset` variants, left/right), `SidebarProvider` (⌘B/Ctrl+B, `sidebar_state` cookie, controlled `open`), collapses `offcanvas` or to `icon`s with labels in tooltips, Sheet below `md`, header/footer/content/groups with label and action, menus with badge (inset pill), hover-only actions, sub-menus off a groove (wrap in Collapsible), rows rise on hover and the active row presses in, rail, skeleton rows; 6 tests, 5 stories | Sheet, Tooltip, Skeleton, Separator, Input | ⛔ |
+| [x] | Data Table: block in `apps/storybook/blocks/data-table.tsx` (like shadcn's guide, not a package component): raised Table, sortable ghost-button headers with `aria-sort`, passenger filter Input, column visibility Dropdown Menu, row selection Checkboxes with an indeterminate select-all, status Chips, row action menus, Pagination rendered as buttons; 2 stories | `@tanstack/react-table` + Table | ⛔ |
+| [x] | Chart: `ChartContainer` turns `ChartConfig` into `--color-*`, `--fill-*` (BarMeter gradient, darker at the base) and `--area-*` (fading) variables and styles axes, grid and cursor for the surface; small raised `ChartTooltipContent` (dot/line/dashed indicator, `hideLabel`/`hideIndicator`, `formatter`, `nameKey`/`labelKey`), `ChartLegendContent`; 4 tests, 6 stories (area, bar, line, pie, radar, radial) | `recharts` v3 | ⛔ |
 
 **4e progress: 5 / 5**
 
@@ -242,16 +241,16 @@ groups or earlier phases.
 Once this group lands, rebuild the Phase 3 chat thread block on Bubble,
 Message, Marker and Message Scroller.
 
-| Done | Component | Built on | Based on Keystone | Figma |
-|---|---|---|---|---|
-| [x] | Bubble: chat bubble, default (primary)/secondary (raised)/muted (inset)/tinted/outline/ghost (no padding, full width)/destructive (inset with a red tint), `align` start/end tucks in the corner nearest the speaker, max 80% width, `BubbleContent` with `render`, `BubbleReactions` (raised pill on the top or bottom edge, `role="img"` with a label), `BubbleGroup`; 4 tests, 4 stories | native | — | ⛔ |
-| [x] | Message: chat row layout with `MessageAvatar` (bottom-aligned, lifted above a footer), `MessageHeader`/`Content`/`Footer` (actions, status; flush with ghost bubbles), `align` mirrors the row, `MessageGroup`; 2 tests, 3 stories | Avatar, Bubble | — | ⛔ |
-| [x] | Marker: inline status or note in a thread, default/border/separator (groove lines, no `role="separator"`), `MarkerIcon` (`aria-hidden`), `role="status"` with Spinner while streaming, `shimmer` on the text, `render` for a link or button; 3 tests, 3 stories | Separator, Spinner | — | ⛔ |
-| [x] | Attachment: raised file tile (idle sits in a well), idle/uploading/processing/error/done (errors stated in the description, shimmering title while busy), default/sm/xs, horizontal/vertical, icon or image media (dimmed until done), `AttachmentProgress`, corner actions, full-card `AttachmentTrigger` that presses the tile in, `AttachmentGroup` scroll row with snapping; uses native overflow rather than Scroll Area so the tiles' shadows aren't clipped; 4 tests, 5 stories | Progress, Button | — | ⛔ |
-| [x] | Trace: agent step list, `TraceLine` with running/pending/error status, icon, truncating title (shimmers while running), description, `TraceCollapsible` with a turning chevron and detail under a groove; 2 tests, 1 story | Collapsible, Spinner | — | ⛔ |
-| [x] | Code Block: inset code well, header with title and actions (copy with a "Copied" announcement, wrap toggle), floating actions shown on hover/focus, line numbers and `startLine`, wrap, highlighted/added/removed lines, `maxLines` with Show more/less, sm and destructive (error output) variants; highlighting in `useHighlightedCode` on its own subpath (`@neomorphic-ui/react/use-highlighted-code`; Shiki JS engine, core, languages and themes all loaded on first use; plain lines until ready); 7 tests, 5 stories | native, optional `shiki` peer | — | ⛔ |
-| [x] | Message Scroller: chat scroll viewport (focusable "Messages" region, hidden until positioned) that opens at the latest turn (`last-anchor`/`end`/`start`), follows streamed output only while at the live edge (`autoScroll`), stops on wheel/touch/keyboard/scrollbar/selection, settles new `scrollAnchor` rows near the top with a peek of the row before, keeps position when history is prepended, `scrollToMessage`/`scrollToEnd`/`scrollToStart` via `useMessageScroller`, jump-to-latest raised button (inert while not needed), `role="log"`; headless scroll controller written here instead of Scroll Area (native scrolling keeps the spacer and anchoring maths simple); 5 tests, 3 stories | native, Button | — | ⛔ |
-| [x] | Questionnaire: multi-step form, one question per step as a fieldset, raised choice cards (radio or checkbox), freeform Input that replaces a single choice, Progress ("Question n of total"), previous/skip/next/submit, number-key shortcuts with Kbd hints, required and custom validation (announced, focus moves to the first choice), conditional (`when`) and resumable (`defaultValues`/`defaultActiveItem`) steps, Enter in a text answer moves on; headless state written here (shadcn uses `@shadcn/react`); 5 tests, 3 stories | Field, Radio Group, Checkbox, Progress, Kbd | — | ⛔ |
+| Done | Component | Built on | Figma |
+|---|---|---|---|
+| [x] | Bubble: chat bubble, default (primary)/secondary (raised)/muted (inset)/tinted/outline/ghost (no padding, full width)/destructive (inset with a red tint), `align` start/end tucks in the corner nearest the speaker, max 80% width, `BubbleContent` with `render`, `BubbleReactions` (raised pill on the top or bottom edge, `role="img"` with a label), `BubbleGroup`; 4 tests, 4 stories | native | ⛔ |
+| [x] | Message: chat row layout with `MessageAvatar` (bottom-aligned, lifted above a footer), `MessageHeader`/`Content`/`Footer` (actions, status; flush with ghost bubbles), `align` mirrors the row, `MessageGroup`; 2 tests, 3 stories | Avatar, Bubble | ⛔ |
+| [x] | Marker: inline status or note in a thread, default/border/separator (groove lines, no `role="separator"`), `MarkerIcon` (`aria-hidden`), `role="status"` with Spinner while streaming, `shimmer` on the text, `render` for a link or button; 3 tests, 3 stories | Separator, Spinner | ⛔ |
+| [x] | Attachment: raised file tile (idle sits in a well), idle/uploading/processing/error/done (errors stated in the description, shimmering title while busy), default/sm/xs, horizontal/vertical, icon or image media (dimmed until done), `AttachmentProgress`, corner actions, full-card `AttachmentTrigger` that presses the tile in, `AttachmentGroup` scroll row with snapping; uses native overflow rather than Scroll Area so the tiles' shadows aren't clipped; 4 tests, 5 stories | Progress, Button | ⛔ |
+| [x] | Trace: agent step list, `TraceLine` with running/pending/error status, icon, truncating title (shimmers while running), description, `TraceCollapsible` with a turning chevron and detail under a groove; 2 tests, 1 story | Collapsible, Spinner | ⛔ |
+| [x] | Code Block: inset code well, header with title and actions (copy with a "Copied" announcement, wrap toggle), floating actions shown on hover/focus, line numbers and `startLine`, wrap, highlighted/added/removed lines, `maxLines` with Show more/less, sm and destructive (error output) variants; highlighting in `useHighlightedCode` on its own subpath (`@neomorphic-ui/react/use-highlighted-code`; Shiki JS engine, core, languages and themes all loaded on first use; plain lines until ready); 7 tests, 5 stories | native, optional `shiki` peer | ⛔ |
+| [x] | Message Scroller: chat scroll viewport (focusable "Messages" region, hidden until positioned) that opens at the latest turn (`last-anchor`/`end`/`start`), follows streamed output only while at the live edge (`autoScroll`), stops on wheel/touch/keyboard/scrollbar/selection, settles new `scrollAnchor` rows near the top with a peek of the row before, keeps position when history is prepended, `scrollToMessage`/`scrollToEnd`/`scrollToStart` via `useMessageScroller`, jump-to-latest raised button (inert while not needed), `role="log"`; headless scroll controller written here instead of Scroll Area (native scrolling keeps the spacer and anchoring maths simple); 5 tests, 3 stories | native, Button | ⛔ |
+| [x] | Questionnaire: multi-step form, one question per step as a fieldset, raised choice cards (radio or checkbox), freeform Input that replaces a single choice, Progress ("Question n of total"), previous/skip/next/submit, number-key shortcuts with Kbd hints, required and custom validation (announced, focus moves to the first choice), conditional (`when`) and resumable (`defaultValues`/`defaultActiveItem`) steps, Enter in a text answer moves on; headless state written here (shadcn uses `@shadcn/react`); 5 tests, 3 stories | Field, Radio Group, Checkbox, Progress, Kbd | ⛔ |
 
 The Phase 3 chat thread block now uses Bubble, Message, Marker (the "Today" separator and the typing status) and Message Scroller, which opens at the latest message and keeps a sent message in view while the reply arrives.
 
@@ -264,9 +263,9 @@ The Phase 3 chat thread block now uses Bubble, Message, Marker (the "Today" sepa
 ## Later
 
 - [x] Decide on overlays not in the kit: Popover, DropdownMenu, Modal, Drawer, Toast, Alert (planned in Phase 4)
-- [ ] Docs site (Fumadocs) with demos and LLMs.txt, as in `../react/apps/docs`
+- [ ] Docs site (Fumadocs) with demos and LLMs.txt
 - [ ] shadcn-compatible registry
-- [ ] Publish `@neomorphic-ui/react` to npm
+- [ ] Publish `@neomorphic-ui/react` to npm (step-by-step plan in [`PUBLISHING.md`](PUBLISHING.md))
 - [ ] Figma Code Connect mappings (requires Figma Organization or Enterprise plan)
 - [ ] Dark theme
 
