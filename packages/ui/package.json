@@ -24,6 +24,7 @@
     "./calendar": "./src/calendar.tsx",
     "./card": "./src/card.tsx",
     "./checkbox": "./src/checkbox.tsx",
+    "./chip": "./src/chip.tsx",
     "./dial": "./src/dial.tsx",
     "./input": "./src/input.tsx",
     "./input-group": "./src/input-group.tsx",
@@ -109,6 +110,10 @@
       "./checkbox": {
         "types": "./dist/checkbox.d.ts",
         "default": "./dist/checkbox.js"
+      },
+      "./chip": {
+        "types": "./dist/chip.d.ts",
+        "default": "./dist/chip.js"
       },
       "./dial": {
         "types": "./dist/dial.d.ts",

@@ -21,3 +21,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0023 | 2026-10-15 | [add-input-and-input-groups](0023-add-input-and-input-groups.md) | 10 | +1204 −3 |
 | 0025 | 2026-10-15 | [add-phase-2-components](0025-add-phase-2-components.md) | 29 | +3737 −12 |
 | 0027 | 2026-10-15 | [add-phase-3-components](0027-add-phase-3-components.md) | 26 | +2403 −17 |
+| 0029 | 2026-10-15 | [add-chip](0029-add-chip.md) | 8 | +498 −3 |
