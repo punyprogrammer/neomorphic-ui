@@ -11,6 +11,7 @@
 
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
 @source "../stories/**/*.{ts,tsx}";
+@source "../blocks/**/*.{ts,tsx}";
 
 @theme {
   --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;

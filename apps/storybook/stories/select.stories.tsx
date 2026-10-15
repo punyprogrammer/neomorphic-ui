@@ -164,8 +164,21 @@ export const Keyboard: Story = {
     trigger.focus();
     await userEvent.keyboard("{ArrowDown}");
     const page = within(canvasElement.ownerDocument.body);
-    await page.findByRole("listbox");
-    await userEvent.keyboard("{ArrowDown}");
+    const listbox = await page.findByRole("listbox");
+    // Base UI drops arrow keys for a moment after opening, so press until
+    // the highlight moves; a dropped press changes nothing.
+    const engineering = within(listbox).getByRole("option", {
+      name: "Engineering",
+    });
+    await waitFor(
+      async () => {
+        if (!engineering.hasAttribute("data-highlighted")) {
+          await userEvent.keyboard("{ArrowDown}");
+        }
+        await expect(engineering).toHaveAttribute("data-highlighted");
+      },
+      { interval: 150, timeout: 3000 }
+    );
     await userEvent.keyboard("{Enter}");
     await waitFor(() => expect(trigger).toHaveTextContent("Engineering"));
   },

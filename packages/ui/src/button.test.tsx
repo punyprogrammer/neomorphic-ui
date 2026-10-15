@@ -136,6 +136,10 @@ describe("Button", () => {
       const button = screen.getByRole("button", { name: "Save" });
       expect(button).toHaveAttribute("aria-busy", "true");
       expect(button).toHaveAttribute("data-loading");
+      // jsdom ignores CSS, so check the label is only transparent, not hidden.
+      const label = screen.getByText("Save");
+      expect(label).toHaveClass("opacity-0");
+      expect(label).not.toHaveClass("invisible");
     });
 
     it("stays focusable and raised: aria-disabled, not disabled", () => {

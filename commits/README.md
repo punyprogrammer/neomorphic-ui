@@ -20,3 +20,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0021 | 2026-10-15 | [add-spinner-loader](0021-add-spinner-loader.md) | 10 | +902 −3 |
 | 0023 | 2026-10-15 | [add-input-and-input-groups](0023-add-input-and-input-groups.md) | 10 | +1204 −3 |
 | 0025 | 2026-10-15 | [add-phase-2-components](0025-add-phase-2-components.md) | 29 | +3737 −12 |
+| 0027 | 2026-10-15 | [add-phase-3-components](0027-add-phase-3-components.md) | 26 | +2403 −17 |

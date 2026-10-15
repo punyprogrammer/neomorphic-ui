@@ -187,9 +187,11 @@ function Button({
     >
       {isLoading ? (
         <>
+          {/* Transparent, not `invisible`: hidden content drops out of the
+              accessible name, leaving a nameless busy button. */}
           <span
             className={cn(
-              "invisible inline-flex items-center justify-center gap-[inherit]",
+              "inline-flex items-center justify-center gap-[inherit] opacity-0",
               vertical && "flex-col"
             )}
           >

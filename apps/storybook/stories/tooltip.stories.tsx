@@ -7,7 +7,7 @@ import {
 } from "@neomorphic-ui/react/tooltip";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Bookmark, Heart, Share2 } from "lucide-react";
-import { expect, screen, userEvent, within } from "storybook/test";
+import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
 const meta = {
   title: "Components/Tooltip",
@@ -71,7 +71,9 @@ export const Default: Story = {
       name: "Share",
     });
     await userEvent.hover(trigger);
-    await expect(await screen.findByText("Share this trip")).toBeVisible();
+    // The popup mounts at opacity 0 and fades in, so wait for it to show.
+    const content = await screen.findByText("Share this trip");
+    await waitFor(() => expect(content).toBeVisible());
     await userEvent.unhover(trigger);
   },
 };

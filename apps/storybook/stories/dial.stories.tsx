@@ -71,7 +71,9 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const knob = canvas.getByRole("slider", { name: "Volume" });
     await expect(knob).toHaveAttribute("aria-valuenow", "40");
-    await userEvent.click(knob);
+    // Focus rather than click: a synthetic click lands at (0, 0) and turns
+    // the knob to that angle.
+    knob.focus();
     await userEvent.keyboard("{ArrowRight}{ArrowRight}{PageUp}");
     await expect(knob).toHaveAttribute("aria-valuenow", "52");
     await expect(knob).toHaveTextContent("52");

@@ -123,20 +123,22 @@ then a component set on the Figma `Components` page.
 
 ## Phase 3: Blocks
 
-Full compositions from the kit, built only from Phase 1–2 components.
+Full compositions from the kit, built only from Phase 1–2 components. Each
+block lives in `apps/storybook/blocks/` (copy-paste source until the registry
+lands) with its stories under `Blocks/` in Storybook.
 
 | Done | Block | Kit reference | Figma |
 |---|---|---|---|
-| [ ] | Newsletter signup | Social: Subscribe (`3:71`) | [ ] |
-| [ ] | Weather widget | Weather (`3:71`) | [ ] |
-| [ ] | Biometric / settings tiles | Combined: Touch ID, airplane mode (`3:71`) | [ ] |
-| [ ] | Music player | Music App (`3:731`) | [ ] |
-| [ ] | Travel info cards | Info card, big info card, info box (`3:731`) | [ ] |
-| [ ] | Boarding ticket | Boarding ticket (`3:731`) | [ ] |
-| [ ] | Payment methods | Credit cards (`3:731`) | [ ] |
-| [ ] | Chat thread + composer | Chat App (`3:731`) | [ ] |
+| [x] | Newsletter signup: pill `InputGroup` with Mail addon and raised Subscribe button, email validation with a described error, `ToggleGroup` topic chips, loading button (field read-only, not greyed), success status; 2 stories | Social: Subscribe (`3:71`) | ⛔ |
+| [x] | Weather widget: big temperature, °C/°F `ToggleGroup`, inset conditions strip (`dl` with separators), week of highs as a yellow → blue `BarMeter` with unit-aware values; 2 stories incl. sub-zero week | Weather (`3:71`) | ⛔ |
+| [x] | Biometric / settings tiles: Touch ID, airplane, Wi-Fi and Bluetooth `Toggle` tiles with tone colours and status text (airplane turns the radios off), brightness `Slider`, Night shift `Switch`; 2 stories | Combined: Touch ID, airplane mode (`3:71`) | ⛔ |
+| [x] | Music player: round art in a raised frame, per-track like `Toggle`, seek `Slider` with elapsed and remaining time, prev/next buttons around a play `Toggle` that drives a timer (advances at track end), volume `Dial`; 2 stories | Music App (`3:731`) | ⛔ |
+| [x] | Travel info cards: info card (photo, rating, price, Save toggle), big info card (trip summary, traveller `AvatarGroup`, Book now → Booked), info boxes as raised `Item`s with framed thumbnails; 1 story | Info card, big info card, info box (`3:731`) | ⛔ |
+| [x] | Boarding ticket: route with dashed flight path, details `dl`, perforated tear line with inset punched notches, barcode drawn from the booking, Add to wallet → status; 2 stories | Boarding ticket (`3:731`) | ⛔ |
+| [x] | Payment methods: saved cards as a `RadioGroup` of raised label rows (chosen row presses in), radios named by card and described by expiry, Expires soon `Badge`, total, Save as default `Checkbox`, Pay button naming the card with loading and paid states; 2 stories | Credit cards (`3:731`) | ⛔ |
+| [x] | Chat thread + composer: contact header with status badge and `Tooltip` call buttons, focusable `role="log"` thread with raised incoming and primary outgoing bubbles, pill `InputGroupTextarea` composer (Enter sends, Shift+Enter new line), typing indicator and simulated reply; 2 stories | Chat App (`3:731`) | ⛔ |
 
-**Phase 3 progress: 0 / 8**
+**Phase 3 progress: 8 / 8**
 
 ---
 

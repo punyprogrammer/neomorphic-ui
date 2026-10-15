@@ -32,6 +32,8 @@ pnpm check                                 # Biome
 
 ```
 apps/storybook/            stories, one file per component
+  blocks/                  Phase 3 blocks composed only from library components;
+                           their stories are in stories/blocks/ (Blocks/…)
 packages/ui/src/           @neomorphic-ui/react, one flat .tsx per component
   base.css                 library mechanism: shadow + radius scales, motion
   theme.css                default consumer-owned tokens
