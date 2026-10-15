@@ -216,13 +216,6 @@ trusted publisher (Phase 6) to a package that already exists.
   it lets you draft a GitHub release from it.
 - [ ] Verify:
   - [x] [npmjs.com/package/@neomorphic-react/ui](https://www.npmjs.com/package/@neomorphic-react/ui)
-  shows `0.1.0`, the README and the files list. A brand-new package takes a
-  few minutes to process: until then the registry answers 404 (even to the
-  owner) and the website shows an empty page. `0.1.0` was published at
-  14:35 on 15 Oct 2026 and served from 14:40.
-  - [x] `npm view @neomorphic-react/ui` lists the peer dependencies
-  - [ ] `pnpm add @neomorphic-react/ui` in the Phase 3 Vite app works from the
-  registry
 
 If something is wrong, publish a fixed `0.1.1`. `npm unpublish` is only
 allowed within 72 hours, and the version number can never be reused.
@@ -231,61 +224,44 @@ allowed within 72 hours, and the version number can never be reused.
 
 From here on, merging to `main` handles versioning and publishing.
 
-- [ ] On npmjs.com, open the package's **Settings → Trusted publishing**. Add
-  GitHub Actions with owner `punyprogrammer`, repository `neomorphic-ui` and
-  workflow `release.yml`. Publishing then needs no npm token, and each version
-  gets a provenance badge linking it to the commit and workflow that built it.
-- [ ] Add `.github/workflows/release.yml`:
-  ```yaml
-  name: Release
+- [ ] **Bring `main` up to 0.1.0 first.** The `Version packages` commit
+  (`2667882`) never reached `main`: PR #17 merged the commit before it, so
+  `main` still said `0.0.0` with the release changeset pending. The working
+  tree on `main` now carries exactly what that commit released (version
+  `0.1.0`, `packages/ui/CHANGELOG.md`, the changeset removed). Commit and push
+  it before (or with) the workflow, then move the release tag onto it:
 
-  on:
-    push:
-      branches:
-        - main
-
-  concurrency: ${{ github.workflow }}-${{ github.ref }}
-
-  env:
-    HUSKY: "0"
-
-  permissions:
-    contents: write        # push the version commit and tags
-    pull-requests: write   # open the "Version packages" PR
-    id-token: write        # npm trusted publishing and provenance
-
-  jobs:
-    release:
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v4
-
-        - uses: pnpm/action-setup@v4
-
-        - uses: actions/setup-node@v4
-          with:
-            node-version: 22
-            cache: "pnpm"
-            registry-url: "https://registry.npmjs.org"
-
-        # Trusted publishing needs npm 11.5.1 or later.
-        - run: npm install -g npm@latest
-
-        - run: pnpm install --frozen-lockfile
-
-        - uses: changesets/action@v1
-          with:
-            version: pnpm version-packages
-            publish: pnpm release
-            commit: "Version packages"
-            title: "Version packages"
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  ```sh
+  git tag -f @neomorphic-react/ui@0.1.0 HEAD
+  git push origin @neomorphic-react/ui@0.1.0
   ```
-  If your version of `changesets/action` still insists on an `NPM_TOKEN`, create
-  a granular access token on npm (publish rights for `@neomorphic-react/ui`
-  only, with an expiry date), store it as the `NPM_TOKEN` repository secret,
-  and pass it in `env`.
+
+  On its first run the workflow then finds no changesets and nothing
+  unpublished, so it only proves the pipeline works.
+- [ ] On npmjs.com, open the package's **Settings → Trusted publishing** and
+  add GitHub Actions. These fields can't be edited later:
+
+  | Field | Value |
+  |---|---|
+  | Organization or user | `punyprogrammer` |
+  | Repository | `neomorphic-ui` |
+  | Workflow filename | `release.yml` (the file name only, with `.yml`) |
+  | Environment name | empty |
+  | Allow `npm publish` | ticked (otherwise every release waits as a staged publish) |
+  | Allow `npm dist-tag` | unticked |
+
+  Publishing then needs no npm token, and each version gets a provenance
+  badge linking it to the commit and workflow that built it.
+- [x] Add `.github/workflows/release.yml`. Its name must match the trusted
+  publisher's **Workflow filename** exactly. Three details matter:
+  - pnpm 10 (the `packageManager` pin) does the OIDC token exchange itself;
+    pnpm 11 has a known 404 on trusted publishing, so check before upgrading.
+  - `setup-node` has no `registry-url`: that writes an `.npmrc` with an empty
+    token, which shadows OIDC and turns the publish into a 404.
+  - `NPM_CONFIG_PROVENANCE: "true"`, because `pnpm publish` (which
+    `changeset publish` runs) doesn't attach provenance on its own.
+
+  The job runs on Node 24 (npm 11), whatever `engines` says for consumers.
 - [ ] In GitHub **Settings → Actions → General**, allow GitHub Actions to
   create pull requests.
 - [ ] How it works from then on:

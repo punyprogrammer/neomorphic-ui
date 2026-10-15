@@ -1,0 +1,63 @@
+name: Release
+
+# The file name is part of the npm trusted publisher for @neomorphic-react/ui
+# (Settings → Trusted publishing on npmjs.com). Renaming it breaks publishing
+# until the trusted publisher is recreated with the new name.
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  # `pnpm install` runs the `prepare` script; git hooks have no use on a runner.
+  HUSKY: "0"
+
+permissions:
+  contents: write # push the version commit, tags and GitHub releases
+  pull-requests: write # open the "Version packages" PR
+  id-token: write # npm trusted publishing (OIDC) and provenance
+
+jobs:
+  release:
+    name: Version or publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Version from `packageManager`. pnpm 10 does the OIDC token exchange
+      # itself; pnpm 11 has a known 404 on trusted publishing.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      # No `registry-url`: it writes an .npmrc with an empty auth token,
+      # which shadows OIDC and makes the publish fail with a 404.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # With pending changesets: opens or updates the "Version packages" PR.
+      # Without (that PR was just merged): `pnpm release` builds, checks the
+      # tarball, and publishes any version not yet on npm, then tags it and
+      # creates the GitHub release.
+      - name: Version packages or publish
+        uses: changesets/action@v1
+        with:
+          version: pnpm version-packages
+          publish: pnpm release
+          commit: "Version packages"
+          title: "Version packages"
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No NPM_TOKEN: publishing authenticates through the trusted
+          # publisher. `pnpm publish` only attaches provenance when asked.
+          NPM_CONFIG_PROVENANCE: "true"

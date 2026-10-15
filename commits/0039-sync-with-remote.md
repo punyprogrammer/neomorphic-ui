@@ -8,7 +8,7 @@ insertions: 2392
 deletions: 1224
 ---
 
-<!-- nav --> [← 0035](0035-setup-npm-packaging.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0035](0035-setup-npm-packaging.md) · [Index](README.md) · [0040 →](0040-add-release-workflow.md)
 
 # 0039 · sync-with-remote
 

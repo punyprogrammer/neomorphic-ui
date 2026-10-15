@@ -49,6 +49,8 @@ scripts/check-pack.mjs     pnpm check:pack, fails if the tarball holds anything 
 scripts/lint-package.mjs   pnpm lint:package, publint + attw on the packed tarball
 .changeset/                pending version bumps for @neomorphic-react/ui
 .github/workflows/ci.yml   check → unit tests, Storybook tests, build
+.github/workflows/release.yml  Version packages PR, then npm publish (trusted
+                           publisher: keep the file name)
 commits/                   generated, one NNNN-<subject>.md per commit; do not edit by hand
 ```
 
