@@ -38,6 +38,11 @@
   --color-ring: var(--ring);
   --color-neu-light: var(--neu-light);
   --color-neu-dark: var(--neu-dark);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
 }
 
 :root {
@@ -84,6 +89,19 @@
   /* Kit's raised fill #F2F3F6 → #E5E6EC: light where the highlight falls */
   --neu-convex-from: oklch(0.964 0.004 271.4);
   --neu-convex-to: oklch(0.926 0.008 278.6);
+
+  /* Behind dialogs, sheets and drawers: the shadow colour, faint enough
+     that the dimmed page still reads as the same surface. */
+  --neu-backdrop: oklch(0.366 0.06 249 / 0.18);
+
+  /* Chart series, from the kit's widget colours: weather blue, music
+     orange, progress magenta, calendar purple, and the weather yellow
+     darkened to amber. Each is 3:1 or more against --background. */
+  --chart-1: oklch(0.62 0.14 245);
+  --chart-2: oklch(0.64 0.17 50);
+  --chart-3: oklch(0.54 0.22 350);
+  --chart-4: oklch(0.55 0.2 295);
+  --chart-5: oklch(0.62 0.13 85);
 }
 
 @layer base {

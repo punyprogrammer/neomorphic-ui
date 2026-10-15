@@ -1,4 +1,5 @@
 import { Avatar, AvatarBadge, AvatarImage } from "@neomorphic-ui/react/avatar";
+import { Bubble, BubbleContent } from "@neomorphic-ui/react/bubble";
 import { Button } from "@neomorphic-ui/react/button";
 import {
   Card,
@@ -12,6 +13,20 @@ import {
   InputGroupButton,
   InputGroupTextarea,
 } from "@neomorphic-ui/react/input-group";
+import { Marker, MarkerContent } from "@neomorphic-ui/react/marker";
+import {
+  MessageContent,
+  MessageFooter,
+  Message as MessageRow,
+} from "@neomorphic-ui/react/message";
+import {
+  MessageScroller,
+  MessageScrollerButton,
+  MessageScrollerContent,
+  MessageScrollerItem,
+  MessageScrollerProvider,
+  MessageScrollerViewport,
+} from "@neomorphic-ui/react/message-scroller";
 import { Separator } from "@neomorphic-ui/react/separator";
 import {
   Tooltip,
@@ -87,9 +102,10 @@ function IconAction({ icon, label }: { icon: ReactElement; label: string }) {
 }
 
 /**
- * The kit's chat app (`3:731`): a contact header with call actions, a message
- * log with raised incoming and primary outgoing bubbles, and a pill-shaped
- * composer. Enter sends; Shift+Enter starts a new line.
+ * The kit's chat app (`3:731`): a contact header with call actions, a
+ * transcript of `Message` rows with raised incoming and primary outgoing
+ * `Bubble`s inside a `MessageScroller`, and a pill-shaped composer. Enter
+ * sends; Shift+Enter starts a new line.
  */
 function ChatThread({
   className,
@@ -104,8 +120,17 @@ function ChatThread({
   const [draft, setDraft] = useState("");
   const [typing, setTyping] = useState(false);
   const nextId = useRef(defaultMessages.length + 1);
-  const log = useRef<HTMLDivElement>(null);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const first = contact.split(" ")[0];
+
+  useEffect(() => {
+    const pending = timers.current;
+    return () => {
+      for (const timer of pending) {
+        clearTimeout(timer);
+      }
+    };
+  }, []);
 
   function append(from: Message["from"], text: string) {
     const message = {
@@ -129,10 +154,12 @@ function ChatThread({
     const answer = reply?.(text);
     if (answer) {
       setTyping(true);
-      setTimeout(() => {
-        setTyping(false);
-        append("them", answer);
-      }, replyDelay);
+      timers.current.push(
+        setTimeout(() => {
+          setTyping(false);
+          append("them", answer);
+        }, replyDelay)
+      );
     }
   }
 
@@ -145,12 +172,6 @@ function ChatThread({
       send(event);
     }
   }
-
-  // Keep the newest message in view.
-  // biome-ignore lint/correctness/useExhaustiveDependencies: scroll whenever the log grows
-  useEffect(() => {
-    log.current?.scrollTo({ top: log.current.scrollHeight });
-  }, [messages.length, typing]);
 
   return (
     <Card
@@ -178,72 +199,61 @@ function ChatThread({
 
       <Separator />
 
-      <CardContent>
-        <div
-          aria-label={`Conversation with ${contact}`}
-          className="-mx-2 h-80 overflow-y-auto scroll-smooth px-2 py-1 outline-none focus-visible:outline-2 focus-visible:outline-ring/50"
-          ref={log}
-          role="log"
-          // biome-ignore lint/a11y/noNoninteractiveTabindex: a scrolling region must be reachable by keyboard
-          tabIndex={0}
-        >
-          <ol className="grid gap-3">
-            {messages.length > 0 ? (
-              <li
-                aria-hidden="true"
-                className="flex items-center gap-3 text-muted-foreground text-xs"
+      <CardContent className="-mx-2 h-80">
+        <MessageScrollerProvider autoScroll defaultScrollPosition="end">
+          <MessageScroller>
+            <MessageScrollerViewport className="px-2">
+              <MessageScrollerContent
+                aria-label={`Conversation with ${contact}`}
+                className="gap-3 py-1"
               >
-                <Separator className="flex-1" />
-                Today
-                <Separator className="flex-1" />
-              </li>
-            ) : null}
-            {messages.map((message) => {
-              const mine = message.from === "me";
-              return (
-                <li
-                  className={cn(
-                    "grid max-w-[80%] gap-1",
-                    mine
-                      ? "justify-items-end justify-self-end"
-                      : "justify-self-start"
-                  )}
-                  key={message.id}
-                >
-                  <p
-                    className={cn(
-                      "whitespace-pre-wrap rounded-2xl px-4 py-2.5 leading-snug",
-                      mine
-                        ? "inset-shadow-neu-flat rounded-br-sm bg-primary text-primary-foreground shadow-neu-sm"
-                        : "inset-shadow-neu-flat rounded-bl-sm bg-neu-convex text-foreground shadow-neu-sm"
-                    )}
-                  >
-                    <span className="sr-only">{`${mine ? "You" : first}: `}</span>
-                    {message.text}
-                  </p>
-                  <time className="px-1 text-muted-foreground text-xs tabular-nums">
-                    {message.time}
-                  </time>
-                </li>
-              );
-            })}
-            {typing ? (
-              <li className="justify-self-start">
-                <span className="inset-shadow-neu-flat flex items-center gap-1 rounded-2xl rounded-bl-sm bg-neu-convex px-4 py-3.5 shadow-neu-sm">
-                  <span className="sr-only">{first} is typing</span>
-                  {[0, 150, 300].map((delay) => (
-                    <span
-                      aria-hidden="true"
-                      className="size-1.5 animate-bounce rounded-full bg-muted-foreground motion-reduce:animate-none"
-                      key={delay}
-                      style={{ animationDelay: `${delay}ms` }}
-                    />
-                  ))}
-                </span>
-              </li>
-            ) : null}
-          </ol>
-        </div>
+                {messages.length > 0 ? (
+                  <MessageScrollerItem aria-hidden="true">
+                    <Marker variant="separator">
+                      <MarkerContent>Today</MarkerContent>
+                    </Marker>
+                  </MessageScrollerItem>
+                ) : null}
+                {messages.map((message) => {
+                  const mine = message.from === "me";
+                  const align = mine ? "end" : "start";
+                  return (
+                    <MessageScrollerItem
+                      key={message.id}
+                      messageId={String(message.id)}
+                      scrollAnchor={mine}
+                    >
+                      <MessageRow align={align}>
+                        <MessageContent>
+                          <Bubble
+                            align={align}
+                            variant={mine ? "default" : "secondary"}
+                          >
+                            <BubbleContent className="whitespace-pre-wrap">
+                              <span className="sr-only">{`${mine ? "You" : first}: `}</span>
+                              {message.text}
+                            </BubbleContent>
+                          </Bubble>
+                          <MessageFooter>
+                            <time className="tabular-nums">{message.time}</time>
+                          </MessageFooter>
+                        </MessageContent>
+                      </MessageRow>
+                    </MessageScrollerItem>
+                  );
+                })}
+                {typing ? (
+                  <MessageScrollerItem>
+                    <Marker shimmer>
+                      <MarkerContent>{first} is typing…</MarkerContent>
+                    </Marker>
+                  </MessageScrollerItem>
+                ) : null}
+              </MessageScrollerContent>
+            </MessageScrollerViewport>
+            <MessageScrollerButton />
+          </MessageScroller>
+        </MessageScrollerProvider>
       </CardContent>
 
       <CardFooter>

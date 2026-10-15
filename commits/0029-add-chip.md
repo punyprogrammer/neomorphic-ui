@@ -8,7 +8,7 @@ insertions: 498
 deletions: 3
 ---
 
-<!-- nav --> [← 0027](0027-add-phase-3-components.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0027](0027-add-phase-3-components.md) · [Index](README.md) · [0031 →](0031-add-phase-4-components.md)
 
 # 0029 · add-chip
 
