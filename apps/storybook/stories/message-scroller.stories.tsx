@@ -1,11 +1,11 @@
-import { Bubble, BubbleContent } from "@neomorphic-ui/react/bubble";
-import { Button } from "@neomorphic-ui/react/button";
-import { Marker, MarkerContent, MarkerIcon } from "@neomorphic-ui/react/marker";
+import { Bubble, BubbleContent } from "@neomorphic-react/ui/bubble";
+import { Button } from "@neomorphic-react/ui/button";
+import { Marker, MarkerContent, MarkerIcon } from "@neomorphic-react/ui/marker";
 import {
   Message,
   MessageContent,
   MessageHeader,
-} from "@neomorphic-ui/react/message";
+} from "@neomorphic-react/ui/message";
 import {
   MessageScroller,
   MessageScrollerButton,
@@ -14,8 +14,8 @@ import {
   MessageScrollerProvider,
   MessageScrollerViewport,
   useMessageScroller,
-} from "@neomorphic-ui/react/message-scroller";
-import { Spinner } from "@neomorphic-ui/react/spinner";
+} from "@neomorphic-react/ui/message-scroller";
+import { Spinner } from "@neomorphic-react/ui/spinner";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SendHorizontal } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -234,7 +234,7 @@ is the \`role="log"\`; each row is a \`MessageScrollerItem\`.
 import {
   MessageScroller, MessageScrollerButton, MessageScrollerContent,
   MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport,
-} from "@neomorphic-ui/react/message-scroller";
+} from "@neomorphic-react/ui/message-scroller";
 
 <MessageScrollerProvider autoScroll>
   <MessageScroller>

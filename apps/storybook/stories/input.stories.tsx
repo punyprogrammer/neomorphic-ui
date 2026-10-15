@@ -1,4 +1,4 @@
-import { Input } from "@neomorphic-ui/react/input";
+import { Input } from "@neomorphic-react/ui/input";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -16,7 +16,7 @@ pill. Focus deepens it and adds the outline; read-only is shallower. Built on
 Base UI's \`Input\`, so it works inside a \`Field\`.
 
 \`\`\`tsx
-import { Input } from "@neomorphic-ui/react/input";
+import { Input } from "@neomorphic-react/ui/input";
 
 <label htmlFor="email">Email</label>
 <Input id="email" type="email" placeholder="you@example.com" />

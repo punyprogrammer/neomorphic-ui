@@ -1,4 +1,4 @@
-import { Checkbox } from "@neomorphic-ui/react/checkbox";
+import { Checkbox } from "@neomorphic-react/ui/checkbox";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
@@ -35,7 +35,7 @@ rises out of it with a dark check. A hidden native input carries the value, so
 it submits with forms.
 
 \`\`\`tsx
-import { Checkbox } from "@neomorphic-ui/react/checkbox";
+import { Checkbox } from "@neomorphic-react/ui/checkbox";
 
 <label className="flex items-center gap-3">
   <Checkbox defaultChecked name="remember" />

@@ -5,8 +5,8 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "@neomorphic-ui/react/input-group";
-import { Surface } from "@neomorphic-ui/react/surface";
+} from "@neomorphic-react/ui/input-group";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Eye,
@@ -40,7 +40,7 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@neomorphic-ui/react/input-group";
+} from "@neomorphic-react/ui/input-group";
 
 <InputGroup shape="pill">
   <InputGroupAddon>

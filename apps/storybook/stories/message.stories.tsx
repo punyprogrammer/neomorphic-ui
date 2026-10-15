@@ -1,6 +1,6 @@
-import { Avatar, AvatarImage } from "@neomorphic-ui/react/avatar";
-import { Bubble, BubbleContent } from "@neomorphic-ui/react/bubble";
-import { Button } from "@neomorphic-ui/react/button";
+import { Avatar, AvatarImage } from "@neomorphic-react/ui/avatar";
+import { Bubble, BubbleContent } from "@neomorphic-react/ui/bubble";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Message,
   MessageAvatar,
@@ -8,7 +8,7 @@ import {
   MessageFooter,
   MessageGroup,
   MessageHeader,
-} from "@neomorphic-ui/react/message";
+} from "@neomorphic-react/ui/message";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CheckCheck, Copy, RefreshCw, Sparkles } from "lucide-react";
 import { expect, within } from "storybook/test";
@@ -31,7 +31,7 @@ together.
 \`\`\`tsx
 import {
   Message, MessageAvatar, MessageContent, MessageFooter, MessageHeader,
-} from "@neomorphic-ui/react/message";
+} from "@neomorphic-react/ui/message";
 
 <Message>
   <MessageAvatar>

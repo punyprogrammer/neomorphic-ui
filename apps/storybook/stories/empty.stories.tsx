@@ -2,8 +2,8 @@ import {
   Avatar,
   AvatarFallback,
   AvatarGroup,
-} from "@neomorphic-ui/react/avatar";
-import { Button } from "@neomorphic-ui/react/button";
+} from "@neomorphic-react/ui/avatar";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Empty,
   EmptyContent,
@@ -11,7 +11,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@neomorphic-ui/react/empty";
+} from "@neomorphic-react/ui/empty";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Plane, Plus } from "lucide-react";
 import { expect, within } from "storybook/test";
@@ -29,7 +29,7 @@ illustration), a title, a description and the next step.
 \`\`\`tsx
 import {
   Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle,
-} from "@neomorphic-ui/react/empty";
+} from "@neomorphic-react/ui/empty";
 
 <Empty>
   <EmptyHeader>

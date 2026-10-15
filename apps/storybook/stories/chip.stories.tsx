@@ -1,5 +1,5 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { Chip } from "@neomorphic-ui/react/chip";
+import { Button } from "@neomorphic-react/ui/button";
+import { Chip } from "@neomorphic-react/ui/chip";
 import {
   Item,
   ItemActions,
@@ -7,7 +7,7 @@ import {
   ItemDescription,
   ItemGroup,
   ItemTitle,
-} from "@neomorphic-ui/react/item";
+} from "@neomorphic-react/ui/item";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   ArrowUpRight,
@@ -33,7 +33,7 @@ soon". \`Badge\` is for counts and dots; \`Chip\` is larger, sentence-case and
 carries an icon, placed with \`iconPosition\` like \`Button\`'s.
 
 \`\`\`tsx
-import { Chip } from "@neomorphic-ui/react/chip";
+import { Chip } from "@neomorphic-react/ui/chip";
 
 <Chip icon={<Check />} variant="success">Paid</Chip>
 <Chip icon={<Clock />} variant="warning">Due soon</Chip>

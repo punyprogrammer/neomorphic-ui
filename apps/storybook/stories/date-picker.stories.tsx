@@ -3,12 +3,12 @@ import {
   DatePickerInput,
   type DateRange,
   DateRangePicker,
-} from "@neomorphic-ui/react/date-picker";
+} from "@neomorphic-react/ui/date-picker";
 import {
   Field,
   FieldDescription,
   FieldLabel,
-} from "@neomorphic-ui/react/field";
+} from "@neomorphic-react/ui/field";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -37,7 +37,7 @@ button; the calendar lies flat on the popup's raised card.
 \`\`\`tsx
 import {
   DatePicker, DatePickerInput, DateRangePicker,
-} from "@neomorphic-ui/react/date-picker";
+} from "@neomorphic-react/ui/date-picker";
 
 <DatePicker aria-label="Departure" onValueChange={setDate} value={date} />
 <DateRangePicker aria-label="Stay" numberOfMonths={2} presets={presets} />

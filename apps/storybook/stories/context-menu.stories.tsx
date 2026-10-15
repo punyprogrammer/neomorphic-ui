@@ -5,7 +5,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "@neomorphic-ui/react/context-menu";
+} from "@neomorphic-react/ui/context-menu";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fireEvent, screen, waitFor, within } from "storybook/test";
 
@@ -22,7 +22,7 @@ item parts as \`DropdownMenu\`.
 \`\`\`tsx
 import {
   ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger,
-} from "@neomorphic-ui/react/context-menu";
+} from "@neomorphic-react/ui/context-menu";
 
 <ContextMenu>
   <ContextMenuTrigger>Right-click here</ContextMenuTrigger>

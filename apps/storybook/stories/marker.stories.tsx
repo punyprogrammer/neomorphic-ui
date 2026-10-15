@@ -1,5 +1,5 @@
-import { Marker, MarkerContent, MarkerIcon } from "@neomorphic-ui/react/marker";
-import { Spinner } from "@neomorphic-ui/react/spinner";
+import { Marker, MarkerContent, MarkerIcon } from "@neomorphic-react/ui/marker";
+import { Spinner } from "@neomorphic-react/ui/spinner";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Lock, UserPlus } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ isn't a \`role="separator"\` (it carries information); the \`separator\` and
 \`border\` variants only draw grooves, like \`Separator\`.
 
 \`\`\`tsx
-import { Marker, MarkerContent, MarkerIcon } from "@neomorphic-ui/react/marker";
+import { Marker, MarkerContent, MarkerIcon } from "@neomorphic-react/ui/marker";
 
 <Marker variant="separator"><MarkerContent>Today</MarkerContent></Marker>
 <Marker role="status" shimmer>

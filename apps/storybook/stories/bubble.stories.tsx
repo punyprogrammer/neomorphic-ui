@@ -3,7 +3,7 @@ import {
   BubbleContent,
   BubbleGroup,
   BubbleReactions,
-} from "@neomorphic-ui/react/bubble";
+} from "@neomorphic-react/ui/bubble";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 
@@ -34,7 +34,7 @@ time.
 \`\`\`tsx
 import {
   Bubble, BubbleContent, BubbleGroup, BubbleReactions,
-} from "@neomorphic-ui/react/bubble";
+} from "@neomorphic-react/ui/bubble";
 
 <Bubble align="end">
   <BubbleContent>Yes, two seats in row F.</BubbleContent>

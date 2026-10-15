@@ -1,5 +1,5 @@
-import { Separator } from "@neomorphic-ui/react/separator";
-import { Surface } from "@neomorphic-ui/react/surface";
+import { Separator } from "@neomorphic-react/ui/separator";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 
@@ -14,7 +14,7 @@ A groove cut into the surface: a dark line with a highlight beside it.
 \`perforated\` dashes it, like the boarding ticket's tear line.
 
 \`\`\`tsx
-import { Separator } from "@neomorphic-ui/react/separator";
+import { Separator } from "@neomorphic-react/ui/separator";
 
 <Separator />
 <Separator variant="perforated" />

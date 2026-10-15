@@ -26,7 +26,7 @@ Radix), CVA, Storybook 10, Vitest, Biome via `ultracite`, `lucide-react` icons.
 pnpm install
 pnpm storybook                             # Storybook on port 6007
 pnpm build
-pnpm test --filter=@neomorphic-ui/react    # unit tests (Vitest + jsdom)
+pnpm test --filter=@neomorphic-react/ui    # unit tests (Vitest + jsdom)
 pnpm check                                 # Biome
 ```
 
@@ -35,14 +35,19 @@ pnpm check                                 # Biome
 ```
 apps/storybook/            stories, one file per component
   blocks/                  Phase 3 blocks composed only from library components;
-                           their stories are in stories/blocks/ (Blocks/…)
-packages/ui/src/           @neomorphic-ui/react, one flat .tsx per component
+                           their stories are in stories/blocks/ (Blocks/…).
+                           Never part of the npm package
+packages/ui/README.md      the npm page: add new components to its table, and
+                           new optional peers to its install table
+packages/ui/src/           @neomorphic-react/ui, one flat .tsx per component
   base.css                 library mechanism: shadow + radius scales, motion
   theme.css                default consumer-owned tokens
 packages/typescript-config/
 scripts/add-component.mjs  pnpm add:component scaffolder
 scripts/commit-docs.mjs    per-commit doc generator (run by .husky/post-commit)
-.changeset/                pending version bumps for @neomorphic-ui/react
+scripts/check-pack.mjs     pnpm check:pack, fails if the tarball holds anything extra
+scripts/lint-package.mjs   pnpm lint:package, publint + attw on the packed tarball
+.changeset/                pending version bumps for @neomorphic-react/ui
 .github/workflows/ci.yml   check → unit tests, Storybook tests, build
 commits/                   generated, one NNNN-<subject>.md per commit; do not edit by hand
 ```
@@ -59,7 +64,14 @@ changeset (`pnpm changeset`, `minor` for a new component).
 
 Hooks: `pre-commit` runs `ultracite fix` on staged files (lint-staged);
 `post-commit` writes the commit doc. CI runs `check`, then unit tests,
-Storybook interaction tests and `build`.
+Storybook interaction tests and `build` + `check:pack` + `lint:package`.
+
+Blocks (Music Player, Payment Methods, Newsletter Signup, …) are Storybook
+examples, not library components: they stay in `apps/storybook/blocks/` and
+never go in `packages/ui/` or its `exports`. The package ships only `dist/` and
+`src/*.css` (`files` in `packages/ui/package.json`); `pnpm check:pack` fails on
+anything else. A pattern worth reusing becomes a component through
+`pnpm add:component`, with its own tests and story.
 
 ## Component rules
 
@@ -69,7 +81,7 @@ Storybook interaction tests and `build`.
   (`button.test.tsx`).
 - **No barrel.** Each file is its own entry point. Inside the package, import
   siblings relatively (`import { cn } from "./utils"`); consumers import
-  subpaths (`@neomorphic-ui/react/button`).
+  subpaths (`@neomorphic-react/ui/button`).
 - **File layout.** `"use client"`, external imports, sibling imports, then
   sections split by `// ----` divider comments (variants, context, each part),
   and named exports at the bottom: `export type { … }; export { … };`.

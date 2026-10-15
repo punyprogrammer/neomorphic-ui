@@ -6,8 +6,8 @@
 @import "@fontsource/roboto/500.css";
 @import "@fontsource/roboto/700.css";
 
-@import "@neomorphic-ui/react/base.css";
-@import "@neomorphic-ui/react/theme.css";
+@import "@neomorphic-react/ui/base.css";
+@import "@neomorphic-react/ui/theme.css";
 
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
 @source "../stories/**/*.{ts,tsx}";

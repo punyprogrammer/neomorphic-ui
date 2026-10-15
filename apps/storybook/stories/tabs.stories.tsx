@@ -1,10 +1,10 @@
-import { Card, CardContent } from "@neomorphic-ui/react/card";
+import { Card, CardContent } from "@neomorphic-react/ui/card";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@neomorphic-ui/react/tabs";
+} from "@neomorphic-react/ui/tabs";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { BedDouble, Plane, TrainFront } from "lucide-react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
@@ -20,7 +20,7 @@ Panels behind a row of tabs. The list is a raised slab; a well slides under
 the active tab, which also takes the primary colour and weight.
 
 \`\`\`tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@neomorphic-ui/react/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@neomorphic-react/ui/tabs";
 
 <Tabs defaultValue="flights">
   <TabsList aria-label="Search">

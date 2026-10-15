@@ -2,13 +2,13 @@ import {
   Field,
   FieldDescription,
   FieldLabel,
-} from "@neomorphic-ui/react/field";
+} from "@neomorphic-react/ui/field";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@neomorphic-ui/react/input-otp";
+} from "@neomorphic-react/ui/input-otp";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
@@ -27,7 +27,7 @@ back, and pasting fills every slot. Digits only by default.
 \`\`\`tsx
 import {
   InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot,
-} from "@neomorphic-ui/react/input-otp";
+} from "@neomorphic-react/ui/input-otp";
 
 <InputOTP aria-label="Verification code" length={6}>
   <InputOTPGroup>

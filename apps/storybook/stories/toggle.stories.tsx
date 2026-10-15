@@ -1,5 +1,5 @@
-import { Surface } from "@neomorphic-ui/react/surface";
-import { Toggle } from "@neomorphic-ui/react/toggle";
+import { Surface } from "@neomorphic-react/ui/surface";
+import { Toggle } from "@neomorphic-react/ui/toggle";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Bell,
@@ -50,7 +50,7 @@ content takes the \`--toggle-on\` colour (default \`--primary\`). \`iconFill\`
 turns an outline icon solid while on.
 
 \`\`\`tsx
-import { Toggle } from "@neomorphic-ui/react/toggle";
+import { Toggle } from "@neomorphic-react/ui/toggle";
 
 <Toggle
   aria-label="Like"

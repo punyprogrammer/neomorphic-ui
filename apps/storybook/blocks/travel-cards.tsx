@@ -3,9 +3,9 @@ import {
   AvatarGroup,
   AvatarGroupCount,
   AvatarImage,
-} from "@neomorphic-ui/react/avatar";
-import { Badge } from "@neomorphic-ui/react/badge";
-import { Button } from "@neomorphic-ui/react/button";
+} from "@neomorphic-react/ui/avatar";
+import { Badge } from "@neomorphic-react/ui/badge";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Card,
   CardAction,
@@ -14,7 +14,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@neomorphic-ui/react/card";
+} from "@neomorphic-react/ui/card";
 import {
   Item,
   ItemContent,
@@ -22,9 +22,9 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@neomorphic-ui/react/item";
-import { Toggle } from "@neomorphic-ui/react/toggle";
-import { cn } from "@neomorphic-ui/react/utils";
+} from "@neomorphic-react/ui/item";
+import { Toggle } from "@neomorphic-react/ui/toggle";
+import { cn } from "@neomorphic-react/ui/utils";
 import { Bookmark, CalendarDays, MapPin, Star } from "lucide-react";
 import { useId, useState } from "react";
 

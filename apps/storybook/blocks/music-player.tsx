@@ -1,10 +1,10 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { Card, CardContent } from "@neomorphic-ui/react/card";
-import { Dial } from "@neomorphic-ui/react/dial";
-import { Slider } from "@neomorphic-ui/react/slider";
-import { Surface } from "@neomorphic-ui/react/surface";
-import { Toggle } from "@neomorphic-ui/react/toggle";
-import { cn } from "@neomorphic-ui/react/utils";
+import { Button } from "@neomorphic-react/ui/button";
+import { Card, CardContent } from "@neomorphic-react/ui/card";
+import { Dial } from "@neomorphic-react/ui/dial";
+import { Slider } from "@neomorphic-react/ui/slider";
+import { Surface } from "@neomorphic-react/ui/surface";
+import { Toggle } from "@neomorphic-react/ui/toggle";
+import { cn } from "@neomorphic-react/ui/utils";
 import {
   Heart,
   Pause,

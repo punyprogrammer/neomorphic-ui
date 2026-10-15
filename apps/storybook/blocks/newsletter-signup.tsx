@@ -3,13 +3,13 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "@neomorphic-ui/react/input-group";
-import { Surface } from "@neomorphic-ui/react/surface";
+} from "@neomorphic-react/ui/input-group";
+import { Surface } from "@neomorphic-react/ui/surface";
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@neomorphic-ui/react/toggle-group";
-import { cn } from "@neomorphic-ui/react/utils";
+} from "@neomorphic-react/ui/toggle-group";
+import { cn } from "@neomorphic-react/ui/utils";
 import { Check, Mail } from "lucide-react";
 import { type FormEvent, useId, useState } from "react";
 

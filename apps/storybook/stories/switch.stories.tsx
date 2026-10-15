@@ -1,5 +1,5 @@
-import { Surface } from "@neomorphic-ui/react/surface";
-import { Switch } from "@neomorphic-ui/react/switch";
+import { Surface } from "@neomorphic-react/ui/surface";
+import { Switch } from "@neomorphic-react/ui/switch";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Bluetooth, Moon, Plane, Wifi } from "lucide-react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
@@ -32,7 +32,7 @@ on, it fills dark and the thumb slides to the end (mirrored right-to-left).
 A hidden native input carries the value, so it submits with forms.
 
 \`\`\`tsx
-import { Switch } from "@neomorphic-ui/react/switch";
+import { Switch } from "@neomorphic-react/ui/switch";
 
 <label className="flex items-center gap-3">
   <Switch defaultChecked name="wifi" />

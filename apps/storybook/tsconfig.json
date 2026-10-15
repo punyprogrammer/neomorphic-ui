@@ -1,11 +1,11 @@
 {
-  "extends": "@neomorphic-ui/typescript-config/react-app.json",
+  "extends": "@neomorphic-react/typescript-config/react-app.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {
     "paths": {
       "@/*": ["./*"],
-      "@neomorphic-ui/react/*": ["../../packages/ui/src/*"]
+      "@neomorphic-react/ui/*": ["../../packages/ui/src/*"]
     },
     "strictNullChecks": true
   }

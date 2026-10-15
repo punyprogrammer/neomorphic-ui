@@ -1,5 +1,5 @@
-import { Badge } from "@neomorphic-ui/react/badge";
-import { Button } from "@neomorphic-ui/react/button";
+import { Badge } from "@neomorphic-react/ui/badge";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Item,
   ItemActions,
@@ -11,8 +11,8 @@ import {
   ItemMedia,
   ItemSeparator,
   ItemTitle,
-} from "@neomorphic-ui/react/item";
-import { Surface } from "@neomorphic-ui/react/surface";
+} from "@neomorphic-react/ui/item";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Bell,
@@ -38,7 +38,7 @@ sits level with the surface, \`raised\` stands out of it, \`inset\` is a well.
 \`\`\`tsx
 import {
   Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle,
-} from "@neomorphic-ui/react/item";
+} from "@neomorphic-react/ui/item";
 
 <ItemGroup aria-label="Payment methods">
   <Item variant="raised">

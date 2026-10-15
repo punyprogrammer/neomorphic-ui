@@ -1,4 +1,4 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Dialog,
   DialogBody,
@@ -9,9 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@neomorphic-ui/react/dialog";
-import { Field, FieldGroup, FieldLabel } from "@neomorphic-ui/react/field";
-import { Input } from "@neomorphic-ui/react/input";
+} from "@neomorphic-react/ui/dialog";
+import { Field, FieldGroup, FieldLabel } from "@neomorphic-react/ui/field";
+import { Input } from "@neomorphic-react/ui/input";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -30,7 +30,7 @@ clicks on the backdrop dismiss it.
 import {
   Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader,
   DialogTitle, DialogTrigger,
-} from "@neomorphic-ui/react/dialog";
+} from "@neomorphic-react/ui/dialog";
 
 <Dialog>
   <DialogTrigger render={<Button />}>Edit trip</DialogTrigger>

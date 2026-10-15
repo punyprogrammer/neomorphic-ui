@@ -1,12 +1,12 @@
 import {
   DirectionProvider,
   useDirection,
-} from "@neomorphic-ui/react/direction";
-import { Slider } from "@neomorphic-ui/react/slider";
+} from "@neomorphic-react/ui/direction";
+import { Slider } from "@neomorphic-react/ui/slider";
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@neomorphic-ui/react/toggle-group";
+} from "@neomorphic-react/ui/toggle-group";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -23,7 +23,7 @@ right-to-left languages. Set \`dir\` on \`<html>\` (or a wrapper) as well; that
 is what mirrors the layout.
 
 \`\`\`tsx
-import { DirectionProvider } from "@neomorphic-ui/react/direction";
+import { DirectionProvider } from "@neomorphic-react/ui/direction";
 
 <html dir="rtl">
   <DirectionProvider direction="rtl">

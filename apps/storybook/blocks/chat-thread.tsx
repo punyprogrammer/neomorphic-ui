@@ -1,24 +1,24 @@
-import { Avatar, AvatarBadge, AvatarImage } from "@neomorphic-ui/react/avatar";
-import { Bubble, BubbleContent } from "@neomorphic-ui/react/bubble";
-import { Button } from "@neomorphic-ui/react/button";
+import { Avatar, AvatarBadge, AvatarImage } from "@neomorphic-react/ui/avatar";
+import { Bubble, BubbleContent } from "@neomorphic-react/ui/bubble";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from "@neomorphic-ui/react/card";
+} from "@neomorphic-react/ui/card";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupTextarea,
-} from "@neomorphic-ui/react/input-group";
-import { Marker, MarkerContent } from "@neomorphic-ui/react/marker";
+} from "@neomorphic-react/ui/input-group";
+import { Marker, MarkerContent } from "@neomorphic-react/ui/marker";
 import {
   MessageContent,
   MessageFooter,
   Message as MessageRow,
-} from "@neomorphic-ui/react/message";
+} from "@neomorphic-react/ui/message";
 import {
   MessageScroller,
   MessageScrollerButton,
@@ -26,15 +26,15 @@ import {
   MessageScrollerItem,
   MessageScrollerProvider,
   MessageScrollerViewport,
-} from "@neomorphic-ui/react/message-scroller";
-import { Separator } from "@neomorphic-ui/react/separator";
+} from "@neomorphic-react/ui/message-scroller";
+import { Separator } from "@neomorphic-react/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@neomorphic-ui/react/tooltip";
-import { cn } from "@neomorphic-ui/react/utils";
+} from "@neomorphic-react/ui/tooltip";
+import { cn } from "@neomorphic-react/ui/utils";
 import { Paperclip, Phone, SendHorizontal, Video } from "lucide-react";
 import {
   type KeyboardEvent,

@@ -1,4 +1,4 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Command,
   CommandCollection,
@@ -9,9 +9,9 @@ import {
   CommandItem,
   CommandList,
   CommandShortcut,
-} from "@neomorphic-ui/react/command";
-import { Kbd } from "@neomorphic-ui/react/kbd";
-import { Toaster, toast } from "@neomorphic-ui/react/toast";
+} from "@neomorphic-react/ui/command";
+import { Kbd } from "@neomorphic-react/ui/kbd";
+import { Toaster, toast } from "@neomorphic-react/ui/toast";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CalendarPlus,
@@ -85,7 +85,7 @@ it to filter.
 import {
   Command, CommandCollection, CommandEmpty, CommandGroup, CommandInput,
   CommandItem, CommandList, CommandShortcut,
-} from "@neomorphic-ui/react/command";
+} from "@neomorphic-react/ui/command";
 
 <Command items={groups}>
   <CommandInput aria-label="Search" placeholder="Search actions" />

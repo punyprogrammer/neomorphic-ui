@@ -1,4 +1,4 @@
-import { Slider, SliderLabel, SliderValue } from "@neomorphic-ui/react/slider";
+import { Slider, SliderLabel, SliderValue } from "@neomorphic-react/ui/slider";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Volume, Volume2 } from "lucide-react";
 import { expect, userEvent, within } from "storybook/test";
@@ -32,7 +32,7 @@ the thumb, and a raised pill thumb with three grip grooves that sinks in while
 held. The thumb stays inside the track at both ends.
 
 \`\`\`tsx
-import { Slider, SliderLabel, SliderValue } from "@neomorphic-ui/react/slider";
+import { Slider, SliderLabel, SliderValue } from "@neomorphic-react/ui/slider";
 
 <Slider defaultValue={30}>
   <div className="flex justify-between">

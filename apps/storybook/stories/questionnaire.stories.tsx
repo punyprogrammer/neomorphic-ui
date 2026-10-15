@@ -15,7 +15,7 @@ import {
   QuestionnaireSubmit,
   QuestionnaireTitle,
   type QuestionnaireValues,
-} from "@neomorphic-ui/react/questionnaire";
+} from "@neomorphic-react/ui/questionnaire";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import type { ComponentProps } from "react";
 import { expect, fn, userEvent, within } from "storybook/test";
@@ -144,7 +144,7 @@ import {
   QuestionnaireChoices, QuestionnaireError, QuestionnaireItem,
   QuestionnaireNext, QuestionnairePrevious, QuestionnaireProgress,
   QuestionnaireSkip, QuestionnaireSubmit, QuestionnaireTitle,
-} from "@neomorphic-ui/react/questionnaire";
+} from "@neomorphic-react/ui/questionnaire";
 
 <Questionnaire onSubmit={(values) => save(values)} shortcuts>
   <QuestionnaireProgress />

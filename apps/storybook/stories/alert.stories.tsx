@@ -3,8 +3,8 @@ import {
   AlertAction,
   AlertDescription,
   AlertTitle,
-} from "@neomorphic-ui/react/alert";
-import { Button } from "@neomorphic-ui/react/button";
+} from "@neomorphic-react/ui/alert";
+import { Button } from "@neomorphic-react/ui/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   CircleAlert,
@@ -28,7 +28,7 @@ colour, not the depth, says what kind of message it is.
 \`\`\`tsx
 import {
   Alert, AlertAction, AlertDescription, AlertTitle,
-} from "@neomorphic-ui/react/alert";
+} from "@neomorphic-react/ui/alert";
 
 <Alert variant="success">
   <CircleCheck />

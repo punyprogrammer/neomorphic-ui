@@ -1,6 +1,6 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { Field, FieldLabel } from "@neomorphic-ui/react/field";
-import { Input } from "@neomorphic-ui/react/input";
+import { Button } from "@neomorphic-react/ui/button";
+import { Field, FieldLabel } from "@neomorphic-react/ui/field";
+import { Input } from "@neomorphic-react/ui/input";
 import {
   Popover,
   PopoverClose,
@@ -9,7 +9,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@neomorphic-ui/react/popover";
+} from "@neomorphic-react/ui/popover";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SlidersHorizontal } from "lucide-react";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
@@ -29,7 +29,7 @@ trigger on close.
 import {
   Popover, PopoverContent, PopoverDescription, PopoverHeader,
   PopoverTitle, PopoverTrigger,
-} from "@neomorphic-ui/react/popover";
+} from "@neomorphic-react/ui/popover";
 
 <Popover>
   <PopoverTrigger render={<Button />}>Filters</PopoverTrigger>

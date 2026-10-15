@@ -4,7 +4,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@neomorphic-ui/react/card";
+} from "@neomorphic-react/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
@@ -12,7 +12,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@neomorphic-ui/react/chart";
+} from "@neomorphic-react/ui/chart";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Area,
@@ -86,7 +86,7 @@ variables.
 import {
   type ChartConfig, ChartContainer, ChartLegend, ChartLegendContent,
   ChartTooltip, ChartTooltipContent,
-} from "@neomorphic-ui/react/chart";
+} from "@neomorphic-react/ui/chart";
 import { Bar, BarChart, XAxis } from "recharts";
 
 const config = {

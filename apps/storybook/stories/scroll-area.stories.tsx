@@ -1,5 +1,5 @@
-import { ScrollArea } from "@neomorphic-ui/react/scroll-area";
-import { Separator } from "@neomorphic-ui/react/separator";
+import { ScrollArea } from "@neomorphic-react/ui/scroll-area";
+import { Separator } from "@neomorphic-react/ui/separator";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, waitFor } from "storybook/test";
 
@@ -17,7 +17,7 @@ shown while the pointer is over the area or it's scrolling. Give it a height (or
 a width for \`horizontal\`).
 
 \`\`\`tsx
-import { ScrollArea } from "@neomorphic-ui/react/scroll-area";
+import { ScrollArea } from "@neomorphic-react/ui/scroll-area";
 
 <ScrollArea className="h-72 w-56 rounded-xl" fade>
   {stops.map((stop) => <p key={stop}>{stop}</p>)}
