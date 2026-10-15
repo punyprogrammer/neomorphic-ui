@@ -1,0 +1,130 @@
+---
+title: Toggle
+description: A two-state button that is raised when off and pressed into the surface, in colour, when on.
+component: toggle
+primitive: https://base-ui.com/react/components/toggle
+---
+
+<ComponentPreview name="toggle-demo" />
+
+## Usage
+
+```tsx
+import { Toggle } from "@neomorphic-react/ui/toggle";
+```
+
+```tsx
+<Toggle aria-label="Like" iconFill>
+  <Heart />
+</Toggle>
+```
+
+## Examples
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the height, padding, text size and icon size together. An icon-only toggle is square, and a toggle with text grows wider from the same base.
+
+<ComponentPreview name="toggle-sizes" />
+
+### Shape
+
+`pill` (the default) makes an icon-only toggle a circle. `rounded` gives it a tile with softer corners.
+
+<ComponentPreview name="toggle-shapes" />
+
+### Icon fill
+
+`iconFill` fills the icon while the toggle is on, so an outline heart, star or bookmark turns solid. Leave it off for icons that read badly when filled.
+
+<ComponentPreview name="toggle-icon-fill" />
+
+### With text
+
+Put an icon and text side by side as children. The text is set in uppercase, and it's the toggle's accessible name, so no `aria-label` is needed.
+
+<ComponentPreview name="toggle-with-text" />
+
+### Colour
+
+While on, the toggle's content takes the `--toggle-on` colour, which falls back to `--primary`. Set it on the toggle itself, or on any ancestor to colour every toggle inside it.
+
+<ComponentPreview name="toggle-colors" />
+
+<Callout title="Keep the on colour at 3:1">
+  The colour marks the on state alongside the shadow, because a shadow edge alone doesn't reach the 3:1 minimum contrast. Keep a custom `--toggle-on` at 3:1 or more against the surface, and 4.5:1 for text.
+</Callout>
+
+### Disabled
+
+`disabled` stops the toggle responding. Off, it goes flat and its content dims; on, it stays pressed in, so its state still shows.
+
+<ComponentPreview name="toggle-disabled" />
+
+### Controlled
+
+Use `pressed` and `onPressedChange` to hold the state yourself, for example to show it in a label next to the toggle. For uncontrolled use, `defaultPressed` sets the starting state.
+
+<ComponentPreview name="toggle-controlled" />
+
+### In context
+
+A grid of device tiles, each with a large rounded toggle. The lights share a warm `--toggle-on` colour; the other devices use the default.
+
+<ComponentPreview name="toggle-in-context" />
+
+## Accessibility
+
+- Renders a native `<button>` with `aria-pressed`, so Enter and Space toggle it and screen readers announce whether it's pressed.
+- An icon-only toggle needs an `aria-label` naming the setting. Keep the label the same in both states; the pressed state is announced from `aria-pressed`.
+- The on state changes colour as well as depth, so it doesn't rely on the shadow alone.
+- Keyboard focus shows a 2px `--ring` outline, offset from the toggle.
+- A disabled toggle uses the native `disabled` attribute, so it leaves the tab order.
+
+## API reference
+
+### Toggle
+
+Takes every prop of Base UI's [Toggle](https://base-ui.com/react/components/toggle) and of the native `<button>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"pill" \| "rounded"` | `"pill"` |
+| `iconFill` | `boolean` | `false` |
+| `pressed` | `boolean` | – |
+| `defaultPressed` | `boolean` | `false` |
+| `onPressedChange` | `(pressed: boolean, eventDetails) => void` | – |
+| `disabled` | `boolean` | `false` |
+| `value` | `string` | – |
+
+`value` identifies the toggle inside a [Toggle Group](/docs/components/toggle-group).
+
+### toggleVariants
+
+```ts
+toggleVariants(options?: {
+  variant?: "default";
+  size?: "sm" | "md" | "lg";
+  shape?: "pill" | "rounded";
+  iconFill?: boolean;
+}): string;
+```
+
+Returns the toggle's class names. The pressed styles key off `aria-pressed`, so the element you apply them to needs that attribute.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"toggle"` |
+| `data-size` | The `size` |
+| `data-shape` | The `shape` |
+| `data-pressed` | Present while the toggle is on |
+| `data-disabled` | Present when disabled |
+
+### CSS variables
+
+| Variable | Description |
+| --- | --- |
+| `--toggle-on` | The colour of the content while on. Set on the toggle or any ancestor. Defaults to `--primary`. |

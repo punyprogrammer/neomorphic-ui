@@ -1,0 +1,126 @@
+---
+title: Trace
+description: A column of short muted lines, one per step an agent takes, that can shine while running and open to show their output.
+component: trace
+---
+
+<ComponentPreview name="trace-demo" />
+
+## Usage
+
+```tsx
+import {
+  Trace,
+  TraceCollapsible,
+  TraceCollapsibleContent,
+  TraceCollapsibleTrigger,
+  TraceDescription,
+  TraceIcon,
+  TraceLine,
+  TraceTitle,
+} from "@neomorphic-react/ui/trace";
+```
+
+```tsx
+<Trace>
+  <TraceLine>
+    <TraceIcon>
+      <FileSearch />
+    </TraceIcon>
+    <TraceTitle>Read 3 files</TraceTitle>
+    <TraceDescription>0.2s</TraceDescription>
+  </TraceLine>
+</Trace>
+```
+
+Use a trace to show what an assistant did on the way to its answer: files it read, searches it ran, commands and their output. Put it in a [Message](/docs/components/message) above the reply. For a single line of status such as "Thinking…" or a date, use a [Marker](/docs/components/marker); for a task with a known end, use a [Progress](/docs/components/progress) bar.
+
+## Examples
+
+### Statuses
+
+`status` sets how a line looks while the agent works. Finished steps have no status.
+
+- `running` sweeps a shine across the title. Put a [Spinner](/docs/components/spinner) in the `TraceIcon` with `aria-hidden` so it isn't announced as well.
+- `pending` dims a step that hasn't started.
+- `error` turns the line `--destructive`. Pair it with an icon and a description that say what went wrong, so the colour isn't the only sign.
+
+<ComponentPreview name="trace-statuses" />
+
+### Output
+
+Wrap a line in a `TraceCollapsible` and a `TraceCollapsibleTrigger` to make it open. A chevron after the line turns while it's open, and the output in `TraceCollapsibleContent` hangs off a groove under the line's icon. Use a `sm` [Code Block](/docs/components/code-block) for command output, or plain text for a short note. `defaultOpen` starts a step open.
+
+<ComponentPreview name="trace-collapsible" />
+
+### Lines as actions
+
+Wrap a line in a `<button>` or an `<a>` to make it act, for example to open the file the agent read. The trace shrinks the wrapper to fit the line, the text darkens on hover, and keyboard focus shows a `--ring` outline around it.
+
+<ComponentPreview name="trace-actions" />
+
+### In context
+
+An assistant's message that works through three steps and then answers. Each step is `running` while it's current and `pending` until then, and gets its time once it's done. The trace is a `role="status"` region, so each change is announced.
+
+<ComponentPreview name="trace-in-context" />
+
+## Accessibility
+
+- `Trace` and its lines are plain elements with no role. Statuses are visual only; give the trace `role="status"` if its progress should be announced, or say the result in text.
+- `TraceIcon` is `aria-hidden`, so icons and spinners inside it are decorative. Put anything the reader needs in the title or description.
+- `TraceCollapsibleTrigger` is Base UI's `Collapsible.Trigger`: a `<button>` with `aria-expanded`, named by the line inside it. Enter or Space opens and closes it. The chevron is decorative.
+- A long title is cut off with an ellipsis on screen, but the whole title is still read.
+- Under reduced motion the shine across a running title stays still.
+- Keyboard focus on a trigger, or on a `<button>` or `<a>` wrapping a line, shows a 2px `--ring` outline.
+
+## API reference
+
+### Trace
+
+The column of steps. Takes every prop of the native `<div>`. Its direct children that wrap a `TraceLine`, such as a `<button>` or `<a>`, are sized to the line and get a focus outline.
+
+### TraceLine
+
+One step: a `TraceIcon`, a `TraceTitle` and a `TraceDescription` in a row. Takes every prop of the native `<span>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `status` | `"running" \| "pending" \| "error"` | – |
+
+### TraceIcon, TraceTitle and TraceDescription
+
+`TraceIcon` holds a 16px icon or `Spinner` and is hidden from assistive technology. `TraceTitle` says what the step did and truncates to one line. `TraceDescription` follows the title with a count or a time ("12 results", "2.4s") in lighter text. They take every prop of the native `<span>`.
+
+### TraceCollapsible
+
+A step whose output opens below it. Takes every prop of Base UI's [Collapsible.Root](https://base-ui.com/react/components/collapsible).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `disabled` | `boolean` | `false` |
+
+### TraceCollapsibleTrigger
+
+Wraps a `TraceLine` and adds the chevron after it. Takes every prop of Base UI's `Collapsible.Trigger`.
+
+### TraceCollapsibleContent
+
+The step's output. Takes every prop of Base UI's `Collapsible.Panel`. `className` goes to the inner block with the groove, not to the panel that animates.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `keepMounted` | `boolean` | `false` |
+| `hiddenUntilFound` | `boolean` | `false` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"trace"`, `"trace-line"`, `"trace-icon"`, `"trace-title"`, `"trace-description"`, `"trace-collapsible"`, `"trace-collapsible-trigger"`, `"trace-collapsible-content"` or `"trace-collapsible-content-inner"` |
+| `data-status` | On a line, its `status` |
+| `data-panel-open` | On a trigger, present while its output is open |
+| `data-open`, `data-closed` | On a collapsible and its content, whether the output is open |

@@ -1,0 +1,129 @@
+---
+title: Popover
+description: A raised card that scales in from its trigger and holds rich content, from a note to a short form.
+component: popover
+primitive: https://base-ui.com/react/components/popover
+---
+
+<ComponentPreview name="popover-demo" />
+
+## Usage
+
+```tsx
+import {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@neomorphic-react/ui/popover";
+```
+
+```tsx
+<Popover>
+  <PopoverTrigger render={<Button />}>Delivery</PopoverTrigger>
+  <PopoverContent>
+    <PopoverHeader>
+      <PopoverTitle>Free delivery</PopoverTitle>
+      <PopoverDescription>Orders over £40 ship free.</PopoverDescription>
+    </PopoverHeader>
+  </PopoverContent>
+</Popover>
+```
+
+Use a popover for content the user opens on purpose and may interact with: a few settings, a share link, a short form. It opens on click and the rest of the page stays usable. For a label on hover, use a [Tooltip](/docs/components/tooltip); for a list of actions, a [Dropdown Menu](/docs/components/dropdown-menu); for a task that needs the user's full attention, a [Dialog](/docs/components/dialog).
+
+## Examples
+
+### Placement
+
+The card opens below its trigger, centred. `side` moves it to the `top`, `left` or `right`, and `align` lines it up with the trigger's `start`, `center` or `end`. If there isn't room, it flips to stay on screen. Like Tooltip, it has no arrow: a raised arrow can't cast a shadow that joins the card's.
+
+<ComponentPreview name="popover-placement" />
+
+### With a form
+
+The card stacks its children with a 16px gap. `PopoverClose` closes it from inside; pass a [Button](/docs/components/button) to `render` to style it. Opening the popover moves focus to the first field.
+
+<ComponentPreview name="popover-form" />
+
+### Controlled
+
+Pass `open` and `onOpenChange` to close the popover from your own code. Here `PopoverContent` renders a `<form>` through `render`, and submitting it saves the name and closes the card.
+
+<ComponentPreview name="popover-controlled" />
+
+### In context
+
+A share popover lined up with the end of its trigger with `align="end"`. The link sits in an [Input Group](/docs/components/input-group) with a copy button, and the people with access are listed below.
+
+<ComponentPreview name="popover-in-context" />
+
+## Accessibility
+
+- The trigger is a `<button>` with `aria-expanded`, and the card has `role="dialog"`. `PopoverTitle` names the card and `PopoverDescription` describes it.
+- On open, focus moves to the first focusable element inside the card. On close it returns to the trigger.
+- Escape closes the popover, as does clicking outside it. Focus isn't trapped: tabbing out of the card closes it too.
+- `PopoverTrigger` has no styles of its own. Render a [Button](/docs/components/button) through it to get the `--ring` focus outline.
+
+## API reference
+
+### Popover
+
+Base UI's [Popover.Root](https://base-ui.com/react/components/popover) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `modal` | `boolean \| "trap-focus"` | `false` |
+
+### PopoverTrigger
+
+The button that opens the card. Takes every prop of Base UI's `Popover.Trigger`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+| `openOnHover` | `boolean` | `false` |
+| `delay` | `number` | `300` |
+| `closeDelay` | `number` | `0` |
+
+`delay` and `closeDelay` only apply with `openOnHover`.
+
+### PopoverContent
+
+The card, portalled to the end of the document, 288px wide by default. `side`, `sideOffset`, `align`, `alignOffset` and `anchor` go to Base UI's `Popover.Positioner`; the remaining props go to `Popover.Popup`, including `className`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"bottom"` |
+| `sideOffset` | `number` | `10` |
+| `align` | `"start" \| "center" \| "end"` | `"center"` |
+| `alignOffset` | `number` | `0` |
+| `anchor` | `Element \| VirtualElement \| RefObject<Element> \| (() => Element \| VirtualElement)` | The trigger |
+| `initialFocus` | `boolean \| RefObject<HTMLElement> \| (openType) => …` | – |
+| `finalFocus` | `boolean \| RefObject<HTMLElement> \| (closeType) => …` | – |
+
+### PopoverHeader, PopoverTitle and PopoverDescription
+
+`PopoverHeader` is a `<div>` that stacks the title and description. `PopoverTitle` is an `<h2>` that names the card, and `PopoverDescription` a muted `<p>` that describes it. They take every prop of the native `<div>`, Base UI's `Popover.Title` and `Popover.Description`.
+
+### PopoverClose
+
+A button that closes the popover. Takes every prop of Base UI's `Popover.Close`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"popover-trigger"`, `"popover-content"`, `"popover-header"`, `"popover-title"`, `"popover-description"` or `"popover-close"` |
+| `data-popup-open` | On the trigger, present while the card is open |
+| `data-pressed` | On the trigger, present while it's pressed |
+| `data-open`, `data-closed` | On the content, its open state |
+| `data-side` | On the content, the side it opened on |
+| `data-align` | On the content, its alignment |
+| `data-starting-style`, `data-ending-style` | On the content, present while it scales in or out |

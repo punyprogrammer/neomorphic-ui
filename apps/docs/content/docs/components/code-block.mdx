@@ -1,0 +1,180 @@
+---
+title: Code Block
+description: Code in a well pressed into the surface, with an optional title, copy and wrap buttons, line numbers and diff marks.
+component: code-block
+---
+
+<ComponentPreview name="code-block-demo" />
+
+## Usage
+
+Code Block needs no extra packages and shows code as plain text. To colour the code, also install the optional peer dependency `shiki` and use `useHighlightedCode`:
+
+<InstallCommand packages="shiki" />
+
+```tsx
+import {
+  CodeBlock,
+  CodeBlockActions,
+  CodeBlockContent,
+  CodeBlockCopyButton,
+  CodeBlockHeader,
+  CodeBlockTitle,
+  CodeBlockWrapButton,
+} from "@neomorphic-react/ui/code-block";
+```
+
+```tsx
+<CodeBlock>
+  <CodeBlockHeader>
+    <CodeBlockTitle>save-button.tsx</CodeBlockTitle>
+    <CodeBlockActions>
+      <CodeBlockWrapButton />
+      <CodeBlockCopyButton value={code} />
+    </CodeBlockActions>
+  </CodeBlockHeader>
+  <CodeBlockContent lineNumbers>{code}</CodeBlockContent>
+</CodeBlock>
+```
+
+Use a code block for anything people read or copy as code: snippets, commands, terminal output and diffs. For a key name or a short value inside a sentence, use a [Kbd](/docs/components/kbd) or an inline `<code>`.
+
+## Examples
+
+### Diffs and marked lines
+
+Pass `CodeBlockLine`s instead of a string to mark lines. `added` and `removed` tint the line and put a `+` or `−` before it, and `highlighted` tints it with a bar of `--primary` at its start. `startLine` numbers the lines from where the excerpt begins in its file.
+
+<ComponentPreview name="code-block-diff" />
+
+### Long code and floating actions
+
+`maxLines` shows that many lines, faded at the bottom, with a Show more button under them. `CodeBlockActions` placed straight in the `CodeBlock`, without a header, float over its top corner and appear on hover or focus. On touch screens they're always shown.
+
+<ComponentPreview name="code-block-long" />
+
+### Output and errors
+
+`size="sm"` is tighter, with smaller text, for terminal output or code nested in a message. `variant="destructive"` tints the well and the text for an error or a stack trace. `CodeBlockFooter` adds a row under the code, here for the exit code.
+
+<ComponentPreview name="code-block-output" />
+
+### Syntax highlighting
+
+`useHighlightedCode` returns one node per line: plain text at first, then coloured tokens once Shiki has loaded. Render each in a `CodeBlockLine`. Shiki, the language and the theme load on first use, and if the language isn't known the code stays plain.
+
+<ComponentPreview name="code-block-highlighting" />
+
+```tsx
+import { useHighlightedCode } from "@neomorphic-react/ui/use-highlighted-code";
+
+const { lines } = useHighlightedCode(code, { language: "ts" });
+```
+
+### In context
+
+An API quickstart. [Tabs](/docs/components/tabs) switch between a cURL command and the same request in JavaScript, and each block's copy button copies the snippet that's showing.
+
+<ComponentPreview name="code-block-in-context" />
+
+## Accessibility
+
+- `CodeBlockContent` renders a `<pre>` in the tab order, so code that overflows scrolls from the keyboard. It always reads left to right, even in a right-to-left page.
+- Keyboard focus on the code shows a 2px `--ring` outline around the whole block.
+- The copy button is named "Copy code". After copying, it shows a check and is named "Copied" for two seconds, and a polite live region announces "Copied".
+- The wrap button is a toggle named "Wrap lines", with `aria-pressed`. The Show more button has `aria-expanded` and points at the code with `aria-controls`.
+- Line numbers and diff signs can't be selected, so they're never copied with the code. Line numbers have empty alternative text, so screen readers skip them in browsers that support it.
+- Diff lines are marked by a sign as well as a tint, so they don't rely on colour alone.
+- The buttons' icons are decorative (`aria-hidden`). Mark an icon in `CodeBlockTitle` with `aria-hidden` too.
+
+## API reference
+
+### CodeBlock
+
+The well. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"default" \| "sm"` | `"default"` |
+| `variant` | `"default" \| "destructive"` | `"default"` |
+| `defaultWrap` | `boolean` | `false` |
+
+`defaultWrap` starts with long lines wrapped; a `CodeBlockWrapButton` toggles it.
+
+### CodeBlockHeader, CodeBlockTitle, CodeBlockActions and CodeBlockFooter
+
+`CodeBlockHeader` is the row above the code, holding a `CodeBlockTitle` (a file name or language, with an optional leading icon) and `CodeBlockActions` at its end. Placed straight in the `CodeBlock`, `CodeBlockActions` float over the top corner instead. `CodeBlockFooter` is a row under the code. All four take every prop of the native `<div>`.
+
+### CodeBlockCopyButton
+
+Copies `value` to the clipboard. Takes every prop of [Button](/docs/components/button) apart from `value`, which is the text to copy.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | – |
+| `variant` | `"default" \| "primary" \| "destructive" \| "ghost"` | `"ghost"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"sm"` |
+| `shape` | `"pill" \| "rounded"` | `"pill"` |
+
+`value` is required, and is usually the same string the block shows. Copying needs the Clipboard API, which browsers only offer in secure contexts such as `https` pages and `localhost`. Without it, the button does nothing.
+
+### CodeBlockWrapButton
+
+Toggles wrapping of long lines for the block it's in. Takes every prop of [Button](/docs/components/button), with the same defaults as `CodeBlockCopyButton`.
+
+### CodeBlockContent
+
+The code. Takes every prop of the native `<pre>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `lineNumbers` | `boolean` | `false` |
+| `startLine` | `number` | `1` |
+| `maxLines` | `number` | – |
+| `wrap` | `boolean` | The block's wrap state |
+
+Pass a string, or `CodeBlockLine`s. A string with `lineNumbers` or `maxLines` is split into lines for you, and a trailing newline doesn't add an empty line. `wrap` overrides the block's wrap state and the wrap button.
+
+### CodeBlockLine
+
+One line of code. Takes every prop of the native `<span>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "highlighted" \| "added" \| "removed"` | `"default"` |
+
+### codeBlockVariants and codeBlockLineVariants
+
+```ts
+codeBlockVariants(options?: { variant?: "default" | "destructive" }): string;
+codeBlockLineVariants(options?: {
+  variant?: "default" | "highlighted" | "added" | "removed";
+}): string;
+```
+
+Return the class names of the well and of a line.
+
+### useHighlightedCode
+
+From `@neomorphic-react/ui/use-highlighted-code`. Needs `shiki` installed.
+
+```ts
+useHighlightedCode(
+  code: string,
+  options: { language: string; theme?: BundledTheme }
+): { lines: ReactNode[]; status: "loading" | "ready" | "error" };
+```
+
+`language` is a Shiki language id or alias, such as `"tsx"` or `"bash"`. `theme` is a Shiki theme, `"github-light"` by default; only its token colours are used, so the code stays in the well. `status` is `"error"` when highlighting fails, and `lines` stay plain.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"code-block"`, `"code-block-header"`, `"code-block-title"`, `"code-block-actions"`, `"code-block-footer"`, `"code-block-copy-button"`, `"code-block-wrap-button"`, `"code-block-content"`, `"code-block-code"`, `"code-block-line"` or `"code-block-line-content"` |
+| `data-size` | On the block, the `size` |
+| `data-variant` | On the block or a line, the `variant` |
+| `data-wrap` | On the content, present while lines wrap |
+| `data-numbered` | On the content, present with `lineNumbers` |
+| `data-clipped` | On the content, present while `maxLines` hides lines |
+| `data-copied` | On the copy button, present for two seconds after copying |

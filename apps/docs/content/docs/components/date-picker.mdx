@@ -1,0 +1,155 @@
+---
+title: Date Picker
+description: A raised field that opens a calendar in a popover, for one date, a range or a typed date.
+component: date-picker
+---
+
+<ComponentPreview name="date-picker-demo" />
+
+## Usage
+
+Date Picker is built on [react-day-picker](https://daypicker.dev), an optional peer dependency. Install it alongside the library:
+
+<InstallCommand packages="react-day-picker" />
+
+```tsx
+import {
+  DatePicker,
+  DatePickerInput,
+  DateRangePicker,
+} from "@neomorphic-react/ui/date-picker";
+```
+
+```tsx
+const [date, setDate] = useState<Date>();
+
+<DatePicker aria-label="Departure" onValueChange={setDate} value={date} />
+```
+
+The trigger is a raised field button showing the chosen date, or `placeholder` while there's none. Pressing it opens a [Calendar](/docs/components/calendar) in a [Popover](/docs/components/popover), which closes once a day is picked. Use a date picker in forms and toolbars where the date is one field among others. When choosing dates is the whole task, put a Calendar on the page instead.
+
+## Examples
+
+### Presets
+
+`presets` adds a column of quick picks beside the calendar, each a `label` and a `value`. Picking one sets the date and closes the popup. The preset that matches the current date is pressed in. `calendarProps` reaches the calendar, here to disable days before today.
+
+<ComponentPreview name="date-picker-presets" />
+
+### Range
+
+`DateRangePicker` picks a start and an end date on two months side by side; `numberOfMonths` changes that. It stays open while the range is adjusted, and a preset picks a whole range and closes it. Its value is a `DateRange`, `{ from, to }`.
+
+<ComponentPreview name="date-picker-range" />
+
+### Typed input
+
+`DatePickerInput` is a text field in an [Input Group](/docs/components/input-group) well, with a button that opens the calendar. Typing a whole date, as `yyyy-mm-dd` or in the same format the field shows, moves the calendar to it. Enter or leaving the field reads the text and rewrites it in that format; text that isn't a date marks the field invalid. Alt + Arrow Down opens the calendar from the keyboard. Here `calendarProps` adds month and year dropdowns for a date of birth.
+
+<ComponentPreview name="date-picker-input" />
+
+### Format and forms
+
+By default the trigger shows a medium-length date in the user's locale, such as "12 Jun 2026" in British English. `formatDate` changes how it reads; `DateRangePicker` takes `formatRange` instead, and `DatePickerInput` also takes `parseDate` to read typed text. `name` adds a hidden input holding the date as `yyyy-mm-dd`, so the date submits with a form.
+
+<ComponentPreview name="date-picker-format" />
+
+<Callout title="Server rendering">
+  The default format follows the locale of whatever renders it. When a picker with a value is rendered on the server, pass a `formatDate` with a fixed locale so the server and the browser show the same text.
+</Callout>
+
+### Sizes and disabled
+
+`sm`, `md` (the default) and `lg` set the trigger's height, padding and text size. Set its width with `className`. `disabled` flattens the trigger and dims it.
+
+<ComponentPreview name="date-picker-sizes" />
+
+### In context
+
+A viewing request in a card. The date picker is controlled with `value` and `onValueChange`, Sundays and past days are disabled, and the button is enabled once both a date and a time are chosen.
+
+<ComponentPreview name="date-picker-in-context" />
+
+## Accessibility
+
+- The trigger is a `<button>` with `aria-haspopup="dialog"` and `aria-expanded`, and the popup has `role="dialog"`.
+- Name the trigger, or `DatePickerInput`'s text field, with a `<label htmlFor>` pointing at its `id`, a `FieldLabel` with `htmlFor`, or `aria-label`.
+- Opening moves focus into the popup. Escape closes it and returns focus to the trigger, as does picking a day in `DatePicker`.
+- Inside the popup, the calendar works as described on the [Calendar](/docs/components/calendar#accessibility) page.
+- Preset buttons use `aria-pressed` to show which one matches the value, and the pressed one also turns `--primary`.
+- `DatePickerInput` sets `aria-invalid` on the text field when its text isn't a date, which rings the well in `--destructive`. Its calendar button is named "Open calendar".
+- The calendar icons are decorative (`aria-hidden`).
+- Keyboard focus shows a 2px `--ring` outline, offset from the trigger or around the whole well.
+
+## API reference
+
+### DatePicker
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `Date` | – |
+| `defaultValue` | `Date` | – |
+| `onValueChange` | `(date: Date \| undefined) => void` | – |
+| `presets` | `DatePreset<Date>[]` | – |
+| `formatDate` | `(date: Date) => string` | Medium date in the user's locale |
+| `placeholder` | `string` | `"Pick a date"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `name` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `id` | `string` | – |
+| `aria-label` | `string` | – |
+| `className` | `string` | – |
+| `calendarProps` | `CalendarProps`, without `mode`, `selected`, `onSelect`, `required`, `month` and `onMonthChange` | – |
+
+`className` goes to the trigger. `calendarProps` reaches the calendar, for `disabled` days, `startMonth`, `captionLayout` and so on.
+
+### DateRangePicker
+
+Takes the same props as `DatePicker` apart from `name` and `formatDate`, with a range for its value.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `DateRange` | – |
+| `defaultValue` | `DateRange` | – |
+| `onValueChange` | `(range: DateRange \| undefined) => void` | – |
+| `presets` | `DatePreset<DateRange>[]` | – |
+| `formatRange` | `(range: DateRange) => string` | Medium date range in the user's locale |
+| `numberOfMonths` | `number` | `2` |
+| `placeholder` | `string` | `"Pick dates"` |
+
+### DatePickerInput
+
+Takes every prop of [Input Group](/docs/components/input-group)'s `InputGroupInput`, apart from `size`, `value`, `defaultValue`, `onChange` and `onValueChange`, which are replaced by the ones below. `className` goes to the well.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `Date` | – |
+| `defaultValue` | `Date` | – |
+| `onValueChange` | `(date: Date \| undefined) => void` | – |
+| `formatDate` | `(date: Date) => string` | Medium date in the user's locale |
+| `parseDate` | `(text: string) => Date \| undefined` | `yyyy-mm-dd`, then the browser's `Date.parse` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `name` | `string` | – |
+| `placeholder` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `calendarProps` | Same as `DatePicker` | – |
+
+### Types
+
+```ts
+interface DatePreset<T> {
+  label: string;
+  value: T;
+}
+```
+
+`DatePickerProps`, `DateRangePickerProps`, `DatePickerInputProps`, `DatePreset` and `DateRange` are exported from `@neomorphic-react/ui/date-picker`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"date-picker-trigger"` on the trigger or `DatePickerInput`'s calendar button, `"date-picker-content"` on the popup, `"date-picker-presets"` on the preset column |
+| `data-placeholder` | On the trigger, present while there's no value |
+| `data-popup-open` | On the trigger, present while the calendar is open |
+| `data-disabled` | On the trigger, present when disabled |

@@ -1,0 +1,156 @@
+---
+title: Installation
+description: Add the package, point Tailwind at it and import the two stylesheets.
+---
+
+## Requirements
+
+- React 19 and React DOM 19
+- Tailwind CSS v4
+- Node.js 22 or later
+
+If your project doesn't use Tailwind CSS v4 yet, follow the [Tailwind installation guide](https://tailwindcss.com/docs/installation) for your framework first.
+
+## Set up
+
+<Steps>
+
+### Install the package
+
+<InstallCommand packages="@neomorphic-react/ui" />
+
+### Import the styles
+
+The components are styled with Tailwind class names, so your Tailwind build has to scan the package. In the stylesheet where you import Tailwind, add the two library stylesheets and an `@source` line:
+
+```css title="app/globals.css"
+@import "tailwindcss";
+@import "@neomorphic-react/ui/base.css";
+@import "@neomorphic-react/ui/theme.css";
+
+@source "../node_modules/@neomorphic-react/ui/dist";
+```
+
+The `@source` path is relative to this CSS file: change it so it reaches your `node_modules`. Without it, components render with no shadows or spacing.
+
+- `base.css` holds the mechanics: the shadow and radius scales, animations and the `neu-*` utilities.
+- `theme.css` holds the default colours. Import it as it is, or copy it into your own CSS and edit it. See [Theming](/docs/theming).
+
+### Load the font
+
+The theme is designed for [Roboto](https://fonts.google.com/specimen/Roboto). Load it however your framework loads fonts, then set it as the sans-serif font:
+
+```css title="app/globals.css"
+@theme {
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+}
+```
+
+### Isolate your app root
+
+Popups (menus, dialogs, tooltips, toasts) render in a portal at the end of `<body>`. Give your app's root element `isolation: isolate` so they always stack above the page:
+
+```tsx title="app/layout.tsx"
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <div className="isolate">{children}</div>
+      </body>
+    </html>
+  );
+}
+```
+
+### Use a component
+
+Import each component from its own path:
+
+```tsx title="app/page.tsx"
+import { Button } from "@neomorphic-react/ui/button";
+
+export default function Page() {
+  return <Button variant="primary">Get started</Button>;
+}
+```
+
+</Steps>
+
+## Framework notes
+
+### Next.js
+
+Every entry starts with `"use client"`, so you can import components straight into Server Components in the App Router. Use `next/font` to load Roboto and pass its CSS variable to `--font-sans`:
+
+```tsx title="app/layout.tsx"
+import { Roboto } from "next/font/google";
+import "./globals.css";
+
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-roboto",
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html className={roboto.variable} lang="en">
+      <body>
+        <div className="isolate">{children}</div>
+      </body>
+    </html>
+  );
+}
+```
+
+```css title="app/globals.css"
+@theme {
+  --font-sans: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+}
+```
+
+### Vite
+
+Add Tailwind with the `@tailwindcss/vite` plugin, then import the stylesheet in your entry file. The `@source` path is relative to the CSS file, so from `src/index.css` it is `../node_modules/@neomorphic-react/ui/dist`. Load Roboto with `@fontsource/roboto`:
+
+```tsx title="src/main.tsx"
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "./index.css";
+```
+
+### Monorepos
+
+In a pnpm or Yarn workspace, `node_modules/@neomorphic-react/ui` may be a link to another folder. Point `@source` at the folder that holds the package's `dist`, relative to your CSS file.
+
+## Optional dependencies
+
+A few components wrap a third-party library. Those libraries are optional peer dependencies: install one only if you use the component that needs it.
+
+| Component | Install |
+| --- | --- |
+| Calendar, DatePicker | `react-day-picker@^10` |
+| Carousel | `embla-carousel-react@^8` |
+| Chart | `recharts@^3` |
+| DataTable | `@tanstack/react-table@^8` |
+| Resizable | `react-resizable-panels@^4` |
+| Syntax highlighting in CodeBlock (`useHighlightedCode`) | `shiki@^4` |
+
+For example, to use the Chart component:
+
+<InstallCommand packages="recharts" />
+
+Without `shiki`, `CodeBlock` still renders plain code.
+
+## TypeScript
+
+The package ships its own types. Each component exports its props type next to it, such as `ButtonProps` from `@neomorphic-react/ui/button`.
+
+```tsx
+import { Button, type ButtonProps } from "@neomorphic-react/ui/button";
+
+function SaveButton(props: ButtonProps) {
+  return <Button variant="primary" {...props} />;
+}
+```

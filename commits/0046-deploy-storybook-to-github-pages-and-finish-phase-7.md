@@ -8,7 +8,7 @@ insertions: 81
 deletions: 37
 ---
 
-<!-- nav --> [← 0042](0042-add-version-badge.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0042](0042-add-version-badge.md) · [Index](README.md) · [0048 →](0048-initial-docs.md)
 
 # 0046 · Deploy Storybook to GitHub Pages and finish Phase 7
 

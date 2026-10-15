@@ -1,0 +1,105 @@
+---
+title: Switch
+description: An on/off control whose track fills dark and whose raised thumb slides across when it's turned on.
+component: switch
+primitive: https://base-ui.com/react/components/switch
+---
+
+<ComponentPreview name="switch-demo" />
+
+## Usage
+
+```tsx
+import { Label } from "@neomorphic-react/ui/label";
+import { Switch } from "@neomorphic-react/ui/switch";
+```
+
+```tsx
+<Label>
+  <Switch defaultChecked name="wifi" />
+  Wi-Fi
+</Label>
+```
+
+Use a switch for a setting that takes effect at once. For a choice that's confirmed later with a submit button, use a [Checkbox](/docs/components/checkbox). A hidden native input carries the value, so the switch submits with a form under its `name`.
+
+## Examples
+
+### Sizes
+
+`md` (the default) is 48 × 24px. `sm` and `lg` scale the track and thumb together, and the thumb always lands flush with the far end.
+
+<ComponentPreview name="switch-sizes" />
+
+### States
+
+- Off, the track is a well with a raised thumb at the start. On, the track fills with `--primary` and the thumb slides to the end, so the state never depends on depth alone.
+- `readOnly` keeps the current state and ignores clicks.
+- `aria-invalid` adds a `--destructive` ring. Point `aria-describedby` at the error message, or put the switch in a `Field`.
+- `disabled` dims the switch and blocks interaction. A `Label` around it dims as well.
+
+<ComponentPreview name="switch-states" />
+
+### In a field
+
+In a settings list, put the label and description first and the switch at the end. Inside a `Field` with `orientation="horizontal"`, the `FieldLabel` names the switch and the `FieldDescription` describes it, with no `id`s to wire up.
+
+<ComponentPreview name="switch-field" />
+
+### In context
+
+A card of controlled switches. `checked` and `onCheckedChange` keep the list in state, and the count in the header follows it. Each row is a `Label`, so clicking anywhere on it toggles its switch.
+
+<ComponentPreview name="switch-in-context" />
+
+## Accessibility
+
+- Base UI renders a `<span role="switch">` with `aria-checked`, and a hidden native `<input type="checkbox">` beside it for forms.
+- `readOnly` and `required` set `aria-readonly` and `aria-required`.
+- Space toggles the switch, and it takes part in the tab order.
+- Name the switch with a wrapping `<label>`, a `FieldLabel` or an `aria-label`. Keep the name the same whether it's on or off.
+- In right-to-left layouts, the thumb starts at the right and slides left.
+- The hit area reaches 8px past the track at each end and 12px above and below it.
+- Keyboard focus shows a 2px `--ring` outline, offset from the track.
+
+## API reference
+
+### Switch
+
+Takes every prop of Base UI's [Switch.Root](https://base-ui.com/react/components/switch). The thumb is rendered for you.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `checked` | `boolean` | – |
+| `defaultChecked` | `boolean` | `false` |
+| `onCheckedChange` | `(checked: boolean, eventDetails) => void` | – |
+| `name` | `string` | – |
+| `value` | `string` | – |
+| `uncheckedValue` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `inputRef` | `Ref<HTMLInputElement>` | – |
+
+### switchVariants and switchThumbVariants
+
+```ts
+switchVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+switchThumbVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Return the class names of the track and the thumb.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"switch"`, or `"switch-thumb"` on the thumb |
+| `data-size` | On the track, the `size` |
+| `data-checked` | Present when on |
+| `data-unchecked` | Present when off |
+| `data-disabled` | Present when disabled |
+| `data-readonly` | Present when read-only |
+| `data-required` | Present when required |
+| `data-valid`, `data-invalid` | In a `Field`, the result of validation |

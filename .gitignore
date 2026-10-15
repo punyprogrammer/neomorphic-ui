@@ -6,6 +6,11 @@ dist
 *.local
 .env
 .cache
+.vercel
 storybook-static/
 *.tsbuildinfo
 .vitest/
+.next/
+.source/
+next-env.d.ts
+apps/docs/examples/__index__.ts

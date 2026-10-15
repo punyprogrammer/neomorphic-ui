@@ -1,0 +1,132 @@
+---
+title: Bar Meter
+description: A row of vertical wells, each with a raised fill rising to its reading, a value above and a label below.
+component: bar-meter
+primitive: https://base-ui.com/react/components/meter
+---
+
+<ComponentPreview name="bar-meter-demo" />
+
+## Usage
+
+```tsx
+import {
+  BarMeter,
+  BarMeterItem,
+  BarMeterLabel,
+  BarMeterValue,
+} from "@neomorphic-react/ui/bar-meter";
+```
+
+```tsx
+<BarMeter aria-label="Highs this week">
+  <BarMeterItem format={{ style: "unit", unit: "celsius" }} max={40} value={24}>
+    <BarMeterValue />
+    <BarMeterLabel>Mon</BarMeterLabel>
+  </BarMeterItem>
+  <BarMeterItem format={{ style: "unit", unit: "celsius" }} max={40} value={28}>
+    <BarMeterValue />
+    <BarMeterLabel>Tue</BarMeterLabel>
+  </BarMeterItem>
+</BarMeter>
+```
+
+Use a bar meter to compare a handful of readings on the same scale, such as a week of temperatures or storage by type. Each bar is a meter: a measurement within a known range. For the progress of a task, use [Progress](/docs/components/progress). For many points, axes or a legend, use a [Chart](/docs/components/chart).
+
+## Examples
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the width of the bars, the gap between them and their default height: 8px wide and 96px tall, 12px and 128px, or 16px and 160px. The parts always stack the same way, so `BarMeterValue` sits above the bar and `BarMeterLabel` below it in whatever order you write them.
+
+<ComponentPreview name="bar-meter-sizes" />
+
+### Height
+
+Set `--bar-meter-height` on the group with an arbitrary property class to make the bars taller or shorter than their size allows. A reading above zero always shows at least a round cap; zero shows an empty well.
+
+<ComponentPreview name="bar-meter-height" />
+
+### Scale and format
+
+`min` and `max` set each bar's scale, 0 to 100 by default, and readings outside it are held at the ends. Without `format`, `BarMeterValue` shows the reading's share of the scale as a percentage. `format` takes `Intl.NumberFormat` options to show the reading itself, such as a temperature or a duration. `getAriaValueText` sets what screen readers announce, here "7.5 hours" rather than "7.5h".
+
+<ComponentPreview name="bar-meter-format" />
+
+### Colour
+
+The fill fades from `--bar-meter-fill-start` at its foot to `--bar-meter-fill` at its top. By default that's a darker `--primary` to `--primary`. Set `--bar-meter-fill` alone and the start darkens to match, or set both for a two-colour fade.
+
+<ComponentPreview name="bar-meter-colors" />
+
+### In context
+
+A week of exercise in a card. The bars spread across the card with `justify-between`, and each one reads its minutes in a short unit while announcing the full word.
+
+<ComponentPreview name="bar-meter-in-context" />
+
+## Accessibility
+
+- `BarMeter` has `role="group"`. Name it with `aria-label` so screen readers say what the bars measure.
+- Each `BarMeterItem` has `role="meter"` with `aria-valuemin`, `aria-valuemax` and `aria-valuenow`, held within the scale.
+- `aria-valuetext` is the formatted value: a percentage by default, or the `format` you pass. Override it with `getAriaValueText`.
+- `BarMeterLabel` names its bar. Without a visible label, put an `aria-label` on `BarMeterItem`.
+- The height of a fill isn't the only cue: show the reading with `BarMeterValue` or nearby text when the exact value matters.
+
+## API reference
+
+### BarMeter
+
+The row of bars. Renders a `<div>` and takes every prop of it.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `aria-label` | `string` | – |
+
+### BarMeterItem
+
+One bar. Takes every prop of Base UI's [Meter.Root](https://base-ui.com/react/components/meter); the track and fill are rendered for you. Put a `BarMeterValue` and a `BarMeterLabel` in its children.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number` | – |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `format` | `Intl.NumberFormatOptions` | – |
+| `getAriaValueText` | `(formattedValue: string, value: number) => string` | – |
+| `locale` | `Intl.LocalesArgument` | – |
+
+`value` is required.
+
+### BarMeterValue
+
+The reading above the bar, as a percentage or formatted with the item's `format`. Takes every prop of Base UI's `Meter.Value`; pass a function as its child, `(formattedValue, value) => ReactNode`, to print something else.
+
+### BarMeterLabel
+
+The name below the bar. Takes every prop of Base UI's `Meter.Label`.
+
+### barMeterVariants
+
+```ts
+barMeterVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns the group's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"bar-meter"`, `"bar-meter-item"`, `"bar-meter-track"`, `"bar-meter-fill"`, `"bar-meter-value"` or `"bar-meter-label"` |
+| `data-size` | On the group, the `size` |
+
+### CSS variables
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--bar-meter-height` | `6rem`, `8rem` or `10rem`, from `size` | The height of the bars |
+| `--bar-meter-width` | `0.5rem`, `0.75rem` or `1rem`, from `size` | The width of the bars |
+| `--bar-meter-fill` | `var(--color-primary)` | The fill's colour at its top |
+| `--bar-meter-fill-start` | `--bar-meter-fill` mixed with black | The fill's colour at its foot |

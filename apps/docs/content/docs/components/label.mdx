@@ -1,0 +1,80 @@
+---
+title: Label
+description: Medium-weight text that names a form control, and dims when the control is disabled.
+component: label
+---
+
+<ComponentPreview name="label-demo" />
+
+## Usage
+
+```tsx
+import { Input } from "@neomorphic-react/ui/input";
+import { Label } from "@neomorphic-react/ui/label";
+```
+
+```tsx
+<Label htmlFor="name">Full name</Label>
+<Input id="name" />
+```
+
+`Label` is a native `<label>`. Point `htmlFor` at the control's `id`, or wrap the control with its text. Clicking the label then focuses or toggles the control, and screen readers read the label as its name. Inside a [Field](/docs/components/field), use `FieldLabel`, which is linked to the control for you.
+
+## Examples
+
+### Wrapping a control
+
+Wrap a [Checkbox](/docs/components/checkbox), [Switch](/docs/components/switch) or [Radio Group](/docs/components/radio-group) item with its text, and the whole label becomes the hit area, with no `id`s to wire up. The label lays its children out in a row with an 8px gap; widen it with a `gap-*` class, and use `font-normal` for a list of options.
+
+<ComponentPreview name="label-wrapping" />
+
+### Icons and hints
+
+An icon inside the label is sized to 16px unless it has its own `size-*` class. Mark it `aria-hidden`, as it adds nothing to the name. Extra text, such as "(optional)", can sit in a `<span>` in a lighter style.
+
+<ComponentPreview name="label-icons" />
+
+### Disabled
+
+The label dims and shows a not-allowed cursor when the control it names is disabled. That works when the label wraps the control, or when the label comes after a control with the `peer` class. Inside a disabled `Field` it dims as well. A label placed before its control can't see it, so dim it yourself with `opacity-50`.
+
+<ComponentPreview name="label-disabled" />
+
+### In context
+
+A sign-in form. Each input has a `Label` above it, linked by `htmlFor`, and the checkbox is wrapped by its label.
+
+<ComponentPreview name="label-in-context" />
+
+## Accessibility
+
+- Renders a native `<label>`, so the control takes the label's text as its name, and clicking the label focuses or toggles the control.
+- Use `htmlFor` with the control's `id`, or put the control inside the label. A label with neither names nothing.
+- Keep the text short and the same in every state. Put longer guidance in a description linked with `aria-describedby`, or a `FieldDescription`.
+- Mark icons inside the label `aria-hidden`.
+- The text can't be selected, so a double-click on the label doesn't highlight it.
+
+## API reference
+
+### Label
+
+Takes every prop of the native `<label>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `htmlFor` | `string` | – |
+| `className` | `string` | – |
+
+### labelClassName
+
+```ts
+const labelClassName: string;
+```
+
+The label's class names, for giving another element the same look. `FieldLabel` is built from it.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"label"` |

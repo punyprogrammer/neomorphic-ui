@@ -1,0 +1,113 @@
+---
+title: Collapsible
+description: A trigger that shows and hides one region, whose height eases open and shut.
+component: collapsible
+primitive: https://base-ui.com/react/components/collapsible
+---
+
+<ComponentPreview name="collapsible-demo" />
+
+## Usage
+
+```tsx
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleIndicator,
+  CollapsibleTrigger,
+} from "@neomorphic-react/ui/collapsible";
+```
+
+```tsx
+<Collapsible>
+  <CollapsibleTrigger>
+    Fare rules
+    <CollapsibleIndicator />
+  </CollapsibleTrigger>
+  <CollapsibleContent>
+    Refundable up to 24 hours before departure.
+  </CollapsibleContent>
+</Collapsible>
+```
+
+The parts have no look of their own apart from the height animation and the chevron, so the trigger can be any button and the region any content. Use a collapsible for one section that's hidden by default, such as extra details or optional fields. For a stack of sections, use an [Accordion](/docs/components/accordion).
+
+## Examples
+
+### Library button as trigger
+
+Pass `render={<Button />}` to `CollapsibleTrigger` to use a [Button](/docs/components/button), with its raised look and focus outline. Here the chevron is the button's `icon`, so the button is a square icon tile and needs an `aria-label`. `CollapsibleIndicator` turns over while the region is open.
+
+<ComponentPreview name="collapsible-button-trigger" />
+
+### Controlled
+
+`open` and `onOpenChange` keep the state in your hands. The region doesn't need a `CollapsibleTrigger`: here a [Checkbox](/docs/components/checkbox) opens it. The region clips anything that overflows it, so leave a few pixels of padding inside it for focus outlines and shadows.
+
+<ComponentPreview name="collapsible-controlled" />
+
+### Find in page
+
+By default the closed region is removed from the page. `hiddenUntilFound` on `CollapsibleContent` keeps it in the page but hidden, so the browser's find in page can reach the text and open the region. Search this page for "unworn" and step through the matches to try it, in a browser that supports `hidden="until-found"`. `keepMounted` keeps the closed region in the page without that behaviour.
+
+<ComponentPreview name="collapsible-find-in-page" />
+
+### In context
+
+A booking summary that shows the total and hides the price lines behind a text trigger. The trigger is styled with `className` and draws its own `--ring` outline on keyboard focus.
+
+<ComponentPreview name="collapsible-in-context" />
+
+## Accessibility
+
+- `CollapsibleTrigger` renders a `<button>` with `aria-expanded`, and `aria-controls` pointing at the region while it's open.
+- Enter or Space toggles the region, and the trigger takes part in the tab order.
+- The trigger has no styles of its own. Give it a visible focus outline, as the examples do with `focus-visible:outline-2 focus-visible:outline-ring/50`, or render a [Button](/docs/components/button), which has one.
+- A trigger with no visible text, such as a chevron alone, needs an `aria-label`.
+- `CollapsibleIndicator` is decorative (`aria-hidden`).
+
+## API reference
+
+### Collapsible
+
+Takes every prop of Base UI's [Collapsible.Root](https://base-ui.com/react/components/collapsible) and renders a `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `disabled` | `boolean` | `false` |
+
+### CollapsibleTrigger
+
+The toggle. Takes every prop of Base UI's `Collapsible.Trigger` and renders a `<button>`. Use `render` to swap in another button, such as a library [Button](/docs/components/button).
+
+### CollapsibleIndicator
+
+A chevron that turns over while its trigger's region is open. Put it inside `CollapsibleTrigger`. Takes every prop of the native `<svg>`.
+
+### CollapsibleContent
+
+The region, animating its height open and shut. Takes every prop of Base UI's `Collapsible.Panel`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `keepMounted` | `boolean` | `false` |
+| `hiddenUntilFound` | `boolean` | `false` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"collapsible"`, `"collapsible-trigger"`, `"collapsible-indicator"` or `"collapsible-content"` |
+| `data-open`, `data-closed` | On the root and the region, the current state |
+| `data-panel-open` | On the trigger, present while the region is open |
+| `data-disabled` | Present when disabled |
+| `data-starting-style`, `data-ending-style` | On the region, present while it animates open or shut |
+
+### CSS variables
+
+| Variable | Sets |
+| --- | --- |
+| `--collapsible-panel-height` | The region's height, measured from its content. Set by Base UI; the region animates to and from it |

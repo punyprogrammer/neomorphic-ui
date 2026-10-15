@@ -1,0 +1,91 @@
+---
+title: Surface
+description: A block of the page that's raised out of it, pressed into it or level with it, with no structure of its own.
+component: surface
+---
+
+<ComponentPreview name="surface-demo" />
+
+## Usage
+
+```tsx
+import { Surface } from "@neomorphic-react/ui/surface";
+```
+
+```tsx
+<Surface className="p-6">Living room, 22°C</Surface>
+```
+
+Use a surface for a panel, tile or well that has no structure of its own: a stat, a thermostat dial, a background for a group of controls. It sets the depth and the corners and nothing else, so add padding and layout with `className`. For a panel with a title, a description and actions, use a [Card](/docs/components/card). For a row in a list, use an [Item](/docs/components/item).
+
+## Examples
+
+### Elevation
+
+`raised` (the default) stands out of the page with a light top-left gradient. `inset` is a well pressed into it. `flat` is level with the page, with no shadow, for a surface that only needs the corners and the colour.
+
+<ComponentPreview name="surface-elevations" />
+
+### Depth
+
+`depth` sets how far the shadow reaches: `sm`, `md` (the default) or `lg`. It applies to `raised` and `inset` surfaces, and scales with the theme's `--neu-depth`. A `flat` surface ignores it.
+
+<ComponentPreview name="surface-depths" />
+
+### Shapes
+
+`rounded` (the default) has a medium radius and `square` keeps a small one. `pill` rounds the ends fully, for long thin surfaces. `circle` rounds fully and keeps the surface square, so give it one size such as `size-14`.
+
+<ComponentPreview name="surface-shapes" />
+
+### As another element
+
+`render` swaps the `<div>` for another element and keeps the styling, for example a `<section>` with an `aria-label` for a landmark, or a `<button>`. Both shadow slots are always set, so changing `elevation` eases from raised to pressed rather than snapping. Give an interactive surface a focus outline and a change beyond depth, such as the filled icon here.
+
+<ComponentPreview name="surface-render" />
+
+### In context
+
+A thermostat: a deep raised panel holding an inset dial, with two icon-only [Buttons](/docs/components/button) to change the target. The reading is announced as it changes, and each button disables at the end of the range.
+
+<ComponentPreview name="surface-in-context" />
+
+## Accessibility
+
+- A surface is a plain `<div>` with no role, so it's invisible to assistive tech. Use `render` to give it meaning: a `<section>` with an `aria-label` becomes a region landmark.
+- Depth on its own doesn't reach the 3:1 contrast that WCAG asks for. When a surface shows state, such as pressed or selected, also change its colour, text or icon.
+- A surface rendered as a `<button>` or `<a>` gets no focus style of its own. Add one, such as `focus-visible:outline-2 focus-visible:outline-ring/50 focus-visible:outline-offset-2`.
+
+## API reference
+
+### Surface
+
+Renders a `<div>` and takes every prop of the native `<div>`. Use `render` to render a different element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `elevation` | `"raised" \| "inset" \| "flat"` | `"raised"` |
+| `depth` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"square" \| "rounded" \| "pill" \| "circle"` | `"rounded"` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### surfaceVariants
+
+```ts
+surfaceVariants(options?: {
+  elevation?: "raised" | "inset" | "flat";
+  depth?: "sm" | "md" | "lg";
+  shape?: "square" | "rounded" | "pill" | "circle";
+}): string;
+```
+
+Returns the surface's class names, for giving another element the same depth.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"surface"` |
+| `data-elevation` | The `elevation` |
+| `data-depth` | The `depth` |
+| `data-shape` | The `shape` |

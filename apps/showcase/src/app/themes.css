@@ -1,0 +1,233 @@
+/* Showcase themes: overrides of the library's consumer-owned tokens.
+
+   Each theme applies in two ways:
+   - `:root:has(main[data-theme="…"])` themes the whole document while a page
+     with that `<main>` is shown, so portaled popups (menus, selects,
+     tooltips, toasts) at the end of <body> match the page.
+   - `[data-theme="…"]` scopes the same tokens to one subtree, for the
+     previews on the home page.
+
+   All themes stay near-white and low-chroma: the surface carries a faint
+   tint of the theme's hue, and colour is kept for the primary action, data
+   and status. Neumorphism needs one shared surface colour, so --card,
+   --popover and --secondary always equal --background. */
+
+/* Inside a scoped subtree these aliases must be re-declared: at :root they
+   were resolved against the root's --background, not the theme's. */
+[data-theme] {
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --secondary: var(--background);
+  --secondary-foreground: var(--foreground);
+  --primary-foreground: var(--background);
+  --accent: var(--muted);
+  --accent-foreground: var(--primary);
+  --input: var(--border);
+  --ring: var(--primary);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Porcelain: the app default. A cool, almost white surface. */
+:root,
+[data-theme="porcelain"] {
+  --background: oklch(0.962 0.004 265);
+  --foreground: oklch(0.44 0.02 262);
+  --muted: oklch(0.93 0.006 265);
+  --muted-foreground: oklch(0.52 0.018 262);
+  --primary: oklch(0.4 0.02 262);
+  --primary-foreground: var(--background);
+  --accent: var(--muted);
+  --border: oklch(0.9 0.008 265);
+  --input: var(--border);
+  --ring: var(--primary);
+  --neu-light: oklch(1 0 0);
+  --neu-dark: oklch(0.42 0.04 262 / 0.24);
+  --neu-depth: 2px;
+  --neu-convex-from: oklch(0.976 0.003 265);
+  --neu-convex-to: oklch(0.94 0.006 265);
+  --neu-backdrop: oklch(0.42 0.04 262 / 0.16);
+  --radius: 0.75rem;
+}
+
+/* Sage: fitness. Rounder and a little deeper, a calm green-teal primary. */
+:root:has(main[data-theme="sage"]),
+[data-theme="sage"] {
+  --background: oklch(0.966 0.007 165);
+  --foreground: oklch(0.43 0.025 190);
+  --muted: oklch(0.935 0.01 165);
+  --muted-foreground: oklch(0.52 0.025 180);
+  --primary: oklch(0.47 0.09 172);
+  --border: oklch(0.9 0.012 165);
+  --neu-dark: oklch(0.4 0.05 180 / 0.24);
+  --neu-depth: 2.5px;
+  --neu-convex-from: oklch(0.98 0.005 165);
+  --neu-convex-to: oklch(0.94 0.01 165);
+  --neu-backdrop: oklch(0.4 0.05 180 / 0.16);
+  --radius: 1rem;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --chart-1: oklch(0.58 0.11 172);
+  --chart-2: oklch(0.64 0.15 35);
+}
+
+/* Lilac: social. Soft violet tint, generous corners. */
+:root:has(main[data-theme="lilac"]),
+[data-theme="lilac"] {
+  --background: oklch(0.968 0.005 295);
+  --foreground: oklch(0.43 0.03 285);
+  --muted: oklch(0.935 0.009 295);
+  --muted-foreground: oklch(0.52 0.03 285);
+  --primary: oklch(0.47 0.11 285);
+  --border: oklch(0.9 0.012 295);
+  --neu-dark: oklch(0.4 0.06 290 / 0.22);
+  --neu-depth: 2px;
+  --neu-convex-from: oklch(0.98 0.003 295);
+  --neu-convex-to: oklch(0.942 0.009 295);
+  --neu-backdrop: oklch(0.4 0.06 290 / 0.16);
+  --radius: 1.1rem;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Graphite: sales dashboard. Neutral, flatter and tighter for dense data. */
+:root:has(main[data-theme="graphite"]),
+[data-theme="graphite"] {
+  --background: oklch(0.968 0.003 250);
+  --foreground: oklch(0.4 0.02 255);
+  --muted: oklch(0.935 0.005 250);
+  --muted-foreground: oklch(0.51 0.02 255);
+  --primary: oklch(0.42 0.05 255);
+  --border: oklch(0.9 0.006 250);
+  --neu-dark: oklch(0.38 0.03 255 / 0.22);
+  --neu-depth: 1.5px;
+  --neu-convex-from: oklch(0.978 0.002 250);
+  --neu-convex-to: oklch(0.945 0.005 250);
+  --neu-backdrop: oklch(0.38 0.03 255 / 0.14);
+  --radius: 0.5rem;
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --chart-1: oklch(0.55 0.1 255);
+  --chart-2: oklch(0.62 0.09 200);
+  --chart-3: oklch(0.6 0.1 160);
+  --chart-4: oklch(0.63 0.12 75);
+  --chart-5: oklch(0.56 0.03 260);
+}
+
+/* Linen: checkout. A warm paper white with an espresso primary. */
+:root:has(main[data-theme="linen"]),
+[data-theme="linen"] {
+  --background: oklch(0.97 0.007 80);
+  --foreground: oklch(0.42 0.02 60);
+  --muted: oklch(0.938 0.01 80);
+  --muted-foreground: oklch(0.52 0.02 60);
+  --primary: oklch(0.38 0.035 55);
+  --border: oklch(0.9 0.012 80);
+  --neu-dark: oklch(0.42 0.04 60 / 0.22);
+  --neu-depth: 2px;
+  --neu-convex-from: oklch(0.982 0.005 80);
+  --neu-convex-to: oklch(0.945 0.01 80);
+  --neu-backdrop: oklch(0.42 0.04 60 / 0.16);
+  --radius: 0.75rem;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Mist: smart home. Cool blue-white, the deepest and softest relief. */
+:root:has(main[data-theme="mist"]),
+[data-theme="mist"] {
+  --background: oklch(0.963 0.007 225);
+  --foreground: oklch(0.43 0.03 235);
+  --muted: oklch(0.932 0.01 225);
+  --muted-foreground: oklch(0.52 0.03 235);
+  --primary: oklch(0.46 0.08 235);
+  --border: oklch(0.9 0.012 225);
+  --neu-dark: oklch(0.4 0.05 240 / 0.26);
+  --neu-depth: 3px;
+  --neu-convex-from: oklch(0.978 0.005 225);
+  --neu-convex-to: oklch(0.938 0.01 225);
+  --neu-backdrop: oklch(0.4 0.05 240 / 0.16);
+  --radius: 1.25rem;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Cloud: podcast player. A cool white with a softened listening green. */
+:root:has(main[data-theme="cloud"]),
+[data-theme="cloud"] {
+  --background: oklch(0.967 0.004 170);
+  --foreground: oklch(0.36 0.015 200);
+  --muted: oklch(0.936 0.006 170);
+  --muted-foreground: oklch(0.5 0.015 200);
+  --primary: oklch(0.5 0.12 152);
+  --border: oklch(0.9 0.008 170);
+  --neu-dark: oklch(0.38 0.03 190 / 0.22);
+  --neu-depth: 2px;
+  --neu-convex-from: oklch(0.979 0.003 170);
+  --neu-convex-to: oklch(0.942 0.006 170);
+  --neu-backdrop: oklch(0.38 0.03 190 / 0.16);
+  --radius: 0.9rem;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Ivory: felt piano. A warm key-ivory surface; the primary is the near-black
+   of the sharps, and brass (--brass) fills the knobs and faders. */
+:root:has(main[data-theme="ivory"]),
+[data-theme="ivory"] {
+  --background: oklch(0.966 0.008 85);
+  --foreground: oklch(0.38 0.015 70);
+  --muted: oklch(0.935 0.011 85);
+  --muted-foreground: oklch(0.52 0.02 70);
+  --primary: oklch(0.34 0.012 70);
+  --border: oklch(0.9 0.013 85);
+  --neu-dark: oklch(0.42 0.035 70 / 0.24);
+  --neu-depth: 2.5px;
+  --neu-convex-from: oklch(0.982 0.006 85);
+  --neu-convex-to: oklch(0.94 0.011 85);
+  --neu-backdrop: oklch(0.42 0.035 70 / 0.16);
+  --radius: 1rem;
+  --font-sans: var(--font-jost), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --brass: oklch(0.66 0.085 75);
+  --felt: oklch(0.52 0.09 25);
+  /* A deeper brass for pressed toggles: 3:1 or more on the surface. */
+  --toggle-on: oklch(0.52 0.09 65);
+}
+
+/* Haze: chat assistant. A soft blue-grey morning with a slate-teal primary;
+   the deepest relief of the set, so every bubble and control reads as
+   pressed from one surface. */
+:root:has(main[data-theme="haze"]),
+[data-theme="haze"] {
+  --background: oklch(0.962 0.006 210);
+  --foreground: oklch(0.37 0.02 225);
+  --muted: oklch(0.93 0.008 210);
+  --muted-foreground: oklch(0.5 0.02 220);
+  --primary: oklch(0.47 0.06 205);
+  --border: oklch(0.895 0.01 210);
+  --neu-dark: oklch(0.4 0.04 225 / 0.26);
+  --neu-depth: 3px;
+  --neu-convex-from: oklch(0.978 0.004 210);
+  --neu-convex-to: oklch(0.936 0.008 210);
+  --neu-backdrop: oklch(0.4 0.04 225 / 0.16);
+  --radius: 1.1rem;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Pearl: storefront. A blush paper white with a clay primary; a serif
+   (--font-display) for editorial headings over a geometric sans. */
+:root:has(main[data-theme="pearl"]),
+[data-theme="pearl"] {
+  --background: oklch(0.969 0.006 45);
+  --foreground: oklch(0.41 0.025 40);
+  --muted: oklch(0.937 0.009 45);
+  --muted-foreground: oklch(0.51 0.025 40);
+  --primary: oklch(0.43 0.06 38);
+  --border: oklch(0.9 0.012 45);
+  --neu-dark: oklch(0.42 0.045 40 / 0.22);
+  --neu-depth: 2px;
+  --neu-convex-from: oklch(0.981 0.004 45);
+  --neu-convex-to: oklch(0.943 0.009 45);
+  --neu-backdrop: oklch(0.42 0.045 40 / 0.16);
+  --radius: 1rem;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+}

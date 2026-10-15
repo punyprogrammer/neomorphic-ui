@@ -1,0 +1,140 @@
+---
+title: Alert Dialog
+description: A raised panel over a dimmed page that asks the user to confirm or cancel an action before they go on.
+component: alert-dialog
+primitive: https://base-ui.com/react/components/alert-dialog
+---
+
+<ComponentPreview name="alert-dialog-demo" />
+
+## Usage
+
+```tsx
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@neomorphic-react/ui/alert-dialog";
+```
+
+```tsx
+<AlertDialog>
+  <AlertDialogTrigger render={<Button variant="destructive" />}>
+    Delete project
+  </AlertDialogTrigger>
+  <AlertDialogContent>
+    <AlertDialogHeader>
+      <AlertDialogTitle>Delete "Website redesign"?</AlertDialogTitle>
+      <AlertDialogDescription>This can't be undone.</AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Keep project</AlertDialogCancel>
+      <AlertDialogAction onClick={deleteProject} variant="destructive">
+        Delete
+      </AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>
+```
+
+Use an alert dialog when the user has to answer before going on, usually to confirm an action that deletes something or can't be undone. Clicking the backdrop doesn't close it. Name the actions after what they do ("Delete", "Keep project") rather than "OK" and "Cancel". For any other task in a modal panel, use a [Dialog](/docs/components/dialog). To report what happened after the fact, use a [Toast](/docs/components/toast).
+
+## Examples
+
+### Small, with an icon
+
+`size="sm"` narrows the panel to 320px, centres the header and puts the two actions side by side at equal width. `AlertDialogMedia` adds a raised icon tile above the title; colour the icon with a `text-*` class to set the tone. `AlertDialogAction` is a `primary` button unless you pass another `variant`.
+
+<ComponentPreview name="alert-dialog-small" />
+
+### Async actions
+
+`AlertDialogAction` closes the dialog as soon as its `onClick` has run. For an action that takes time, set `closeOnClick={false}`, control the dialog with `open` and `onOpenChange`, and close it when the work is done. `isLoading` shows a spinner on the button meanwhile. Here `onOpenChange` ignores Escape while the request is in flight.
+
+<ComponentPreview name="alert-dialog-async" />
+
+### In context
+
+A list of API keys, each with its own alert dialog. Revoking a key names it in the title and removes it from the list.
+
+<ComponentPreview name="alert-dialog-in-context" />
+
+## Accessibility
+
+- The panel has `role="alertdialog"`, named by `AlertDialogTitle` and described by `AlertDialogDescription`, so screen readers read the question as it opens.
+- On open, focus moves to the first focusable element in the panel. Put `AlertDialogCancel` first in the footer so focus starts on the safe choice.
+- Focus stays inside the panel and the page behind can't be scrolled or clicked. On close, focus returns to the trigger.
+- Escape cancels. Clicking the backdrop does nothing, and there's no close button in the corner, so the user has to choose.
+- At the default size, the actions sit side by side from the `sm` breakpoint and stack below it, with the confirming action on top. At `size="sm"` they're always side by side.
+
+## API reference
+
+### AlertDialog
+
+Base UI's [AlertDialog.Root](https://base-ui.com/react/components/alert-dialog) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+
+### AlertDialogTrigger
+
+The button that opens the dialog. Takes every prop of Base UI's `AlertDialog.Trigger`; pass a [Button](/docs/components/button) to `render` to style it.
+
+### AlertDialogContent
+
+The panel, with the backdrop behind it, portalled to the end of the document. Takes every prop of Base UI's `AlertDialog.Popup`. It scrolls when it's taller than the screen less 32px.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"default" \| "sm"` | `"default"` |
+| `initialFocus` | `boolean \| RefObject<HTMLElement> \| (openType) => …` | – |
+| `finalFocus` | `boolean \| RefObject<HTMLElement> \| (closeType) => …` | – |
+
+`default` is up to 448px wide; `sm` is up to 320px.
+
+### AlertDialogHeader, AlertDialogTitle and AlertDialogDescription
+
+`AlertDialogHeader` is a `<div>` that stacks the media, title and description. `AlertDialogTitle` is an `<h2>` that names the dialog, and `AlertDialogDescription` a muted `<p>` that describes it. They take every prop of the native `<div>`, Base UI's `AlertDialog.Title` and `AlertDialog.Description`.
+
+### AlertDialogMedia
+
+A 48px raised tile for an icon, above the title. Takes every prop of the native `<div>`.
+
+### AlertDialogFooter
+
+The actions. Takes every prop of the native `<div>`.
+
+### AlertDialogAction
+
+The confirming action, a [Button](/docs/components/button) that closes the dialog after its `onClick`. Takes every prop of `Button`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "primary" \| "destructive" \| "ghost"` | `"primary"` |
+| `closeOnClick` | `boolean` | `true` |
+| `onClick` | `(event) => void` | – |
+| `isLoading` | `boolean` | `false` |
+
+### AlertDialogCancel
+
+A [Button](/docs/components/button) that closes the dialog. Takes every prop of `Button`, with the `default` variant unless you pass another.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"alert-dialog-trigger"`, `"alert-dialog-overlay"`, `"alert-dialog-content"`, `"alert-dialog-header"`, `"alert-dialog-media"`, `"alert-dialog-footer"`, `"alert-dialog-title"`, `"alert-dialog-description"`, `"alert-dialog-action"` or `"alert-dialog-cancel"` |
+| `data-size` | On the content, the `size` |
+| `data-popup-open` | On the trigger, present while the dialog is open |
+| `data-open`, `data-closed` | On the content and overlay, the open state |
+| `data-starting-style`, `data-ending-style` | On the content and overlay, present while they animate in or out |
+| `data-variant` | On the action and cancel buttons, the button's `variant` |

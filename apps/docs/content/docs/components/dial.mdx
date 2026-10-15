@@ -1,0 +1,120 @@
+---
+title: Dial
+description: A raised knob in a round well, with an arc in the groove that fills as you turn it up.
+component: dial
+---
+
+<ComponentPreview name="dial-demo" />
+
+## Usage
+
+```tsx
+import { Dial } from "@neomorphic-react/ui/dial";
+```
+
+```tsx
+const [volume, setVolume] = useState(40);
+
+<Dial aria-label="Volume" onValueChange={setVolume} value={volume}>
+  {volume}
+</Dial>
+```
+
+Drag around the ring to set the value, or focus the knob and use the keyboard. The arc sweeps 270°, from bottom left to bottom right, and whatever you pass as children sits in the middle of the knob. Use a dial where a knob is the familiar control, such as volume or temperature. For a value along a line, or a range with two ends, use a [Slider](/docs/components/slider).
+
+## Examples
+
+### Sizes
+
+`sm` (96px), `md` (128px, the default) and `lg` (160px) set the diameter. The knob, the arc and the text inside scale with it.
+
+<ComponentPreview name="dial-sizes" />
+
+### Range, step and value text
+
+`min` and `max` set the range, `step` the smallest change, and `largeStep` how far Page Up and Page Down move. `getAriaValueText` turns the number into words for screen readers, here with its unit.
+
+<ComponentPreview name="dial-range" />
+
+### Colour
+
+The arc is `--primary`, fading from a darker shade at the start. Set `--dial-fill` to recolour it, and `--dial-fill-start` to choose the colour it fades from.
+
+<ComponentPreview name="dial-colors" />
+
+### Change and commit
+
+`onValueChange` fires on every step, during a drag too. `onValueCommitted` fires once a drag ends or a key is pressed, so it suits work you don't want to repeat on every step, such as saving the value.
+
+<ComponentPreview name="dial-committed" />
+
+### Disabled
+
+`disabled` dims the dial, takes the knob out of the tab order and ignores the pointer and the keyboard.
+
+<ComponentPreview name="dial-disabled" />
+
+### In context
+
+A speaker card with the volume on a large dial. Both the dial and the buttons below it set the same controlled `value`.
+
+<ComponentPreview name="dial-in-context" />
+
+## Accessibility
+
+- The knob has `role="slider"` with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`, and `aria-valuetext` when you pass `getAriaValueText`.
+- Name it with `aria-label` or `aria-labelledby` on `Dial`. Both go to the knob, as does `aria-describedby`.
+- The arrow keys step by `step`: Up and Right turn it up, Down and Left turn it down. Page Up and Page Down step by `largeStep`, and Home and End jump to `min` and `max`.
+- Pressing anywhere on the dial sets the value at that angle and moves focus to the knob. Presses near the centre leave the value alone, and in the gap below the arc the value stays at whichever end it was closer to.
+- The arc and the indicator dot are decorative (`aria-hidden`).
+- Keyboard focus shows a 2px `--ring` outline around the knob.
+
+## API reference
+
+### Dial
+
+Takes every prop of the native `<div>` apart from `onChange`. `aria-label`, `aria-labelledby` and `aria-describedby` go to the knob; the rest go to the outer well.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number` | – |
+| `defaultValue` | `number` | `min` |
+| `onValueChange` | `(value: number) => void` | – |
+| `onValueCommitted` | `(value: number) => void` | – |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `step` | `number` | `1` |
+| `largeStep` | `number` | `10` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `getAriaValueText` | `(value: number) => string` | – |
+| `name` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `children` | `ReactNode` | – |
+
+With `name`, a hidden input submits the value with a form.
+
+### dialVariants
+
+```ts
+dialVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns the outer well's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"dial"`, `"dial-arc"`, `"dial-fill"`, `"dial-knob"` or `"dial-indicator"` |
+| `data-size` | On the well, the `size` |
+| `data-dragging` | On the well, present while the knob is being dragged |
+| `data-disabled` | On the well, present when disabled |
+
+### CSS variables
+
+Read by the arc and the indicator dot. Set them with an arbitrary property class such as `[--dial-fill:var(--color-success)]`.
+
+| Variable | Sets |
+| --- | --- |
+| `--dial-fill` | The arc's colour at its end, and the indicator dot. Defaults to `--primary` |
+| `--dial-fill-start` | The arc's colour at its start. Defaults to `--dial-fill` mixed with black |

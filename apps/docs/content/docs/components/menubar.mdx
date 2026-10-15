@@ -1,0 +1,185 @@
+---
+title: Menubar
+description: A raised slab of menus, as in a desktop app, whose open trigger presses in and turns the primary colour.
+component: menubar
+primitive: https://base-ui.com/react/components/menubar
+---
+
+<ComponentPreview name="menubar-demo" />
+
+## Usage
+
+```tsx
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger,
+} from "@neomorphic-react/ui/menubar";
+```
+
+```tsx
+<Menubar>
+  <MenubarMenu>
+    <MenubarTrigger>File</MenubarTrigger>
+    <MenubarContent>
+      <MenubarItem>
+        New trip <MenubarShortcut>⌘N</MenubarShortcut>
+      </MenubarItem>
+      <MenubarSeparator />
+      <MenubarItem>Print itinerary</MenubarItem>
+    </MenubarContent>
+  </MenubarMenu>
+</Menubar>
+```
+
+Use a menubar for the commands of an app that works like desktop software, such as an editor. Each `MenubarMenu` pairs a trigger with its menu, and once one menu is open, moving the pointer or the arrow keys to the next trigger opens that one. For a single menu behind a button, use a [Dropdown Menu](/docs/components/dropdown-menu). For links around a website, use a [Navigation Menu](/docs/components/navigation-menu).
+
+## Examples
+
+### Checkbox and radio items
+
+`MenubarCheckboxItem` toggles a setting and keeps the menu open, so several can be changed in a row. `MenubarRadioItem`s in a `MenubarRadioGroup` pick one option, and the menu closes once you pick. Both show a mark in the `--primary` colour at the end of the row. Control them with `checked` and `onCheckedChange`, or `value` and `onValueChange` on the group.
+
+<ComponentPreview name="menubar-checkbox-radio" />
+
+### Submenus
+
+Wrap a `MenubarSubTrigger` and a `MenubarSubContent` in a `MenubarSub`. The submenu opens beside its trigger on hover, on click or with the arrow key that points into it, and the trigger stays sunk while it's open.
+
+<ComponentPreview name="menubar-submenus" />
+
+### Groups, icons and states
+
+- `MenubarLabel` names a `MenubarGroup` and must sit inside the group it labels.
+- An icon at the start of an item is 16px unless it has its own `size-*` class. `inset` on an item or a label lines up its text with items that have an icon.
+- `variant="destructive"` colours an item and its icon for actions that delete.
+- `disabled` on an item dims it and skips it. `disabled` on a `MenubarMenu` disables its trigger, and `disabled` on `Menubar` disables every menu.
+
+<ComponentPreview name="menubar-items" />
+
+### In context
+
+A note editor on a raised [Surface](/docs/components/surface). The text size is a controlled radio group, and the serif font and word count are controlled checkbox items, so the note below follows every change.
+
+<ComponentPreview name="menubar-in-context" />
+
+## Accessibility
+
+- `Menubar` has `role="menubar"`. Each trigger is a `menuitem` with `aria-haspopup="menu"`, and each menu has `role="menu"`.
+- The left and right arrow keys move between the triggers and loop at the ends. Enter, Space or the down arrow opens a menu; inside it, the up and down arrows move the highlight, typing jumps to a matching item, Enter chooses, and Escape closes. With a menu open, the left and right arrows open the neighbouring menu.
+- Checkbox and radio items are `menuitemcheckbox` and `menuitemradio` with `aria-checked`, and the checked ones show a mark, not only depth.
+- `MenubarShortcut` is a visual hint only. Bind the keys yourself.
+- The submenu chevron and the check and radio marks are decorative (`aria-hidden`). Mark your own item icons `aria-hidden` too.
+- Keyboard focus on a trigger shows a 2px `--ring` outline.
+
+## API reference
+
+### Menubar
+
+The raised slab. Takes every prop of Base UI's [Menubar](https://base-ui.com/react/components/menubar).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `loopFocus` | `boolean` | `true` |
+| `modal` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+
+### MenubarMenu
+
+One menu in the bar. Base UI's [Menu.Root](https://base-ui.com/react/components/menu) with no styling of its own, so it takes all of its props. It renders no element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `disabled` | `boolean` | `false` |
+
+### MenubarTrigger
+
+The menu's name in the bar. Takes every prop of Base UI's `Menu.Trigger`. It presses into the slab and turns `--primary` while its menu is open.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `disabled` | `boolean` | `false` |
+
+### MenubarContent
+
+The menu, in a raised card portalled to the end of the document. `align`, `alignOffset`, `side` and `sideOffset` go to Base UI's `Menu.Positioner`; the remaining props go to `Menu.Popup`, including `className`. The menu scrolls when it's taller than the space on screen.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"bottom"` |
+| `align` | `"start" \| "center" \| "end"` | `"start"` |
+| `alignOffset` | `number` | `-6` |
+| `sideOffset` | `number` | `12` |
+
+### MenubarItem
+
+An action. Takes every prop of Base UI's `Menu.Item`. The highlighted item sinks into the card.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "destructive"` | `"default"` |
+| `inset` | `boolean` | `false` |
+| `onClick` | `(event) => void` | – |
+| `closeOnClick` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+| `label` | `string` | – |
+
+### MenubarCheckboxItem
+
+Takes every prop of Base UI's `Menu.CheckboxItem`. The check is added for you.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `checked` | `boolean` | – |
+| `defaultChecked` | `boolean` | `false` |
+| `onCheckedChange` | `(checked: boolean, eventDetails) => void` | – |
+| `closeOnClick` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+
+### MenubarRadioGroup and MenubarRadioItem
+
+`MenubarRadioGroup` holds the chosen value and takes every prop of Base UI's `Menu.RadioGroup`. `MenubarRadioItem` is one option and takes every prop of `Menu.RadioItem`; the mark is added for you. Unlike Base UI's default, a radio item closes the menu when it's picked.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` (group) | `any` | – |
+| `defaultValue` (group) | `any` | – |
+| `onValueChange` (group) | `(value, eventDetails) => void` | – |
+| `value` (item) | `any` | – |
+| `closeOnClick` (item) | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+
+### MenubarSub, MenubarSubTrigger and MenubarSubContent
+
+`MenubarSub` is Base UI's `Menu.SubmenuRoot` and renders no element. `MenubarSubTrigger` takes every prop of `Menu.SubmenuTrigger`, adds the chevron, and has an `inset` prop like `MenubarItem`. `MenubarSubContent` takes the same props as `MenubarContent`, with different defaults:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"inline-end"` |
+| `align` | `"start" \| "center" \| "end"` | `"start"` |
+| `alignOffset` | `number` | `-6` |
+| `sideOffset` | `number` | `6` |
+
+### MenubarGroup, MenubarLabel, MenubarSeparator and MenubarShortcut
+
+`MenubarGroup` gathers related items and `MenubarLabel` names the group, with an `inset` prop to line up with icon items. `MenubarSeparator` is a groove between groups. They take every prop of Base UI's `Menu.Group`, `Menu.GroupLabel` and `Menu.Separator`. `MenubarShortcut` is a `<span>` that sits at the end of an item and takes every prop of the native `<span>`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"menubar"`, `"menubar-trigger"`, `"menubar-content"`, `"menubar-item"`, `"menubar-checkbox-item"`, `"menubar-radio-group"`, `"menubar-radio-item"`, `"menubar-group"`, `"menubar-label"`, `"menubar-separator"`, `"menubar-shortcut"`, `"menubar-sub-trigger"` or `"menubar-sub-content"` |
+| `data-variant` | On an item, the `variant` |
+| `data-inset` | On an item, label or sub-trigger, present when `inset` |
+| `data-popup-open` | On a trigger or sub-trigger, present while its menu is open |
+| `data-highlighted` | On an item, present while it's highlighted by the pointer or the arrow keys |
+| `data-checked`, `data-unchecked` | On a checkbox or radio item, its state |
+| `data-disabled` | On a trigger or an item, present when disabled |

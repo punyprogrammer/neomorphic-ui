@@ -1,0 +1,169 @@
+---
+title: Attachment
+description: A raised file tile with an icon or thumbnail, a name and a status, for a composer or a message.
+component: attachment
+---
+
+<ComponentPreview name="attachment-demo" />
+
+## Usage
+
+```tsx
+import {
+  Attachment,
+  AttachmentAction,
+  AttachmentActions,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentGroup,
+  AttachmentMedia,
+  AttachmentProgress,
+  AttachmentTitle,
+  AttachmentTrigger,
+} from "@neomorphic-react/ui/attachment";
+```
+
+```tsx
+<Attachment>
+  <AttachmentMedia>
+    <FileText />
+  </AttachmentMedia>
+  <AttachmentContent>
+    <AttachmentTitle>quarterly-report.pdf</AttachmentTitle>
+    <AttachmentDescription>PDF · 2.4 MB</AttachmentDescription>
+  </AttachmentContent>
+  <AttachmentActions>
+    <AttachmentAction aria-label="Remove quarterly-report.pdf" icon={<X />} />
+  </AttachmentActions>
+</Attachment>
+```
+
+Use an attachment for a file the reader has picked to send, or one that's already in a conversation. It shows the file but doesn't pick or upload it: wire a file input and your upload to `state` and `AttachmentProgress`. For a long upload that isn't tied to a file tile, use a [Progress](/docs/components/progress) bar.
+
+## Examples
+
+### States
+
+`state` says where the file is, and the tile follows it.
+
+- `idle`, a file picked but not sent, is pressed into the surface.
+- `uploading` and `processing` sweep a shine across the title. Add an `AttachmentProgress` while you know how far the upload has got.
+- `error` turns the icon and the description `--destructive`. Say what went wrong in the description, not only with colour.
+- `done` (the default) is raised from the surface.
+
+<ComponentPreview name="attachment-states" />
+
+### Uploading
+
+`AttachmentProgress` is a thin [Progress](/docs/components/progress) bar on its own row across the bottom of the tile. Give it an `aria-label`, and keep the percentage in the description as well. Swap the icon for a [Spinner](/docs/components/spinner) with `aria-hidden` while the file uploads, and offer a cancel action.
+
+<ComponentPreview name="attachment-upload" />
+
+### Sizes
+
+`default`, `sm` and `xs` set the padding, the text size and the media well: 40px, 32px and 28px square. Use the smaller sizes for tighter rows, such as a composer.
+
+<ComponentPreview name="attachment-sizes" />
+
+### Thumbnails
+
+`orientation="vertical"` stacks a square thumbnail over the name, as a card 96px wide, or 120px with an `AttachmentContent`. Put an `<img>` in an `AttachmentMedia` with `variant="image"`; it fills the well and is dimmed until the file is `done` or `idle`. On a vertical tile, `AttachmentActions` float over the thumbnail's top corner.
+
+`AttachmentGroup` lays tiles out in a row that scrolls sideways and snaps to each tile, with room around them so their shadows aren't clipped. `AttachmentTrigger` covers the tile, so a click anywhere opens the file; here it renders an `<a>` with `render`. Actions stay above it.
+
+<ComponentPreview name="attachment-thumbnails" />
+
+### In context
+
+A message composer: an [Input Group](/docs/components/input-group) with an `AttachmentGroup` of `sm`, `idle` tiles in a `block-start` addon above the textarea. Each tile can be removed, and sending clears the composer.
+
+<ComponentPreview name="attachment-in-context" />
+
+## Accessibility
+
+- The tile and its parts are plain elements with no role. The title and description are read as text, so put the state in the description ("Uploading… 40%", "Too large: the limit is 100 MB").
+- `AttachmentTrigger` renders a `<button type="button">`. It has no text of its own: give it an `aria-label` such as "Open report.pdf", or `render` an `<a href>`.
+- Each `AttachmentAction` is an icon-only [Button](/docs/components/button) and needs an `aria-label` that names the file ("Remove report.pdf").
+- `AttachmentProgress` is a Base UI `progressbar`. Name it with an `aria-label`.
+- Give thumbnails `alt=""` when the title names the file, and mark icons and spinners in the media `aria-hidden`.
+- Keyboard focus on an `AttachmentTrigger` shows a 2px `--ring` outline around the whole tile, offset from it.
+
+## API reference
+
+### Attachment
+
+The tile. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `state` | `"idle" \| "uploading" \| "processing" \| "error" \| "done"` | `"done"` |
+| `size` | `"default" \| "sm" \| "xs"` | `"default"` |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+
+### AttachmentMedia
+
+A small well holding a file-type icon, a `Spinner` or a thumbnail. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"icon" \| "image"` | `"icon"` |
+
+### AttachmentContent, AttachmentTitle and AttachmentDescription
+
+`AttachmentContent` is the `<div>` column holding the text. `AttachmentTitle` is the file name and `AttachmentDescription` the size, type or status; both are `<span>`s cut to one line with an ellipsis. Each takes every prop of its native element.
+
+### AttachmentProgress
+
+A small [Progress](/docs/components/progress) bar on its own row at the bottom of the tile. Takes every prop of `Progress` apart from `size`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number \| null` | – |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+
+### AttachmentActions and AttachmentAction
+
+`AttachmentActions` holds the tile's buttons above any `AttachmentTrigger`, and takes every prop of the native `<div>`. `AttachmentAction` is a 28px round icon [Button](/docs/components/button) (24px on an `xs` tile) and takes every prop of `Button`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `icon` | `ReactNode` | – |
+| `variant` | `"default" \| "primary" \| "destructive" \| "ghost"` | `"ghost"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"sm"` |
+| `shape` | `"pill" \| "rounded"` | `"pill"` |
+
+### AttachmentTrigger
+
+Covers the whole tile, so a click anywhere opens the file. Put it directly inside the `Attachment`: the tile presses in while it's held and shows its focus ring. Renders a `<button>` and takes every prop of the native `<button>`, plus `render`. `type` is `"button"` unless you `render` another element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+| `type` | `"button" \| "submit" \| "reset"` | `"button"` |
+
+### AttachmentGroup
+
+A row of tiles that scrolls sideways and snaps to each tile, with its scrollbar hidden. Takes every prop of the native `<div>`. Tiles that are its direct children keep their width and snap; if you wrap each tile, for example in an `<li>`, give the wrapper `flex-none snap-start`.
+
+### attachmentVariants and attachmentMediaVariants
+
+```ts
+attachmentVariants(options?: {
+  size?: "default" | "sm" | "xs";
+  orientation?: "horizontal" | "vertical";
+}): string;
+attachmentMediaVariants(options?: { variant?: "icon" | "image" }): string;
+```
+
+Return the class names of the tile and of the media well.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"attachment"`, `"attachment-media"`, `"attachment-content"`, `"attachment-title"`, `"attachment-description"`, `"attachment-progress"`, `"attachment-actions"`, `"attachment-action"`, `"attachment-trigger"` or `"attachment-group"` |
+| `data-state` | On the tile, the `state` |
+| `data-size` | On the tile, the `size` |
+| `data-orientation` | On the tile, the `orientation` |
+| `data-variant` | On the media, the `variant` |

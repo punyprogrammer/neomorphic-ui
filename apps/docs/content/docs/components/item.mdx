@@ -1,0 +1,145 @@
+---
+title: Item
+description: A row of media, a title, a description and actions, level with the surface, raised out of it or set in a well.
+component: item
+---
+
+<ComponentPreview name="item-demo" />
+
+## Usage
+
+```tsx
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@neomorphic-react/ui/item";
+```
+
+```tsx
+<Item variant="raised">
+  <ItemMedia variant="icon">
+    <Bell aria-hidden="true" />
+  </ItemMedia>
+  <ItemContent>
+    <ItemTitle>Notifications</ItemTitle>
+    <ItemDescription>Trip reminders and price alerts</ItemDescription>
+  </ItemContent>
+  <ItemActions>
+    <Button size="sm">Manage</Button>
+  </ItemActions>
+</Item>
+```
+
+Use items for settings rows, payment methods, people and other lists where each entry has a title and a few details. Put them in an `ItemGroup` to make a list. For a panel that groups different kinds of content, use a [Card](/docs/components/card). For tabular data with columns to compare, use a [Table](/docs/components/table).
+
+## Examples
+
+### Variants
+
+`flat` (the default) sits level with the surface and has no shadow. `raised` stands out of it, like the rows in a list of cards. `inset` sets the row in a well.
+
+<ComponentPreview name="item-variants" />
+
+### Sizes
+
+`md` (the default) and `sm` set the padding, the gap between parts and the corner radius. At `sm`, the media tile shrinks from 40px to 32px and the description drops to a smaller text size.
+
+<ComponentPreview name="item-sizes" />
+
+### Media
+
+`ItemMedia` holds whatever leads the row. `variant="icon"` puts an icon on a small raised tile and sizes it to fit. `variant="image"` crops a picture to a tile of the same size. The default variant adds no frame, for an [Avatar](/docs/components/avatar) or anything else with its own. When the row has a description, the media lines up with the top of the text.
+
+<ComponentPreview name="item-media" />
+
+### Clickable rows
+
+To make the whole row a link or a button, pass it to `render`. A `flat` or `raised` row lifts on hover, and every variant presses into the surface while it's held. It keeps the link or button role, so inside an `ItemGroup` wrap it in an element with `role="listitem"`.
+
+<ComponentPreview name="item-links" />
+
+### Header, footer and separators
+
+`ItemHeader` and `ItemFooter` add full-width rows of small muted text above and below the content, for a date, a status or a note. A second `ItemContent` lines up at the end of the row, for an amount or a time. `ItemSeparator` draws a groove between items. Here the group has `gap-0`, so the groove alone spaces the rows.
+
+<ComponentPreview name="item-header-footer" />
+
+### In context
+
+A list of payment methods in a [Card](/docs/components/card), with an add button in the card's header. Each raised row shows the balance at its end, and a [Chip](/docs/components/chip) in the title marks the default card.
+
+<ComponentPreview name="item-in-context" />
+
+## Accessibility
+
+- `ItemGroup` has `role="list"`, and each item inside it with no `render` gets `role="listitem"`. Name the list with `aria-label` when there's no visible heading for it.
+- An item rendered as a link or button keeps that role. Wrap it in an element with `role="listitem"` so the list stays valid.
+- `ItemSeparator` is decorative (`role="none"`), so screen readers count only the items.
+- A clickable row shows a 2px `--ring` outline, offset from the row, when it has keyboard focus.
+- `ItemMedia` doesn't hide what's inside it. Give a decorative picture `alt=""`, and keep decorative icons out of the accessibility tree with `aria-hidden="true"`.
+
+## API reference
+
+### Item
+
+Renders a `<div>` and takes every prop of the native `<div>`. Use `render` to render a link, a button or another element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"flat" \| "raised" \| "inset"` | `"flat"` |
+| `size` | `"sm" \| "md"` | `"md"` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### ItemGroup
+
+A list of items, in a column with an 8px gap. Takes every prop of the native `<div>`.
+
+### ItemMedia
+
+The leading icon, image or avatar. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "icon" \| "image"` | `"default"` |
+
+### ItemContent, ItemTitle and ItemDescription
+
+`ItemContent` holds the title and description in a column and fills the free space; a second `ItemContent` beside it lines up at the end. `ItemTitle` is the medium-weight title, and `ItemDescription` is muted text under it, cut off after two lines. `ItemContent` and `ItemTitle` take every prop of the native `<div>`, and `ItemDescription` every prop of the native `<p>`.
+
+### ItemActions
+
+Buttons, switches or chips at the end of the row, laid out with an 8px gap. Takes every prop of the native `<div>`.
+
+### ItemHeader and ItemFooter
+
+Full-width rows of small muted text above and below the content. `ItemHeader` spreads its children to both ends. Each takes every prop of the native `<div>`.
+
+### ItemSeparator
+
+A decorative groove between items. Takes every prop of [Separator](/docs/components/separator).
+
+### itemVariants and itemMediaVariants
+
+```ts
+itemVariants(options?: {
+  variant?: "flat" | "raised" | "inset";
+  size?: "sm" | "md";
+}): string;
+itemMediaVariants(options?: {
+  variant?: "default" | "icon" | "image";
+}): string;
+```
+
+Return the class names of an item and of its media.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"item"`, `"item-group"`, `"item-media"`, `"item-content"`, `"item-title"`, `"item-description"`, `"item-actions"`, `"item-header"`, `"item-footer"` or `"item-separator"` |
+| `data-variant` | On the item or `ItemMedia`, the `variant` |
+| `data-size` | On the item, the `size` |

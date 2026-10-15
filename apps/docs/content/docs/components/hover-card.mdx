@@ -1,0 +1,98 @@
+---
+title: Hover Card
+description: A raised card that previews a link's destination when the pointer rests on the link or it takes focus.
+component: hover-card
+primitive: https://base-ui.com/react/components/preview-card
+---
+
+<ComponentPreview name="hover-card-demo" />
+
+## Usage
+
+```tsx
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@neomorphic-react/ui/hover-card";
+```
+
+```tsx
+<HoverCard>
+  <HoverCardTrigger href="/hosts/ines">Inês Almeida</HoverCardTrigger>
+  <HoverCardContent>Guides walking tours of Alfama.</HoverCardContent>
+</HoverCard>
+```
+
+Use a hover card to give sighted mouse and keyboard users a preview of a person, place or page before they follow the link. Keep it extra: touch users and screen reader users may never see it, so the link has to make sense on its own. For content the user opens on purpose and interacts with, use a [Popover](/docs/components/popover). For a short label on a control, use a [Tooltip](/docs/components/tooltip).
+
+## Examples
+
+### Delay
+
+The card opens once the pointer has rested on the link for 600ms, and closes 300ms after it leaves, so it doesn't flash open as the pointer passes by. Set `delay` and `closeDelay` on `HoverCardTrigger` to change them, in milliseconds.
+
+<ComponentPreview name="hover-card-delay" />
+
+### Placement
+
+The card opens below the link, centred. `side` moves it to the `top`, `left` or `right`, and `align` lines it up with the link's `start`, `center` or `end`. If there isn't room, it flips to stay on screen.
+
+<ComponentPreview name="hover-card-placement" />
+
+### In context
+
+Place names in an article, each previewing the place with a picture, a summary and the travel time. `className` on `HoverCardContent` trims the padding so the picture sits closer to the card's edge.
+
+<ComponentPreview name="hover-card-in-context" />
+
+## Accessibility
+
+- `HoverCardTrigger` renders an `<a>`. Give it an `href` so it's a real link that works without the card.
+- The card opens when the pointer rests on the link or the link receives keyboard focus, and closes on Escape or when the pointer or focus leaves.
+- The card isn't linked to the link for assistive tech, and focus never moves into it. Don't put anything in it the user needs, or any link or button that isn't also on the page.
+- Keyboard focus on the link shows a 2px `--ring` outline, offset from the text.
+
+## API reference
+
+### HoverCard
+
+Base UI's [PreviewCard.Root](https://base-ui.com/react/components/preview-card) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+
+### HoverCardTrigger
+
+The link. Takes every prop of Base UI's `PreviewCard.Trigger` and of the native `<a>`. It's styled as a `--primary` link that underlines on hover.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `href` | `string` | – |
+| `delay` | `number` | `600` |
+| `closeDelay` | `number` | `300` |
+
+### HoverCardContent
+
+The card, 288px wide and portalled to the end of the document. `side`, `sideOffset`, `align` and `alignOffset` go to Base UI's `PreviewCard.Positioner`; the remaining props go to `PreviewCard.Popup`, including `className`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"bottom"` |
+| `sideOffset` | `number` | `10` |
+| `align` | `"start" \| "center" \| "end"` | `"center"` |
+| `alignOffset` | `number` | `0` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"hover-card-trigger"` or `"hover-card-content"` |
+| `data-popup-open` | On the trigger, present while the card is open |
+| `data-open`, `data-closed` | On the content, its open state |
+| `data-side` | On the content, the side it opened on |
+| `data-align` | On the content, its alignment |
+| `data-starting-style`, `data-ending-style` | On the content, present while it scales in or out |

@@ -1,0 +1,133 @@
+---
+title: Calendar
+description: A raised month grid whose days rise under the pointer, with the chosen day, days or range filled.
+component: calendar
+---
+
+<ComponentPreview name="calendar-demo" />
+
+## Usage
+
+Calendar is built on [react-day-picker](https://daypicker.dev), an optional peer dependency. Install it alongside the library:
+
+<InstallCommand packages="react-day-picker" />
+
+```tsx
+import { Calendar } from "@neomorphic-react/ui/calendar";
+```
+
+```tsx
+const [date, setDate] = useState<Date>();
+
+<Calendar mode="single" onSelect={setDate} selected={date} />
+```
+
+Every prop of react-day-picker's `DayPicker` passes through. Days are only buttons once there's a `mode`: `single`, `multiple` or `range`. Without one, the calendar is for display only. Show the calendar on the page when the dates are the main task, such as booking a slot. To pick a date in a form field, use a [Date Picker](/docs/components/date-picker), which opens the calendar in a popover.
+
+## Examples
+
+### Range
+
+`mode="range"` picks a start and an end. Both ends are raised and filled, and a tinted band joins the days between them. `numberOfMonths` shows months side by side on wide screens and stacked on narrow ones. For a set of separate days, use `mode="multiple"`; `min` and `max` limit how many can be chosen.
+
+<ComponentPreview name="calendar-range" />
+
+### Month and year dropdowns
+
+`captionLayout="dropdown"` swaps the caption for month and year pills, each over a native `<select>`, so the platform's own picker opens. Set `startMonth` and `endMonth` to bound the years, which suits a date of birth. Month names follow the browser's language, so if the calendar is rendered on the server, pass `formatMonthDropdown` in `formatters` with a fixed locale to keep the server and browser in step.
+
+<ComponentPreview name="calendar-dropdowns" />
+
+### Disabled days
+
+`disabled` takes a date, an array of dates, `{ before }`, `{ after }`, `{ from, to }`, `{ dayOfWeek }`, a function, or an array of any of these. Disabled days are dimmed and struck through, and can't be picked. `startMonth` stops the previous-month button at the first month you allow.
+
+<ComponentPreview name="calendar-disabled" />
+
+### Colour and size
+
+The selection fills with `--primary`. Set `--calendar-fill` and `--calendar-fill-foreground` on the calendar for another colour; the range band is tinted to match. `--cell-size` sets the size of every day and of the navigation buttons, and is `--spacing(9)` (36px) by default.
+
+<ComponentPreview name="calendar-colors" />
+
+### Custom day content
+
+Pass your own day button through `components={{ DayButton }}` and render `CalendarDayButton` inside it to keep the day tones. Here each day shows a fare under its number, with a larger `--cell-size` to fit it. `showOutsideDays={false}` hides the days of the months either side.
+
+<ComponentPreview name="calendar-custom-days" />
+
+### In context
+
+A delivery slot picker in a card. The calendar sits flat with `bg-transparent p-0 shadow-neu-flat`, as the card already lifts it. Sundays and days before the first slot are disabled, and the footer shows the chosen day and enables the button.
+
+<ComponentPreview name="calendar-in-context" />
+
+## Accessibility
+
+- Each month is a `grid` named by its month and year. In `multiple` and `range` mode the grid is `aria-multiselectable`.
+- Each day is a `<button>` named with its full date, with "Today" before it and "selected" after it when they apply.
+- The month caption is a polite live region, so moving to another month is announced.
+- Only one day is in the tab order. The arrow keys move by day and by week, Page Up and Page Down by month, Shift with Page Up or Page Down by year, and Home and End to the start and end of the week. Enter or Space picks the focused day.
+- At `startMonth` or `endMonth`, the previous or next button is marked `aria-disabled` and leaves the tab order.
+- The selection is marked by the `--primary` fill and today by a dot, not only by depth. Disabled days are struck through as well as dimmed.
+- The chevrons are decorative (`aria-hidden`). In right-to-left layouts they point the other way.
+- Keyboard focus on a day, a navigation button or a dropdown shows a 2px `--ring` outline, offset from it.
+
+## API reference
+
+### Calendar
+
+Takes every prop of react-day-picker's [DayPicker](https://daypicker.dev/api/functions/DayPicker). The calendar is raised from the page like a [Surface](/docs/components/surface); `bg-transparent shadow-neu-flat` lays it flat. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `mode` | `"single" \| "multiple" \| "range"` | – |
+| `selected` | `Date \| Date[] \| DateRange` | – |
+| `onSelect` | `(selected, triggerDate, modifiers, event) => void` | – |
+| `required` | `boolean` | `false` |
+| `defaultMonth` | `Date` | The current month |
+| `month` | `Date` | – |
+| `onMonthChange` | `(month: Date) => void` | – |
+| `numberOfMonths` | `number` | `1` |
+| `startMonth` | `Date` | – |
+| `endMonth` | `Date` | – |
+| `captionLayout` | `"label" \| "dropdown" \| "dropdown-months" \| "dropdown-years"` | `"label"` |
+| `disabled` | `Matcher \| Matcher[]` | – |
+| `today` | `Date` | The current date |
+| `showOutsideDays` | `boolean` | `true` |
+| `showWeekNumber` | `boolean` | `false` |
+| `weekStartsOn` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` | From `locale`: `0` (Sunday) in the default English locale |
+| `components` | `Partial<CustomComponents>` | – |
+| `formatters` | `Partial<Formatters>` | – |
+
+When `onSelect` is left out, `selected` is the starting selection and the calendar keeps its own state after that.
+
+### CalendarDayButton
+
+The day button the calendar renders. Use it inside your own `DayButton` component to add content and keep the day tones. Takes react-day-picker's `DayButtonProps`: every prop of the native `<button>`, plus the `day` and its `modifiers`.
+
+### Types
+
+`CalendarProps` is the calendar's props, and `DateRange` (`{ from: Date | undefined; to?: Date | undefined }`) is the value of a range. Both are exported from `@neomorphic-react/ui/calendar`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"calendar"` on the root, or `"calendar-day-button"` on a day |
+| `data-day` | On a day, its date as `yyyy-mm-dd` |
+| `data-today` | On a day, present when it's today |
+| `data-selected` | On a day, present when it's chosen or is either end of a range |
+| `data-selected-single` | On a day, present when it's chosen and isn't part of a range |
+| `data-range-start`, `data-range-end` | On a day, present at either end of a range |
+| `data-range-middle` | On a day, present between the ends of a range |
+
+### CSS variables
+
+Set them on the calendar with an arbitrary property class such as `[--cell-size:--spacing(10)]`.
+
+| Variable | Sets |
+| --- | --- |
+| `--calendar-fill` | The selected days' fill, the today dot and the range tint. Falls back to `--primary` |
+| `--calendar-fill-foreground` | The text on a selected day. Falls back to `--primary-foreground` |
+| `--cell-size` | The width and height of each day and navigation button: `--spacing(9)` |

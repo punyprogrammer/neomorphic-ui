@@ -1,0 +1,93 @@
+---
+title: Chip
+description: A status pill with an optional icon and a short label, such as "Paid", "Due soon" or "Draft".
+component: chip
+---
+
+<ComponentPreview name="chip-demo" />
+
+## Usage
+
+```tsx
+import { Chip } from "@neomorphic-react/ui/chip";
+```
+
+```tsx
+<Chip icon={<Check />} variant="success">
+  Paid
+</Chip>
+```
+
+A chip is larger than a [Badge](/docs/components/badge), uses sentence case and can carry an icon. Use a badge for counts and dots. A chip isn't interactive; for an on/off control, use [Toggle](/docs/components/toggle).
+
+## Examples
+
+### Variants
+
+`default` is raised from the surface and `inset` is pressed into it. `primary`, `success`, `warning` and `destructive` are token fills, each paired with its `-foreground` colour so the label keeps its contrast.
+
+<ComponentPreview name="chip-variants" />
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the height, padding, text size and icon size together.
+
+<ComponentPreview name="chip-sizes" />
+
+### Icons
+
+Pass any element to `icon`, such as a lucide-react icon. An SVG without its own `size-*` class is sized to match the chip. `iconPosition` places it at the `start` (the default) or `end` of the label; both follow the writing direction, so they flip in right-to-left layouts. A directional icon like an arrow needs its own `rtl:` mirroring.
+
+<ComponentPreview name="chip-icon-positions" />
+
+### Changing status
+
+A chip is static text. When a status changes while the user is watching, render the chip inside a `role="status"` region so the new label is announced.
+
+<ComponentPreview name="chip-live-status" />
+
+### In context
+
+Trend chips on a row of stat cards. The `inset` chip takes a custom text colour through `className`, and visually hidden text says "Up" or "Down", because the arrow icon is decorative.
+
+<ComponentPreview name="chip-in-context" />
+
+## Accessibility
+
+- Renders a `<span>` with no role: the label is read as ordinary text, so it must state the status on its own.
+- The icon is decorative (`aria-hidden`). If the icon carries meaning, such as a trend arrow, add visually hidden text for it.
+- A chip is not focusable and has no interactive behaviour.
+- For a status that updates in place, wrap the chip in a `role="status"` region.
+
+## API reference
+
+### Chip
+
+Renders a `<span>` and takes every prop of the native `<span>`. Use `render` to render a different element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "inset" \| "primary" \| "destructive" \| "success" \| "warning"` | `"default"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `icon` | `ReactNode` | – |
+| `iconPosition` | `"start" \| "end"` | `"start"` |
+
+### chipVariants
+
+```ts
+chipVariants(options?: {
+  variant?: "default" | "inset" | "primary" | "destructive" | "success" | "warning";
+  size?: "sm" | "md" | "lg";
+}): string;
+```
+
+Returns the chip's class names, for styling another element as a chip.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"chip"`, or `"chip-icon"` on the icon wrapper |
+| `data-variant` | The `variant` |
+| `data-size` | The `size` |
+| `data-icon-position` | The `iconPosition`, when there's an icon |

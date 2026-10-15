@@ -1,0 +1,167 @@
+---
+title: Select
+description: A raised trigger that opens a list of options and shows the one that's chosen.
+component: select
+primitive: https://base-ui.com/react/components/select
+---
+
+<ComponentPreview name="select-demo" />
+
+## Usage
+
+```tsx
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@neomorphic-react/ui/select";
+```
+
+```tsx
+const items = [
+  { label: "Design", value: "design" },
+  { label: "Engineering", value: "engineering" },
+];
+
+<Select items={items} name="category">
+  <SelectLabel>Category</SelectLabel>
+  <SelectTrigger className="w-64">
+    <SelectValue placeholder="Select category" />
+  </SelectTrigger>
+  <SelectContent>
+    {items.map((item) => (
+      <SelectItem key={item.value} value={item.value}>
+        {item.label}
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
+```
+
+Pass `items` to `Select` so the trigger shows the chosen item's label rather than its raw value.
+
+## Examples
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the trigger's height, padding and text size. Give the trigger a width with `className`; the list is never narrower than the trigger.
+
+<ComponentPreview name="select-sizes" />
+
+### Groups
+
+Group related options with `SelectGroup` and name each group with `SelectGroupLabel`. `SelectSeparator` draws a groove between groups. When the list is taller than its `max-h-*` class or the space on screen, it scrolls, and arrows appear at the top and bottom of the popup.
+
+<ComponentPreview name="select-groups" />
+
+### Disabled and invalid
+
+- `disabled` on a `SelectItem` keeps that option in the list but stops it being chosen.
+- `disabled` on `Select` flattens the trigger and dims its text. Dim the label yourself with `text-foreground/50`.
+- `aria-invalid` on the trigger adds a `--destructive` ring. Point `aria-describedby` at the error message so it's read with the field.
+
+<ComponentPreview name="select-states" />
+
+### Align the chosen item with the trigger
+
+By default the list drops below the trigger. `alignItemWithTrigger` on `SelectContent` overlays the list so the chosen item sits on top of the trigger, as native menus do on macOS.
+
+<ComponentPreview name="select-align-item" />
+
+### In context
+
+A controlled select in a card header: `value` and `onValueChange` keep the chosen range in state, and the figures below follow it. `align="end"` lines the list up with the trigger's end edge, so it doesn't spill past the card.
+
+<ComponentPreview name="select-in-context" />
+
+## Accessibility
+
+- The trigger has `role="combobox"` and the list is a `listbox` of `option`s.
+- `SelectLabel` is wired to the trigger, so the trigger is named by it. Without a visible label, put an `aria-label` on `SelectTrigger`.
+- Space, Enter or the arrow keys open the list; the arrow keys move the highlight, typing jumps to a matching option, Enter chooses, and Escape closes.
+- The chosen option is marked with a check and the `--primary` colour, not only by depth.
+- The caret, the check and the scroll arrows' icons are decorative (`aria-hidden`).
+- Keyboard focus shows a `--ring` outline, offset from the trigger.
+
+## API reference
+
+### Select
+
+Base UI's [Select.Root](https://base-ui.com/react/components/select) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `items` | `Record<string, ReactNode> \| { label: ReactNode; value: any }[]` | – |
+| `value` | `any` | – |
+| `defaultValue` | `any` | – |
+| `onValueChange` | `(value, eventDetails) => void` | – |
+| `name` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+
+### SelectLabel
+
+The field's visible label. Takes every prop of Base UI's `Select.Label`.
+
+### SelectTrigger
+
+The button that opens the list. Takes every prop of Base UI's `Select.Trigger`. Put a `SelectValue` inside it; the caret is added for you.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+
+### SelectValue
+
+The chosen item's label, or `placeholder` while nothing is chosen. Takes every prop of Base UI's `Select.Value`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `placeholder` | `ReactNode` | – |
+
+### SelectContent
+
+The list, in a raised card portalled to the end of the document. `align`, `alignItemWithTrigger`, `side` and `sideOffset` go to Base UI's `Select.Positioner`; the remaining props go to `Select.Popup`, including `className`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"bottom"` |
+| `align` | `"start" \| "center" \| "end"` | `"start"` |
+| `sideOffset` | `number` | `8` |
+| `alignItemWithTrigger` | `boolean` | `false` |
+
+### SelectItem
+
+An option. Takes every prop of Base UI's `Select.Item`. Its children are the label shown in the list; icons can sit beside the text.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `disabled` | `boolean` | `false` |
+
+### SelectGroup, SelectGroupLabel and SelectSeparator
+
+`SelectGroup` gathers related items and `SelectGroupLabel` names the group. `SelectSeparator` is a groove between groups. They take every prop of Base UI's `Select.Group`, `Select.GroupLabel` and `Select.Separator`.
+
+### selectTriggerVariants
+
+```ts
+selectTriggerVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns the trigger's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"select-label"`, `"select-trigger"`, `"select-icon"`, `"select-value"`, `"select-content"`, `"select-list"`, `"select-item"`, `"select-item-indicator"`, `"select-group"`, `"select-group-label"`, `"select-separator"`, `"select-scroll-up-arrow"` or `"select-scroll-down-arrow"` |
+| `data-size` | The trigger's `size` |
+| `data-popup-open` | On the trigger, present while the list is open |
+| `data-placeholder` | On the trigger, present while nothing is chosen |
+| `data-disabled` | On the trigger or an item, present when disabled |
+| `data-highlighted` | On an item, present while it's highlighted by the pointer or the arrow keys |
+| `data-selected` | On an item, present when it's chosen |

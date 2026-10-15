@@ -1,0 +1,144 @@
+---
+title: Accordion
+description: Stacked sections that open from their headers, as raised panels or a list split by grooves.
+component: accordion
+primitive: https://base-ui.com/react/components/accordion
+---
+
+<ComponentPreview name="accordion-demo" />
+
+## Usage
+
+```tsx
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@neomorphic-react/ui/accordion";
+```
+
+```tsx
+<Accordion defaultValue={["bags"]}>
+  <AccordionItem value="bags">
+    <AccordionTrigger>What can I bring on board?</AccordionTrigger>
+    <AccordionContent>One cabin bag and one personal item.</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="change">
+    <AccordionTrigger>Can I change my booking?</AccordionTrigger>
+    <AccordionContent>Yes, up to 24 hours before departure.</AccordionContent>
+  </AccordionItem>
+</Accordion>
+```
+
+Use an accordion to let people scan a list of headings and open only what they need, such as FAQs or settings groups. Opening one item closes the others unless you pass `multiple`. For a single section, use a [Collapsible](/docs/components/collapsible); to switch between views of equal weight, use [Tabs](/docs/components/tabs).
+
+## Examples
+
+### Multiple
+
+`multiple` lets several items stay open at once. `defaultValue` and `value` always take an array of item `value`s, even when only one item can be open.
+
+<ComponentPreview name="accordion-multiple" />
+
+### Flat
+
+By default each item is its own raised panel, and the open header presses into it. `variant="flat"` drops the panels for grooves between items, for use inside a [Card](/docs/components/card). The open header doesn't press in; its chevron turning over and taking the `--primary` colour marks it.
+
+<ComponentPreview name="accordion-flat" />
+
+### Disabled
+
+`disabled` on an `AccordionItem` dims the item and stops its header from opening it. `disabled` on `Accordion` stops every item from toggling.
+
+<ComponentPreview name="accordion-disabled" />
+
+### Controlled
+
+`value` and `onValueChange` keep the open items in state, so other controls can change them. Here two buttons open or close every item.
+
+<ComponentPreview name="accordion-controlled" />
+
+### In context
+
+A filter panel: a flat accordion in a card, with a range [Slider](/docs/components/slider) and groups of [Checkboxes](/docs/components/checkbox). `className` on `AccordionContent` styles the padded box inside the panel, so it can lay out the controls as a grid. The panel clips what overflows it, so the extra inline padding leaves room for the slider thumbs and focus outlines.
+
+<ComponentPreview name="accordion-in-context" />
+
+## Accessibility
+
+- Each `AccordionTrigger` is a `<button>` inside an `<h3>`, so the headers show up in a screen reader's list of headings.
+- The button has `aria-expanded`, and `aria-controls` pointing at its panel while it's open. The open panel has `role="region"` and is named by its header.
+- Tab moves from header to header, and Enter or Space opens or closes the focused one. The arrow keys don't move focus between headers.
+- The open header's chevron turns over and takes the `--primary` colour, so the state never depends on depth alone.
+- The chevron is decorative (`aria-hidden`).
+- A disabled item's header is a disabled button and leaves the tab order.
+- Keyboard focus shows a 2px `--ring` outline, offset from the header.
+
+## API reference
+
+### Accordion
+
+Takes every prop of Base UI's [Accordion.Root](https://base-ui.com/react/components/accordion) and renders a `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"raised" \| "flat"` | `"raised"` |
+| `value` | `any[]` | – |
+| `defaultValue` | `any[]` | – |
+| `onValueChange` | `(value: any[], eventDetails) => void` | – |
+| `multiple` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `keepMounted` | `boolean` | `false` |
+| `hiddenUntilFound` | `boolean` | `false` |
+
+`keepMounted` keeps closed panels in the page. `hiddenUntilFound` also keeps them in the page, hidden, so the browser's find in page can reach their text and open them.
+
+### AccordionItem
+
+One section. Takes every prop of Base UI's `Accordion.Item`. Without a `value`, Base UI makes one up, so give each item a `value` when you set `defaultValue` or `value`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `disabled` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+
+### AccordionTrigger
+
+The item's header: a button inside an `<h3>`, with the chevron added for you. Takes every prop of Base UI's `Accordion.Trigger`.
+
+### AccordionContent
+
+The item's panel, animating its height open and shut. Takes every prop of Base UI's `Accordion.Panel`. `className` goes to the padded box inside the panel. Links inside are underlined, and paragraphs are spaced apart.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `keepMounted` | `boolean` | `false` |
+| `hiddenUntilFound` | `boolean` | `false` |
+
+### accordionVariants
+
+```ts
+accordionVariants(options?: { variant?: "raised" | "flat" }): string;
+```
+
+Returns the root's class names: a column, with a gap between items when `raised`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"accordion"`, `"accordion-item"`, `"accordion-header"`, `"accordion-trigger"`, `"accordion-indicator"` or `"accordion-content"` |
+| `data-variant` | On the root, the `variant` |
+| `data-open` | On an item and its panel, present while open |
+| `data-panel-open` | On a trigger, present while its panel is open |
+| `data-disabled` | Present when disabled |
+| `data-index` | On an item and its parts, the item's position, from `0` |
+| `data-starting-style`, `data-ending-style` | On a panel, present while it animates open or shut |
+
+### CSS variables
+
+| Variable | Sets |
+| --- | --- |
+| `--accordion-panel-height` | A panel's height, measured from its content. Set by Base UI; the panel animates to and from it |

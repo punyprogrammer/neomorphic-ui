@@ -1,0 +1,96 @@
+---
+title: Marker
+description: A quiet line of status in a transcript, such as a date, a join or "Thinking…", on its own or between grooves.
+component: marker
+---
+
+<ComponentPreview name="marker-demo" />
+
+## Usage
+
+```tsx
+import {
+  Marker,
+  MarkerContent,
+  MarkerIcon,
+} from "@neomorphic-react/ui/marker";
+```
+
+```tsx
+<Marker>
+  <MarkerIcon>
+    <UserPlus />
+  </MarkerIcon>
+  <MarkerContent>Marcus joined the chat</MarkerContent>
+</Marker>
+```
+
+Use a marker for an event in a conversation that isn't anyone's message: a date, someone joining, a missed call or a reply in progress. Messages themselves go in a [Message](/docs/components/message) with [Bubble](/docs/components/bubble)s. To divide content that isn't a transcript, use a [Separator](/docs/components/separator).
+
+## Examples
+
+### Variants
+
+`default` is a line of muted text. `separator` centres the text between two grooves, for a date. `border` underlines the line with one groove, for the start of a section. The grooves are cut into the surface, like a `Separator`.
+
+<ComponentPreview name="marker-variants" />
+
+### Icons and links
+
+`MarkerIcon` holds a 16px icon or a [Spinner](/docs/components/spinner) before the text, and hides it from screen readers. Links inside the text are underlined, and turn to `--foreground` on hover.
+
+<ComponentPreview name="marker-icons-links" />
+
+### Live status
+
+For work in progress, give the marker `role="status"` so screen readers announce it when the text changes, and `shimmer` to sweep a shine across the text. Turn `shimmer` off and change the text when the work is done. Keep the same marker mounted, so the change is announced. With reduced motion turned on, the text stays still.
+
+<ComponentPreview name="marker-status" />
+
+### In context
+
+A group chat in a [Card](/docs/components/card). `separator` markers date each day, and a centred `default` marker with an icon notes who was added between the [Message](/docs/components/message)s.
+
+<ComponentPreview name="marker-in-context" />
+
+## Accessibility
+
+- The marker renders a `<div>` with no role. It's never a `role="separator"`, even with the `separator` variant, because its text carries information. The grooves are decoration and aren't announced.
+- Add `role="status"` to a marker whose text changes while the reader watches, so the change is announced politely.
+- `MarkerIcon` is `aria-hidden`, so say what the icon means in the text ("Missed call", not only a crossed-out phone).
+- Links inside the marker are underlined, so they don't depend on colour.
+- The shimmer keeps the text readable at every frame.
+
+## API reference
+
+### Marker
+
+Renders a `<div>` and takes every prop of the native `<div>`, plus `render`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "separator" \| "border"` | `"default"` |
+| `shimmer` | `boolean` | `false` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### MarkerIcon and MarkerContent
+
+`MarkerIcon` is a decorative `<span>` for an icon or `Spinner`, with `aria-hidden="true"`. `MarkerContent` is a `<span>` holding the text; it's the part that shimmers. Both take every prop of the native `<span>`.
+
+### markerVariants
+
+```ts
+markerVariants(options?: {
+  variant?: "default" | "separator" | "border";
+}): string;
+```
+
+Returns the marker's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"marker"`, `"marker-icon"` or `"marker-content"` |
+| `data-variant` | On the marker, the `variant` |
+| `data-shimmer` | On the marker, present while `shimmer` is on |

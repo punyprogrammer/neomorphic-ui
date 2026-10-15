@@ -1,0 +1,74 @@
+---
+title: Skeleton
+description: A shallow well where content will land, with a soft highlight sweeping across it while it loads.
+component: skeleton
+---
+
+<ComponentPreview name="skeleton-demo" />
+
+## Usage
+
+```tsx
+import { Skeleton } from "@neomorphic-react/ui/skeleton";
+```
+
+```tsx
+<section aria-busy="true" aria-label="Loading profile">
+  <Skeleton className="size-12" shape="circle" />
+  <Skeleton className="w-48" shape="line" />
+</section>
+```
+
+Use skeletons when you know the shape of the content that's loading, such as a list, a card or a profile, so the layout doesn't jump when it arrives. When you don't, or the wait is for an action, use a [Spinner](/docs/components/spinner). When the wait has a known length, use [Progress](/docs/components/progress).
+
+## Examples
+
+### Shapes
+
+`rect` (the default) is a rounded block for images and panels. `line` is a 16px pill for a line of text. `circle` is a round placeholder for an avatar. A skeleton has no size of its own besides the line's height, so set its width and height with `className`.
+
+<ComponentPreview name="skeleton-shapes" />
+
+### Matching the layout
+
+Build the placeholder from the same parts as the content it stands in for, here a [Card](/docs/components/card), and size each skeleton like the text or image it replaces. A `line` can be made thinner with a `h-*` class for smaller text.
+
+<ComponentPreview name="skeleton-card" />
+
+### In context
+
+A list of trips that loads, then swaps its skeleton rows for the real ones. The list has `aria-busy` while it loads, and the description is a `status` that announces the number of trips when they arrive. Refresh to load again; the button keeps focus while it waits.
+
+<ComponentPreview name="skeleton-in-context" />
+
+## Accessibility
+
+- Every skeleton has `aria-hidden="true"`, so screen readers skip it.
+- Set `aria-busy="true"` on the region that's loading, and name it with `aria-label` or a visible heading. Remove `aria-busy` when the content lands.
+- Announce the result when it arrives, for example with the count or a message in a `role="status"` element, so screen reader users know the wait is over.
+- The sweep holds still when reduced motion is requested, and the wells stay in place.
+
+## API reference
+
+### Skeleton
+
+Renders a `<div>` and takes every prop of it.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `shape` | `"rect" \| "line" \| "circle"` | `"rect"` |
+
+### skeletonVariants
+
+```ts
+skeletonVariants(options?: { shape?: "rect" | "line" | "circle" }): string;
+```
+
+Returns the skeleton's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"skeleton"` |
+| `data-shape` | The `shape` |

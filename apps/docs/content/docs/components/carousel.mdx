@@ -1,0 +1,146 @@
+---
+title: Carousel
+description: Slides in a track that swipes and snaps, with raised round buttons either side and dots underneath to pick a slide.
+component: carousel
+---
+
+<ComponentPreview name="carousel-demo" />
+
+## Usage
+
+Carousel is built on Embla, through the optional peer dependency `embla-carousel-react`. Install it alongside the library:
+
+<InstallCommand packages="embla-carousel-react" />
+
+```tsx
+import {
+  Carousel,
+  CarouselContent,
+  CarouselIndicator,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@neomorphic-react/ui/carousel";
+```
+
+```tsx
+<Carousel aria-label="Itinerary" className="mx-14 max-w-xs">
+  <CarouselContent>
+    <CarouselItem>…</CarouselItem>
+    <CarouselItem>…</CarouselItem>
+  </CarouselContent>
+  <CarouselPrevious />
+  <CarouselNext />
+  <CarouselIndicator />
+</Carousel>
+```
+
+The previous and next buttons sit outside the track, 56px beyond each edge, so leave room for them with a margin or padding around the carousel. Use a carousel when the slides are alike and browsing them in order is the point, such as photos or featured items. Content people need to compare or scan belongs in a list or a grid, and steps someone works through belong in a [Page Indicator](/docs/components/page-indicator) with their own buttons. Nothing moves on its own.
+
+## Examples
+
+### Several slides at once
+
+A slide takes the full width by default. A `basis-*` class on `CarouselItem` shows more than one, and `gap` sets the space between them. `opts` are passed to Embla: `align: "start"` lines the slides up with the start edge, and `loop: true` wraps from the last slide back to the first, so the buttons never disable.
+
+<ComponentPreview name="carousel-several" />
+
+### Vertical
+
+`orientation="vertical"` scrolls up and down. Give `CarouselContent` a height, and leave room above and below for the buttons, which turn to point up and down.
+
+<ComponentPreview name="carousel-vertical" />
+
+### Custom controls
+
+`useCarousel` reads the carousel's state from any component inside it. Here a row of thumbnails calls `scrollTo` and marks the slide in view from `selectedIndex`. Outside the carousel, `onSlideChange` reports the new slide's index, and `setApi` hands you Embla's API.
+
+<ComponentPreview name="carousel-thumbnails" />
+
+### In context
+
+Featured stays, two to a view on wider screens. The carousel is named by the heading above it with `aria-labelledby`, and each Book button names its stay, since the visible labels are all the same.
+
+<ComponentPreview name="carousel-in-context" />
+
+## Accessibility
+
+- The carousel is a `role="region"` with `aria-roledescription="carousel"`. Name it with `aria-label` or `aria-labelledby`.
+- Each slide is a `role="group"` with `aria-roledescription="slide"`. Give slides an `aria-label` such as "Day 2 of 5" when their content doesn't say where they are.
+- While focus is anywhere inside the carousel, the left and right arrow keys (up and down when vertical) move to the previous or next slide. They are mirrored in right-to-left layouts, and leave text fields and the dots alone.
+- The buttons are named "Previous slide" and "Next slide", and are disabled at either end unless the carousel loops.
+- `CarouselIndicator` is a `role="group"` named "Choose slide". Each dot is a button named "Slide 2 of 5", the current one has `aria-current="true"`, and only that one is in the tab order; the arrow keys, Home and End move between dots.
+- The buttons' chevrons are decorative (`aria-hidden`). Keyboard focus on a button or a dot shows a `--ring` outline.
+- For right-to-left layouts, also pass `opts={{ direction: "rtl" }}` so the slides scroll the right way.
+
+## API reference
+
+### Carousel
+
+The root, around the track and its controls. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `gap` | `string` | `"1.5rem"` |
+| `opts` | `CarouselOptions` | – |
+| `plugins` | `CarouselPlugin` | – |
+| `onSlideChange` | `(index: number) => void` | – |
+| `setApi` | `(api: CarouselApi) => void` | – |
+
+`opts` are [Embla's options](https://www.embla-carousel.com/api/options/), such as `align`, `loop`, `startIndex`, `slidesToScroll`, `dragFree` and `direction`. `orientation` sets Embla's `axis`. `plugins` takes Embla plugins, such as autoplay from the separate `embla-carousel-autoplay` package. `gap` takes any CSS length and sets `--carousel-gap`. The `CarouselApi`, `CarouselOptions` and `CarouselPlugin` types are exported too.
+
+### CarouselContent and CarouselItem
+
+`CarouselContent` is the track, inside a viewport that clips it with 16px of room on every side, so raised slides' shadows aren't cut off. Its props and `className` go to the track. `CarouselItem` is one slide, full width by default. Both take every prop of the native `<div>`.
+
+### CarouselPrevious and CarouselNext
+
+Round raised [Buttons](/docs/components/button) that scroll one step back or forward. They take every prop of `Button` apart from `icon` and `children`, and their `aria-label` can be replaced.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"sm"` |
+| `variant` | `"default" \| "primary" \| "destructive" \| "ghost"` | `"default"` |
+
+### CarouselIndicator
+
+A [Page Indicator](/docs/components/page-indicator) under the track whose dots pick a slide. It has one dot for each place the track can stop, so with several slides in view there are fewer dots than slides. It renders nothing when there's only one. Takes every prop of `PageIndicator` apart from `count`, `value` and `onValueChange`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `aria-label` | `string` | `"Choose slide"` |
+| `getAriaLabel` | `(index: number, count: number) => string` | `"Slide {index + 1} of {count}"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+
+### useCarousel
+
+Returns the state of the surrounding `Carousel`, for building your own controls. It throws outside a carousel.
+
+| Property | Type |
+| --- | --- |
+| `api` | `CarouselApi` |
+| `selectedIndex` | `number` |
+| `slideCount` | `number` |
+| `canScrollPrev` | `boolean` |
+| `canScrollNext` | `boolean` |
+| `scrollPrev` | `() => void` |
+| `scrollNext` | `() => void` |
+| `scrollTo` | `(index: number) => void` |
+| `orientation` | `"horizontal" \| "vertical"` |
+| `carouselRef` | The ref attached to the viewport |
+
+`slideCount` and `selectedIndex` count the places the track can stop, the same as the dots.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"carousel"`, `"carousel-content"` (the viewport), `"carousel-track"`, `"carousel-item"`, `"carousel-previous"`, `"carousel-next"` or `"carousel-indicator"` |
+| `data-orientation` | On the root, the `orientation` |
+
+### CSS variables
+
+| Variable | Sets |
+| --- | --- |
+| `--carousel-gap` | The space between slides, from `gap` |

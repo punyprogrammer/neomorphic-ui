@@ -1,0 +1,54 @@
+---
+title: Introduction
+description: Neumorphic React components with surfaces that rise out of the page or sink into it, built on Base UI and Tailwind CSS v4.
+---
+
+Neomorphic UI is a React component library for soft, tactile interfaces. Buttons and cards are raised from the page, inputs and wells are pressed into it, and controls sink as you press them. Every component shares one surface colour, so the whole screen reads as a single moulded material.
+
+<ComponentPreview hideCode name="introduction-demo" />
+
+## Why another component library
+
+Neumorphism looks simple and is hard to ship. Pale shadows on a pale surface often fail contrast, focus disappears into the relief, and every designer's shadows disagree. Neomorphic UI makes those decisions once:
+
+- **Accessible**: keyboard support and ARIA come from [Base UI](https://base-ui.com). Focus rings are always visible, colours pass WCAG AA contrast, layouts work right to left, and nothing animates when the reader asks for reduced motion.
+- **One shadow system**: every raised or pressed surface comes from the same light and dark shadows, scaled by a single `--neu-depth`. Change it once and the whole interface gets deeper or flatter.
+- **Themeable**: the surface colour, primary colour, depth and radius are CSS variables. See [Theming](/docs/theming).
+- **One import per component**: each component has its own entry point, so you only ship what you use.
+- **Styled with Tailwind CSS v4**: no runtime styling. Pass `className` to adjust anything, and tailwind-merge resolves conflicts.
+
+## What's included
+
+There are **70 components** in seven groups:
+
+| Group | Components |
+| --- | --- |
+| Actions and inputs | Button, ButtonGroup, Toggle, ToggleGroup, Input, InputGroup, InputOTP, Textarea, Select, NativeSelect, Checkbox, RadioGroup, Switch, Slider, Dial, Label, Field |
+| Display | Surface, Card, Item, Badge, Chip, Avatar, Separator, Kbd, Typography, Alert, Empty, Skeleton, Spinner, Progress, BarMeter, PageIndicator, AspectRatio, ScrollArea |
+| Disclosure and navigation | Collapsible, Accordion, Tabs, Breadcrumb, Pagination, NavigationMenu, Menubar, Sidebar |
+| Overlays | Tooltip, Popover, HoverCard, Dialog, AlertDialog, Sheet, Drawer, DropdownMenu, ContextMenu, Toast |
+| Pickers | Calendar, DatePicker, Combobox, Command |
+| Layout and data | Table, DataTable, Resizable, Carousel, Chart |
+| Conversation and AI | Bubble, Message, Marker, Attachment, Trace, CodeBlock, MessageScroller, Questionnaire |
+
+Browse them all on the [Components](/docs/components) page.
+
+## Built on
+
+- [Base UI](https://base-ui.com) for behaviour and accessibility: focus management, keyboard navigation, ARIA and positioning.
+- [Tailwind CSS v4](https://tailwindcss.com) for styling, with the theme in plain CSS variables.
+- [lucide-react](https://lucide.dev) for the icons the components use themselves. You can pass any icon to props like `icon`.
+- React 19. Every entry starts with `"use client"`, so in the Next.js App Router you can import components straight into Server Components.
+
+## Next steps
+
+<div className="not-prose my-6 grid gap-4 sm:grid-cols-2">
+  <a className="inset-shadow-neu-flat grid gap-1 rounded-xl bg-neu-convex p-4 shadow-neu-sm transition-shadow hover:shadow-neu" href="/docs/installation">
+    <span className="font-medium text-foreground">Installation</span>
+    <span className="text-muted-foreground text-sm">Add the package and set up the styles.</span>
+  </a>
+  <a className="inset-shadow-neu-flat grid gap-1 rounded-xl bg-neu-convex p-4 shadow-neu-sm transition-shadow hover:shadow-neu" href="/docs/theming">
+    <span className="font-medium text-foreground">Theming</span>
+    <span className="text-muted-foreground text-sm">Change the surface, depth, radius and colours.</span>
+  </a>
+</div>

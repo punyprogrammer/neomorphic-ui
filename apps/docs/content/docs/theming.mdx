@@ -1,0 +1,147 @@
+---
+title: Theming
+description: Change the surface colour, depth, radius and colours with CSS variables.
+---
+
+The theme is a set of CSS variables in `theme.css`. Override any of them after importing it, and every component follows: the shadows, the raised gradients and the focus rings are all derived from the same few values.
+
+```css title="app/globals.css"
+@import "tailwindcss";
+@import "@neomorphic-react/ui/base.css";
+@import "@neomorphic-react/ui/theme.css";
+
+:root {
+  --background: oklch(0.95 0.01 250); /* the shared surface colour */
+  --primary: oklch(0.45 0.12 260);
+  --neu-depth: 3px; /* deeper shadows everywhere */
+  --radius: 1rem;
+}
+```
+
+## Try a preset
+
+These presets come from the showcase apps. Pick one, adjust the depth and radius, and copy the CSS.
+
+<ThemePresets />
+
+## The one rule
+
+Neumorphism only works when every surface shares one colour. Depth comes from the light and dark shadows, not from different fills. Keep `--background`, `--card`, `--popover` and `--secondary` equal: `theme.css` already sets the last three to `var(--background)`, so you only change `--background`.
+
+If you need a surface to stand out, raise it (a `Card` or `Surface`) or press it in (`elevation="inset"`) rather than tinting it.
+
+## Tokens
+
+### Surface and text
+
+| Variable | Used for |
+| --- | --- |
+| `--background` | The surface every component sits on, and the base of every shadow |
+| `--foreground` | Body text and icons |
+| `--muted` | Hover fills, tracks and quiet backgrounds |
+| `--muted-foreground` | Secondary text, descriptions and placeholders |
+| `--border` | Hairlines, such as table rows and the groove in a `Separator` |
+| `--input` | The edge of form controls |
+| `--card`, `--popover`, `--secondary` | Equal to `--background` |
+
+### Brand and status
+
+| Variable | Used for |
+| --- | --- |
+| `--primary`, `--primary-foreground` | The main action, checked controls and the active tab |
+| `--accent`, `--accent-foreground` | Highlighted menu items |
+| `--destructive`, `--destructive-foreground` | Errors and destructive actions |
+| `--success`, `--success-foreground` | Success fills, such as a "Paid" chip |
+| `--warning`, `--warning-foreground` | Warning fills |
+| `--ring` | Focus outlines |
+| `--chart-1` to `--chart-5` | Chart series, each 3:1 or more against the surface |
+
+### Depth
+
+| Variable | Default | Used for |
+| --- | --- | --- |
+| `--neu-depth` | `2px` | The base shadow offset. Every shadow size scales from it |
+| `--neu-light` | `oklch(1 0 0)` | The highlight, on the top-left edge |
+| `--neu-dark` | `oklch(0.366 0.06 249 / 0.3)` | The shadow, on the bottom-right edge |
+| `--neu-convex-from`, `--neu-convex-to` | Slightly lighter and darker than `--background` | The gradient on raised controls, light where the highlight falls |
+| `--neu-backdrop` | `oklch(0.366 0.06 249 / 0.18)` | The dim behind dialogs, sheets and drawers |
+| `--radius` | `0.625rem` | The base corner radius |
+
+## Shadow utilities
+
+`base.css` turns the depth tokens into Tailwind utilities, so your own elements can rise and sink like the components:
+
+| Class | Effect |
+| --- | --- |
+| `shadow-neu-sm`, `shadow-neu`, `shadow-neu-lg` | Raised from the surface |
+| `inset-shadow-neu-sm`, `inset-shadow-neu`, `inset-shadow-neu-lg` | Pressed into the surface |
+| `shadow-neu-flat`, `inset-shadow-neu-flat` | No shadow, so a change to raised or pressed eases instead of snapping |
+| `bg-neu-convex` | The raised gradient |
+| `neu-scrollbar` | A soft scrollbar for a scrolling element |
+
+```tsx
+<div className="inset-shadow-neu-flat rounded-2xl bg-neu-convex p-6 shadow-neu">
+  Raised
+</div>
+<div className="inset-shadow-neu rounded-2xl bg-background p-6 shadow-neu-flat">
+  Pressed in
+</div>
+```
+
+Set both the outer and the inset shadow on anything that changes state. Each element has one shadow of each kind, so setting the other to its `-flat` value lets the browser animate between them.
+
+## Component variables
+
+Some components read their own variables, so you can recolour one part without touching the theme. Set them with Tailwind's arbitrary properties:
+
+| Variable | Component |
+| --- | --- |
+| `--slider-fill` | The filled part of a `Slider` |
+| `--progress-fill` | The bar of a `Progress` |
+| `--toggle-on` | A pressed `Toggle` |
+| `--dial-fill` | The arc of a `Dial` |
+| `--spinner-fill` | The arc of a `Spinner` |
+| `--page-indicator-fill` | The current dot of a `PageIndicator` |
+| `--tabs-active` | The active tab's text and bar |
+
+```tsx
+<Slider className="[--slider-fill:oklch(0.64_0.17_50)]" defaultValue={40} />
+```
+
+## Scoping a theme
+
+Variables cascade, so a theme can apply to part of a page. Override the tokens on a wrapper, and re-declare the aliases there too: at `:root` they were resolved against the root's `--background`.
+
+```css
+[data-theme="sage"] {
+  --background: oklch(0.966 0.007 165);
+  --foreground: oklch(0.43 0.025 190);
+  --primary: oklch(0.47 0.09 172);
+  --neu-dark: oklch(0.4 0.05 180 / 0.24);
+  --neu-convex-from: oklch(0.98 0.005 165);
+  --neu-convex-to: oklch(0.94 0.01 165);
+
+  --card: var(--background);
+  --popover: var(--background);
+  --secondary: var(--background);
+  --primary-foreground: var(--background);
+  --ring: var(--primary);
+  background: var(--background);
+  color: var(--foreground);
+}
+```
+
+Popups render at the end of `<body>`, outside your wrapper. To theme them as well, set the tokens on `:root` while the themed page is shown, for example with `:root:has([data-theme="sage"])`.
+
+## Contrast
+
+The default theme's text colours are measured against `--background`:
+
+| Token | Contrast |
+| --- | --- |
+| `--foreground` | 5.55:1 |
+| `--muted-foreground` | 4.77:1 |
+| `--primary` | 7.93:1 |
+| `--destructive` | 5.26:1 |
+
+When you change `--background` or the text colours, check that body text stays at 4.5:1 or more and icons at 3:1 or more.

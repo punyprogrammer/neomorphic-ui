@@ -1,0 +1,131 @@
+---
+title: Pagination
+description: Page links as raised round buttons, with the current page pressed in and set in the primary colour.
+component: pagination
+---
+
+<ComponentPreview name="pagination-demo" />
+
+## Usage
+
+```tsx
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@neomorphic-react/ui/pagination";
+```
+
+```tsx
+<Pagination>
+  <PaginationContent>
+    <PaginationItem>
+      <PaginationPrevious href="?page=1" />
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="?page=1">1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationLink href="?page=2" isActive>
+        2
+      </PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+      <PaginationNext href="?page=3" />
+    </PaginationItem>
+  </PaginationContent>
+</Pagination>
+```
+
+Use pagination to split a long list of results over numbered pages. The parts are real links, so each page can have its own URL that people can share and return to. You decide which pages to show; the component doesn't count them for you. For the dots under a carousel or an onboarding flow, use a [Page Indicator](/docs/components/page-indicator).
+
+## Examples
+
+### Sizes
+
+`md` (the default) links are 40px circles and `sm` links are 32px. Set `size` on every link, including `PaginationPrevious` and `PaginationNext`.
+
+<ComponentPreview name="pagination-sizes" />
+
+### Controlled
+
+To page through data in place, keep the page in state and call `event.preventDefault()` in each link's `onClick`. Here a window of pages follows the current one, and `PaginationEllipsis` stands in for the pages skipped on either side. The links have no disabled state, so the page is clamped at the first and last page; you can also leave `PaginationPrevious` or `PaginationNext` out there.
+
+<ComponentPreview name="pagination-controlled" />
+
+### Custom labels
+
+`text` changes the visible label of `PaginationPrevious` and `PaginationNext`. Their accessible names stay "Go to previous page" and "Go to next page", so pass a matching `aria-label` as well. Below the `sm` breakpoint the text is hidden and only the chevron shows.
+
+<ComponentPreview name="pagination-labels" />
+
+### In context
+
+An invoices [Table](/docs/components/table) in a card, with small page links in the footer beside a count of the rows shown. `mx-0 w-auto` on `Pagination` stops it centring itself, so it sits at the end of the footer.
+
+<ComponentPreview name="pagination-in-context" />
+
+## Accessibility
+
+- `Pagination` renders a `<nav>` landmark named "Pagination". If a page has two, give each its own `aria-label`.
+- `isActive` sets `aria-current="page"`. Besides being pressed in, the current page takes the `--primary` colour and a heavier weight.
+- `PaginationPrevious` and `PaginationNext` are named "Go to previous page" and "Go to next page", even when their text is hidden on small screens. Their chevrons are decorative and point the other way in right-to-left layouts.
+- `PaginationEllipsis` is hidden from assistive tech.
+- The links are `<a>` elements: give each an `href` so it's focusable and Enter follows it.
+- Keyboard focus shows a 2px `--ring` outline, offset from the link.
+
+## API reference
+
+### Pagination
+
+The landmark, centred in its container. Takes every prop of the native `<nav>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `aria-label` | `string` | `"Pagination"` |
+
+### PaginationContent and PaginationItem
+
+`PaginationContent` is the `<ul>` holding the links, in a row that wraps. `PaginationItem` is one `<li>` in it. They take every prop of the native `<ul>` and `<li>`.
+
+### PaginationLink
+
+A page link, raised like a [Button](/docs/components/button). Renders an `<a>` and takes every prop of the native `<a>`. `render` swaps the element, for a router link:
+
+```tsx
+import Link from "next/link";
+
+<PaginationLink render={<Link href="?page=2" />}>2</PaginationLink>
+```
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `isActive` | `boolean` | `false` |
+| `size` | `"sm" \| "md"` | `"md"` |
+| `href` | `string` | – |
+| `render` | `ReactElement \| ((props) => ReactElement)` | – |
+
+### PaginationPrevious and PaginationNext
+
+Links to the previous and next page, with a chevron and a text label. They take every prop of `PaginationLink` apart from `isActive`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `text` | `string` | `"Previous"` or `"Next"` |
+| `aria-label` | `string` | `"Go to previous page"` or `"Go to next page"` |
+| `size` | `"sm" \| "md"` | `"md"` |
+
+### PaginationEllipsis
+
+Stands in for skipped pages. Takes every prop of the native `<span>`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"pagination"`, `"pagination-content"`, `"pagination-item"`, `"pagination-link"` (also on `PaginationPrevious` and `PaginationNext`) or `"pagination-ellipsis"` |
+| `data-active` | On a link, present when `isActive` |

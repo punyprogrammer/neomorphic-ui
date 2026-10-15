@@ -1,0 +1,104 @@
+---
+title: Native Select
+description: The browser's own select menu in a pressed-in well, with a solid caret at the end.
+component: native-select
+---
+
+<ComponentPreview name="native-select-demo" />
+
+## Usage
+
+```tsx
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@neomorphic-react/ui/native-select";
+```
+
+```tsx
+<label htmlFor="seat">Seat</label>
+<NativeSelect id="seat" name="seat">
+  <NativeSelectOption value="window">Window</NativeSelectOption>
+  <NativeSelectOption value="aisle">Aisle</NativeSelectOption>
+</NativeSelect>
+```
+
+The list that opens is the platform's own, so it's the familiar wheel or sheet on phones and works in any plain form. `className` goes on the wrapper, which sets the width; every other prop goes to the `<select>`. For a list styled to match the library, use a [Select](/docs/components/select), and for a list you can type to filter, a [Combobox](/docs/components/combobox).
+
+## Examples
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the height, padding and text size. The heights match an [Input](/docs/components/input) of the same size, so the two line up in a form. Without a width class, the select is as wide as its longest option.
+
+<ComponentPreview name="native-select-sizes" />
+
+### Groups
+
+Group related options under a heading with `NativeSelectOptGroup` and its `label`. The browser draws the headings in the open list.
+
+<ComponentPreview name="native-select-groups" />
+
+### Invalid and disabled
+
+- `aria-invalid` adds a `--destructive` ring. Point `aria-describedby` at the error message so it's read with the select.
+- `disabled` dims the well and blocks interaction. A `Label` beside the select doesn't dim with it, so dim it yourself with `opacity-50`.
+
+<ComponentPreview name="native-select-states" />
+
+### In a field
+
+`NativeSelect` is a native `<select>` rather than a Base UI control, so a `Field` doesn't link it up on its own. Give it an `id` and set the same value as the `FieldLabel`'s `htmlFor`, and point `aria-describedby` at the `FieldDescription`.
+
+<ComponentPreview name="native-select-field" />
+
+### In context
+
+A settings card of small selects, each labelled with a `Label` beside it. Each select submits under its `name`, and the Save button is enabled once any of them changes.
+
+<ComponentPreview name="native-select-in-context" />
+
+## Accessibility
+
+- Renders a native `<select>`, which assistive technology reports as a `combobox`. It keeps the browser's own keyboard and touch behaviour, and submits under its `name`.
+- Name it with a `<label htmlFor>`, `aria-labelledby` or `aria-label`.
+- The caret is decorative (`aria-hidden`) and ignores the pointer, so a click on it opens the select.
+- Keyboard focus shows a 2px `--ring` outline, offset from the well, and sinks the well deeper.
+
+## API reference
+
+### NativeSelect
+
+Takes every prop of the native `<select>`. `className` goes on the wrapper `<div>`; the rest go to the `<select>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `htmlSize` | `number` | – |
+| `value` | `string \| number \| readonly string[]` | – |
+| `defaultValue` | `string \| number \| readonly string[]` | – |
+| `onChange` | `(event: ChangeEvent<HTMLSelectElement>) => void` | – |
+| `name` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+
+`size` sets the visual size. The native `size` attribute, how many options show at once, is `htmlSize`.
+
+### NativeSelectOption and NativeSelectOptGroup
+
+An option and a labelled group of options. They take every prop of the native `<option>` and `<optgroup>`.
+
+### nativeSelectVariants
+
+```ts
+nativeSelectVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns the `<select>`'s class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"native-select-wrapper"`, `"native-select"`, `"native-select-icon"`, `"native-select-option"` or `"native-select-optgroup"` |
+| `data-size` | On the wrapper and the `<select>`, the `size` |

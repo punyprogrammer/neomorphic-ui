@@ -1,0 +1,113 @@
+---
+title: Input
+description: A single-line text field, drawn as a well pressed into the surface.
+component: input
+primitive: https://base-ui.com/react/components/input
+---
+
+<ComponentPreview name="input-demo" />
+
+## Usage
+
+```tsx
+import { Input } from "@neomorphic-react/ui/input";
+```
+
+```tsx
+<label htmlFor="email">Email</label>
+<Input id="email" placeholder="you@example.com" type="email" />
+```
+
+Give every input a label: a placeholder disappears as soon as someone types, so it can't be the label. Inside a `Field`, `FieldLabel` is wired to the input for you. For icons, text or buttons inside the well, use [Input Group](/docs/components/input-group).
+
+## Examples
+
+### Sizes
+
+`sm` (32px), `md` (40px, the default) and `lg` (48px) set the height, padding and text size together.
+
+<ComponentPreview name="input-sizes" />
+
+### Shapes
+
+`rounded` (the default) matches [Textarea](/docs/components/textarea) and [Select](/docs/components/select) in forms. `pill` is a fully rounded field, for search.
+
+<ComponentPreview name="input-shapes" />
+
+### States
+
+- Focus deepens the well and adds the focus outline.
+- `readOnly` makes the well shallower, so a read-only value reads differently from an editable one.
+- `invalid` on the `Field`, or `aria-invalid` on the input, adds a `--destructive` ring. Inside a `Field`, a `FieldError` is read with the input.
+- `disabled` dims the input and blocks editing. On the `Field`, it dims the label too.
+
+<ComponentPreview name="input-states" />
+
+### Types
+
+`type` is passed to the native input, so each type keeps its own keyboard, picker and validation. It defaults to `"text"`. A file input's button is drawn as plain text inside the well.
+
+<ComponentPreview name="input-types" />
+
+### Validation
+
+Native constraints such as `required` and `type="email"` are checked by the `Field`. With `validationMode="onBlur"`, they're checked when the input loses focus, and each `FieldError` with a `match` shows only for that validity state.
+
+<ComponentPreview name="input-validation" />
+
+### In context
+
+An address form. Each input sits in its own `Field`, so every label and input is linked without `id`s, and `autoComplete` lets the browser fill the form in.
+
+<ComponentPreview name="input-in-context" />
+
+## Accessibility
+
+- Renders a native `<input>`, so it keeps the browser's keyboard, autofill and validation behaviour.
+- Inside a `Field`, the input is labelled by `FieldLabel`, described by `FieldDescription` and `FieldError`, and gets `aria-invalid` when the field is invalid.
+- Outside a `Field`, pair it with a `<label htmlFor>`, or give it an `aria-label` when there's no visible label.
+- Keyboard focus shows a 2px `--ring` outline, offset from the well.
+
+## API reference
+
+### Input
+
+Takes every prop of Base UI's [Input](https://base-ui.com/react/components/input) and of the native `<input>`, apart from `size`, which sets the field's height. Use `htmlSize` for the native `size` attribute. `className` must be a string.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"rounded" \| "pill"` | `"rounded"` |
+| `type` | `string` | `"text"` |
+| `htmlSize` | `number` | – |
+| `value` | `string \| number \| readonly string[]` | – |
+| `defaultValue` | `string \| number \| readonly string[]` | – |
+| `onValueChange` | `(value: string, eventDetails) => void` | – |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+
+### inputVariants
+
+```ts
+inputVariants(options?: {
+  size?: "sm" | "md" | "lg";
+  shape?: "rounded" | "pill";
+}): string;
+```
+
+Returns the input's class names.
+
+### inputControlClassName
+
+A string of class names for the text, placeholder and native parts of a bare control, without the well. [Input Group](/docs/components/input-group) uses it for the control inside its own well.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"input"` |
+| `data-size` | The `size` |
+| `data-shape` | The `shape` |
+| `data-disabled` | Present when disabled |
+| `data-valid`, `data-invalid` | In a `Field`, the result of validation |
+| `data-dirty`, `data-touched`, `data-filled`, `data-focused` | In a `Field`, present once the value has changed, once the input has been focused and left, while it has a value, or while it has focus |

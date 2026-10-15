@@ -1,0 +1,126 @@
+---
+title: Card
+description: A raised panel that groups related content under a title, with room for an action, a body and a footer.
+component: card
+---
+
+<ComponentPreview name="card-demo" />
+
+## Usage
+
+```tsx
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@neomorphic-react/ui/card";
+```
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>Weekly summary</CardTitle>
+    <CardDescription>12 to 18 October</CardDescription>
+    <CardAction>…</CardAction>
+  </CardHeader>
+  <CardContent>…</CardContent>
+  <CardFooter>…</CardFooter>
+</Card>
+```
+
+Use a card to group content about one thing: a trip, a plan, a summary. Every part is optional, so use only the ones you need. For a panel with no structure, use a [Surface](/docs/components/surface). For one row in a list, use an [Item](/docs/components/item).
+
+## Examples
+
+### Elevation
+
+`raised` (the default) stands out of the page. `inset` presses the card into it, as a well for secondary panels. `flat` is level with whatever it sits on, for a card inside another card.
+
+<ComponentPreview name="card-elevations" />
+
+### Sizes
+
+`size` sets the padding, the gaps between parts and the corner radius together: 16px for `sm`, 24px for `md` (the default) and 32px for `lg`. The title's text size follows. Every gap and padding comes from the `--card-spacing` variable, so `className="[--card-spacing:0px]"` removes them all.
+
+<ComponentPreview name="card-sizes" />
+
+### Image and action
+
+An `<img>` as the card's first or last child runs to its edges with no padding, cropped to fill. `CardAction` sits at the end of the header, beside the title and description, here a [Toggle](/docs/components/toggle) to save the place. `render={<article />}` makes the card an article.
+
+<ComponentPreview name="card-image" />
+
+### Nested
+
+Put an `inset` card inside a raised one for figures that belong together. `size="sm"` keeps the inner card's padding in proportion.
+
+<ComponentPreview name="card-nested" />
+
+### In context
+
+A storage plan rendered as a named `<section>`: a [Chip](/docs/components/chip) for the plan in the header, a [Progress](/docs/components/progress) bar for each kind of file, and two [Buttons](/docs/components/button) in the footer, lined up at the end with `justify-end`.
+
+<ComponentPreview name="card-in-context" />
+
+## Accessibility
+
+- A card is a plain `<div>` with no role. Use `render={<article />}` or `render={<section />}` when it should be a landmark or a self-contained piece of content. A `<section>` becomes a region landmark once it's named, for example with `aria-labelledby` pointing at the title.
+- `CardTitle` is a `<div>`, not a heading. When the title should be in the page outline, render a heading inside it, such as `<CardTitle><h3>Storage</h3></CardTitle>`.
+- Give images an `alt` that describes them, or `alt=""` when they're only decoration.
+
+## API reference
+
+### Card
+
+Renders a `<div>` and takes every prop of the native `<div>`. Use `render` to render a different element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `elevation` | `"raised" \| "inset" \| "flat"` | `"raised"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### CardHeader
+
+Holds the title and description in a column, and gains a second column for `CardAction` when there is one. Takes every prop of the native `<div>`.
+
+### CardTitle and CardDescription
+
+The title, in medium weight, and a line of muted text under it. Each takes every prop of the native `<div>`.
+
+### CardAction
+
+A button, toggle or chip at the end of the header, spanning the title and description rows. Takes every prop of the native `<div>`.
+
+### CardContent and CardFooter
+
+The body, and a row at the bottom for actions or totals. `CardFooter` lays its children out in a row with a 12px gap. Each takes every prop of the native `<div>`.
+
+### cardVariants
+
+```ts
+cardVariants(options?: {
+  elevation?: "raised" | "inset" | "flat";
+  size?: "sm" | "md" | "lg";
+}): string;
+```
+
+Returns the card's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"card"`, `"card-header"`, `"card-title"`, `"card-description"`, `"card-action"`, `"card-content"` or `"card-footer"` |
+| `data-elevation` | On the card, the `elevation` |
+| `data-size` | On the card, the `size` |
+
+### CSS variables
+
+| Variable | Sets |
+| --- | --- |
+| `--card-spacing` | The card's top and bottom padding, the parts' side padding and the gap between parts: `1rem`, `1.5rem` or `2rem` |

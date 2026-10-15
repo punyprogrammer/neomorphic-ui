@@ -1,0 +1,143 @@
+---
+title: Tabs
+description: A raised row of tabs with a well that slides under the active one, or a flat row with a bar beneath it.
+component: tabs
+primitive: https://base-ui.com/react/components/tabs
+---
+
+<ComponentPreview name="tabs-demo" />
+
+## Usage
+
+```tsx
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@neomorphic-react/ui/tabs";
+```
+
+```tsx
+<Tabs defaultValue="flights">
+  <TabsList aria-label="Search">
+    <TabsTrigger value="flights">Flights</TabsTrigger>
+    <TabsTrigger value="trains">Trains</TabsTrigger>
+  </TabsList>
+  <TabsContent value="flights">12 flights from Lisbon today.</TabsContent>
+  <TabsContent value="trains">34 trains from Lisbon today.</TabsContent>
+</Tabs>
+```
+
+Use tabs to switch between views of equal weight in the same place, where only one is shown at a time. Tabs are buttons, not links: to move between pages, use links or a [Navigation Menu](/docs/components/navigation-menu). To show several sections at once, use an [Accordion](/docs/components/accordion).
+
+## Examples
+
+### Line
+
+`variant="line"` on `TabsList` swaps the raised slab for a flat row, with a bar in the `--primary` colour that slides under the active tab. `disabled` on a `TabsTrigger` dims the tab and stops it being chosen.
+
+<ComponentPreview name="tabs-line" />
+
+### Icons
+
+An icon goes inside the trigger beside its label. An SVG without its own `size-*` class is sized to 16px. Mark it `aria-hidden` so the tab is named by its text alone.
+
+<ComponentPreview name="tabs-icons" />
+
+### Vertical
+
+`orientation="vertical"` on `Tabs` stacks the tabs in a column beside the panels, and the up and down arrow keys move between them. Tabs centre their text; `justify-start` lines it up at the start. In the `line` variant, vertical tabs start-align for you and the bar runs down their left edge.
+
+<ComponentPreview name="tabs-vertical" />
+
+### Keyboard activation
+
+By default the arrow keys move focus between tabs and Enter or Space opens the focused one. `activateOnFocus` on `TabsList` opens each tab as focus reaches it, which suits panels that render quickly. Click a tab, then use the arrow keys to compare.
+
+<ComponentPreview name="tabs-activate-on-focus" />
+
+### In context
+
+Account settings split over two tabs, each panel a [Card](/docs/components/card) with its own form and save button.
+
+<ComponentPreview name="tabs-in-context" />
+
+## Accessibility
+
+- `TabsList` has `role="tablist"`, each `TabsTrigger` is a `<button role="tab">` with `aria-selected`, and each `TabsContent` has `role="tabpanel"` and is named by its tab.
+- Name the list with `aria-label` when no visible heading does.
+- The left and right arrow keys (up and down when vertical) move between tabs and loop at the ends. Home and End jump to the first and last tab.
+- Tab moves from the list into the open panel, which takes focus and shows a `--ring` outline.
+- The active tab takes the `--tabs-active` colour and a heavier weight, so it never depends on depth alone.
+- A disabled tab has `aria-disabled` and can't be chosen.
+- Keyboard focus on a tab shows a 2px `--ring` outline, offset from it.
+
+## API reference
+
+### Tabs
+
+Takes every prop of Base UI's [Tabs.Root](https://base-ui.com/react/components/tabs) and renders a `<div>`. It stacks the list above the panels, or beside them when vertical. Set `defaultValue` or `value` to an enabled tab's `value`. Without one, Base UI picks the first enabled tab once the tabs have rendered in the browser, which it can't do during server rendering.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `defaultValue` | `any` | – |
+| `onValueChange` | `(value: any, eventDetails) => void` | – |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+
+### TabsList
+
+Holds the tabs. Takes every prop of Base UI's `Tabs.List`. The sliding well or bar is added for you.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "line"` | `"default"` |
+| `activateOnFocus` | `boolean` | `false` |
+| `loopFocus` | `boolean` | `true` |
+
+### TabsTrigger
+
+A tab. Takes every prop of Base UI's `Tabs.Tab` and renders a `<button>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `disabled` | `boolean` | `false` |
+
+### TabsContent
+
+A panel, shown while the tab with the same `value` is active. Takes every prop of Base UI's `Tabs.Panel`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `keepMounted` | `boolean` | `false` |
+
+### tabsListVariants
+
+```ts
+tabsListVariants(options?: { variant?: "default" | "line" }): string;
+```
+
+Returns the list's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"tabs"`, `"tabs-list"`, `"tabs-indicator"`, `"tabs-trigger"` or `"tabs-content"` |
+| `data-variant` | On the list, the `variant` |
+| `data-orientation` | `"horizontal"` or `"vertical"` |
+| `data-active` | On a tab, present while it's active |
+| `data-disabled` | On a tab, present when disabled |
+| `data-activation-direction` | `"left"`, `"right"`, `"up"`, `"down"` or `"none"`: the way the active tab moved |
+| `data-hidden` | On a panel, present while it's hidden |
+| `data-index` | On a panel, its position, from `0` |
+
+### CSS variables
+
+| Variable | Sets |
+| --- | --- |
+| `--tabs-active` | The active tab's text colour and the `line` bar's colour. Defaults to `--primary`; set it on `Tabs` or `TabsList` with a class such as `[--tabs-active:var(--color-destructive)]` |
+| `--active-tab-left`, `--active-tab-top`, `--active-tab-width`, `--active-tab-height` | The active tab's position and size, set on the indicator by Base UI. The well or bar follows them |

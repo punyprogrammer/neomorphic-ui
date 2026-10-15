@@ -1,0 +1,82 @@
+---
+title: Separator
+description: A groove cut into the surface, solid or perforated, that divides content across or down.
+component: separator
+---
+
+<ComponentPreview name="separator-demo" />
+
+## Usage
+
+```tsx
+import { Separator } from "@neomorphic-react/ui/separator";
+```
+
+```tsx
+<Separator />
+```
+
+The groove is a dark line with a highlight beside it, so it reads as cut into the surface rather than drawn on it. A horizontal separator fills the width of its container; add space around it with `className`, such as `my-4`. To divide items in a list, use `ItemSeparator` from [Item](/docs/components/item).
+
+## Examples
+
+### Vertical
+
+`orientation="vertical"` turns the groove on its side. It stretches to the height of its row, so give the row a height or let its tallest child set it.
+
+<ComponentPreview name="separator-vertical" />
+
+### Perforated
+
+`variant="perforated"` dashes both the dark line and the highlight, like the tear line on a ticket. It works in either orientation.
+
+<ComponentPreview name="separator-perforated" />
+
+### Announced separators
+
+A separator is decorative by default and hidden from assistive tech. When it divides sections that should be announced as separate, pass `decorative={false}` to give it the `separator` role.
+
+<ComponentPreview name="separator-semantic" />
+
+### In context
+
+An order summary in a [Card](/docs/components/card). A perforated separator sets the total apart from the lines above it, and a solid one, placed straight inside the card, runs edge to edge above the footer.
+
+<ComponentPreview name="separator-in-context" />
+
+## Accessibility
+
+- By default the separator has `role="none"`, so screen readers skip it. Use this for purely visual breaks.
+- With `decorative={false}` it has `role="separator"`, and a vertical one also gets `aria-orientation="vertical"`.
+- A decorative separator is a visual cue only. Make sure headings or spacing also show where one section ends and the next begins.
+
+## API reference
+
+### Separator
+
+Renders a `<div>` and takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `variant` | `"solid" \| "perforated"` | `"solid"` |
+| `decorative` | `boolean` | `true` |
+
+### separatorVariants
+
+```ts
+separatorVariants(options?: {
+  variant?: "solid" | "perforated";
+  orientation?: "horizontal" | "vertical";
+}): string;
+```
+
+Returns the separator's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"separator"` |
+| `data-orientation` | The `orientation` |
+| `data-variant` | The `variant` |

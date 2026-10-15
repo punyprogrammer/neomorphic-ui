@@ -1,0 +1,85 @@
+---
+title: Textarea
+description: A multi-line text field, drawn as a well pressed into the surface.
+component: textarea
+---
+
+<ComponentPreview name="textarea-demo" />
+
+## Usage
+
+```tsx
+import { Textarea } from "@neomorphic-react/ui/textarea";
+```
+
+```tsx
+<label htmlFor="message">Message</label>
+<Textarea id="message" placeholder="Tell us how we can help…" />
+```
+
+Always pair it with a label: a placeholder disappears as soon as someone types, so it can't be the label. The textarea is 7rem tall at least and can be resized vertically. For buttons or a counter inside the well, use `InputGroupTextarea` from [Input Group](/docs/components/input-group).
+
+## Examples
+
+### States
+
+- Focus deepens the well and adds the focus outline.
+- `readOnly` makes the well shallower, so a read-only value reads differently from an editable one.
+- `aria-invalid` adds a `--destructive` ring. Point `aria-describedby` at the error message so it's read with the field.
+- `disabled` dims the textarea and blocks editing.
+
+<ComponentPreview name="textarea-states" />
+
+### Auto-resize
+
+`autoResize` grows the textarea with its text instead of showing a resize handle. Cap it with a `max-h-*` class, after which it scrolls, and lower the starting height with `min-h-*`. Browsers without `field-sizing` support keep the fixed height and scroll.
+
+<ComponentPreview name="textarea-auto-resize" />
+
+### Character count
+
+With `maxLength` and a controlled `value`, a count under the field can show what's left. `aria-live="polite"` on the count lets screen readers announce it as it changes, and `aria-describedby` reads it with the field.
+
+<ComponentPreview name="textarea-counter" />
+
+### In a field
+
+`Textarea` is a native `<textarea>` rather than a Base UI control, so a `Field` doesn't link it up on its own. Give it an `id` and set the same value as the `FieldLabel`'s `htmlFor`, and point `aria-describedby` at the `FieldDescription`.
+
+<ComponentPreview name="textarea-field" />
+
+### In context
+
+A settings card with a growing textarea. The Save button stays disabled until the text differs from what was last saved.
+
+<ComponentPreview name="textarea-in-context" />
+
+## Accessibility
+
+- Renders a native `<textarea>`, so it keeps the browser's keyboard, spellcheck and form behaviour, and submits under its `name`.
+- Name it with a `<label htmlFor>`, `aria-labelledby` or `aria-label`.
+- Keyboard focus shows a 2px `--ring` outline, offset from the well.
+
+## API reference
+
+### Textarea
+
+Takes every prop of the native `<textarea>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `autoResize` | `boolean` | `false` |
+
+### textareaVariants
+
+```ts
+textareaVariants(options?: { autoResize?: boolean }): string;
+```
+
+Returns the textarea's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"textarea"` |

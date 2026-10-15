@@ -1,0 +1,148 @@
+---
+title: Navigation Menu
+description: A row of site links whose triggers open a raised panel of links that slides and resizes as you move between them.
+component: navigation-menu
+primitive: https://base-ui.com/react/components/navigation-menu
+---
+
+<ComponentPreview name="navigation-menu-demo" />
+
+## Usage
+
+```tsx
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@neomorphic-react/ui/navigation-menu";
+```
+
+```tsx
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Destinations</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuLink href="/lisbon">Lisbon</NavigationMenuLink>
+        <NavigationMenuLink href="/porto">Porto</NavigationMenuLink>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    <NavigationMenuItem>
+      <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/deals">
+        Deals
+      </NavigationMenuLink>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>
+```
+
+Use a navigation menu for the main links of a website, where some sections need a panel of links. Hovering or clicking a trigger opens its panel, and moving to the next trigger slides the same panel across instead of closing it. For a row of commands in an app, use a [Menubar](/docs/components/menubar). For an app's side navigation, use a [Sidebar](/docs/components/sidebar).
+
+## Examples
+
+### Panel layouts
+
+A panel holds whatever layout you put in `NavigationMenuContent`. Give the layout a width with a `sm:w-*` class; the panel grows to fit it, up to `max-w-xl`, and below the `sm` breakpoint it spans the screen. `NavigationMenuLink` stacks its children by default. Add `flex-row` for an icon beside the text, and an icon without its own `size-*` class is 16px.
+
+<ComponentPreview name="navigation-menu-panels" />
+
+### Current page
+
+`active` on a link marks the current page: it sets `aria-current="page"` and turns the link `--primary`. `closeOnClick` closes the panel when a link is clicked, which matters with a client-side router, where the header stays on screen after the page changes.
+
+<ComponentPreview name="navigation-menu-active" />
+
+For a router link, pass it to `render`. The link keeps its styles and behaviour.
+
+```tsx
+import Link from "next/link";
+
+<NavigationMenuLink closeOnClick render={<Link href="/guides/rail" />}>
+  Travelling by rail
+</NavigationMenuLink>
+```
+
+### In context
+
+A site header on a raised [Surface](/docs/components/surface), with the brand at the start and the main action at the end. `align="center"` centres each panel under its trigger, and the plain `Timetables` link takes the trigger look from `navigationMenuTriggerStyle()`.
+
+<ComponentPreview name="navigation-menu-in-context" />
+
+## Accessibility
+
+- The root renders a `<nav>` landmark holding a list of items. If the page has more than one `<nav>`, name this one with `aria-label`.
+- Each trigger is a `<button>` with `aria-expanded`, and `aria-controls` points at the panel while it's open.
+- The left and right arrow keys move between the items in the list. The down arrow, Enter or Space opens a trigger's panel, Tab moves on into it, and Escape closes it.
+- `active` sets `aria-current="page"` on the link. The current link and the open trigger change colour as well as depth.
+- The trigger's chevron is decorative (`aria-hidden`). Mark any icons in your links `aria-hidden` too.
+- Keyboard focus on a trigger or a link shows a 2px `--ring` outline.
+
+## API reference
+
+### NavigationMenu
+
+The `<nav>` root. Takes every prop of Base UI's [NavigationMenu.Root](https://base-ui.com/react/components/navigation-menu). It also renders the raised panel that every trigger's content opens in, portalled to the end of the document; `align` and `sideOffset` position it against the open trigger.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `align` | `"start" \| "center" \| "end"` | `"start"` |
+| `sideOffset` | `number` | `12` |
+| `value` | `any` | – |
+| `defaultValue` | `any` | `null` |
+| `onValueChange` | `(value, eventDetails) => void` | – |
+| `delay` | `number` | `50` |
+| `closeDelay` | `number` | `50` |
+
+### NavigationMenuList and NavigationMenuItem
+
+`NavigationMenuList` is the row of items, a `<ul>`. `NavigationMenuItem` is one `<li>` in it, holding either a trigger and its content or a single link. They take every prop of Base UI's `NavigationMenu.List` and `NavigationMenu.Item`. Give an item a `value` to open it from a controlled `value` on the root.
+
+### NavigationMenuTrigger
+
+The button that opens its item's panel. Takes every prop of Base UI's `NavigationMenu.Trigger`. The chevron is added for you, and it turns over while the panel is open.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `disabled` | `boolean` | `false` |
+
+### NavigationMenuContent
+
+The trigger's panel content. Takes every prop of Base UI's `NavigationMenu.Content`. It slides in from the side of the trigger it came from.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `keepMounted` | `boolean` | `false` |
+
+### NavigationMenuLink
+
+A link, in a panel or at the top level. Takes every prop of Base UI's `NavigationMenu.Link` and of the native `<a>`. It sinks into the panel on hover and focus.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `href` | `string` | – |
+| `active` | `boolean` | `false` |
+| `closeOnClick` | `boolean` | `false` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### navigationMenuTriggerStyle
+
+```ts
+navigationMenuTriggerStyle(): string;
+```
+
+Returns the trigger's class names. Give them to a top-level `NavigationMenuLink` so it lines up with the triggers.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"navigation-menu"`, `"navigation-menu-list"`, `"navigation-menu-item"`, `"navigation-menu-trigger"`, `"navigation-menu-icon"`, `"navigation-menu-content"`, `"navigation-menu-link"`, `"navigation-menu-popup"` or `"navigation-menu-viewport"` |
+| `data-popup-open` | On a trigger, present while its panel is open |
+| `data-disabled` | On a trigger, present when disabled |
+| `data-active` | On a link, present when it's the current page |
+| `data-activation-direction` | On the content, the side the pointer or keyboard came from: `"left"`, `"right"`, `"up"` or `"down"` |
+| `data-starting-style`, `data-ending-style` | On the content and the panel, present while they animate in or out |

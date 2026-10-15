@@ -1,0 +1,120 @@
+---
+title: Toggle Group
+description: A segmented control of toggles in one raised slab, where the pressed items sink in and arrow keys move between them.
+component: toggle-group
+primitive: https://base-ui.com/react/components/toggle-group
+---
+
+<ComponentPreview name="toggle-group-demo" />
+
+## Usage
+
+```tsx
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from "@neomorphic-react/ui/toggle-group";
+```
+
+```tsx
+<ToggleGroup aria-label="View" defaultValue={["grid"]}>
+  <ToggleGroupItem value="grid">Grid</ToggleGroupItem>
+  <ToggleGroupItem value="list">List</ToggleGroupItem>
+</ToggleGroup>
+```
+
+The group uses the same slab as [Button Group](/docs/components/button-group), and each item is a [Toggle](/docs/components/toggle). The group's value is always an array of the pressed items' `value`s, even when only one can be pressed.
+
+## Examples
+
+### Multiple
+
+By default only one item can be pressed at a time. With `multiple`, each item toggles on its own, as in a toolbar of formatting marks.
+
+<ComponentPreview name="toggle-group-multiple" />
+
+### Always one selected
+
+Clicking the pressed item of a single-select group clears the value. For a control that must always have a choice, control `value` and ignore empty changes in `onValueChange`. `--toggle-on` set on the group colours every pressed item.
+
+<ComponentPreview name="toggle-group-required" />
+
+### Sizes
+
+`size` on the group sets the size of every item: `sm`, `md` (the default) or `lg`. An item can still set its own `size`.
+
+<ComponentPreview name="toggle-group-sizes" />
+
+### Shape and orientation
+
+`shape="pill"` rounds the slab's outer corners, and the end items follow them. `orientation="vertical"` stacks the items; the arrow keys follow the axis.
+
+<ComponentPreview name="toggle-group-shape-orientation" />
+
+### Disabled
+
+`disabled` on an item disables that item alone. `disabled` on the group disables every item.
+
+<ComponentPreview name="toggle-group-disabled" />
+
+### In context
+
+A thermostat card where the mode picker always has exactly one mode chosen, and the status line follows it.
+
+<ComponentPreview name="toggle-group-in-context" />
+
+## Accessibility
+
+- Renders a `<div role="group">`. Give it an `aria-label` that names the choice.
+- Each item is a native `<button>` with `aria-pressed`, so screen readers announce which items are pressed.
+- The group is a single tab stop. Arrow keys move focus between items and loop from the last back to the first, unless `loopFocus` is `false`. Space or Enter presses the focused item.
+- Disabled items are skipped when moving focus.
+- Icon-only items need an `aria-label`; an item with visible text is named by its text.
+
+## API reference
+
+### ToggleGroup
+
+Takes every prop of Base UI's [Toggle Group](https://base-ui.com/react/components/toggle-group) and of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string[]` | – |
+| `defaultValue` | `string[]` | – |
+| `onValueChange` | `(value: string[], eventDetails) => void` | – |
+| `multiple` | `boolean` | `false` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"rounded" \| "pill"` | `"rounded"` |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `loopFocus` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+
+### ToggleGroupItem
+
+Takes every prop of [Toggle](/docs/components/toggle) except `shape`, which comes from the group.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | – |
+| `size` | `"sm" \| "md" \| "lg"` | The group's `size` |
+| `iconFill` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"toggle-group"`, or `"toggle"` on each item |
+| `data-size` | The `size` |
+| `data-shape` | The `shape` |
+| `data-orientation` | The `orientation` |
+| `data-multiple` | Present when `multiple` is set |
+| `data-disabled` | Present when the group is disabled |
+
+Each item also has the [Toggle](/docs/components/toggle#data-attributes) data attributes, such as `data-pressed`.
+
+### CSS variables
+
+| Variable | Description |
+| --- | --- |
+| `--toggle-on` | The colour of pressed items' content. Set on the group to colour every item. Defaults to `--primary`. |

@@ -1,0 +1,253 @@
+---
+title: Sidebar
+description: A raised side panel for an app's navigation that slides away or narrows to its icons, and opens as a sheet on small screens.
+component: sidebar
+---
+
+<ComponentPreview name="sidebar-demo" />
+
+## Usage
+
+```tsx
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@neomorphic-react/ui/sidebar";
+```
+
+```tsx
+<SidebarProvider>
+  <Sidebar collapsible="icon">
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Workspace</SidebarGroupLabel>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton isActive render={<a href="/" />} tooltip="Home">
+              <Home />
+              <span>Home</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarGroup>
+    </SidebarContent>
+  </Sidebar>
+  <SidebarInset>
+    <SidebarTrigger />
+  </SidebarInset>
+</SidebarProvider>
+```
+
+Use a sidebar for the main navigation of an app, wrapped around the whole page. `SidebarProvider` holds the open state and lays out the `Sidebar` and the `SidebarInset` page beside it. ⌘B or Ctrl+B toggles the sidebar, and the desktop state is saved in a `sidebar_state` cookie for a week, so a server render can read it and pass `defaultOpen`. Below the `md` breakpoint the sidebar is hidden and opens as a [Sheet](/docs/components/sheet) over the page. For links across the top of a website, use a [Navigation Menu](/docs/components/navigation-menu).
+
+<Callout title="Previews on this page">
+  The sidebar normally spans the height of the screen. To keep it inside each preview, the examples give `SidebarProvider` a fixed height with classes such as `relative h-96 min-h-0 overflow-hidden`, and give the `Sidebar` `absolute h-full`. Leave these classes out in an app.
+</Callout>
+
+## Examples
+
+### Collapsible modes
+
+`collapsible` sets what happens when the sidebar closes. `offcanvas` (the default) slides it off the edge, `icon` narrows it to its icons and shows each row's `tooltip` on hover, and `none` keeps it open. `useSidebar()` reads the state from any component inside the provider.
+
+<ComponentPreview name="sidebar-collapsible" />
+
+### Variants
+
+`sidebar` (the default) is a raised slab against the edge of the screen. `floating` is a raised card held off the edges. `inset` lies flat on the page, and the `SidebarInset` beside it rises as a card instead. `side="right"` puts the sidebar on the other edge.
+
+<ComponentPreview name="sidebar-variants" />
+
+### Sub-menus
+
+Make a row expand by rendering a [Collapsible](/docs/components/collapsible) as the `SidebarMenuItem` and its trigger as the `SidebarMenuButton`. Put `SidebarMenuSub` rows in the `CollapsibleContent`; they hang off a groove, and `isActive` on a `SidebarMenuSubButton` marks the current page. Sub-menus are hidden while the sidebar is collapsed to icons.
+
+<ComponentPreview name="sidebar-submenus" />
+
+### Actions and badges
+
+- `SidebarGroupAction` is a small icon button beside a group label, here adding a project.
+- `SidebarMenuAction` sits at the end of a row. Render a [Dropdown Menu](/docs/components/dropdown-menu) trigger as it for a row of options. `showOnHover` hides it until the row is hovered or focused, or its menu is open.
+- `SidebarMenuBadge` shows a count at the end of a row, sunk into a small well. It turns `--primary` on the active row.
+
+Actions and badges are hidden while the sidebar is collapsed to icons. Give every icon-only action an `aria-label`.
+
+<ComponentPreview name="sidebar-actions" />
+
+### Loading
+
+`SidebarMenuSkeleton` stands in for a row while the menu loads. `showIcon` adds an icon block, and `width` sets the length of the text bar. Mark the menu `aria-busy` while it loads.
+
+<ComponentPreview name="sidebar-loading" />
+
+### In context
+
+An operations dashboard with an `inset` sidebar that collapses to icons. The header holds the brand and a search field that hides when collapsed, and the rows carry counts in badges. `SidebarRail` along the inner edge also toggles the sidebar.
+
+<ComponentPreview name="sidebar-in-context" />
+
+## Accessibility
+
+- `SidebarTrigger` is a `<button>` named "Toggle sidebar". ⌘B or Ctrl+B toggles the sidebar from anywhere on the page.
+- `SidebarRail` is for the pointer only: it's out of the tab order, and keyboard users have the trigger and the shortcut.
+- `isActive` on `SidebarMenuButton` sets `aria-current="page"` when it renders a plain `<a>`. If you render a router link component, pass `aria-current` yourself. `SidebarMenuSubButton` always sets it when active.
+- The active row changes colour as well as depth, so it doesn't rely on shadows alone.
+- When collapsed to icons, each row's label is clipped but stays in the page, so the row keeps its accessible name. The `tooltip` shows it to sighted users.
+- On small screens the sidebar opens as a modal dialog named "Sidebar", which holds focus until it closes. Escape closes it.
+- `SidebarInset` renders a `<main>` landmark, so use it once per page.
+- Give icon-only `SidebarGroupAction`s and `SidebarMenuAction`s an `aria-label`, and mark decorative icons `aria-hidden`.
+- Keyboard focus on a row, action or trigger shows a 2px `--ring` outline.
+
+## API reference
+
+### SidebarProvider
+
+Holds the open state and lays out the sidebar and the page in a row. Takes every prop of the native `<div>`. It also provides the tooltips used by collapsed rows.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `defaultOpen` | `boolean` | `true` |
+| `open` | `boolean` | – |
+| `onOpenChange` | `(open: boolean) => void` | – |
+
+### Sidebar
+
+The side panel. Takes every prop of the native `<div>`. On desktop, `className` and other props go to the panel itself; below the `md` breakpoint its children are shown in a sheet.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `collapsible` | `"offcanvas" \| "icon" \| "none"` | `"offcanvas"` |
+| `variant` | `"sidebar" \| "floating" \| "inset"` | `"sidebar"` |
+| `side` | `"left" \| "right"` | `"left"` |
+
+### SidebarTrigger
+
+A ghost icon [Button](/docs/components/button) that toggles the sidebar. Takes every prop of `Button` apart from `children` and `icon`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "primary" \| "destructive" \| "ghost"` | `"ghost"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"sm"` |
+| `aria-label` | `string` | `"Toggle sidebar"` |
+
+### SidebarRail and SidebarInset
+
+`SidebarRail` is a thin strip along the sidebar's inner edge that shows a `--primary` groove on hover and toggles the sidebar on click. Put it inside `Sidebar`. It takes every prop of the native `<button>`. `SidebarInset` is the page beside the sidebar, a `<main>` that takes every prop of the native `<main>`.
+
+### SidebarHeader, SidebarContent, SidebarFooter and SidebarSeparator
+
+`SidebarHeader` and `SidebarFooter` hold what stays at the top and bottom, and `SidebarContent` is the scrolling middle that holds the groups. They take every prop of the native `<div>`. `SidebarSeparator` is a groove between sections and takes every prop of [Separator](/docs/components/separator).
+
+### SidebarInput
+
+A small, full-width [Input](/docs/components/input) for searching the sidebar. Takes every prop of `Input`. Hide it when collapsed to icons with `group-data-[collapsible=icon]:hidden`.
+
+### SidebarGroup, SidebarGroupLabel, SidebarGroupAction and SidebarGroupContent
+
+`SidebarGroup` is a section of the sidebar and `SidebarGroupContent` holds its menu; both take every prop of the native `<div>`. `SidebarGroupLabel` is a small uppercase heading that fades out when collapsed to icons; it takes every prop of the native `<div>`. `SidebarGroupAction` is an icon button at the end of the label row; it takes every prop of the native `<button>`. The label and the action take a `render` prop to change the element.
+
+### SidebarMenu and SidebarMenuItem
+
+`SidebarMenu` is the list of rows, a `<ul>`, and `SidebarMenuItem` is one `<li>`. They take every prop of the native `<ul>` and `<li>`.
+
+### SidebarMenuButton
+
+A row. It's a `<button>` by default; pass `render={<a href="…" />}` for a link. It rests flat, rises on hover, and presses in and turns `--primary` when `isActive`. Takes every prop of the native `<button>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `isActive` | `boolean` | `false` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `tooltip` | `string \| TooltipContentProps` | – |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+The tooltip only shows while the sidebar is collapsed to icons. Pass a string for the label, or [Tooltip](/docs/components/tooltip) content props for more control.
+
+### SidebarMenuAction and SidebarMenuBadge
+
+`SidebarMenuAction` is an icon button at the end of a row and takes every prop of the native `<button>`, plus `render`. `SidebarMenuBadge` is a count at the end of a row and takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `showOnHover` (action) | `boolean` | `false` |
+
+### SidebarMenuSkeleton
+
+A loading row. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `showIcon` | `boolean` | `false` |
+| `width` | `string` | `"70%"` |
+
+### SidebarMenuSub, SidebarMenuSubItem and SidebarMenuSubButton
+
+`SidebarMenuSub` is a nested `<ul>` hanging off a groove, and `SidebarMenuSubItem` is one `<li>` in it. `SidebarMenuSubButton` is a nested row, an `<a>` by default, and takes every prop of the native `<a>`, plus `render`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `isActive` | `boolean` | `false` |
+| `size` | `"sm" \| "md"` | `"md"` |
+
+### useSidebar
+
+```ts
+useSidebar(): {
+  state: "expanded" | "collapsed";
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  openMobile: boolean;
+  setOpenMobile: (open: boolean) => void;
+  isMobile: boolean;
+  toggleSidebar: () => void;
+};
+```
+
+Reads the sidebar's state from inside a `SidebarProvider`; it throws outside one. `open` is the desktop state and `openMobile` the sheet's. `toggleSidebar` toggles whichever applies to the current screen size.
+
+### useIsMobile
+
+```ts
+useIsMobile(): boolean;
+```
+
+Whether the viewport is below the `md` breakpoint (768px). It's `false` during a server render.
+
+### sidebarMenuButtonVariants
+
+```ts
+sidebarMenuButtonVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns a menu row's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"sidebar-wrapper"`, `"sidebar"`, `"sidebar-gap"`, `"sidebar-container"`, `"sidebar-inner"`, `"sidebar-trigger"`, `"sidebar-rail"`, `"sidebar-inset"`, `"sidebar-header"`, `"sidebar-content"`, `"sidebar-footer"`, `"sidebar-separator"`, `"sidebar-input"`, `"sidebar-group"`, `"sidebar-group-label"`, `"sidebar-group-action"`, `"sidebar-group-content"`, `"sidebar-menu"`, `"sidebar-menu-item"`, `"sidebar-menu-button"`, `"sidebar-menu-action"`, `"sidebar-menu-badge"`, `"sidebar-menu-skeleton"`, `"sidebar-menu-sub"`, `"sidebar-menu-sub-item"` or `"sidebar-menu-sub-button"` |
+| `data-sidebar` | On the parts inside the panel and on the trigger, the part's name without the `sidebar-` prefix, such as `"menu-button"`; `"sidebar"` on the inner panel and on the sheet |
+| `data-state` | On the desktop `sidebar`, `"expanded"` or `"collapsed"` |
+| `data-collapsible` | On the desktop `sidebar`, the `collapsible` mode while collapsed, otherwise empty |
+| `data-variant` | On the desktop `sidebar`, the `variant` |
+| `data-side` | On the desktop `sidebar`, the `side` |
+| `data-mobile` | On the sheet, `"true"` |
+| `data-active` | On a menu button or sub-button, present when `isActive` |
+| `data-size` | On a menu button or sub-button, the `size` |
+
+### CSS variables
+
+Set by `SidebarProvider`. Override them through its `style` prop.
+
+| Variable | Sets |
+| --- | --- |
+| `--sidebar-width` | The expanded width: `16rem`, or `18rem` in the sheet |
+| `--sidebar-width-icon` | The width when collapsed to icons: `3.5rem` |

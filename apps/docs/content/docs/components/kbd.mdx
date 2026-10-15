@@ -1,0 +1,90 @@
+---
+title: Kbd
+description: A keyboard key drawn as a small raised cap, on its own or grouped into a shortcut.
+component: kbd
+---
+
+<ComponentPreview name="kbd-demo" />
+
+## Usage
+
+```tsx
+import { Kbd, KbdGroup } from "@neomorphic-react/ui/kbd";
+```
+
+```tsx
+<KbdGroup>
+  <Kbd aria-label="Command">⌘</Kbd>
+  <Kbd>K</Kbd>
+</KbdGroup>
+```
+
+Use `Kbd` to show which key to press, in help text, tooltips and lists of shortcuts. It only shows the keys: listen for them yourself. In a menu item, use the menu's own shortcut part, such as `DropdownMenuShortcut` in a [Dropdown Menu](/docs/components/dropdown-menu).
+
+## Examples
+
+### Sizes
+
+`md` (the default) is 24px tall and `sm` is 20px, for running text and tooltips. A key is at least as wide as it is tall, so single characters sit in a square cap and longer names such as `Tab` widen it.
+
+<ComponentPreview name="kbd-sizes" />
+
+### Chords and sequences
+
+`KbdGroup` sets keys side by side with a 4px gap, in muted text. Put keys pressed together straight inside it, and add a word such as "then" between keys pressed one after another. An icon inside a key is sized to fit unless it has its own `size-*` class.
+
+<ComponentPreview name="kbd-groups" />
+
+### In text
+
+In a paragraph, use `sm` so the caps don't push the lines apart.
+
+<ComponentPreview name="kbd-inline" />
+
+### In a tooltip
+
+A key in a [Tooltip](/docs/components/tooltip) stays raised on the tooltip's own surface. Hover or focus each button to see its shortcut.
+
+<ComponentPreview name="kbd-tooltip" />
+
+### In context
+
+A list of shortcuts in a [Dialog](/docs/components/dialog), opened from a button. Each section is a description list, with the action as the term and its keys as the description. A [Separator](/docs/components/separator) divides the sections.
+
+<ComponentPreview name="kbd-in-context" />
+
+## Accessibility
+
+- `Kbd` renders a native `<kbd>`, and `KbdGroup` a `<kbd>` around the keys, which is how HTML marks up a key combination.
+- Screen readers don't read symbols such as ⌘ and ⇧ reliably. Give a symbol key an `aria-label` with the key's name, such as "Command".
+- A key is for display only: it ignores the pointer and its text can't be selected.
+- When a key hints at a shortcut for a control, also list the shortcut where everyone can find it, such as a help dialog, since a tooltip only shows on hover or focus.
+
+## API reference
+
+### Kbd
+
+One key. Renders a `<kbd>` and takes every prop of the native `<kbd>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md"` | `"md"` |
+
+### KbdGroup
+
+A chord or sequence of keys. Renders a `<kbd>` and takes every prop of the native `<kbd>`.
+
+### kbdVariants
+
+```ts
+kbdVariants(options?: { size?: "sm" | "md" }): string;
+```
+
+Returns the key's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"kbd"`, or `"kbd-group"` on the group |
+| `data-size` | On a key, the `size` |

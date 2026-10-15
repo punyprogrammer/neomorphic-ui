@@ -1,0 +1,118 @@
+---
+title: Checkbox
+description: A box pressed into the surface that rises with a dark check when it's ticked.
+component: checkbox
+primitive: https://base-ui.com/react/components/checkbox
+---
+
+<ComponentPreview name="checkbox-demo" />
+
+## Usage
+
+```tsx
+import { Checkbox } from "@neomorphic-react/ui/checkbox";
+import { Label } from "@neomorphic-react/ui/label";
+```
+
+```tsx
+<Label>
+  <Checkbox defaultChecked name="remember" />
+  Remember me
+</Label>
+```
+
+A hidden native input carries the value, so the checkbox submits with a form under its `name`. Wrap it with its text in a `Label`, so the whole label is clickable, or give it an `aria-label`.
+
+## Examples
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the size of the box and its check together.
+
+<ComponentPreview name="checkbox-sizes" />
+
+### States
+
+- Empty, the box is a well pressed into the surface. Checked or indeterminate, it rises out of it and shows a dark mark, so the state never depends on depth alone.
+- `indeterminate` shows a dash instead of the check.
+- `readOnly` keeps the current state and ignores clicks.
+- `aria-invalid` adds a `--destructive` ring. Point `aria-describedby` at the error message, or put the checkbox in a `Field`, which does both for you.
+- `disabled` dims the box and blocks interaction. A `Label` around it dims as well.
+
+<ComponentPreview name="checkbox-states" />
+
+### Select all
+
+A parent checkbox is indeterminate while only some of its children are checked. Control it with `checked` and `onCheckedChange`, and work out `indeterminate` from the children's state. Here, checking the parent checks every child and unchecking it clears them.
+
+<ComponentPreview name="checkbox-select-all" />
+
+### In a field
+
+Inside a `Field` with `orientation="horizontal"`, `FieldLabel` names the checkbox and `FieldDescription` describes it, with no `id`s to wire up. Set `invalid` on the `Field` and render a `FieldError` to mark it invalid and show the message.
+
+<ComponentPreview name="checkbox-field" />
+
+### In context
+
+A card of opt-in sources. Each checkbox is controlled, so the count in the header follows the choices.
+
+<ComponentPreview name="checkbox-in-context" />
+
+## Accessibility
+
+- Base UI renders a `<span role="checkbox">` with `aria-checked`, and a hidden native `<input type="checkbox">` beside it for forms.
+- An indeterminate checkbox sets `aria-checked="mixed"`.
+- `readOnly` and `required` set `aria-readonly` and `aria-required`.
+- Space toggles the checkbox, and it takes part in the tab order.
+- The check and the dash are decorative (`aria-hidden`). Name the checkbox with a wrapping `<label>`, a `FieldLabel` or an `aria-label`.
+- The hit area reaches 8px past the box on every side, so the small control is easier to tap.
+- Keyboard focus shows a 2px `--ring` outline, offset from the box.
+
+## API reference
+
+### Checkbox
+
+Takes every prop of Base UI's [Checkbox.Root](https://base-ui.com/react/components/checkbox). The indicator and its check and dash are rendered for you.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `checked` | `boolean` | – |
+| `defaultChecked` | `boolean` | `false` |
+| `onCheckedChange` | `(checked: boolean, eventDetails) => void` | – |
+| `indeterminate` | `boolean` | `false` |
+| `name` | `string` | – |
+| `value` | `string` | – |
+| `uncheckedValue` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+| `inputRef` | `Ref<HTMLInputElement>` | – |
+
+### checkboxVariants
+
+```ts
+checkboxVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns the checkbox's class names. [Radio Group](/docs/components/radio-group) uses them for its items.
+
+### checkboxIndicatorClassName
+
+A string of class names that scales the mark in and out as the state changes. It's shared with the radio's dot.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"checkbox"`, or `"checkbox-indicator"` on the mark |
+| `data-size` | The `size` |
+| `data-checked` | Present when checked |
+| `data-unchecked` | Present when not checked |
+| `data-indeterminate` | Present when indeterminate |
+| `data-disabled` | Present when disabled |
+| `data-readonly` | Present when read-only |
+| `data-required` | Present when required |
+| `data-valid`, `data-invalid` | In a `Field`, the result of validation |
+| `data-dirty`, `data-touched`, `data-focused` | In a `Field`, present once the value has changed, once the checkbox has been focused and left, or while it has focus |
