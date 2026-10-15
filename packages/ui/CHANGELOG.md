@@ -1,5 +1,11 @@
 # @neomorphic-react/ui
 
+## 0.1.1
+
+### Patch Changes
+
+- 42b1372: Add npm version, licence and CI badges to the README, and link the changelog from it.
+
 ## 0.1.0
 
 ### Minor Changes
