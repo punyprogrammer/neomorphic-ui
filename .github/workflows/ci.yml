@@ -122,3 +122,7 @@ jobs:
       # Storybook blocks, stories, tests and component sources never ship.
       - name: Check npm package contents
         run: pnpm check:pack
+
+      # publint + attw against the tarball pnpm would publish.
+      - name: Lint npm package
+        run: pnpm lint:package

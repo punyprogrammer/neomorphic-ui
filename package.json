@@ -11,17 +11,20 @@
     "fix": "ultracite fix",
     "add:component": "node scripts/add-component.mjs",
     "check:pack": "node scripts/check-pack.mjs",
+    "lint:package": "node scripts/lint-package.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build --filter=@neomorphic-react/ui && node scripts/check-pack.mjs && changeset publish",
+    "release": "turbo run build --filter=@neomorphic-react/ui && node scripts/check-pack.mjs && node scripts/lint-package.mjs && changeset publish",
     "docs:commit": "node scripts/commit-docs.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@biomejs/biome": "2.5.15",
     "@changesets/cli": "^3.0.3",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
+    "publint": "^0.3.25",
     "turbo": "^2.11.7",
     "ultracite": "7.12.4"
   },
