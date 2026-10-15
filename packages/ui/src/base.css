@@ -21,6 +21,10 @@
   /* Indeterminate progress: a third-width fill sweeping across the track. */
   --animate-neu-progress: neu-progress 1.4s var(--ease-in-out) infinite;
 
+  /* Loading sweep for placeholders and pending text; see `neu-shimmer` and
+     `neu-shimmer-text` below. */
+  --animate-neu-shimmer: neu-shimmer 1.8s linear infinite;
+
   /* Z-index scale. Portaled popups sit above modals and drawers. */
   --z-sticky: 30;
   --z-drawer: 40;
@@ -37,6 +41,17 @@
     }
     to {
       translate: 300% 0;
+    }
+  }
+
+  /* For --animate-neu-shimmer. At the default position the band is off the
+     element, so reduced motion (one 0.01ms iteration) leaves it static. */
+  @keyframes neu-shimmer {
+    from {
+      background-position: 100% 0;
+    }
+    to {
+      background-position: -100% 0;
     }
   }
 }
@@ -122,6 +137,77 @@
     var(--neu-convex-from),
     var(--neu-convex-to)
   );
+}
+
+/* A highlight band sweeping across a well, for placeholders (`Skeleton`). */
+@utility neu-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 30%,
+    color-mix(in oklab, var(--neu-light) 70%, transparent) 50%,
+    transparent 70%
+  );
+  background-repeat: no-repeat;
+  background-size: 250% 100%;
+  animation: var(--animate-neu-shimmer);
+}
+
+/* The same sweep through text that is still loading or running (an upload's
+   name, a running trace step). The text stays readable at every frame. */
+@utility neu-shimmer-text {
+  color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-muted-foreground) 35%,
+    color-mix(in oklab, var(--color-muted-foreground) 35%, var(--neu-light)) 50%,
+    var(--color-muted-foreground) 65%
+  );
+  background-clip: text;
+  background-size: 250% 100%;
+  animation: var(--animate-neu-shimmer);
+}
+
+/* Native scrollbars drawn like `ScrollArea`: a groove track holding a raised
+   pill thumb. The thumb's transparent border insets it in the groove, so its
+   relief is drawn with inner shadows (an outer shadow would start at the
+   border edge). Firefox has no scrollbar pseudo-elements and gets thin
+   scrollbars in matching colours instead; Chromium ignores the pseudo-elements
+   whenever `scrollbar-width` or `scrollbar-color` is set, so those stay inside
+   the fallback. */
+@utility neu-scrollbar {
+  &::-webkit-scrollbar {
+    width: calc(var(--neu-depth) * 6);
+    height: calc(var(--neu-depth) * 6);
+  }
+  &::-webkit-scrollbar-track {
+    margin: calc(var(--neu-depth) * 2);
+    background-color: var(--color-background);
+    border-radius: 9999px;
+    box-shadow: var(--inset-shadow-neu-sm);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-background);
+    background-image: linear-gradient(
+      to bottom right,
+      var(--neu-convex-from),
+      var(--neu-convex-to)
+    );
+    background-clip: padding-box;
+    border: calc(var(--neu-depth) * 1) solid transparent;
+    border-radius: 9999px;
+    box-shadow:
+      inset calc(var(--neu-depth) * 0.5) calc(var(--neu-depth) * 0.5)
+      var(--neu-depth) var(--neu-light),
+      inset calc(var(--neu-depth) * -0.5) calc(var(--neu-depth) * -0.5)
+      var(--neu-depth) var(--neu-dark);
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-color: var(--neu-convex-to) var(--color-background);
+    scrollbar-width: thin;
+  }
 }
 
 /* Reduced motion: kill movement and looping animations, keep instantaneous

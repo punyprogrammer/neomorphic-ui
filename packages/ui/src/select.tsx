@@ -10,6 +10,12 @@ import {
 } from "lucide-react";
 import type * as React from "react";
 
+import {
+  popupClassName,
+  popupItemClassName,
+  popupLabelClassName,
+  popupSeparatorClassName,
+} from "./popup";
 import { cn } from "./utils";
 
 // ---------------------------------------------------------------------------
@@ -156,7 +162,8 @@ function SelectContent({
       >
         <SelectPrimitive.Popup
           className={cn(
-            "relative inset-shadow-neu-flat flex max-h-(--available-height) min-w-(--anchor-width) origin-(--transform-origin) flex-col overflow-hidden rounded-lg bg-neu-convex text-foreground shadow-neu-lg outline-none transition-[opacity,scale] duration-[var(--duration-fast)] ease-[var(--ease-out)] data-ending-style:scale-95 data-starting-style:scale-95 data-ending-style:opacity-0 data-starting-style:opacity-0",
+            popupClassName,
+            "relative flex max-h-(--available-height) min-w-(--anchor-width) flex-col overflow-hidden",
             className
           )}
           data-slot="select-content"
@@ -192,7 +199,8 @@ function SelectItem({ className, children, ...props }: SelectItemProps) {
   return (
     <SelectPrimitive.Item
       className={cn(
-        "relative inset-shadow-neu-flat flex h-9 cursor-pointer select-none items-center gap-2 rounded-md ps-3 pe-9 text-sm outline-none transition-[box-shadow] duration-[var(--duration-fast)] data-highlighted:inset-shadow-neu-sm data-disabled:cursor-not-allowed data-selected:font-medium data-selected:text-primary data-disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        popupItemClassName,
+        "pe-9 data-selected:font-medium data-selected:text-primary",
         className
       )}
       data-slot="select-item"
@@ -232,10 +240,7 @@ type SelectGroupLabelProps = SelectPrimitive.GroupLabel.Props;
 function SelectGroupLabel({ className, ...props }: SelectGroupLabelProps) {
   return (
     <SelectPrimitive.GroupLabel
-      className={cn(
-        "px-3 pt-2 pb-1 font-medium text-muted-foreground text-xs uppercase tracking-wide",
-        className
-      )}
+      className={cn(popupLabelClassName, className)}
       data-slot="select-group-label"
       {...props}
     />
@@ -244,14 +249,10 @@ function SelectGroupLabel({ className, ...props }: SelectGroupLabelProps) {
 
 type SelectSeparatorProps = SelectPrimitive.Separator.Props;
 
-// A groove, like the dividers in `ButtonGroup`.
 function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
   return (
     <SelectPrimitive.Separator
-      className={cn(
-        "mx-2 my-1.5 h-px bg-[var(--neu-dark)] shadow-[0_1px_0_var(--neu-light)]",
-        className
-      )}
+      className={cn(popupSeparatorClassName, className)}
       data-slot="select-separator"
       {...props}
     />

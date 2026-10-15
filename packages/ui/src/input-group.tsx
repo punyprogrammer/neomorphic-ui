@@ -299,7 +299,7 @@ function InputGroupTextarea({ className, ...props }: InputGroupTextareaProps) {
     <textarea
       className={cn(
         inputControlClassName,
-        "field-sizing-content min-h-(--input-group-h) flex-1 resize-none px-(--input-group-px) py-(--input-group-py)",
+        "neu-scrollbar field-sizing-content min-h-(--input-group-h) flex-1 resize-none px-(--input-group-px) py-(--input-group-py)",
         className
       )}
       data-slot="input-group-control"
