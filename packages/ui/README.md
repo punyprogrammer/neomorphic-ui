@@ -1,5 +1,9 @@
 # @neomorphic-react/ui
 
+[![npm version](https://img.shields.io/npm/v/@neomorphic-react/ui)](https://www.npmjs.com/package/@neomorphic-react/ui)
+[![licence: MIT](https://img.shields.io/npm/l/@neomorphic-react/ui)](https://github.com/punyprogrammer/neomorphic-ui/blob/main/packages/ui/LICENSE)
+[![CI](https://github.com/punyprogrammer/neomorphic-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/punyprogrammer/neomorphic-ui/actions/workflows/ci.yml)
+
 Neumorphic React components: surfaces that rise out of the page or sink into
 it, built on [Base UI](https://base-ui.com) and styled with
 [Tailwind CSS v4](https://tailwindcss.com).
@@ -163,6 +167,11 @@ Every component has a Storybook page with its props, variants and
 accessibility notes. To browse it, clone the
 [repository](https://github.com/punyprogrammer/neomorphic-ui) and run
 `pnpm install && pnpm storybook`.
+
+## Changelog
+
+Release notes for every version are in
+[CHANGELOG.md](https://github.com/punyprogrammer/neomorphic-ui/blob/main/packages/ui/CHANGELOG.md).
 
 ## Licence
 

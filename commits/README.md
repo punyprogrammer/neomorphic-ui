@@ -29,3 +29,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0035 | 2026-10-15 | [setup-npm-packaging](0035-setup-npm-packaging.md) | 33 | +778 −212 |
 | 0039 | 2026-10-15 | [sync-with-remote](0039-sync-with-remote.md) | 127 | +2392 −1224 |
 | 0040 | 2026-10-15 | [add-release-workflow](0040-add-release-workflow.md) | 6 | +128 −85 |
+| 0041 | 2026-10-15 | [Add README badges and changelog link](0041-add-readme-badges-and-changelog-link.md) | 2 | +14 −0 |
