@@ -260,6 +260,10 @@ From here on, merging to `main` handles versioning and publishing.
     token, which shadows OIDC and turns the publish into a 404.
   - `NPM_CONFIG_PROVENANCE: "true"`, because `pnpm publish` (which
     `changeset publish` runs) doesn't attach provenance on its own.
+  - `changesets/action@v2`, the major that pairs with `@changesets/cli` v3.
+    v1 finds published packages by looking for `New tag:` lines, which CLI
+    v3 no longer prints: `0.1.1` reached npm but got no git tag or GitHub
+    release until they were added by hand.
 
   The job runs on Node 24 (npm 11), whatever `engines` says for consumers.
 - [ ] In GitHub **Settings → Actions → General**, allow GitHub Actions to

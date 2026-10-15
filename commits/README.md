@@ -30,3 +30,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0039 | 2026-10-15 | [sync-with-remote](0039-sync-with-remote.md) | 127 | +2392 −1224 |
 | 0040 | 2026-10-15 | [add-release-workflow](0040-add-release-workflow.md) | 6 | +128 −85 |
 | 0041 | 2026-10-15 | [Add README badges and changelog link](0041-add-readme-badges-and-changelog-link.md) | 2 | +14 −0 |
+| 0042 | 2026-10-15 | [add-version-badge](0042-add-version-badge.md) | 2 | +15 −9 |

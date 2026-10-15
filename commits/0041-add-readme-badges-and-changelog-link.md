@@ -8,7 +8,7 @@ insertions: 14
 deletions: 0
 ---
 
-<!-- nav --> [← 0040](0040-add-release-workflow.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0040](0040-add-release-workflow.md) · [Index](README.md) · [0042 →](0042-add-version-badge.md)
 
 # 0041 · Add README badges and changelog link
 
