@@ -24,7 +24,7 @@ const meta = {
 A small raised marker for a count, a dot, or a short label like "New". On its
 own it sits inline; give it a \`placement\` inside a \`BadgeAnchor\` and it pins
 to that corner, as on the kit's bell and cart tiles. For icon + label pills
-("Paid", "Due soon"), use \`Chip\` (planned) instead.
+("Paid", "Due soon"), use \`Chip\` instead.
 
 \`\`\`tsx
 import { Badge, BadgeAnchor } from "@neomorphic-ui/react/badge";

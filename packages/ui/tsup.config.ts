@@ -10,6 +10,7 @@ export default defineConfig((options) => ({
     "src/calendar.tsx",
     "src/card.tsx",
     "src/checkbox.tsx",
+    "src/chip.tsx",
     "src/dial.tsx",
     "src/input-group.tsx",
     "src/input.tsx",
