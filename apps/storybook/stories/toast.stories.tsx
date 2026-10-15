@@ -1,5 +1,5 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { Toaster, toast } from "@neomorphic-ui/react/toast";
+import { Button } from "@neomorphic-react/ui/button";
+import { Toaster, toast } from "@neomorphic-react/ui/toast";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -15,7 +15,7 @@ raised card; its icon's colour says what kind of message it is. Hovering the
 stack fans it out, and toasts can be swiped away.
 
 \`\`\`tsx
-import { Toaster, toast } from "@neomorphic-ui/react/toast";
+import { Toaster, toast } from "@neomorphic-react/ui/toast";
 
 // once, near the root
 <Toaster position="bottom-right" />

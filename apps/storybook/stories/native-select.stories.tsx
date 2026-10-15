@@ -1,9 +1,9 @@
-import { Field, FieldLabel } from "@neomorphic-ui/react/field";
+import { Field, FieldLabel } from "@neomorphic-react/ui/field";
 import {
   NativeSelect,
   NativeSelectOptGroup,
   NativeSelectOption,
-} from "@neomorphic-ui/react/native-select";
+} from "@neomorphic-react/ui/native-select";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -21,7 +21,7 @@ list use \`Select\` or \`Combobox\`.
 \`\`\`tsx
 import {
   NativeSelect, NativeSelectOption,
-} from "@neomorphic-ui/react/native-select";
+} from "@neomorphic-react/ui/native-select";
 
 <NativeSelect aria-label="Seat">
   <NativeSelectOption value="window">Window</NativeSelectOption>

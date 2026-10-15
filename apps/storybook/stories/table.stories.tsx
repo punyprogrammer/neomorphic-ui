@@ -1,5 +1,5 @@
-import { Badge } from "@neomorphic-ui/react/badge";
-import { Checkbox } from "@neomorphic-ui/react/checkbox";
+import { Badge } from "@neomorphic-react/ui/badge";
+import { Checkbox } from "@neomorphic-react/ui/checkbox";
 import {
   Table,
   TableBody,
@@ -9,7 +9,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@neomorphic-ui/react/table";
+} from "@neomorphic-react/ui/table";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
@@ -28,7 +28,7 @@ a bar at their leading edge.
 \`\`\`tsx
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
-} from "@neomorphic-ui/react/table";
+} from "@neomorphic-react/ui/table";
 
 <Table variant="raised">
   <TableHeader>

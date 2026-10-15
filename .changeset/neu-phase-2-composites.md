@@ -1,8 +1,8 @@
 ---
-"@neomorphic-ui/react": minor
+"@neomorphic-react/ui": minor
 ---
 
-Add the Phase 2 composites: `Card`, `Item`, `Separator`, `Calendar`, `Dial`, `BarMeter`, `Avatar` and `Tooltip`, each at `@neomorphic-ui/react/<name>`.
+Add the Phase 2 composites: `Card`, `Item`, `Separator`, `Calendar`, `Dial`, `BarMeter`, `Avatar` and `Tooltip`, each at `@neomorphic-react/ui/<name>`.
 
 - `Card`: a panel raised out of the surface (or an `inset` well, or `flat`), sizes `sm`, `md`, `lg` setting `--card-spacing`; images at the top or bottom run edge to edge. Parts `CardHeader`, `CardTitle`, `CardDescription`, `CardAction`, `CardContent`, `CardFooter`.
 - `Item`: list rows like the kit's credit-card list. `ItemGroup` gives list semantics; rows are `flat`, `raised` or `inset`, `sm` or `md`, and rise and press when rendered as a link or button. Parts `ItemMedia` (icon tile or image), `ItemContent`, `ItemTitle`, `ItemDescription`, `ItemActions`, `ItemHeader`, `ItemFooter`, `ItemSeparator`.

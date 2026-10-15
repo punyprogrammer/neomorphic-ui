@@ -1,5 +1,5 @@
-import { Spinner } from "@neomorphic-ui/react/spinner";
-import { Surface } from "@neomorphic-ui/react/surface";
+import { Spinner } from "@neomorphic-react/ui/spinner";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 
@@ -14,7 +14,7 @@ The kit's loader: a ring-shaped groove around a raised hub, with an arc
 running around the groove.
 
 \`\`\`tsx
-import { Spinner } from "@neomorphic-ui/react/spinner";
+import { Spinner } from "@neomorphic-react/ui/spinner";
 
 <Spinner />
 <Spinner aria-label="Loading messages" size="lg" />

@@ -1,4 +1,4 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Card,
   CardAction,
@@ -7,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@neomorphic-ui/react/card";
-import { Toggle } from "@neomorphic-ui/react/toggle";
+} from "@neomorphic-react/ui/card";
+import { Toggle } from "@neomorphic-react/ui/toggle";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Heart, MapPin, Star } from "lucide-react";
 import { expect, within } from "storybook/test";
@@ -33,7 +33,7 @@ travel cards. \`inset\` makes it a well for secondary panels.
 \`\`\`tsx
 import {
   Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,
-} from "@neomorphic-ui/react/card";
+} from "@neomorphic-react/ui/card";
 
 <Card>
   <CardHeader>

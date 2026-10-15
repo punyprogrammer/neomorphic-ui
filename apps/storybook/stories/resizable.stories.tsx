@@ -2,7 +2,7 @@ import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
-} from "@neomorphic-ui/react/resizable";
+} from "@neomorphic-react/ui/resizable";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
@@ -19,7 +19,7 @@ built on \`react-resizable-panels\`.
 \`\`\`tsx
 import {
   ResizableHandle, ResizablePanel, ResizablePanelGroup,
-} from "@neomorphic-ui/react/resizable";
+} from "@neomorphic-react/ui/resizable";
 
 <ResizablePanelGroup orientation="horizontal">
   <ResizablePanel defaultSize="30" minSize="20">Inbox</ResizablePanel>

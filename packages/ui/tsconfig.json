@@ -1,5 +1,5 @@
 {
-  "extends": "@neomorphic-ui/typescript-config/react-library.json",
+  "extends": "@neomorphic-react/typescript-config/react-library.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"],
   "compilerOptions": {

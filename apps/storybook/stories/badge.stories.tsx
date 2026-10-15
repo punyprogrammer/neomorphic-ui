@@ -1,5 +1,5 @@
-import { Badge, BadgeAnchor } from "@neomorphic-ui/react/badge";
-import { Button } from "@neomorphic-ui/react/button";
+import { Badge, BadgeAnchor } from "@neomorphic-react/ui/badge";
+import { Button } from "@neomorphic-react/ui/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Bell,
@@ -27,7 +27,7 @@ to that corner, as on the kit's bell and cart tiles. For icon + label pills
 ("Paid", "Due soon"), use \`Chip\` instead.
 
 \`\`\`tsx
-import { Badge, BadgeAnchor } from "@neomorphic-ui/react/badge";
+import { Badge, BadgeAnchor } from "@neomorphic-react/ui/badge";
 
 <Badge count={12} variant="primary" />
 

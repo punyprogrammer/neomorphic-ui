@@ -1,8 +1,8 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   ButtonGroup,
   ButtonGroupText,
-} from "@neomorphic-ui/react/button-group";
+} from "@neomorphic-react/ui/button-group";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   AlignCenter,
@@ -44,8 +44,8 @@ Joins \`Button\`s into one raised slab, split by grooves, like the kit's
 segment, such as a page readout.
 
 \`\`\`tsx
-import { Button } from "@neomorphic-ui/react/button";
-import { ButtonGroup, ButtonGroupText } from "@neomorphic-ui/react/button-group";
+import { Button } from "@neomorphic-react/ui/button";
+import { ButtonGroup, ButtonGroupText } from "@neomorphic-react/ui/button-group";
 
 <ButtonGroup aria-label="Pages">
   <Button aria-label="Previous page" icon={<ChevronLeft />} size="sm" />

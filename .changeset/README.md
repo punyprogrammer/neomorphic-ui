@@ -1,6 +1,6 @@
 # Changesets
 
-Each file here records one user-facing change to `@neomorphic-ui/react` and
+Each file here records one user-facing change to `@neomorphic-react/ui` and
 how it bumps the version. Private workspaces (Storybook, the TypeScript config)
 are never versioned.
 

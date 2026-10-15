@@ -8,7 +8,7 @@ insertions: 496
 deletions: 117
 ---
 
-<!-- nav --> [← 0031](0031-add-phase-4-components.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0031](0031-add-phase-4-components.md) · [Index](README.md) · [0034 →](0034-initial-packaging.md)
 
 # 0033 · add-optional-deps
 

@@ -1,5 +1,5 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { Checkbox } from "@neomorphic-ui/react/checkbox";
+import { Button } from "@neomorphic-react/ui/button";
+import { Checkbox } from "@neomorphic-react/ui/checkbox";
 import {
   Field,
   FieldContent,
@@ -11,19 +11,19 @@ import {
   FieldSeparator,
   FieldSet,
   FieldTitle,
-} from "@neomorphic-ui/react/field";
-import { Input } from "@neomorphic-ui/react/input";
-import { Label } from "@neomorphic-ui/react/label";
-import { RadioGroup, RadioGroupItem } from "@neomorphic-ui/react/radio-group";
+} from "@neomorphic-react/ui/field";
+import { Input } from "@neomorphic-react/ui/input";
+import { Label } from "@neomorphic-react/ui/label";
+import { RadioGroup, RadioGroupItem } from "@neomorphic-react/ui/radio-group";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@neomorphic-ui/react/select";
-import { Switch } from "@neomorphic-ui/react/switch";
-import { Textarea } from "@neomorphic-ui/react/textarea";
+} from "@neomorphic-react/ui/select";
+import { Switch } from "@neomorphic-react/ui/switch";
+import { Textarea } from "@neomorphic-react/ui/textarea";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 
@@ -45,7 +45,7 @@ them \`aria-invalid\`.
 \`\`\`tsx
 import {
   Field, FieldDescription, FieldError, FieldLabel,
-} from "@neomorphic-ui/react/field";
+} from "@neomorphic-react/ui/field";
 
 <Field invalid={!!error}>
   <FieldLabel>Email</FieldLabel>

@@ -3,8 +3,8 @@ import {
   BarMeterItem,
   BarMeterLabel,
   BarMeterValue,
-} from "@neomorphic-ui/react/bar-meter";
-import { Surface } from "@neomorphic-ui/react/surface";
+} from "@neomorphic-react/ui/bar-meter";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CloudSun } from "lucide-react";
 import { expect, within } from "storybook/test";
@@ -39,7 +39,7 @@ label below.
 \`\`\`tsx
 import {
   BarMeter, BarMeterItem, BarMeterLabel, BarMeterValue,
-} from "@neomorphic-ui/react/bar-meter";
+} from "@neomorphic-react/ui/bar-meter";
 
 <BarMeter aria-label="Highs this week">
   <BarMeterItem format={{ style: "unit", unit: "celsius" }} max={40} value={24}>

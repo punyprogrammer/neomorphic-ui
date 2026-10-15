@@ -1,4 +1,4 @@
-import { Surface } from "@neomorphic-ui/react/surface";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 
@@ -8,7 +8,7 @@ const meta = {
     docs: {
       description: {
         component:
-          "Theme tokens from `@neomorphic-ui/react/theme.css` and the shadow and radius scales `base.css` derives from them.",
+          "Theme tokens from `@neomorphic-react/ui/theme.css` and the shadow and radius scales `base.css` derives from them.",
       },
     },
   },

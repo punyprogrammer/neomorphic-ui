@@ -1,5 +1,5 @@
-import { AspectRatio } from "@neomorphic-ui/react/aspect-ratio";
-import { Card, CardContent, CardTitle } from "@neomorphic-ui/react/card";
+import { AspectRatio } from "@neomorphic-react/ui/aspect-ratio";
+import { Card, CardContent, CardTitle } from "@neomorphic-react/ui/card";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 
@@ -19,7 +19,7 @@ Holds an image, video or map at a fixed shape at any width. Images and videos
 fill the frame and crop to fit.
 
 \`\`\`tsx
-import { AspectRatio } from "@neomorphic-ui/react/aspect-ratio";
+import { AspectRatio } from "@neomorphic-react/ui/aspect-ratio";
 
 <AspectRatio className="rounded-xl" ratio={16 / 9}>
   <img alt="Lisbon at dusk" src="…" />

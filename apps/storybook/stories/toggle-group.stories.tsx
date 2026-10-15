@@ -1,7 +1,7 @@
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@neomorphic-ui/react/toggle-group";
+} from "@neomorphic-react/ui/toggle-group";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   AlignCenter,
@@ -48,7 +48,7 @@ Single-select by default, \`multiple\` for several. \`--toggle-on\` on the group
 colours every pressed item.
 
 \`\`\`tsx
-import { ToggleGroup, ToggleGroupItem } from "@neomorphic-ui/react/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@neomorphic-react/ui/toggle-group";
 
 const [value, setValue] = useState(["on"]);
 

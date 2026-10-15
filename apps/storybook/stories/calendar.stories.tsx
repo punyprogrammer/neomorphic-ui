@@ -1,5 +1,5 @@
-import { Calendar, type DateRange } from "@neomorphic-ui/react/calendar";
-import { Card, CardContent } from "@neomorphic-ui/react/card";
+import { Calendar, type DateRange } from "@neomorphic-react/ui/calendar";
+import { Card, CardContent } from "@neomorphic-react/ui/card";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
@@ -23,7 +23,7 @@ well with a dot, and the selection is raised and filled. Built on
 [react-day-picker](https://daypicker.dev): every DayPicker prop passes through.
 
 \`\`\`tsx
-import { Calendar } from "@neomorphic-ui/react/calendar";
+import { Calendar } from "@neomorphic-react/ui/calendar";
 
 const [date, setDate] = useState<Date>();
 

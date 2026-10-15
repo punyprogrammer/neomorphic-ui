@@ -4,15 +4,16 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "storybook": "pnpm --filter @neomorphic-ui/storybook dev",
+    "storybook": "pnpm --filter @neomorphic-react/storybook dev",
     "clean": "turbo run clean && rm -rf node_modules",
     "test": "turbo run test",
     "check": "ultracite check",
     "fix": "ultracite fix",
     "add:component": "node scripts/add-component.mjs",
+    "check:pack": "node scripts/check-pack.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo run build --filter=@neomorphic-ui/react && changeset publish",
+    "release": "turbo run build --filter=@neomorphic-react/ui && node scripts/check-pack.mjs && changeset publish",
     "docs:commit": "node scripts/commit-docs.mjs",
     "prepare": "husky"
   },

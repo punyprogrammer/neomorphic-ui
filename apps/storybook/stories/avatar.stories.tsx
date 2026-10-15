@@ -5,8 +5,8 @@ import {
   AvatarGroup,
   AvatarGroupCount,
   AvatarImage,
-} from "@neomorphic-ui/react/avatar";
-import { Surface } from "@neomorphic-ui/react/surface";
+} from "@neomorphic-react/ui/avatar";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Hotel, User } from "lucide-react";
 import { expect, within } from "storybook/test";
@@ -29,7 +29,7 @@ A person or place in a raised frame, like the kit's info box thumbnail. The
 fallback (initials or an icon) shows until the image loads, or if it fails.
 
 \`\`\`tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@neomorphic-ui/react/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@neomorphic-react/ui/avatar";
 
 <Avatar>
   <AvatarImage alt="Ada Lovelace" src="/ada.jpg" />

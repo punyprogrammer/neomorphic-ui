@@ -3,14 +3,14 @@ import {
   BarMeterItem,
   BarMeterLabel,
   BarMeterValue,
-} from "@neomorphic-ui/react/bar-meter";
-import { Separator } from "@neomorphic-ui/react/separator";
-import { Surface } from "@neomorphic-ui/react/surface";
+} from "@neomorphic-react/ui/bar-meter";
+import { Separator } from "@neomorphic-react/ui/separator";
+import { Surface } from "@neomorphic-react/ui/surface";
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@neomorphic-ui/react/toggle-group";
-import { cn } from "@neomorphic-ui/react/utils";
+} from "@neomorphic-react/ui/toggle-group";
+import { cn } from "@neomorphic-react/ui/utils";
 import { CloudSun, Droplets, Sun, Wind } from "lucide-react";
 import { useId, useState } from "react";
 

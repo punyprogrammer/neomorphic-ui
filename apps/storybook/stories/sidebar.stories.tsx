@@ -1,17 +1,17 @@
-import { Avatar, AvatarFallback } from "@neomorphic-ui/react/avatar";
+import { Avatar, AvatarFallback } from "@neomorphic-react/ui/avatar";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleIndicator,
   CollapsibleTrigger,
-} from "@neomorphic-ui/react/collapsible";
+} from "@neomorphic-react/ui/collapsible";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@neomorphic-ui/react/dropdown-menu";
-import { Separator } from "@neomorphic-ui/react/separator";
+} from "@neomorphic-react/ui/dropdown-menu";
+import { Separator } from "@neomorphic-react/ui/separator";
 import {
   Sidebar,
   SidebarContent,
@@ -37,8 +37,8 @@ import {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-} from "@neomorphic-ui/react/sidebar";
-import { Skeleton } from "@neomorphic-ui/react/skeleton";
+} from "@neomorphic-react/ui/sidebar";
+import { Skeleton } from "@neomorphic-react/ui/skeleton";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   BookOpen as BookOpenIcon,
@@ -80,7 +80,7 @@ import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarInset,
   SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider,
   SidebarTrigger,
-} from "@neomorphic-ui/react/sidebar";
+} from "@neomorphic-react/ui/sidebar";
 
 <SidebarProvider>
   <Sidebar collapsible="icon">

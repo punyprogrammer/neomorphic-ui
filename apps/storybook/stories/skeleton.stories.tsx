@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader } from "@neomorphic-ui/react/card";
-import { Skeleton } from "@neomorphic-ui/react/skeleton";
+import { Card, CardContent, CardHeader } from "@neomorphic-react/ui/card";
+import { Skeleton } from "@neomorphic-react/ui/skeleton";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 
@@ -15,7 +15,7 @@ sweeping across it (held still under reduced motion). Size it with
 \`className\`.
 
 \`\`\`tsx
-import { Skeleton } from "@neomorphic-ui/react/skeleton";
+import { Skeleton } from "@neomorphic-react/ui/skeleton";
 
 <section aria-busy="true" aria-label="Loading trip">
   <Skeleton className="size-12" shape="circle" />

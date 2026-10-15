@@ -1,4 +1,4 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -8,11 +8,11 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@neomorphic-ui/react/drawer";
+} from "@neomorphic-react/ui/drawer";
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from "@neomorphic-ui/react/toggle-group";
+} from "@neomorphic-react/ui/toggle-group";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -30,7 +30,7 @@ toward its edge to dismiss it. A bottom drawer shows a raised grip.
 import {
   Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter,
   DrawerHeader, DrawerTitle, DrawerTrigger,
-} from "@neomorphic-ui/react/drawer";
+} from "@neomorphic-react/ui/drawer";
 
 <Drawer>
   <DrawerTrigger render={<Button />}>Pick a seat</DrawerTrigger>

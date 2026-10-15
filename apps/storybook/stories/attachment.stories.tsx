@@ -9,8 +9,8 @@ import {
   AttachmentProgress,
   AttachmentTitle,
   AttachmentTrigger,
-} from "@neomorphic-ui/react/attachment";
-import { Spinner } from "@neomorphic-ui/react/spinner";
+} from "@neomorphic-react/ui/attachment";
+import { Spinner } from "@neomorphic-react/ui/spinner";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   FileText,
@@ -41,7 +41,7 @@ the tile so a click anywhere opens the file; actions stay above it.
 import {
   Attachment, AttachmentAction, AttachmentActions, AttachmentContent,
   AttachmentDescription, AttachmentMedia, AttachmentTitle,
-} from "@neomorphic-ui/react/attachment";
+} from "@neomorphic-react/ui/attachment";
 
 <Attachment state="uploading">
   <AttachmentMedia><Spinner aria-hidden className="size-4" /></AttachmentMedia>

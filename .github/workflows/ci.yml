@@ -60,7 +60,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Run unit tests
-        run: pnpm test --filter=@neomorphic-ui/react
+        run: pnpm test --filter=@neomorphic-react/ui
 
   test-storybook:
     name: Storybook Tests
@@ -90,10 +90,10 @@ jobs:
       # browser, failing whichever story was running. The first pass fills the
       # cache; the second is the one that counts.
       - name: Warm Vite dependency cache
-        run: pnpm test --filter=@neomorphic-ui/storybook || true
+        run: pnpm test --filter=@neomorphic-react/storybook || true
 
       - name: Run Storybook interaction tests
-        run: pnpm test --filter=@neomorphic-ui/storybook
+        run: pnpm test --filter=@neomorphic-react/storybook
 
   build:
     name: Build
@@ -118,3 +118,7 @@ jobs:
       # Library (tsup + type declarations) and the static Storybook.
       - name: Build all workspaces
         run: pnpm build
+
+      # Storybook blocks, stories, tests and component sources never ship.
+      - name: Check npm package contents
+        run: pnpm check:pack

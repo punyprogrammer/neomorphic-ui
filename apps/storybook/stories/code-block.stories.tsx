@@ -8,13 +8,13 @@ import {
   CodeBlockLine,
   CodeBlockTitle,
   CodeBlockWrapButton,
-} from "@neomorphic-ui/react/code-block";
-import { useHighlightedCode } from "@neomorphic-ui/react/use-highlighted-code";
+} from "@neomorphic-react/ui/code-block";
+import { useHighlightedCode } from "@neomorphic-react/ui/use-highlighted-code";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { FileCode, TerminalSquare } from "lucide-react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
-const BUTTON = `import { Button } from "@neomorphic-ui/react/button";
+const BUTTON = `import { Button } from "@neomorphic-react/ui/button";
 
 export function Save({ pending }: { pending: boolean }) {
   return (
@@ -46,7 +46,7 @@ scrolls from the keyboard, and always reads left to right.
 import {
   CodeBlock, CodeBlockActions, CodeBlockContent, CodeBlockCopyButton,
   CodeBlockHeader, CodeBlockTitle, CodeBlockWrapButton,
-} from "@neomorphic-ui/react/code-block";
+} from "@neomorphic-react/ui/code-block";
 
 <CodeBlock>
   <CodeBlockHeader>
@@ -67,7 +67,7 @@ Show more button. Mark lines with \`CodeBlockLine\` \`variant\`s
 float over its corner on hover or focus.
 
 Highlighting is separate: \`useHighlightedCode\` (from
-\`@neomorphic-ui/react/use-highlighted-code\`) loads Shiki's JavaScript engine,
+\`@neomorphic-react/ui/use-highlighted-code\`) loads Shiki's JavaScript engine,
 the language and the theme on first use. Install the optional \`shiki\`
 package to use it.
 

@@ -1,9 +1,9 @@
-import { Avatar, AvatarFallback } from "@neomorphic-ui/react/avatar";
+import { Avatar, AvatarFallback } from "@neomorphic-react/ui/avatar";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "@neomorphic-ui/react/hover-card";
+} from "@neomorphic-react/ui/hover-card";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -20,7 +20,7 @@ A preview of a link's destination, shown when the pointer rests on the link
 or it takes keyboard focus. The card is a raised popup like \`Popover\`.
 
 \`\`\`tsx
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@neomorphic-ui/react/hover-card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@neomorphic-react/ui/hover-card";
 
 <HoverCard>
   <HoverCardTrigger href="/hosts/ines">Inês</HoverCardTrigger>

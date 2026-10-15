@@ -11,7 +11,7 @@ import {
   TypographyMuted,
   TypographyP,
   TypographySmall,
-} from "@neomorphic-ui/react/typography";
+} from "@neomorphic-react/ui/typography";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 
@@ -27,7 +27,7 @@ shallow well and inline code pressed into the line. Each renders its own
 element; \`render\` swaps it while keeping the style.
 
 \`\`\`tsx
-import { TypographyH2, TypographyP } from "@neomorphic-ui/react/typography";
+import { TypographyH2, TypographyP } from "@neomorphic-react/ui/typography";
 
 <TypographyH2 render={<h1 />}>Your trips</TypographyH2>
 <TypographyP>Three upcoming, one past.</TypographyP>

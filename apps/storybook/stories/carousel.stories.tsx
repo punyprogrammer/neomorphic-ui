@@ -1,4 +1,4 @@
-import { Card, CardContent } from "@neomorphic-ui/react/card";
+import { Card, CardContent } from "@neomorphic-react/ui/card";
 import {
   Carousel,
   CarouselContent,
@@ -6,7 +6,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@neomorphic-ui/react/carousel";
+} from "@neomorphic-react/ui/carousel";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
@@ -26,7 +26,7 @@ previous/next buttons and a \`PageIndicator\`.
 import {
   Carousel, CarouselContent, CarouselIndicator, CarouselItem,
   CarouselNext, CarouselPrevious,
-} from "@neomorphic-ui/react/carousel";
+} from "@neomorphic-react/ui/carousel";
 
 <Carousel aria-label="Featured trips">
   <CarouselContent>
