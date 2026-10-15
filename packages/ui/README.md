@@ -3,6 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@neomorphic-react/ui)](https://www.npmjs.com/package/@neomorphic-react/ui)
 [![licence: MIT](https://img.shields.io/npm/l/@neomorphic-react/ui)](https://github.com/punyprogrammer/neomorphic-ui/blob/main/packages/ui/LICENSE)
 [![CI](https://github.com/punyprogrammer/neomorphic-ui/actions/workflows/ci.yml/badge.svg)](https://github.com/punyprogrammer/neomorphic-ui/actions/workflows/ci.yml)
+[![Storybook](https://img.shields.io/badge/Storybook-live-ff4785?logo=storybook&logoColor=white)](https://punyprogrammer.github.io/neomorphic-ui/)
 
 Neumorphic React components: surfaces that rise out of the page or sink into
 it, built on [Base UI](https://base-ui.com) and styled with
@@ -163,10 +164,10 @@ The import path is the component name in kebab case:
 
 ## Documentation
 
-Every component has a Storybook page with its props, variants and
-accessibility notes. To browse it, clone the
-[repository](https://github.com/punyprogrammer/neomorphic-ui) and run
-`pnpm install && pnpm storybook`.
+Every component has a page in the
+[Storybook](https://punyprogrammer.github.io/neomorphic-ui/) with its props,
+variants and accessibility notes, next to example blocks (a music player,
+payment methods, a chat thread) composed only from library components.
 
 ## Changelog
 

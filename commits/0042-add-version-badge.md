@@ -8,7 +8,7 @@ insertions: 15
 deletions: 9
 ---
 
-<!-- nav --> [← 0041](0041-add-readme-badges-and-changelog-link.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0041](0041-add-readme-badges-and-changelog-link.md) · [Index](README.md) · [0046 →](0046-deploy-storybook-to-github-pages-and-finish-phase-7.md)
 
 # 0042 · add-version-badge
 
