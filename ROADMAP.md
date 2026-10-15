@@ -262,10 +262,28 @@ The Phase 3 chat thread block now uses Bubble, Message, Marker (the "Today" sepa
 
 ---
 
+## Docs site
+
+A documentation site in `apps/docs` (Next.js App Router and Fumadocs MDX,
+`pnpm docs` on port 4000). The site's own chrome is built from library
+components: Sheet for the mobile menu, Command Dialog for ⌘K search, Tabs for
+Preview/Code and package managers, Code Block for every code sample
+(highlighted with Shiki on the server), Scroll Area for the sidebar.
+
+| Done | Phase | Scope |
+|---|---|---|
+| [x] | D1: Foundation | Landing page (live blocks under a theme preset picker, features, gallery of the showcase apps), Introduction, Installation, Theming (interactive presets with depth and radius and copyable CSS), Components index, the 17 Phase 1 controls; static search, sitemap, robots, copy page as Markdown, edit on GitHub |
+| [ ] | D2: Composites, forms and text | Card, Item, Separator, Calendar, Dial, BarMeter, Avatar, Tooltip, Field, Label, Native Select, Input OTP, Kbd, Typography, Alert, Empty, Skeleton, Aspect Ratio, Scroll Area, Surface |
+| [ ] | D3: Disclosure, navigation, overlays and pickers | Collapsible, Accordion, Tabs, Breadcrumb, Pagination, Navigation Menu, Menubar, Sidebar, Popover, Hover Card, Dialog, Alert Dialog, Sheet, Drawer, Dropdown Menu, Context Menu, Toast, Date Picker, Combobox, Command |
+| [ ] | D4: Layout, data and AI | Table, Data Table, Resizable, Carousel, Chart, Bubble, Message, Marker, Attachment, Trace, Code Block, Message Scroller, Questionnaire; a Blocks page; RTL and accessibility guides |
+| [ ] | D5: Ship | `llms.txt` and per-page Markdown routes, Open Graph images, a CI job (typecheck, lint, build), deploy |
+
+---
+
 ## Later
 
 - [x] Decide on overlays not in the kit: Popover, DropdownMenu, Modal, Drawer, Toast, Alert (planned in Phase 4)
-- [ ] Docs site (Fumadocs) with demos and LLMs.txt
+- [ ] Docs site (Fumadocs) with demos and LLMs.txt: in progress, see [Docs site](#docs-site)
 - [ ] shadcn-compatible registry
 - [x] Publish [`@neomorphic-react/ui`](https://www.npmjs.com/package/@neomorphic-react/ui) to npm: `0.1.0` on 15 Oct 2026 (step-by-step plan in [`PUBLISHING.md`](PUBLISHING.md))
 - [ ] Figma Code Connect mappings (requires Figma Organization or Enterprise plan)

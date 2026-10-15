@@ -1,0 +1,126 @@
+---
+title: Tooltip
+description: A small raised card that names a control while it's hovered or focused.
+component: tooltip
+primitive: https://base-ui.com/react/components/tooltip
+---
+
+<ComponentPreview name="tooltip-demo" />
+
+## Usage
+
+```tsx
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@neomorphic-react/ui/tooltip";
+```
+
+```tsx
+<Tooltip>
+  <TooltipTrigger
+    render={<Button aria-label="Save for later" icon={<BookmarkPlus />} />}
+  />
+  <TooltipContent>Save for later</TooltipContent>
+</Tooltip>
+```
+
+Use a tooltip to name an icon-only button or to show its keyboard shortcut, in a few words. Never put anything in it the user needs: touch screens don't show it and screen readers don't read it. For longer content, or anything with a link or a button in it, use a [Popover](/docs/components/popover). To preview where a link goes, use a [Hover Card](/docs/components/hover-card).
+
+## Examples
+
+### Sides
+
+The tooltip opens above its trigger by default. `side` moves it to the `right`, `bottom` or `left`, and `align` lines it up with the trigger's `start`, `center` (the default) or `end`. If there isn't room on that side, it flips to the other one. There is no arrow: a raised arrow can't cast a shadow that joins the card's.
+
+<ComponentPreview name="tooltip-sides" />
+
+### Sharing a delay
+
+On its own, a tooltip waits 600ms before it opens. Wrap a group of triggers, such as a toolbar, in one `TooltipProvider`: the first tooltip waits 500ms, and once it's showing, moving to the next trigger opens that one at once. Set `delay` on the provider, or on a single `TooltipTrigger`, to change the wait.
+
+<ComponentPreview name="tooltip-provider" />
+
+### Keyboard shortcuts
+
+`TooltipContent` takes any content. Put a [Kbd](/docs/components/kbd) beside the label to show the shortcut, and lay them out with `className`.
+
+<ComponentPreview name="tooltip-shortcut" />
+
+### In context
+
+File rows with icon-only actions. Each button has an `aria-label` that names the file, and its tooltip shows a shorter label to sighted users. One `TooltipProvider` covers the whole list.
+
+<ComponentPreview name="tooltip-in-context" />
+
+## Accessibility
+
+- The tooltip opens when its trigger is hovered with a mouse or receives keyboard focus, and closes on Escape, when the pointer leaves, or when the trigger is clicked.
+- The tooltip isn't linked to its trigger for assistive tech, so give an icon-only trigger its own `aria-label`. Keep the tooltip text the same as, or shorter than, that label.
+- `TooltipTrigger` renders a `<button>`. Pass a [Button](/docs/components/button) to `render` to keep the library's focus ring and states.
+- The text is `--foreground` on a raised card of the page's own surface colour, not light text on a dark fill.
+
+## API reference
+
+### TooltipProvider
+
+Shares the open delay between the tooltips inside it. Takes every prop of Base UI's [Tooltip.Provider](https://base-ui.com/react/components/tooltip). It renders no element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `delay` | `number` | `500` |
+| `closeDelay` | `number` | – |
+| `timeout` | `number` | `400` |
+
+### Tooltip
+
+Base UI's [Tooltip.Root](https://base-ui.com/react/components/tooltip) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `disabled` | `boolean` | `false` |
+| `disableHoverablePopup` | `boolean` | `false` |
+| `trackCursorAxis` | `"none" \| "x" \| "y" \| "both"` | `"none"` |
+
+### TooltipTrigger
+
+The element the tooltip describes. Takes every prop of Base UI's `Tooltip.Trigger`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+| `delay` | `number` | `600`, or the provider's `delay` |
+| `closeDelay` | `number` | `0` |
+| `closeOnClick` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+
+`disabled` stops the tooltip opening; it doesn't disable the trigger itself.
+
+### TooltipContent
+
+The card, portalled to the end of the document. `side`, `sideOffset`, `align` and `alignOffset` go to Base UI's `Tooltip.Positioner`; the remaining props go to `Tooltip.Popup`, including `className`. It's at most `max-w-xs` wide.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"top"` |
+| `sideOffset` | `number` | `10` |
+| `align` | `"start" \| "center" \| "end"` | `"center"` |
+| `alignOffset` | `number` | `0` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"tooltip-trigger"` or `"tooltip-content"` |
+| `data-popup-open` | On the trigger, present while its tooltip is open |
+| `data-trigger-disabled` | On the trigger, present when the tooltip is disabled |
+| `data-open`, `data-closed` | On the content, its open state |
+| `data-side` | On the content, the side it opened on |
+| `data-align` | On the content, its alignment |
+| `data-starting-style`, `data-ending-style` | On the content, present while it scales in or out |
+| `data-instant` | On the content, present when it opens or closes without animating |

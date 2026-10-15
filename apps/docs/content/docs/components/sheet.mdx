@@ -1,0 +1,126 @@
+---
+title: Sheet
+description: A raised panel that slides in from an edge of the screen over a dimmed page, rounded only on the edge facing the page.
+component: sheet
+primitive: https://base-ui.com/react/components/dialog
+---
+
+<ComponentPreview name="sheet-demo" />
+
+## Usage
+
+```tsx
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@neomorphic-react/ui/sheet";
+```
+
+```tsx
+<Sheet>
+  <SheetTrigger render={<Button />}>Notifications</SheetTrigger>
+  <SheetContent>
+    <SheetHeader>
+      <SheetTitle>Notifications</SheetTitle>
+      <SheetDescription>Choose what we email you about.</SheetDescription>
+    </SheetHeader>
+    …
+    <SheetFooter>
+      <SheetClose render={<Button variant="primary" />}>Save</SheetClose>
+    </SheetFooter>
+  </SheetContent>
+</Sheet>
+```
+
+Use a sheet for filters, settings, a basket or details that need more room than a popover, without taking the user to another page. It's a modal [Dialog](/docs/components/dialog) anchored to an edge, and like a dialog it needs a `SheetTitle`. For a bottom panel the user can swipe away on a phone, use a [Drawer](/docs/components/drawer). For navigation that stays on screen, use a [Sidebar](/docs/components/sidebar).
+
+## Examples
+
+### Sides
+
+`side` sets the edge the sheet slides in from. `end` (the default) and `start` follow the writing direction, so they swap in right-to-left layouts; `left` and `right` don't. `top` and `bottom` sheets span the width of the screen and are at most 85% of its height.
+
+<ComponentPreview name="sheet-sides" />
+
+### Sizes
+
+`size` caps the width of a side sheet: `sm` (320px), `md` (384px, the default), `lg` (512px) or `xl` (672px). On a narrow screen a side sheet leaves a 48px strip of the page showing. `size` has no effect on `top` and `bottom` sheets.
+
+<ComponentPreview name="sheet-sizes" />
+
+### In context
+
+A basket in a small sheet. Removing an item updates the count on the trigger and the subtotal. `SheetFooter` is pushed to the foot of the sheet, so the subtotal and checkout button stay at the bottom however few items there are.
+
+<ComponentPreview name="sheet-in-context" />
+
+## Accessibility
+
+- The sheet has `role="dialog"`, named by `SheetTitle` and described by `SheetDescription`.
+- On open, focus moves to the first focusable element in the sheet and stays inside it, and the page behind can't be scrolled or clicked. On close, focus returns to the trigger.
+- Escape closes the sheet, as does clicking the backdrop.
+- The corner close button has the text "Close" for screen readers, and its icon is decorative (`aria-hidden`).
+- When the content is taller than the sheet, the whole sheet scrolls.
+
+## API reference
+
+### Sheet
+
+Base UI's [Dialog.Root](https://base-ui.com/react/components/dialog) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `modal` | `boolean \| "trap-focus"` | `true` |
+| `disablePointerDismissal` | `boolean` | `false` |
+
+### SheetTrigger and SheetClose
+
+`SheetTrigger` opens the sheet and `SheetClose` closes it. Both render a `<button>`; pass a [Button](/docs/components/button) to `render` to style them. They take every prop of Base UI's `Dialog.Trigger` and `Dialog.Close`.
+
+### SheetContent
+
+The panel, with the backdrop behind it, portalled to the end of the document. Takes every prop of Base UI's `Dialog.Popup`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "start" \| "end" \| "left" \| "right"` | `"end"` |
+| `size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` |
+| `showCloseButton` | `boolean` | `true` |
+| `initialFocus` | `boolean \| RefObject<HTMLElement> \| (openType) => …` | – |
+| `finalFocus` | `boolean \| RefObject<HTMLElement> \| (closeType) => …` | – |
+
+### SheetHeader, SheetTitle and SheetDescription
+
+`SheetHeader` is a `<div>` that stacks the title and description and leaves room for the close button. `SheetTitle` is an `<h2>` that names the sheet, and `SheetDescription` a muted `<p>` that describes it. They take every prop of the native `<div>`, Base UI's `Dialog.Title` and `Dialog.Description`.
+
+### SheetFooter
+
+A column of actions pushed to the foot of the sheet. Takes every prop of the native `<div>`.
+
+### SheetSide
+
+```ts
+type SheetSide = "top" | "bottom" | "start" | "end" | "left" | "right";
+```
+
+The type of `side`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"sheet-trigger"`, `"sheet-close"`, `"sheet-overlay"`, `"sheet-content"`, `"sheet-header"`, `"sheet-footer"`, `"sheet-title"` or `"sheet-description"` |
+| `data-side` | On the content, the `side` |
+| `data-size` | On the content, the `size` |
+| `data-popup-open` | On the trigger, present while the sheet is open |
+| `data-open`, `data-closed` | On the content and overlay, the open state |
+| `data-starting-style`, `data-ending-style` | On the content and overlay, present while they slide or fade in or out |

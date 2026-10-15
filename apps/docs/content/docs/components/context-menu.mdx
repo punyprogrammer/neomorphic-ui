@@ -1,0 +1,117 @@
+---
+title: Context Menu
+description: A raised menu that opens at the pointer on right-click or long press, with the same items as the dropdown menu.
+component: context-menu
+primitive: https://base-ui.com/react/components/context-menu
+---
+
+<ComponentPreview name="context-menu-demo" />
+
+## Usage
+
+```tsx
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuTrigger,
+} from "@neomorphic-react/ui/context-menu";
+```
+
+```tsx
+<ContextMenu>
+  <ContextMenuTrigger>Right-click here</ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuItem onClick={copyLink}>Copy link</ContextMenuItem>
+    <ContextMenuItem variant="destructive" onClick={remove}>
+      Delete
+    </ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+A context menu is a shortcut. Nothing on screen shows that it's there, and keyboard users have no reliable way to open it, so always offer the same actions somewhere visible too, such as a [Dropdown Menu](/docs/components/dropdown-menu) behind a button. Both menus use the same item parts, so their API is the same apart from the trigger and the content.
+
+## Examples
+
+### Checkbox and radio items
+
+`ContextMenuCheckboxItem` turns a setting on or off and leaves the menu open. `ContextMenuRadioItem`s inside a `ContextMenuRadioGroup` pick one option and close the menu. Here they're controlled, so the area shows the current settings.
+
+<ComponentPreview name="context-menu-checkboxes" />
+
+### Submenus
+
+Wrap a `ContextMenuSubTrigger` and a `ContextMenuSubContent` in a `ContextMenuSub`. The submenu opens beside its trigger on hover, on click or with the arrow key.
+
+<ComponentPreview name="context-menu-submenu" />
+
+### In context
+
+A file list where each row is a trigger. The same actions sit behind a ghost button at the end of each row, so keyboard and touch users can reach them too. Delete removes the file from either menu.
+
+<ComponentPreview name="context-menu-in-context" />
+
+## Accessibility
+
+- The popup is a `menu` of `menuitem`, `menuitemcheckbox` and `menuitemradio` items, and a group named by its `ContextMenuLabel` is a `group`.
+- Right-click opens the menu at the pointer. On touch screens, pressing and holding the trigger for half a second opens it.
+- `ContextMenuTrigger` renders a plain `<div>` that isn't in the tab order, so don't make the menu the only way to reach an action. Offer the same actions in a visible control as well.
+- Once the menu is open, the arrow keys move through the items, typing jumps to a matching item, Enter or Space runs it, and Escape closes the menu.
+- The highlighted item sinks into the card. Checked items also show a mark in `--primary`, so their state doesn't rely on depth.
+- lucide-react icons in items are hidden from screen readers by default, as are the check, dot and submenu chevron.
+
+## API reference
+
+### ContextMenu
+
+Base UI's [ContextMenu.Root](https://base-ui.com/react/components/context-menu) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `loopFocus` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+
+### ContextMenuTrigger
+
+The area that opens the menu. Takes every prop of Base UI's `ContextMenu.Trigger` and renders a `<div>`. Its text can't be selected, so a long press opens the menu rather than selecting a word.
+
+### ContextMenuContent
+
+The raised popup, portalled to the end of the document and placed at the pointer. It's at least 11rem wide. `align` and `alignOffset` go to Base UI's `ContextMenu.Positioner`; the remaining props go to `Menu.Popup`, including `className`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `align` | `"start" \| "center" \| "end"` | `"start"` |
+| `alignOffset` | `number` | `4` |
+
+### Items, groups and submenus
+
+`ContextMenuItem`, `ContextMenuCheckboxItem`, `ContextMenuRadioGroup`, `ContextMenuRadioItem`, `ContextMenuGroup`, `ContextMenuLabel`, `ContextMenuSeparator`, `ContextMenuShortcut`, `ContextMenuSub`, `ContextMenuSubTrigger` and `ContextMenuSubContent` are the same parts as the [Dropdown Menu](/docs/components/dropdown-menu#api-reference)'s, with the same props and defaults. The ones you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` (item) | `"default" \| "destructive"` | `"default"` |
+| `inset` (item, label, submenu trigger) | `boolean` | `false` |
+| `onClick` (item) | `(event) => void` | – |
+| `disabled` (item) | `boolean` | `false` |
+| `checked` (checkbox item) | `boolean` | – |
+| `onCheckedChange` (checkbox item) | `(checked: boolean, eventDetails) => void` | – |
+| `value` (radio group) | `any` | – |
+| `onValueChange` (radio group) | `(value, eventDetails) => void` | – |
+| `closeOnClick` (radio item) | `boolean` | `true` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"context-menu-trigger"`, `"context-menu-content"`, `"context-menu-group"`, `"context-menu-label"`, `"context-menu-separator"`, `"context-menu-item"`, `"context-menu-shortcut"`, `"context-menu-checkbox-item"`, `"context-menu-radio-group"`, `"context-menu-radio-item"`, `"context-menu-sub-trigger"` or `"context-menu-sub-content"` |
+| `data-popup-open` | On the trigger or a submenu trigger, present while its menu is open |
+| `data-variant` | On an item, the `variant` |
+| `data-inset` | On an item, label or submenu trigger, present when `inset` |
+| `data-highlighted` | On an item, present while it's highlighted by the pointer or the arrow keys |
+| `data-checked`, `data-unchecked` | On a checkbox or radio item, its state |
+| `data-disabled` | On an item, present when disabled |

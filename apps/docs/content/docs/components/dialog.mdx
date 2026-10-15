@@ -1,0 +1,146 @@
+---
+title: Dialog
+description: A raised panel centred over a tinted, softly blurred page, holding focus until it's closed.
+component: dialog
+primitive: https://base-ui.com/react/components/dialog
+---
+
+<ComponentPreview name="dialog-demo" />
+
+## Usage
+
+```tsx
+import {
+  Dialog,
+  DialogBody,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@neomorphic-react/ui/dialog";
+```
+
+```tsx
+<Dialog>
+  <DialogTrigger render={<Button />}>Edit profile</DialogTrigger>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Edit profile</DialogTitle>
+      <DialogDescription>Your name is shown on your public page.</DialogDescription>
+    </DialogHeader>
+    …
+    <DialogFooter>
+      <DialogClose render={<Button />}>Cancel</DialogClose>
+      <DialogClose render={<Button variant="primary" />}>Save</DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+```
+
+Use a dialog for a task that needs the user's full attention before they go back to the page, such as editing a record or reading terms. Every dialog needs a `DialogTitle`. To ask for confirmation, use an [Alert Dialog](/docs/components/alert-dialog). For a panel that slides in from an edge, use a [Sheet](/docs/components/sheet) or a [Drawer](/docs/components/drawer); for content that shouldn't block the page, a [Popover](/docs/components/popover).
+
+## Examples
+
+### Sizes
+
+`size` caps the panel's width: `sm` (384px), `md` (512px, the default) or `lg` (672px). On a narrow screen it fills the width less 16px at each side.
+
+<ComponentPreview name="dialog-sizes" />
+
+### Scrolling content
+
+The panel never grows taller than the screen less 32px. Put long content in a `DialogBody`: it scrolls on its own while the header and footer stay in place. Here `className="max-h-[28rem]"` makes the panel shorter still.
+
+<ComponentPreview name="dialog-scrolling" />
+
+### Close buttons
+
+`DialogContent` draws a ghost close button in its top corner, named "Close" for screen readers. `showCloseButton={false}` removes it. `showCloseButton` on `DialogFooter` adds a "Close" button before the footer's own actions. Keep at least one way to close that's visible.
+
+<ComponentPreview name="dialog-close-buttons" />
+
+### In context
+
+A team card whose invite dialog is controlled with `open` and `onOpenChange`. The form inside checks the email, adds the teammate to the list and closes the dialog when it's submitted.
+
+<ComponentPreview name="dialog-in-context" />
+
+## Accessibility
+
+- The panel has `role="dialog"` and is named by `DialogTitle` and described by `DialogDescription`.
+- On open, focus moves to the first focusable element inside the panel and stays inside it, and the page behind can't be scrolled or clicked. On close, focus returns to the trigger.
+- Escape closes the dialog, as does clicking the backdrop. Set `disablePointerDismissal` on `Dialog` to keep it open on outside clicks.
+- The corner close button has the text "Close" for screen readers, and its icon is decorative (`aria-hidden`).
+- In the footer, actions sit side by side from the `sm` breakpoint and stack below it, with the last action on top.
+
+## API reference
+
+### Dialog
+
+Base UI's [Dialog.Root](https://base-ui.com/react/components/dialog) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `modal` | `boolean \| "trap-focus"` | `true` |
+| `disablePointerDismissal` | `boolean` | `false` |
+
+### DialogTrigger and DialogClose
+
+`DialogTrigger` opens the dialog and `DialogClose` closes it. Both render a `<button>`; pass a [Button](/docs/components/button) to `render` to style them. They take every prop of Base UI's `Dialog.Trigger` and `Dialog.Close`.
+
+### DialogContent
+
+The panel, with the backdrop behind it, portalled to the end of the document. Takes every prop of Base UI's `Dialog.Popup`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `showCloseButton` | `boolean` | `true` |
+| `initialFocus` | `boolean \| RefObject<HTMLElement> \| (openType) => …` | – |
+| `finalFocus` | `boolean \| RefObject<HTMLElement> \| (closeType) => …` | – |
+
+### DialogHeader, DialogTitle and DialogDescription
+
+`DialogHeader` is a `<div>` that stacks the title and description and leaves room for the close button. `DialogTitle` is an `<h2>` that names the dialog, and `DialogDescription` a muted `<p>` that describes it. They take every prop of the native `<div>`, Base UI's `Dialog.Title` and `Dialog.Description`.
+
+### DialogBody
+
+The scrolling middle of a tall dialog. Takes every prop of the native `<div>`.
+
+### DialogFooter
+
+The actions, end-aligned. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `showCloseButton` | `boolean` | `false` |
+
+### DialogPortal and DialogOverlay
+
+`DialogContent` already renders both. Use them only to build a panel of your own: `DialogPortal` takes every prop of Base UI's `Dialog.Portal`, and `DialogOverlay` is the tinted, blurred backdrop, taking every prop of `Dialog.Backdrop`.
+
+### dialogCloseIconClassName
+
+```ts
+dialogCloseIconClassName: string;
+```
+
+The class names of the corner close button, for a close button of your own.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"dialog-trigger"`, `"dialog-close"`, `"dialog-portal"`, `"dialog-overlay"`, `"dialog-content"`, `"dialog-header"`, `"dialog-body"`, `"dialog-footer"`, `"dialog-title"` or `"dialog-description"` |
+| `data-size` | On the content, the `size` |
+| `data-popup-open` | On the trigger, present while the dialog is open |
+| `data-open`, `data-closed` | On the content and overlay, the open state |
+| `data-starting-style`, `data-ending-style` | On the content and overlay, present while they animate in or out |
+| `data-nested` | On the content, present when the dialog is opened from inside another dialog |
+| `data-nested-dialog-open` | On the content, present while a dialog opened from inside it is open |

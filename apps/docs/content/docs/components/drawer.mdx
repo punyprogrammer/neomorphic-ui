@@ -1,0 +1,129 @@
+---
+title: Drawer
+description: A raised sheet that slides in from an edge, follows the finger and closes when it's swiped back.
+component: drawer
+primitive: https://base-ui.com/react/components/drawer
+---
+
+<ComponentPreview name="drawer-demo" />
+
+## Usage
+
+```tsx
+import { Button } from "@neomorphic-react/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@neomorphic-react/ui/drawer";
+```
+
+```tsx
+<Drawer>
+  <DrawerTrigger render={<Button />}>Share playlist</DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Share playlist</DrawerTitle>
+      <DrawerDescription>Anyone with the link can listen.</DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <DrawerClose render={<Button variant="primary" />}>Copy link</DrawerClose>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>
+```
+
+Use a drawer for a short task on a phone-sized screen, where a sheet from the bottom is easy to reach and to swipe away. For a side panel that doesn't follow the finger, use a [Sheet](/docs/components/sheet); for a decision that needs the user's full attention, use a [Dialog](/docs/components/dialog) or an [Alert Dialog](/docs/components/alert-dialog).
+
+## Examples
+
+### Directions
+
+`direction` sets the edge the drawer slides in from: `bottom` (the default), `top`, `left` or `right`. Swiping back toward that edge closes it. Bottom and top drawers span the width of the screen and always leave at least 3rem of the page showing; side drawers are up to 24rem wide. Only a bottom drawer shows the raised grip; `showHandle={false}` on `DrawerContent` hides it there too.
+
+<ComponentPreview name="drawer-directions" />
+
+### Snap points
+
+`snapPoints` lets a bottom drawer rest part-open. Give each point as a fraction of the viewport height (`0.5`), a number of pixels (`240`) or a string in `px` or `rem` (`"12rem"`). The drawer opens at the first point, and dragging moves it between them. Give `DrawerContent` a height so there's something to drag up to.
+
+<ComponentPreview name="drawer-snap-points" />
+
+### Controlled
+
+`open` and `onOpenChange` keep the drawer's state in your own. Here the choice is a draft until it's saved: Save stores it and closes the drawer, while Cancel, Escape, the backdrop and a swipe all close it without saving.
+
+<ComponentPreview name="drawer-controlled" />
+
+### In context
+
+Filters on a narrow results card. The checkboxes filter the list straight away, the button in the footer says how many stays are left, and the content is kept to `max-w-sm` so it doesn't stretch across a wide screen.
+
+<ComponentPreview name="drawer-in-context" />
+
+## Accessibility
+
+- The drawer is a `role="dialog"`. `DrawerTitle` names it and `DrawerDescription` describes it, so always include a title.
+- By default it's modal: focus moves into the drawer when it opens, stays inside it, and returns to the trigger when it closes. The page behind doesn't scroll.
+- Escape, pressing the backdrop or a `DrawerClose` button closes it, so people who can't swipe can still dismiss it. Keep a visible close or cancel button in the drawer.
+- The grip is decorative (`aria-hidden`).
+- `DrawerTrigger` and `DrawerClose` render a `<button>`. Render them as a [Button](/docs/components/button) to get its focus ring.
+
+## API reference
+
+### Drawer
+
+Takes every prop of Base UI's [Drawer.Root](https://base-ui.com/react/components/drawer). It renders no element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `direction` | `"top" \| "bottom" \| "left" \| "right"` | `"bottom"` |
+| `swipeDirection` | `"up" \| "down" \| "left" \| "right"` | Follows `direction` |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `modal` | `boolean \| "trap-focus"` | `true` |
+| `disablePointerDismissal` | `boolean` | `false` |
+| `snapPoints` | `(number \| string)[]` | – |
+| `snapPoint` | `number \| string \| null` | – |
+| `defaultSnapPoint` | `number \| string \| null` | The first of `snapPoints` |
+| `onSnapPointChange` | `(snapPoint, eventDetails) => void` | – |
+
+### DrawerTrigger and DrawerClose
+
+Buttons that open and close the drawer. They take every prop of Base UI's `Drawer.Trigger` and `Drawer.Close`, and render a `<button>`; pass `render={<Button />}` to use a library button.
+
+### DrawerContent
+
+The raised sheet, with the backdrop behind it, portalled to the end of the document. Its children sit in an area that scrolls when they're taller than the drawer. Takes every prop of Base UI's `Drawer.Popup`, including `className`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `showHandle` | `boolean` | `true` |
+| `initialFocus` | `boolean \| RefObject<HTMLElement> \| (openType) => …` | – |
+| `finalFocus` | `boolean \| RefObject<HTMLElement> \| (closeType) => …` | – |
+
+### DrawerHeader and DrawerFooter
+
+Padded layout areas. Each takes every prop of the native `<div>`. The header is centred in top and bottom drawers. The footer stacks its buttons and is pushed to the bottom of the drawer.
+
+### DrawerTitle and DrawerDescription
+
+The heading and its supporting text. They take every prop of Base UI's `Drawer.Title` and `Drawer.Description`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"drawer-trigger"`, `"drawer-close"`, `"drawer-overlay"`, `"drawer-viewport"`, `"drawer-content"`, `"drawer-handle"`, `"drawer-inner-content"`, `"drawer-header"`, `"drawer-footer"`, `"drawer-title"` or `"drawer-description"` |
+| `data-swipe-direction` | On the content, `"up"`, `"down"`, `"left"` or `"right"` |
+| `data-swiping` | On the content, present while it's being dragged |
+| `data-expanded` | On the content, present at the full-height snap point |
+| `data-open`, `data-closed` | On the content, the open state |
+| `data-starting-style`, `data-ending-style` | On the content, present while it slides in or out |
+| `data-popup-open` | On the trigger, present while the drawer is open |

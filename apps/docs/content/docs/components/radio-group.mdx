@@ -1,0 +1,114 @@
+---
+title: Radio Group
+description: A set of round wells for choosing one option, where the chosen one rises with a dark dot.
+component: radio-group
+primitive: https://base-ui.com/react/components/radio-group
+---
+
+<ComponentPreview name="radio-group-demo" />
+
+## Usage
+
+```tsx
+import { Label } from "@neomorphic-react/ui/label";
+import { RadioGroup, RadioGroupItem } from "@neomorphic-react/ui/radio-group";
+```
+
+```tsx
+<RadioGroup aria-label="Plan" defaultValue="pro" name="plan">
+  <Label>
+    <RadioGroupItem value="free" />
+    Free
+  </Label>
+  <Label>
+    <RadioGroupItem value="pro" />
+    Pro
+  </Label>
+</RadioGroup>
+```
+
+Name the group with `aria-labelledby` or `aria-label`, and wrap each item with its text in a `Label`. Each item submits its `value` under the group's `name`.
+
+## Examples
+
+### Sizes
+
+`size` on `RadioGroup` sets every item to `sm`, `md` (the default) or `lg`, scaling the well and its dot together. An item's own `size` overrides the group's.
+
+<ComponentPreview name="radio-group-sizes" />
+
+### Horizontal
+
+The group stacks its items in a grid by default. Pass flex classes through `className` to lay them out in a row. `disabled` on an item keeps it in the group but stops it being chosen; `disabled` on the group disables every item.
+
+<ComponentPreview name="radio-group-horizontal" />
+
+### In a fieldset
+
+Inside a `FieldSet`, the group takes its name from the `FieldLegend`, so it needs no `aria-label`. Put each item in a `Field` with `orientation="horizontal"`, and its `FieldLabel` and `FieldDescription` are wired to the item for you.
+
+<ComponentPreview name="radio-group-field" />
+
+### Choice cards
+
+A `FieldLabel` wrapping a whole `Field` becomes a raised card. Once its item is chosen, the card presses in and gains a `--primary` edge. The whole card is the label, so a click anywhere on it chooses the item.
+
+<ComponentPreview name="radio-group-cards" />
+
+### In context
+
+A payment step: `value` and `onValueChange` keep the chosen method in state, and the fields below change to match it.
+
+<ComponentPreview name="radio-group-in-context" />
+
+## Accessibility
+
+- `RadioGroup` renders a `<div role="radiogroup">`. Each item is a `<span role="radio">` with `aria-checked`, and a hidden native `<input type="radio">` beside it for forms.
+- Tab moves focus into the group, onto the chosen item, and the next Tab leaves it. The arrow keys move the choice between items, and Space chooses the focused item.
+- `required` and `readOnly` on the group set `aria-required` and `aria-readonly`.
+- The dot is decorative (`aria-hidden`). Name each item with a wrapping `<label>`, a `FieldLabel` or an `aria-label`.
+- The chosen item rises out of the surface and shows a dark dot, so the choice never depends on depth alone.
+- The hit area reaches 8px past each well on every side.
+- Keyboard focus shows a 2px `--ring` outline, offset from the item.
+
+## API reference
+
+### RadioGroup
+
+Takes every prop of Base UI's [RadioGroup](https://base-ui.com/react/components/radio-group) and renders a `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `value` | `any` | – |
+| `defaultValue` | `any` | – |
+| `onValueChange` | `(value, eventDetails) => void` | – |
+| `name` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+
+### RadioGroupItem
+
+Takes every prop of Base UI's [Radio.Root](https://base-ui.com/react/components/radio-group). The indicator and its dot are rendered for you.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `size` | `"sm" \| "md" \| "lg"` | The group's `size` |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"radio-group"`, `"radio-group-item"`, or `"radio-group-indicator"` on the dot's wrapper |
+| `data-size` | On the group and each item, the resolved `size` |
+| `data-checked` | On an item, present when chosen |
+| `data-unchecked` | On an item, present when not chosen |
+| `data-disabled` | Present when disabled |
+| `data-readonly` | On an item, present when read-only |
+| `data-required` | On an item, present when required |
+| `data-valid`, `data-invalid` | On an item in a `Field`, the result of validation |

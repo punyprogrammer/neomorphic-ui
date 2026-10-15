@@ -1,0 +1,136 @@
+---
+title: Input OTP
+description: A one-time code split into a row of small wells, one per character, where the focused well sinks deeper.
+component: input-otp
+primitive: https://base-ui.com/react/components/otp-field
+---
+
+<ComponentPreview name="input-otp-demo" />
+
+## Usage
+
+```tsx
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@neomorphic-react/ui/input-otp";
+```
+
+```tsx
+<label htmlFor="code">Verification code</label>
+<InputOTP id="code" length={6} name="code">
+  <InputOTPGroup>
+    <InputOTPSlot />
+    <InputOTPSlot />
+    <InputOTPSlot />
+  </InputOTPGroup>
+  <InputOTPSeparator />
+  <InputOTPGroup>
+    <InputOTPSlot />
+    <InputOTPSlot />
+    <InputOTPSlot />
+  </InputOTPGroup>
+</InputOTP>
+```
+
+Render one `InputOTPSlot` for each character of `length`. Typing fills a slot and moves to the next, Backspace clears and moves back, and pasting a whole code fills every slot at once. Use it for short codes sent by email, text message or an authenticator app. For a password or any free-form text, use an [Input](/docs/components/input).
+
+## Examples
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the height, width and text size of every slot. Set `size` on `InputOTP`; the slots read it from there.
+
+<ComponentPreview name="input-otp-sizes" />
+
+### Letters and masking
+
+Slots take digits only by default. `validationType` accepts `"numeric"`, `"alpha"`, `"alphanumeric"` or `"none"`, and characters it rejects never appear. `normalizeValue` runs on every value, here to turn a booking reference into capitals. `mask` hides each character as it's typed, for a PIN.
+
+<ComponentPreview name="input-otp-validation-type" />
+
+### In a field
+
+Inside a `Field`, `FieldLabel` names the code, `FieldDescription` describes it, and `invalid` on the `Field` rings every slot in `--destructive`. `onValueComplete` fires once the last slot is filled, which is the moment to check the code.
+
+<ComponentPreview name="input-otp-field" />
+
+### In context
+
+A sign-in step in a card. `value` and `onValueChange` keep the code in state, and the Verify button stays disabled until all six slots are filled. With `name`, the code submits with the form as one value.
+
+<ComponentPreview name="input-otp-in-context" />
+
+## Accessibility
+
+- Base UI renders a `<div role="group">` around one native `<input>` per slot.
+- Name the code with a `FieldLabel`, or a `<label htmlFor>` pointing at the `id` you give `InputOTP`. Either one names the group and every slot. Without a visible label, put an `aria-label` on `InputOTP`.
+- Only one slot is in the tab order at a time: the next empty one, or the last when the code is complete. The arrow keys move between slots, Home jumps to the first slot and End to the next empty one, and Ctrl or ⌘ + Backspace clears the code.
+- The first slot has `autocomplete="one-time-code"`, so phones can offer a code from a message. Digit-only codes open the number keyboard.
+- The separator has `role="separator"`, and its icon is decorative (`aria-hidden`).
+- Keyboard focus shows a 2px `--ring` outline around the focused slot.
+
+## API reference
+
+### InputOTP
+
+Takes every prop of Base UI's [OTPField.Root](https://base-ui.com/react/components/otp-field).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `length` | `number` | – |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `value` | `string` | – |
+| `defaultValue` | `string` | – |
+| `onValueChange` | `(value: string, eventDetails) => void` | – |
+| `onValueComplete` | `(value: string, eventDetails) => void` | – |
+| `onValueInvalid` | `(value: string, eventDetails) => void` | – |
+| `validationType` | `"numeric" \| "alpha" \| "alphanumeric" \| "none"` | `"numeric"` |
+| `normalizeValue` | `(value: string) => string` | – |
+| `mask` | `boolean` | `false` |
+| `id` | `string` | – |
+| `name` | `string` | – |
+| `autoComplete` | `string` | `"one-time-code"` |
+| `autoSubmit` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `readOnly` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+
+`length` is required. `id` goes to the first slot, so a `<label htmlFor>` can point at it. `autoSubmit` submits the form as soon as the last slot is filled.
+
+### InputOTPGroup
+
+Slots that belong together, such as the two halves of a 3–3 code. Takes every prop of the native `<div>`.
+
+### InputOTPSlot
+
+One character. Takes every prop of Base UI's `OTPField.Input`. Its size comes from `InputOTP`.
+
+### InputOTPSeparator
+
+A gap between groups, with a dash by default. Pass children to show something else. Takes every prop of Base UI's `OTPField.Separator`.
+
+### inputOTPSlotVariants
+
+```ts
+inputOTPSlotVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns a slot's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"input-otp"`, `"input-otp-group"`, `"input-otp-slot"` or `"input-otp-separator"` |
+| `data-size` | On the root, the `size` |
+| `data-filled` | On the root, present when any slot has a character; on a slot, present when that slot has one |
+| `data-complete` | Present when every slot is filled |
+| `data-focused` | Present while any slot has focus |
+| `data-disabled` | Present when disabled |
+| `data-readonly` | Present when read-only |
+| `data-required` | Present when required |
+| `data-valid`, `data-invalid` | In a `Field`, the result of validation |
+| `data-dirty`, `data-touched` | In a `Field`, present once the value has changed, or once a slot has been focused and left |

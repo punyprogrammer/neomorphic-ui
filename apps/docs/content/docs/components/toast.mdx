@@ -1,0 +1,138 @@
+---
+title: Toast
+description: Short raised notes that stack in a corner of the screen and close on their own, with an icon whose colour says what kind of message it is.
+component: toast
+primitive: https://base-ui.com/react/components/toast
+---
+
+<ComponentPreview name="toast-demo" />
+
+## Usage
+
+```tsx
+import { Toaster, toast } from "@neomorphic-react/ui/toast";
+```
+
+Mount one `Toaster` near the root of your app, for example in your root layout. Toasts render wherever it is, so mount only one.
+
+```tsx
+<Toaster />
+```
+
+Then call `toast()` from anywhere: an event handler, a data hook or a module outside React.
+
+```tsx
+toast("Draft saved");
+toast.success({ title: "Payment received", description: "£42.00 from Priya Patel" });
+```
+
+Use a toast to confirm something that has just happened, or to report progress the user doesn't need to wait for. Toasts close on their own, so never make one the only place an error is reported or an important action can be found. For a message that must stay on the page, use an [Alert](/docs/components/alert); for a decision, an [Alert Dialog](/docs/components/alert-dialog).
+
+<Callout title="One Toaster per app">
+  Every `Toaster` shows every toast, so a second one shows each toast twice. The examples on this page call `toast()` and rely on the single `Toaster` in this site's root layout; mount yours the same way.
+</Callout>
+
+## Examples
+
+### Types
+
+`toast()` shows a plain message. `toast.success`, `toast.info`, `toast.warning` and `toast.error` add an icon in a matching colour, and `toast.loading` shows a spinner and stays open until you update or close it. Pass a string for a single line, or an object with a `title` and a `description`.
+
+<ComponentPreview name="toast-types" />
+
+### Action
+
+`action` adds a button to the toast, such as Undo. The toast stays open after the action runs, so update or close it from `onClick`. Here Undo passes the toast's id back to `toast()` to replace its message. Keep the label to a word or two, and make sure the action can also be done somewhere else, because the toast won't wait.
+
+<ComponentPreview name="toast-action" />
+
+### Promise
+
+`toast.promise` shows a loading toast while a promise runs, then turns it into a success or an error toast. `success` and `error` can be functions that receive the result or the error, as here.
+
+<ComponentPreview name="toast-promise" />
+
+### Duration and dismissal
+
+Toasts close after 5 seconds. Change that for every toast with `duration` on the `Toaster`, or for one toast with its own `duration`; `Infinity` keeps it open, and loading toasts stay open by default. Every `toast()` call returns an id: pass it back as `id` to update that toast in place, or to `toast.dismiss(id)` to close it. `toast.dismiss()` with no id closes them all.
+
+`dismissible: false` removes the close button and turns off swiping, for a toast you'll update or close yourself. Escape still closes it while it has focus. Here the loading toast can't be swiped away, and becomes a success toast that closes on its own once the upload finishes.
+
+<ComponentPreview name="toast-update" />
+
+### In context
+
+An invite link with a copy button. A success toast confirms the copy, and an error toast explains what to do if the browser blocks the clipboard.
+
+<ComponentPreview name="toast-in-context" />
+
+## Accessibility
+
+- The stack is a `region` named "Notifications" with `aria-live="polite"`, so new toasts are read out without interrupting.
+- Each toast is a `dialog` named by its title. A toast with no title is named by its message, when the message is plain text.
+- Timers pause while the pointer is over the stack or focus is inside it. F6 moves focus to the stack, Tab moves through each toast's buttons, and Escape closes the focused toast.
+- Screen readers skip the close button until the stack is expanded or focused, since Escape closes a toast from the keyboard.
+- A dismissible toast can be swiped down or to the right to close it.
+- The type icon is decorative (`aria-hidden`), so a message's meaning must be in its text.
+- The action is a real button, styled as a small [Button](/docs/components/button).
+
+## API reference
+
+### Toaster
+
+Where toasts appear. Mount one near the root of the app.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `position` | `"top-left" \| "top-center" \| "top-right" \| "bottom-left" \| "bottom-center" \| "bottom-right"` | `"bottom-right"` |
+| `duration` | `number` | `5000` |
+| `limit` | `number` | `3` |
+| `closeButton` | `boolean` | `true` |
+| `className` | `string` | – |
+
+`limit` is how many toasts show at once; older ones step back out of sight. On small screens the stack spans the width of the screen.
+
+### toast
+
+```ts
+toast(message: ReactNode, options?: ToastOptions): string;
+toast(input: ToastInput): string;
+toast.success(…): string; // same signatures as toast()
+toast.info(…): string;
+toast.warning(…): string;
+toast.error(…): string;
+toast.loading(…): string;
+toast.promise<T>(
+  promise: Promise<T>,
+  options: { loading; success; error }
+): Promise<T>;
+toast.dismiss(id?: string): void;
+```
+
+Each call returns the toast's id. In `toast.promise`, `loading` is a message or a `ToastInput`; `success` and `error` can also be functions that take the result or the error and return one.
+
+### ToastInput and ToastOptions
+
+`ToastInput` is the object form. `ToastOptions` is the same without `title` and `description`, for the `toast(message, options)` form.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `title` | `ReactNode` | – |
+| `description` | `ReactNode` | – |
+| `action` | `{ label: ReactNode; onClick: () => void }` | – |
+| `duration` | `number` | The `Toaster`'s `duration`; `Infinity` for `loading` |
+| `dismissible` | `boolean` | `true` |
+| `id` | `string` | – |
+| `onClose` | `() => void` | – |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"toaster"`, `"toast"`, `"toast-content"`, `"toast-icon"`, `"toast-title"`, `"toast-description"`, `"toast-action"` or `"toast-close"` |
+| `data-position` | On the toaster, `"top"` or `"bottom"` |
+| `data-type` | On a toast, `"default"`, `"success"`, `"info"`, `"warning"`, `"error"` or `"loading"` |
+| `data-expanded` | On a toast, present while the stack is fanned out |
+| `data-limited` | On a toast, present when it's hidden by `limit` |
+| `data-swiping` | On a toast, present while it's being swiped |
+| `data-swipe-direction` | On a toast, the direction it was swiped away |

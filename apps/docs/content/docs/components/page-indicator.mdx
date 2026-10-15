@@ -1,0 +1,110 @@
+---
+title: Page Indicator
+description: A row of dots showing which of several pages is current, optionally letting people pick one.
+component: page-indicator
+---
+
+<ComponentPreview name="page-indicator-demo" />
+
+## Usage
+
+```tsx
+import { PageIndicator } from "@neomorphic-react/ui/page-indicator";
+```
+
+```tsx
+const [page, setPage] = useState(0);
+
+<PageIndicator
+  aria-label="Slides"
+  count={5}
+  onValueChange={setPage}
+  value={page}
+/>
+```
+
+`value` counts from 0. The other pages are wells pressed into the surface; the current one rises out of it, filled with `--primary`.
+
+## Examples
+
+### Passive
+
+Without `onValueChange` the dots can't be clicked. The indicator is a single image, named after the current page ("Page 2 of 3" here), so screen readers don't step through each dot.
+
+<ComponentPreview name="page-indicator-passive" />
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` give 8px, 10px and 12px dots. Each dot sits in a box at least 24px square, so clickable dots are easy to hit, and the spacing is the same whether the dots are clickable or not.
+
+<ComponentPreview name="page-indicator-sizes" />
+
+### Vertical
+
+`orientation="vertical"` stacks the dots, and the up and down arrow keys move between them. `getAriaLabel` names each page, here after the section it leads to.
+
+<ComponentPreview name="page-indicator-vertical" />
+
+### Colour
+
+Set `--page-indicator-fill` to recolour the current dot.
+
+<ComponentPreview name="page-indicator-colors" />
+
+### With previous and next buttons
+
+The dots and the buttons drive the same `value`, so either can change the page. An `aria-live` region announces the new slide's content when it changes.
+
+<ComponentPreview name="page-indicator-onboarding" />
+
+## Accessibility
+
+- A passive indicator has `role="img"` and is named with `getAriaLabel` for the current page. Its dots are hidden from assistive technology.
+- With `onValueChange`, the indicator is a `role="group"`; name it with `aria-label` (for example "Slides"). Each dot is a `<button type="button">` named with `getAriaLabel`, and the current one has `aria-current="true"`.
+- Only the current dot is in the tab order. The arrow keys move to the previous or next page (left and right when horizontal, up and down when vertical), and Home and End jump to the first and last page. Focus and the current page move together. In a right-to-left layout, the left and right arrows swap.
+- The current dot changes colour as well as depth, so it doesn't rely on the shadow alone.
+- Keyboard focus shows a `--ring` outline around the dot.
+
+## API reference
+
+### PageIndicator
+
+Renders a `<div>` and takes every prop of it, apart from `children`, `defaultValue` and `onChange`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `count` | `number` | – |
+| `value` | `number` | `0` |
+| `onValueChange` | `(value: number) => void` | – |
+| `getAriaLabel` | `(index: number, count: number) => string` | `"Page {index + 1} of {count}"` |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+`count` is required. `value` is clamped between `0` and `count - 1`.
+
+### pageIndicatorVariants, pageIndicatorItemVariants and pageIndicatorDotVariants
+
+```ts
+pageIndicatorVariants(options?: { orientation?: "horizontal" | "vertical" }): string;
+pageIndicatorItemVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+pageIndicatorDotVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Return the class names of the row, of each dot's hit area and of the dot itself.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"page-indicator"`, `"page-indicator-item"` or `"page-indicator-dot"` |
+| `data-size` | On the root, the `size` |
+| `data-orientation` | On the root, the `orientation` |
+| `data-current` | On the current page's item and dot |
+| `data-index` | On each clickable item, its position from 0 |
+
+### CSS variables
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--page-indicator-fill` | `var(--color-primary)` | The current dot's colour |

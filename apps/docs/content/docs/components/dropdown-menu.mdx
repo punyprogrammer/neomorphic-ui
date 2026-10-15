@@ -1,0 +1,183 @@
+---
+title: Dropdown Menu
+description: A raised list of actions and options that opens from a button, where the highlighted item sinks into the card.
+component: dropdown-menu
+primitive: https://base-ui.com/react/components/menu
+---
+
+<ComponentPreview name="dropdown-menu-demo" />
+
+## Usage
+
+```tsx
+import { Button } from "@neomorphic-react/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@neomorphic-react/ui/dropdown-menu";
+```
+
+```tsx
+<DropdownMenu>
+  <DropdownMenuTrigger render={<Button />}>Options</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuItem onClick={rename}>Rename</DropdownMenuItem>
+    <DropdownMenuItem variant="destructive" onClick={remove}>
+      Delete
+    </DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+Use a dropdown menu to tuck away actions that don't need to be on screen all the time. To pick a value for a form field, use a [Select](/docs/components/select) instead; for the same actions on right-click, use a [Context Menu](/docs/components/context-menu), and for a row of menus along the top of an app, a [Menubar](/docs/components/menubar). All three share the item parts on this page.
+
+## Examples
+
+### Groups, icons and shortcuts
+
+`DropdownMenuGroup` gathers related items, and a `DropdownMenuLabel` inside it names the group. `DropdownMenuSeparator` draws a groove between groups. Put an icon before an item's text; `inset` lines up an item without an icon with the ones that have one. `DropdownMenuShortcut` shows a key hint at the end of the item, but only as text: wire the keys up yourself. `disabled` keeps an item in place but stops it being chosen.
+
+<ComponentPreview name="dropdown-menu-groups" />
+
+### Checkbox and radio items
+
+`DropdownMenuCheckboxItem` turns a setting on or off and leaves the menu open, so several can be changed in one go. `DropdownMenuRadioItem`s inside a `DropdownMenuRadioGroup` pick one option and close the menu. A chosen item shows a check or a dot in `--primary` at its end. Both work controlled, as here, or uncontrolled with `defaultChecked` and `defaultValue`.
+
+<ComponentPreview name="dropdown-menu-checkboxes" />
+
+### Submenus
+
+Wrap a `DropdownMenuSubTrigger` and a `DropdownMenuSubContent` in a `DropdownMenuSub`. The submenu opens beside its trigger on hover, on click or with the arrow key, and the trigger stays sunk in while it's open.
+
+<ComponentPreview name="dropdown-menu-submenu" />
+
+### Placement
+
+The menu opens below the trigger and lines up with its start edge. `align` lines it up with the trigger's `start`, `center` or `end`, and `side` moves it to another side. When there isn't room, it flips to the other side, and a menu taller than the space left scrolls.
+
+<ComponentPreview name="dropdown-menu-placement" />
+
+### In context
+
+A list of project members, each with a ghost icon button that opens their menu. The radio group sets the member's role and the row updates with it. `align="end"` keeps the menu inside the card.
+
+<ComponentPreview name="dropdown-menu-in-context" />
+
+## Accessibility
+
+- The trigger has `aria-haspopup="menu"`. The popup is a `menu` of `menuitem`, `menuitemcheckbox` and `menuitemradio` items, and a group named by its `DropdownMenuLabel` is a `group`.
+- Enter, Space or the down arrow on the trigger opens the menu. The arrow keys move through the items, typing jumps to a matching item, Enter or Space runs it, and Escape closes the menu and returns focus to the trigger. In a submenu, Escape closes only the submenu.
+- The highlighted item, by pointer or keyboard, sinks into the card. Checked items also show a mark in `--primary`, so their state doesn't rely on depth.
+- `DropdownMenuShortcut` is plain text: it doesn't bind the keys.
+- An icon-only trigger has no visible text, so give it an `aria-label`. lucide-react icons in items are hidden from screen readers by default, as are the check, dot and submenu chevron.
+- Render the trigger as a [Button](/docs/components/button) to get its focus ring.
+
+## API reference
+
+### DropdownMenu
+
+Base UI's [Menu.Root](https://base-ui.com/react/components/menu) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `modal` | `boolean` | `true` |
+| `loopFocus` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+
+### DropdownMenuTrigger
+
+The button that opens the menu. Takes every prop of Base UI's `Menu.Trigger` and renders a `<button>`; pass `render={<Button />}` to use a library button.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `openOnHover` | `boolean` | `false` |
+| `delay` | `number` | `100` |
+| `closeDelay` | `number` | `0` |
+| `disabled` | `boolean` | `false` |
+
+### DropdownMenuContent
+
+The raised popup, portalled to the end of the document. It's at least 11rem wide. `side`, `align`, `sideOffset` and `alignOffset` go to Base UI's `Menu.Positioner`; the remaining props go to `Menu.Popup`, including `className`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"bottom"` |
+| `align` | `"start" \| "center" \| "end"` | `"start"` |
+| `sideOffset` | `number` | `8` |
+| `alignOffset` | `number` | `0` |
+
+### DropdownMenuItem
+
+An action. Takes every prop of Base UI's `Menu.Item`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "destructive"` | `"default"` |
+| `inset` | `boolean` | `false` |
+| `onClick` | `(event) => void` | – |
+| `closeOnClick` | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+| `label` | `string` | The item's text |
+
+### DropdownMenuCheckboxItem
+
+A setting that's on or off, with a check at the end while it's on. Takes every prop of Base UI's `Menu.CheckboxItem`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `checked` | `boolean` | – |
+| `defaultChecked` | `boolean` | `false` |
+| `onCheckedChange` | `(checked: boolean, eventDetails) => void` | – |
+| `closeOnClick` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+
+### DropdownMenuRadioGroup and DropdownMenuRadioItem
+
+`DropdownMenuRadioGroup` holds one choice and takes every prop of Base UI's `Menu.RadioGroup`. Each `DropdownMenuRadioItem` takes every prop of `Menu.RadioItem` and shows a dot at the end while it's chosen. Unlike Base UI's default, choosing one closes the menu.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` (group) | `any` | – |
+| `defaultValue` (group) | `any` | – |
+| `onValueChange` (group) | `(value, eventDetails) => void` | – |
+| `value` (item) | `any` | – |
+| `closeOnClick` (item) | `boolean` | `true` |
+| `disabled` | `boolean` | `false` |
+
+### DropdownMenuGroup, DropdownMenuLabel and DropdownMenuSeparator
+
+`DropdownMenuGroup` gathers related items and `DropdownMenuLabel` names the group; the label must sit inside the group. `DropdownMenuSeparator` is a groove between groups. They take every prop of Base UI's `Menu.Group`, `Menu.GroupLabel` and `Menu.Separator`. `DropdownMenuLabel` also takes `inset`.
+
+### DropdownMenuShortcut
+
+A key hint at the end of an item, in muted text. Takes every prop of the native `<span>`.
+
+### DropdownMenuSub, DropdownMenuSubTrigger and DropdownMenuSubContent
+
+`DropdownMenuSub` takes every prop of Base UI's `Menu.SubmenuRoot` and renders no element. `DropdownMenuSubTrigger` is an item with a chevron at its end; it takes every prop of `Menu.SubmenuTrigger`, plus `inset`. `DropdownMenuSubContent` takes the same props as `DropdownMenuContent`, with its own defaults.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `openOnHover` (trigger) | `boolean` | `true` |
+| `side` (content) | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"inline-end"` |
+| `align` (content) | `"start" \| "center" \| "end"` | `"start"` |
+| `sideOffset` (content) | `number` | `6` |
+| `alignOffset` (content) | `number` | `-6` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"dropdown-menu-trigger"`, `"dropdown-menu-content"`, `"dropdown-menu-group"`, `"dropdown-menu-label"`, `"dropdown-menu-separator"`, `"dropdown-menu-item"`, `"dropdown-menu-shortcut"`, `"dropdown-menu-checkbox-item"`, `"dropdown-menu-radio-group"`, `"dropdown-menu-radio-item"`, `"dropdown-menu-sub-trigger"` or `"dropdown-menu-sub-content"` |
+| `data-variant` | On an item, the `variant` |
+| `data-inset` | On an item, label or submenu trigger, present when `inset` |
+| `data-popup-open` | On the trigger or a submenu trigger, present while its menu is open |
+| `data-highlighted` | On an item, present while it's highlighted by the pointer or the arrow keys |
+| `data-checked`, `data-unchecked` | On a checkbox or radio item, its state |
+| `data-disabled` | On an item, present when disabled |
+| `data-side`, `data-align` | On the content, where it's placed |

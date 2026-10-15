@@ -1,0 +1,44 @@
+{
+  "name": "@neomorphic-react/docs",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm examples && next dev -p 4000",
+    "build": "pnpm examples && next build",
+    "start": "next start -p 4000",
+    "examples": "node scripts/build-examples.mjs",
+    "postinstall": "fumadocs-mdx",
+    "typecheck": "pnpm examples && fumadocs-mdx && tsc --noEmit",
+    "clean": "rm -rf .next .source .turbo node_modules"
+  },
+  "dependencies": {
+    "@neomorphic-react/ui": "workspace:*",
+    "@tanstack/react-table": "^8.21.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.6.0",
+    "fumadocs-core": "^16.17.3",
+    "fumadocs-mdx": "^15.4.7",
+    "lucide-react": "^1.57.0",
+    "next": "^16.4.1",
+    "react": "^19.3.0",
+    "react-day-picker": "^10.0.2",
+    "react-dom": "^19.3.0",
+    "react-resizable-panels": "^4.14.5",
+    "recharts": "^3.10.1",
+    "shiki": "^4.5.0",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@neomorphic-react/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2"
+  }
+}

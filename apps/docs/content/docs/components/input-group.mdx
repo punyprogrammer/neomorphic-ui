@@ -1,0 +1,159 @@
+---
+title: Input Group
+description: One well holding a text control together with icons, text and buttons around it.
+component: input-group
+---
+
+<ComponentPreview name="input-group-demo" />
+
+## Usage
+
+```tsx
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@neomorphic-react/ui/input-group";
+```
+
+```tsx
+<InputGroup shape="pill">
+  <InputGroupAddon>
+    <Search />
+  </InputGroupAddon>
+  <InputGroupInput aria-label="Search" placeholder="Search" type="search" />
+</InputGroup>
+```
+
+The group draws the well once, and the control inside it is bare. The well shows the control's focus, invalid and disabled states, and pressing anywhere in it that isn't a button or link focuses the control. Label the control, not the group.
+
+## Examples
+
+### Text and icons
+
+Put an icon straight into an `InputGroupAddon`, or wrap units, prefixes and hints in `InputGroupText`. Addons go at `inline-start` (the default) or `inline-end`, which follow the writing direction. Inside a `Field`, `FieldLabel` is wired to `InputGroupInput` for you.
+
+<ComponentPreview name="input-group-text" />
+
+### Buttons
+
+`InputGroupButton` is a [Button](/docs/components/button) that sizes and shapes itself to fit the group, sitting 4px in from the edge of the well. It's `ghost` by default and stays flat until it's hovered; `default` and `primary` rise out of the well. An icon-only button needs an `aria-label`.
+
+<ComponentPreview name="input-group-buttons" />
+
+### Sizes
+
+`sm` (32px), `md` (40px, the default) and `lg` (48px) set the height of one line. Buttons inside shrink to fit each size and keep the same 4px inset.
+
+<ComponentPreview name="input-group-sizes" />
+
+### Textarea and block addons
+
+`InputGroupTextarea` grows with its text; cap it with a `max-h-*` class. `block-start` and `block-end` addons add a row above or below the control, here a character count. A pill group with a textarea or a block addon rounds like a card rather than a stadium.
+
+<ComponentPreview name="input-group-textarea" />
+
+### States
+
+`invalid` on the `Field`, or `aria-invalid` on the control, rings the whole well in `--destructive`. A disabled control dims the well; disable any buttons in it too.
+
+<ComponentPreview name="input-group-states" />
+
+### In context
+
+A message composer: a growing textarea with a row of actions under it. Enter sends and Shift + Enter adds a line, and the send button stays disabled while the message is empty.
+
+<ComponentPreview name="input-group-in-context" />
+
+## Accessibility
+
+- The group renders a `<div role="group">`. It isn't named; name the control inside with a `<label htmlFor>`, a `FieldLabel` or an `aria-label`.
+- Pressing the well focuses the control. This is a pointer shortcut only: keyboard users reach the control and each button with Tab as usual.
+- `InputGroupInput` is built on Base UI's `Input`, so inside a `Field` it's labelled, described and marked invalid for you. `InputGroupTextarea` is a native `<textarea>`: link it to its label with `id` and `htmlFor`.
+- Keyboard focus on the control shows a 2px `--ring` outline around the whole well.
+
+## API reference
+
+### InputGroup
+
+The well. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"rounded" \| "pill"` | `"rounded"` |
+
+### InputGroupAddon
+
+Holds icons, `InputGroupText` or `InputGroupButton`s beside the control. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `align` | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
+
+### InputGroupButton
+
+Takes every prop of [Button](/docs/components/button) apart from `size` and `shape`, which come from the group.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "primary" \| "destructive" \| "ghost"` | `"ghost"` |
+| `icon` | `ReactNode` | – |
+| `isLoading` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+
+### InputGroupText
+
+Static text in an addon, such as a unit, prefix or keyboard hint. Takes every prop of the native `<span>`.
+
+### InputGroupInput
+
+The single-line control. Takes every prop of Base UI's [Input](https://base-ui.com/react/components/input) and of the native `<input>`, apart from `className`, which must be a string.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `type` | `string` | `"text"` |
+| `htmlSize` | `number` | – |
+| `value` | `string \| number \| readonly string[]` | – |
+| `defaultValue` | `string \| number \| readonly string[]` | – |
+| `onValueChange` | `(value: string, eventDetails) => void` | – |
+
+### InputGroupTextarea
+
+The multi-line control. Takes every prop of the native `<textarea>`. It grows with its content where the browser supports `field-sizing`.
+
+### inputGroupVariants and inputGroupAddonVariants
+
+```ts
+inputGroupVariants(options?: {
+  size?: "sm" | "md" | "lg";
+  shape?: "rounded" | "pill";
+}): string;
+inputGroupAddonVariants(options?: {
+  align?: "inline-start" | "inline-end" | "block-start" | "block-end";
+}): string;
+```
+
+Return the class names of the well and of an addon.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"input-group"`, `"input-group-addon"`, `"input-group-button"`, `"input-group-text"`, or `"input-group-control"` on the input or textarea |
+| `data-size` | On the group, the `size` |
+| `data-shape` | On the group, the `shape` |
+| `data-align` | On an addon, the `align` |
+
+### CSS variables
+
+Set by the group from its `size` and `shape`, and read by the control and addons. Override them with an arbitrary property class such as `[--input-group-px:1.5rem]`.
+
+| Variable | Sets |
+| --- | --- |
+| `--input-group-h` | The height of one line: `2rem`, `2.5rem` or `3rem` |
+| `--input-group-px` | The padding at the well's inline edges |
+| `--input-group-py` | A textarea's top and bottom padding |

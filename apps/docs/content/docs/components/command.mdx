@@ -1,0 +1,166 @@
+---
+title: Command
+description: A raised search list that filters as you type and runs the highlighted item, on the page or as a ⌘K palette.
+component: command
+primitive: https://base-ui.com/react/components/autocomplete
+---
+
+<ComponentPreview name="command-demo" />
+
+## Usage
+
+```tsx
+import {
+  Command,
+  CommandEmpty,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@neomorphic-react/ui/command";
+```
+
+```tsx
+const actions = ["New document", "Open recent", "Sign out"];
+
+<Command items={actions}>
+  <CommandInput aria-label="Search actions" placeholder="Search actions" />
+  <CommandEmpty>No actions found.</CommandEmpty>
+  <CommandList>
+    {(action: string) => (
+      <CommandItem key={action} onClick={() => run(action)} value={action}>
+        {action}
+      </CommandItem>
+    )}
+  </CommandList>
+</Command>
+```
+
+Pass every item to `Command` as `items` and render them with a function inside `CommandList`: the list then filters itself as the user types. The first match is always highlighted, so Enter runs it straight away. Use a command list to find and run actions. To choose a value for a form field, use a [Combobox](/docs/components/combobox) or a [Select](/docs/components/select).
+
+## Examples
+
+### Groups, icons and shortcuts
+
+For grouped items, pass groups that each hold their own `items`. Render each group as a `CommandGroup` with its `items` and a `heading`, and map its items with `CommandCollection`. A group with no matches is hidden. Icons sit before the text, and `CommandShortcut` shows a key hint at the end; it's only text, so wire the keys up yourself.
+
+<ComponentPreview name="command-groups" />
+
+### Dialog
+
+`CommandDialog` puts the list in a [Dialog](/docs/components/dialog) near the top of the screen, and the search field takes focus when it opens. Control it with `open` and `onOpenChange`, and close it from each item's `onClick`. It has a hidden title and description for screen readers; change them with `title` and `description`.
+
+<ComponentPreview name="command-dialog" />
+
+This site's own search already answers to ⌘K, so the example above opens from a button. In your app, add the shortcut yourself:
+
+```tsx
+useEffect(() => {
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "k" && (event.metaKey || event.ctrlKey)) {
+      event.preventDefault();
+      setOpen((open) => !open);
+    }
+  };
+  document.addEventListener("keydown", onKeyDown);
+  return () => document.removeEventListener("keydown", onKeyDown);
+}, []);
+```
+
+### Custom filtering
+
+By default an item matches when its text contains the query. `filter` replaces that test: here each setting also matches a list of keywords, so "dark" finds Appearance. For results that come from a server, set `mode="none"` to turn filtering off, and pass the results as `items` each time the query changes.
+
+<ComponentPreview name="command-filter" />
+
+### In context
+
+A status picker beside an issue. Each item's `onClick` sets the status, the badge above follows it, and the current status is marked with a check in `--primary` and hidden text for screen readers.
+
+<ComponentPreview name="command-in-context" />
+
+## Accessibility
+
+- The search field is a `combobox` and the list is a `listbox` of `option`s. A `CommandGroup` with a `heading` is a `group` named by it.
+- The placeholder isn't a label: name the field with an `aria-label` or a visible label.
+- Typing filters the list, the arrow keys move the highlight, and Enter runs the highlighted item. Running an item leaves the query as it was typed.
+- The highlighted item sinks into the card and its text turns `--primary`, so the highlight doesn't rely on depth.
+- `CommandEmpty` stays in the page while it's empty, so screen readers announce it politely when nothing matches.
+- `CommandDialog` is a `dialog` named by its hidden `title` and described by its hidden `description`. Focus moves to the search field when it opens, and Escape closes it.
+- The search icon is decorative (`aria-hidden`).
+- Keyboard focus in the search field shows a `--ring` outline around the whole well.
+
+## API reference
+
+### Command
+
+Base UI's [Autocomplete.Root](https://base-ui.com/react/components/autocomplete), always open and rendered in place, so it takes its props apart from `open`, `defaultOpen`, `onOpenChange` and `inline`. `className` goes on the card it draws. Inside a `CommandDialog`, the card is flat and the dialog's panel is the raised surface.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `items` | `readonly ItemValue[]`, or groups that each hold `items` | – |
+| `value` | `string` | – |
+| `defaultValue` | `string` | – |
+| `onValueChange` | `(value: string, eventDetails) => void` | – |
+| `filter` | `(item, query: string, itemToString) => boolean` | Text contains the query |
+| `mode` | `"list" \| "both" \| "inline" \| "none"` | `"list"` |
+| `itemToStringValue` | `(item) => string` | The item's `label`, or the item |
+| `limit` | `number` | `-1` (no limit) |
+| `autoHighlight` | `boolean \| "always"` | `"always"` |
+| `keepHighlight` | `boolean` | `true` |
+
+### CommandDialog
+
+A [Dialog](/docs/components/dialog) holding a `Command`. Takes every prop of Base UI's [Dialog.Root](https://base-ui.com/react/components/dialog), and its `className` goes on the dialog's panel.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `open` | `boolean` | – |
+| `defaultOpen` | `boolean` | `false` |
+| `onOpenChange` | `(open: boolean, eventDetails) => void` | – |
+| `title` | `string` | `"Command palette"` |
+| `description` | `string` | `"Search for a command to run."` |
+| `showCloseButton` | `boolean` | `false` |
+
+### CommandInput
+
+The search field, in an [Input Group](/docs/components/input-group) well with a search icon. Takes every prop of Base UI's `Autocomplete.Input` apart from `size`. Its `className` goes on the well.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `placeholder` | `string` | – |
+| `aria-label` | `string` | – |
+
+### CommandList and CommandEmpty
+
+`CommandList` holds the results and scrolls once they're taller than 20rem. Its children are elements, or a function `(item, index) => ReactNode` called for each matching item or group. `CommandEmpty` shows its children only when nothing matches. They take every prop of Base UI's `Autocomplete.List` and `Autocomplete.Empty`.
+
+### CommandGroup, CommandCollection and CommandSeparator
+
+`CommandGroup` is a labelled run of items and takes every prop of Base UI's `Autocomplete.Group`. `CommandCollection` maps the group's matching items through a function, and `CommandSeparator` is a groove between groups; they take every prop of `Autocomplete.Collection` and `Autocomplete.Separator`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `heading` (group) | `ReactNode` | – |
+| `items` (group) | `readonly any[]` | – |
+
+### CommandItem
+
+A result. Takes every prop of Base UI's `Autocomplete.Item`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `onClick` | `(event) => void` | – |
+| `disabled` | `boolean` | `false` |
+
+### CommandShortcut
+
+A key hint at the end of an item, in muted text. Takes every prop of the native `<span>`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"command"`, `"command-list"`, `"command-empty"`, `"command-group"`, `"command-group-heading"`, `"command-separator"`, `"command-item"` or `"command-shortcut"`; the search field is an `"input-group"` with an `"input-group-addon"` and an `"input-group-control"` |
+| `data-highlighted` | On an item, present while it's highlighted |
+| `data-disabled` | On an item, present when disabled |

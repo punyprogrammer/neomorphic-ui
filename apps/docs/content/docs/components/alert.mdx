@@ -1,0 +1,111 @@
+---
+title: Alert
+description: A message in a shallow well, with a coloured rule and icon that say what kind of message it is.
+component: alert
+---
+
+<ComponentPreview name="alert-demo" />
+
+## Usage
+
+```tsx
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from "@neomorphic-react/ui/alert";
+```
+
+```tsx
+<Alert variant="success">
+  <CircleCheck />
+  <AlertTitle>Booking confirmed</AlertTitle>
+  <AlertDescription>Your tickets are in your inbox.</AlertDescription>
+</Alert>
+```
+
+Use an alert for a message that belongs in the page's flow and stays until the situation changes, such as a failed payment or a schedule change. For a message that comes and goes after an action, use a [Toast](/docs/components/toast). For a question the user must answer before going on, use an [Alert Dialog](/docs/components/alert-dialog).
+
+## Examples
+
+### Variants
+
+`default` marks the message in `--foreground`. `info`, `success`, `warning` and `destructive` colour the rule at the start and the icon, and `destructive` colours the title too. Every accent reaches 3:1 against the surface.
+
+<ComponentPreview name="alert-variants" />
+
+### Title, description and icon
+
+Each part is optional. Put an icon first as a direct child, and it's sized and coloured for you; without one, the text lines up with the rule. The title stays on one line and is cut short if it runs out of room. The description takes paragraphs, lists and links.
+
+<ComponentPreview name="alert-content" />
+
+### Action
+
+`AlertAction` pins a button or link to the alert's end, centred vertically, for an Undo or a Retry. With an action inside, the alert keeps 112px clear at its end so the text doesn't run underneath, which fits one small button.
+
+<ComponentPreview name="alert-action" />
+
+### Urgent messages
+
+An alert is a polite `status` by default. For a message that needs attention at once, such as a failed payment, pass `role="alert"` and render the alert when the problem happens, so screen readers interrupt to read it.
+
+<ComponentPreview name="alert-urgent" />
+
+### In context
+
+A trip card with a warning about a tight connection. The action offers the fix right next to the problem, and the rest of the card stays usable.
+
+<ComponentPreview name="alert-in-context" />
+
+## Accessibility
+
+- `Alert` has `role="status"`, so screen readers read changes to it without interrupting. Pass `role="alert"` for urgent messages only; it interrupts whatever is being read.
+- A live region is read when its content changes. Render the alert, or its text, at the moment the message applies, rather than showing a hidden alert.
+- The variant's colour is a visual cue only. Make the title or description say what kind of message it is, such as "Payment failed".
+- The icon is decorative. lucide-react icons are hidden from screen readers by default; give any other SVG `aria-hidden`.
+- A button or link in `AlertAction` keeps its own role and focus ring.
+
+## API reference
+
+### Alert
+
+Renders a `<div>` and takes every prop of it.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "info" \| "success" \| "warning" \| "destructive"` | `"default"` |
+| `role` | `string` | `"status"` |
+
+### AlertTitle and AlertDescription
+
+The title, on one line, and the description in `--muted-foreground` below it. Both render a `<div>` and take every prop of it.
+
+### AlertAction
+
+Holds a button or link at the alert's end. Renders a `<div>` and takes every prop of it.
+
+### alertVariants
+
+```ts
+alertVariants(options?: {
+  variant?: "default" | "info" | "success" | "warning" | "destructive";
+}): string;
+```
+
+Returns the alert's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"alert"`, `"alert-title"`, `"alert-description"` or `"alert-action"` |
+| `data-variant` | On the root, the `variant` |
+
+### CSS variables
+
+Set by the `variant`. Override it with an arbitrary property class such as `[--alert-accent:var(--color-primary)]`, and keep the colour at 3:1 or more against the surface.
+
+| Variable | Sets |
+| --- | --- |
+| `--alert-accent` | The colour of the rule and the icon |

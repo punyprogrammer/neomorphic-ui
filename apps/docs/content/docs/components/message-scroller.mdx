@@ -1,0 +1,179 @@
+---
+title: Message Scroller
+description: A scrolling chat transcript that opens at the latest turn, keeps streamed replies in view and keeps your place when history loads.
+component: message-scroller
+---
+
+<ComponentPreview name="message-scroller-demo" />
+
+## Usage
+
+```tsx
+import {
+  MessageScroller,
+  MessageScrollerButton,
+  MessageScrollerContent,
+  MessageScrollerItem,
+  MessageScrollerProvider,
+  MessageScrollerViewport,
+} from "@neomorphic-react/ui/message-scroller";
+```
+
+```tsx
+<MessageScrollerProvider autoScroll>
+  <div className="h-96">
+    <MessageScroller>
+      <MessageScrollerViewport>
+        <MessageScrollerContent aria-label="Conversation">
+          {messages.map((message) => (
+            <MessageScrollerItem
+              key={message.id}
+              messageId={message.id}
+              scrollAnchor={message.role === "user"}
+            >
+              <Message>…</Message>
+            </MessageScrollerItem>
+          ))}
+        </MessageScrollerContent>
+      </MessageScrollerViewport>
+      <MessageScrollerButton />
+    </MessageScroller>
+  </div>
+</MessageScrollerProvider>
+```
+
+`MessageScroller` fills its parent, so give the parent a height. `MessageScrollerProvider` holds the scroll state, `MessageScrollerViewport` is the part that scrolls, and each row is a `MessageScrollerItem`. Fill the rows with [Message](/docs/components/message), [Bubble](/docs/components/bubble) and [Marker](/docs/components/marker). For a scrolling area that isn't a transcript, use a [Scroll Area](/docs/components/scroll-area).
+
+## Examples
+
+### Opening position
+
+`defaultScrollPosition` sets where the transcript opens. `last-anchor` (the default) opens at the last `scrollAnchor` row, usually your latest question, with the reply below it and 64px of the row before it showing. When that turn fits, it opens at the end. `end` opens at the latest message and `start` at the first. The viewport stays hidden until the position is applied, so the transcript doesn't jump.
+
+The provider reads `defaultScrollPosition` when the transcript first appears, so this preview remounts it with a `key` for each choice. A `MessageScrollerButton` stays hidden until there's something to scroll to in its direction.
+
+<ComponentPreview name="message-scroller-positions" />
+
+### New turns and streaming
+
+Mark your own messages with `scrollAnchor`. When one is added, it settles near the top of the viewport, and the reply streams into the space below it without moving the view. `scrollPreviousItemPeek` sets how much of the row before it stays visible.
+
+With `autoScroll`, a reply that grows past the bottom stays in view while you're at the latest message. Scrolling away, selecting text or jumping to a message stops it; scrolling back to the end or pressing `MessageScrollerButton` starts it again. Set `aria-busy` on `MessageScrollerContent` while a reply streams.
+
+<ComponentPreview name="message-scroller-streaming" />
+
+### Loading history
+
+Prepend earlier messages and the rows you're reading stay where they are, so the view doesn't jump. Give each row a stable `messageId`; a row without one, such as a "Load earlier messages" button, stays put above the history that's inserted below it. Turn this off with `preserveScrollOnPrepend={false}`.
+
+<ComponentPreview name="message-scroller-history" />
+
+### Jumping to a message
+
+`useMessageScroller()` returns `scrollToMessage`, `scrollToStart` and `scrollToEnd`. It works anywhere inside `MessageScrollerProvider`, so controls can sit outside the frame. `scrollToMessage` puts the row near the top and stops following new output.
+
+`MessageScrollerButton` with `direction="start"` sits at the top and jumps to the first message. Children add a label beside the arrow.
+
+<ComponentPreview name="message-scroller-jump" />
+
+### In context
+
+A support chat with an [Input Group](/docs/components/input-group) to write in. Your message settles near the top, a typing marker with `role="status"` appears under it, and the reply follows.
+
+<ComponentPreview name="message-scroller-in-context" />
+
+## Accessibility
+
+- `MessageScrollerViewport` is a `<section>` named "Messages", so it's a region landmark. It's in the tab order, and once focused the arrow keys, Page Up, Page Down, Home and End scroll it.
+- `MessageScrollerContent` has `role="log"` and `aria-relevant="additions"`, so new rows are announced, not every streamed word. Name it with `aria-label`, and set `aria-busy` while a reply streams so it's read once it's complete.
+- `MessageScrollerButton` is named "Scroll to latest" or "Scroll to start" when it has no children. While hidden it's `inert` and out of the tab order. Its arrow is decorative.
+- Give a typing or thinking marker `role="status"` so it's announced.
+- Under reduced motion the scroller jumps instead of scrolling smoothly.
+- Keyboard focus on the viewport shows a 2px `--ring` outline inside its edge.
+
+## API reference
+
+### MessageScrollerProvider
+
+Holds the scroll state for one transcript. It renders no element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `autoScroll` | `boolean` | `false` |
+| `defaultScrollPosition` | `"last-anchor" \| "end" \| "start"` | `"last-anchor"` |
+| `preserveScrollOnPrepend` | `boolean` | `true` |
+| `scrollPreviousItemPeek` | `number` | `64` |
+
+### MessageScroller
+
+The frame. It fills its parent and holds a `MessageScrollerViewport` and any `MessageScrollerButton`s. Takes every prop of the native `<div>`.
+
+### MessageScrollerViewport
+
+The scrolling region, named "Messages". Takes every prop of the native `<section>`; put padding here so the scrollbar stays at the edge.
+
+### MessageScrollerContent
+
+The transcript, with `role="log"`. Takes every prop of the native `<div>`, and a `render` prop: `render={<ol />}` with `<li>` items makes it a list.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `aria-label` | `string` | – |
+| `aria-busy` | `boolean` | – |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### MessageScrollerItem
+
+One row: a message, a marker or a typing indicator. Takes every prop of the native `<div>`, and a `render` prop.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `messageId` | `string` | – |
+| `scrollAnchor` | `boolean` | `false` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### MessageScrollerButton
+
+A small, raised, round [Button](/docs/components/button) over the edge of the transcript. Takes every prop of `Button`; it's `size="sm"` and `shape="pill"` unless you change them.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `direction` | `"end" \| "start"` | `"end"` |
+| `children` | `ReactNode` | – |
+
+### useMessageScroller and useMessageScrollerScrollable
+
+```ts
+useMessageScroller(): {
+  scrollToEnd: (options?: ScrollCommandOptions) => void;
+  scrollToStart: (options?: ScrollCommandOptions) => void;
+  scrollToMessage: (
+    messageId: string,
+    options?: ScrollCommandOptions
+  ) => boolean;
+};
+useMessageScrollerScrollable(): { start: boolean; end: boolean };
+
+interface ScrollCommandOptions {
+  behavior?: "smooth" | "instant"; // default "smooth"
+}
+```
+
+`useMessageScroller` returns commands. `scrollToEnd` also starts following new output again. `scrollToMessage` returns `false` for an id that isn't in the transcript; called before any row has rendered, it waits for the rows and returns `true`.
+
+`useMessageScrollerScrollable` says whether there's more to scroll towards each edge, and re-renders only when that changes. For styling, the `data-at-start` and `data-at-end` attributes are simpler. Both hooks throw outside `MessageScrollerProvider`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"message-scroller"`, `"message-scroller-viewport"`, `"message-scroller-spacer"`, `"message-scroller-content"`, `"message-scroller-item"` or `"message-scroller-button"` |
+| `data-at-start` | On the frame and viewport, present when scrolled to the top |
+| `data-at-end` | On the frame and viewport, present when scrolled to the latest message |
+| `data-following` | On the frame and viewport, present while the view is following the latest message, until you scroll away, select text or jump to a message |
+| `data-autoscrolling` | On the frame and viewport, present during a smooth scroll started by `scrollToEnd` or the button |
+| `data-pending-scroll` | On the viewport, present until the opening position is applied |
+| `data-message-id` | On an item, its `messageId` |
+| `data-scroll-anchor` | On an item, present when `scrollAnchor` is set |
+| `data-direction` | On a button, its `direction` |
+| `data-active` | On a button, `"true"` when there's content in its direction, otherwise `"false"` |

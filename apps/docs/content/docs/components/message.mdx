@@ -1,0 +1,110 @@
+---
+title: Message
+description: One turn in a conversation, with the sender's avatar beside a column of name, bubbles and time.
+component: message
+---
+
+<ComponentPreview name="message-demo" />
+
+## Usage
+
+```tsx
+import { Avatar, AvatarImage } from "@neomorphic-react/ui/avatar";
+import { Bubble, BubbleContent } from "@neomorphic-react/ui/bubble";
+import {
+  Message,
+  MessageAvatar,
+  MessageContent,
+  MessageFooter,
+  MessageGroup,
+  MessageHeader,
+} from "@neomorphic-react/ui/message";
+```
+
+```tsx
+<Message>
+  <MessageAvatar>
+    <Avatar size="sm">
+      <AvatarImage alt="" src="/maya.jpg" />
+    </Avatar>
+  </MessageAvatar>
+  <MessageContent>
+    <MessageHeader>Maya Chen</MessageHeader>
+    <Bubble variant="secondary">
+      <BubbleContent>Morning, did you get the tickets?</BubbleContent>
+    </Bubble>
+    <MessageFooter>
+      <time dateTime="09:12">09:12</time>
+    </MessageFooter>
+  </MessageContent>
+</Message>
+```
+
+`Message` only lays out a turn: the surfaces come from the [Bubble](/docs/components/bubble)s inside it and the picture from an [Avatar](/docs/components/avatar). Every part is optional, so a turn can be a single bubble. To scroll a whole transcript and follow new messages, put the turns in a [Message Scroller](/docs/components/message-scroller). For a date or "Maya joined" between turns, use a [Marker](/docs/components/marker).
+
+## Examples
+
+### Your own messages
+
+`align="end"` mirrors the turn: the avatar moves to the inline-end side, and the bubbles, header and footer line up at the end. Set `align="end"` on each `Bubble` too, so its tucked-in corner points at you. Your own turns usually leave out the avatar and name.
+
+<ComponentPreview name="message-align" />
+
+### Avatars and groups
+
+The avatar sits at the bottom of the turn, level with the last bubble, and lifts above a `MessageFooter` when there is one. `MessageGroup` stacks consecutive turns from one sender 8px apart, closer than separate turns. Show the name on the first turn and the avatar on the last. `MessageAvatar` is at least 32px wide, so an empty one on the other turns keeps their bubbles in line.
+
+<ComponentPreview name="message-group" />
+
+### Assistant replies
+
+Use a `ghost` bubble for a long reply that reads like a document. The header and footer drop their inline padding to line up with its text. Put actions such as copy and regenerate in the footer as small `ghost` [Button](/docs/components/button)s, each with an `aria-label`.
+
+<ComponentPreview name="message-assistant" />
+
+### In context
+
+A chat in a [Card](/docs/components/card) with a composer in the footer. Your messages share one turn, and each one you send adds a bubble above the "Delivered" footer.
+
+<ComponentPreview name="message-in-context" />
+
+## Accessibility
+
+- The parts are plain `<div>`s with no role. In a transcript, put them in a [Message Scroller](/docs/components/message-scroller), whose content is a `role="log"` region that announces new messages.
+- Which side a turn is on isn't announced. When your own turns have no header, add the sender in text, for example a `<span className="sr-only">You</span>` in the content.
+- When the header names the sender, give the avatar image `alt=""` so the name isn't read twice. Without a header, give it an `alt` naming the person.
+- Write times in a `<time dateTime>` element, and give delivery state as text ("Read 09:14"). Mark icons beside it `aria-hidden`.
+- Icon-only actions in the footer need an `aria-label`.
+
+## API reference
+
+### Message
+
+One turn: a `MessageAvatar` beside a `MessageContent`. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `align` | `"start" \| "end"` | `"start"` |
+
+### MessageAvatar
+
+Holds an `Avatar` or initials at the bottom of the turn, lifted above a `MessageFooter`. Takes every prop of the native `<div>`.
+
+### MessageContent
+
+The column of header, bubbles and footer. With `align="end"`, every child that has a `data-slot` lines up at the end. Takes every prop of the native `<div>`.
+
+### MessageHeader and MessageFooter
+
+`MessageHeader` holds the sender's name, and optionally a time, above the bubbles. `MessageFooter` holds a time, a delivery state or actions below them, in tabular figures. Both are small muted text and take every prop of the native `<div>`.
+
+### MessageGroup
+
+Consecutive turns from one sender, stacked with an 8px gap. Takes every prop of the native `<div>`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"message"`, `"message-avatar"`, `"message-content"`, `"message-header"`, `"message-footer"` or `"message-group"` |
+| `data-align` | On the message, the `align` |

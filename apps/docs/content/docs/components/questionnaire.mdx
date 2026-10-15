@@ -1,0 +1,219 @@
+---
+title: Questionnaire
+description: A form that asks one question at a time, with raised answer cards that press in when picked, a progress bar and buttons to move between steps.
+component: questionnaire
+---
+
+<ComponentPreview name="questionnaire-demo" />
+
+## Usage
+
+```tsx
+import {
+  Questionnaire,
+  QuestionnaireActions,
+  QuestionnaireChoice,
+  QuestionnaireChoices,
+  QuestionnaireError,
+  QuestionnaireItem,
+  QuestionnaireNext,
+  QuestionnairePrevious,
+  QuestionnaireProgress,
+  QuestionnaireSkip,
+  QuestionnaireSubmit,
+  QuestionnaireTitle,
+} from "@neomorphic-react/ui/questionnaire";
+```
+
+```tsx
+<Questionnaire onSubmit={(values) => save(values)}>
+  <QuestionnaireProgress />
+  <QuestionnaireItem name="trip" required>
+    <QuestionnaireTitle>What kind of trip are you planning?</QuestionnaireTitle>
+    <QuestionnaireChoices>
+      <QuestionnaireChoice value="beach">Beach</QuestionnaireChoice>
+      <QuestionnaireChoice value="city">City break</QuestionnaireChoice>
+    </QuestionnaireChoices>
+    <QuestionnaireError />
+  </QuestionnaireItem>
+  <QuestionnaireActions>
+    <QuestionnairePrevious />
+    <QuestionnaireSkip />
+    <QuestionnaireNext />
+    <QuestionnaireSubmit />
+  </QuestionnaireActions>
+</Questionnaire>
+```
+
+Each `QuestionnaireItem` is one question, and only the current one is shown. Put every action button in `QuestionnaireActions`: each one shows itself only when it applies, so Next gives way to Submit on the last question. Every answer has the same shape, `{ choices: string[]; text: string }`, keyed by the question's `name`.
+
+Use a questionnaire for onboarding, surveys and intake forms where one question at a time keeps the reader focused. For a short form where every field should be visible at once, lay out [Field](/docs/components/field)s instead; for a single choice on its own, use a [Radio Group](/docs/components/radio-group).
+
+## Examples
+
+### Choices and typed answers
+
+`QuestionnaireChoices` holds the fixed answers as raised cards. A question takes one choice, as radios, unless it's `multiple`, which turns the cards into checkboxes. Add a `QuestionnaireChoiceDescription` under a choice's label for detail. `QuestionnaireInput` takes a typed answer, on its own or as "Something else" under the cards. On a single-choice question, typing clears the picked card and picking a card clears the text.
+
+<ComponentPreview name="questionnaire-choices" />
+
+### Validation and skipping
+
+- `required` blocks Next until the question has a choice or some text. `QuestionnaireError` shows "Choose an answer to continue." and focus moves to the first control. Pass children to `QuestionnaireError` for your own message.
+- `validate` gets the answer and returns a message to block moving on, or `undefined` to accept it.
+- `QuestionnaireSkip` appears only on optional questions before the last. It clears the answer and moves on.
+- Submit checks every question that applies, and goes back to the first one that fails.
+
+<ComponentPreview name="questionnaire-validation" />
+
+### Conditional questions
+
+`when` gets the answers so far and asks the question only when it returns `true`. A question that doesn't apply is left out of the progress count and the submitted answers. `disabled` leaves a question out in the same way.
+
+<ComponentPreview name="questionnaire-conditional" />
+
+### Keyboard shortcuts
+
+With `shortcuts`, the number keys 1 to 9 pick the matching choice, and each of the first nine cards shows its key. On a `multiple` question a key turns its choice on or off. The keys do nothing while you're typing in a text field.
+
+<ComponentPreview name="questionnaire-shortcuts" />
+
+### Resuming
+
+`defaultValues` fills in answers saved from an earlier visit, and `defaultActiveItem` opens at the question the reader reached. `onValuesChange` is called with every change, so you can save a draft as they go. To control the current question yourself, pass `activeItem` and update it from `onActiveItemChange`.
+
+<ComponentPreview name="questionnaire-resume" />
+
+### In context
+
+Workspace set-up in a [Card](/docs/components/card). The progress label is a function of the step and the total, number keys pick choices, and `onSubmit` receives the answers to show a summary.
+
+<ComponentPreview name="questionnaire-in-context" />
+
+## Accessibility
+
+- `Questionnaire` renders a `<form>` with `noValidate`, so its own messages replace the browser's.
+- Each question is a `<fieldset>`, so it's a `group` named by its `QuestionnaireTitle` and described by its `QuestionnaireDescription` and `QuestionnaireError`. Questions that aren't current are `hidden`, so they're not read.
+- When you move to another question, focus moves to it, so its title is read.
+- A single-choice question is a `radiogroup` named by the title: Tab enters it and the arrow keys move between choices. A `multiple` question is a set of checkboxes. Each card is a `<label>`, so clicking anywhere on it picks the choice.
+- A picked card presses in and gains a `--primary` ring, and its radio shows a dot or its checkbox a check, so the state doesn't rely on depth.
+- `QuestionnaireError` is a polite live region, so the message is read when it appears. The question's controls get `aria-invalid` while it shows.
+- `QuestionnaireInput` has no visible label: name it with `aria-label`. Enter in it moves to the next question, or submits on the last one.
+- The progress bar is a `progressbar` named by its label ("Question 2 of 4").
+- On the first question, `QuestionnairePrevious` keeps its place but is invisible and `inert`.
+- Shortcut keys on the cards are decorative (`aria-hidden`). Keyboard focus on a card's control shows a `--ring` outline.
+
+## API reference
+
+### Questionnaire
+
+The form. Takes every prop of the native `<form>` apart from `onSubmit`, which is replaced.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `onSubmit` | `(values: QuestionnaireValues, event: FormEvent<HTMLFormElement>) => void` | – |
+| `onValuesChange` | `(values: QuestionnaireValues) => void` | – |
+| `defaultValues` | `QuestionnaireValues` | – |
+| `activeItem` | `string` | – |
+| `defaultActiveItem` | `string` | The first question |
+| `onActiveItemChange` | `(name: string) => void` | – |
+| `shortcuts` | `boolean` | `false` |
+
+`onSubmit` is called once every question that applies passes validation, with an answer for each of those questions. The form's native submit is prevented.
+
+### QuestionnaireProgress
+
+A labelled [Progress](/docs/components/progress) bar. It shows the share of questions already passed and fills once the form is submitted. Takes every prop of `Progress` apart from `value`; `children` is a function that returns the label.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `children` | `(position: number, total: number) => ReactNode` | `"Question {position} of {total}"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"sm"` |
+
+### QuestionnaireItem
+
+One question, as a `<fieldset>`. Takes every prop of Base UI's [Fieldset.Root](https://base-ui.com/react/components/fieldset) apart from `name`, which is replaced.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `name` | `string` | – |
+| `required` | `boolean` | `false` |
+| `multiple` | `boolean` | `false` |
+| `validate` | `(answer: QuestionnaireAnswer) => string \| undefined` | – |
+| `when` | `(values: QuestionnaireValues) => boolean` | – |
+| `disabled` | `boolean` | `false` |
+
+### QuestionnaireTitle and QuestionnaireDescription
+
+`QuestionnaireTitle` is the question, and names the fieldset. It takes every prop of `FieldLegend` from [Field](/docs/components/field). `QuestionnaireDescription` is muted help under the title, and takes every prop of the native `<p>`.
+
+### QuestionnaireChoices
+
+Holds the choice cards in a grid. On a single-choice question it's a [Radio Group](/docs/components/radio-group) and takes its props; on a `multiple` question it's a `<div>`.
+
+### QuestionnaireChoice and QuestionnaireChoiceDescription
+
+`QuestionnaireChoice` is one answer card. The first line of its children is the label; put a `QuestionnaireChoiceDescription` under it for a muted line of detail. `QuestionnaireChoice` takes every prop of the native `<label>`, and `QuestionnaireChoiceDescription` every prop of the native `<p>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `string` | – |
+| `disabled` | `boolean` | – |
+
+### QuestionnaireInput
+
+A typed answer. Takes every prop of [Input](/docs/components/input) apart from `value`, `defaultValue` and `onValueChange`, which the questionnaire manages.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `aria-label` | `string` | – |
+| `placeholder` | `string` | – |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"rounded" \| "pill"` | `"rounded"` |
+
+### QuestionnaireError
+
+Shows why the question can't be left yet, and is empty otherwise. Takes every prop of the native `<p>`. Its children, if any, replace the message while there's an error.
+
+### QuestionnaireActions
+
+The row of buttons: Previous at the start, Skip and Next or Submit at the end. Takes every prop of the native `<div>`.
+
+### QuestionnairePrevious, QuestionnaireSkip, QuestionnaireNext and QuestionnaireSubmit
+
+Small [Button](/docs/components/button)s that take every prop of `Button` apart from `type`. Children replace the default label.
+
+| Part | Variant | Label | Shown |
+| --- | --- | --- | --- |
+| `QuestionnairePrevious` | `default` | "Previous" | Always; invisible on the first question |
+| `QuestionnaireSkip` | `ghost` | "Skip" | On optional questions before the last |
+| `QuestionnaireNext` | `primary` | "Next" | Before the last question |
+| `QuestionnaireSubmit` | `primary` | "Submit" | On the last question |
+
+### useQuestionnaire
+
+```ts
+useQuestionnaire(): {
+  activeItem: string | undefined;
+  position: number;
+  submitted: boolean;
+  total: number;
+  values: QuestionnaireValues;
+};
+
+interface QuestionnaireAnswer {
+  choices: string[];
+  text: string;
+}
+type QuestionnaireValues = Record<string, QuestionnaireAnswer>;
+```
+
+The answers so far and the current question, for parts you build yourself inside a `Questionnaire`. `position` counts from 0, and `total` counts only the questions that apply. `submitted` is `true` after a successful submit, until an answer changes.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"questionnaire"`, `"questionnaire-progress"`, `"questionnaire-item"`, `"questionnaire-title"`, `"questionnaire-description"`, `"questionnaire-choices"`, `"questionnaire-choice"`, `"questionnaire-choice-description"`, `"questionnaire-shortcut"`, `"questionnaire-input"`, `"questionnaire-error"`, `"questionnaire-actions"`, `"questionnaire-previous"`, `"questionnaire-skip"`, `"questionnaire-next"` or `"questionnaire-submit"` |
+| `data-active` | On a question, present while it's the one shown |
+| `data-invalid` | On a question, and on a `multiple` question's choices, present while it shows an error |

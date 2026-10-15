@@ -1,0 +1,179 @@
+---
+title: Data Table
+description: A raised table with sortable headers, row selection, a column filter, a columns menu and page buttons.
+component: data-table
+---
+
+<ComponentPreview name="data-table-demo" />
+
+## Usage
+
+Data Table is built on [TanStack Table](https://tanstack.com/table), an optional peer dependency. Install it alongside the library:
+
+<InstallCommand packages="@tanstack/react-table" />
+
+```tsx
+import {
+  DataTable,
+  DataTableColumnHeader,
+  DataTableFilter,
+  DataTablePagination,
+  DataTableSelectAll,
+  DataTableSelectRow,
+  DataTableViewOptions,
+  useDataTable,
+} from "@neomorphic-react/ui/data-table";
+import type { ColumnDef } from "@tanstack/react-table";
+```
+
+```tsx
+const columns: ColumnDef<Product>[] = [
+  {
+    accessorKey: "name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Product" />
+    ),
+  },
+  { accessorKey: "stock", header: "In stock" },
+];
+
+const table = useDataTable({ columns, data: products });
+
+<DataTable aria-label="Products" table={table} />
+```
+
+`useDataTable` creates a TanStack table with sorting, filtering, pagination, row selection and column visibility switched on. You write the columns; `DataTable` draws the table, and the other parts are controls you place around it. Each takes the `table`, or the `column` or `row` it works on. For a static table with no controls, use a plain [Table](/docs/components/table).
+
+## Examples
+
+### Filtering
+
+`DataTableFilter` is an [Input](/docs/components/input) bound to one column: pass it `table.getColumn(id)`. Rows whose value doesn't contain the text drop out. When nothing matches, `emptyMessage` fills the body.
+
+<ComponentPreview name="data-table-filter" />
+
+### Row selection
+
+Add a column whose `header` is a `DataTableSelectAll` and whose `cell` is a `DataTableSelectRow`, and give each row's checkbox a name. Select-all covers the current page and is indeterminate while only some of it is chosen. Selected rows take the `--primary` tint and edge bar. `showSelection` on `DataTablePagination` shows how many rows are chosen. Pass `getRowId` so the selection is keyed by your own ids rather than row positions.
+
+<ComponentPreview name="data-table-selection" />
+
+### Pagination
+
+`pageSize` sets the rows per page, 10 by default. `DataTablePagination` has previous and next buttons and a button per page, with the current page pressed in. Up to 7 pages are all shown; beyond that, the first and last pages and the ones either side of the current page stay, and the gaps become an ellipsis.
+
+<ComponentPreview name="data-table-pagination" />
+
+### Column visibility
+
+`DataTableViewOptions` is a Columns menu with a checkbox item for each column that can be hidden. A column's menu label is its `header` when that's a string; name the others with `labels`, keyed by column id. `enableHiding: false` keeps a column out of the menu. Start with columns hidden through `initialState.columnVisibility`.
+
+<ComponentPreview name="data-table-columns" />
+
+### In context
+
+An orders table with every control: a customer filter, the Columns menu, an export button that counts the chosen rows, status [Chips](/docs/components/chip), sortable customer and total columns, and pages of five with the selection count.
+
+<ComponentPreview name="data-table-in-context" />
+
+<Callout title="Controlling state">
+  The table keeps its own state. To control a part of it, such as the sort order, pass `state: { sorting }` and `onSortingChange` to `useDataTable`, as with any TanStack table.
+</Callout>
+
+## Accessibility
+
+- `DataTable` renders a native table, so screen readers can move by row and column. Name it with `aria-label`.
+- A sortable header is a button named by its `title`. While a column is sorted, its header cell has `aria-sort` set to `ascending` or `descending`, and the button turns `--primary` with an arrow showing the order.
+- The selection checkboxes need names: `DataTableSelectRow` takes a required `aria-label`, and `DataTableSelectAll` defaults to "Select all on this page". Select-all reports `aria-checked="mixed"` while part of the page is chosen.
+- `DataTableFilter` needs an `aria-label` or a visible label.
+- The pages are a navigation landmark named by `label`. Page buttons are named "Page 1", "Page 2" and so on, the current one has `aria-current="page"`, and the previous and next buttons are disabled at either end.
+- With `showSelection`, the selection count is a polite live region.
+- The Columns menu is a [Dropdown Menu](/docs/components/dropdown-menu) of checkbox items.
+- The arrow and columns icons are decorative (`aria-hidden`).
+
+## API reference
+
+### useDataTable
+
+```ts
+useDataTable<TData>(options: UseDataTableOptions<TData>): Table<TData>;
+```
+
+Takes every option of TanStack's `useReactTable`, with `getCoreRowModel` optional, and returns the table instance. It supplies the core, filtered, sorted and paginated row models; pass your own to replace them.
+
+| Option | Type | Default |
+| --- | --- | --- |
+| `columns` | `ColumnDef<TData>[]` | – |
+| `data` | `TData[]` | – |
+| `pageSize` | `number` | `10` |
+| `getRowId` | `(row: TData, index: number) => string` | The row's index |
+| `initialState` | `InitialTableState` | – |
+| `state` | `Partial<TableState>` | – |
+| `enableRowSelection` | `boolean \| (row) => boolean` | `true` |
+
+### DataTable
+
+Draws the table instance as a [Table](/docs/components/table), with `emptyMessage` in a full-width row when there are no rows. Takes every prop of `Table` apart from `children`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `table` | `Table<TData>` | – |
+| `emptyMessage` | `ReactNode` | `"No results."` |
+| `variant` | `"flat" \| "raised" \| "inset"` | `"raised"` |
+
+### DataTableColumnHeader
+
+A column's header label. On a sortable column it's a ghost [Button](/docs/components/button): the first press sorts ascending, and each press after that flips the order. Takes every prop of the native `<div>` around it.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `column` | `Column<TData, TValue>` | – |
+| `title` | `string` | – |
+
+### DataTableSelectAll and DataTableSelectRow
+
+Small [Checkboxes](/docs/components/checkbox) that select every row on the page, or one row. A row's checkbox is disabled when the row can't be selected.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `table` (select all) | `Table<TData>` | – |
+| `row` (select row) | `Row<TData>` | – |
+| `aria-label` | `string` | `"Select all on this page"` on select all; required on select row |
+
+### DataTableFilter
+
+A small [Input](/docs/components/input) that filters one column. Takes every prop of `Input` apart from `value`, `defaultValue` and `onChange`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `column` | `Column<TData, TValue> \| undefined` | – |
+| `size` | `"sm" \| "md" \| "lg"` | `"sm"` |
+
+### DataTableViewOptions
+
+A Columns button that opens a menu of the columns that can be hidden. It sits at the end of a flex row.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `table` | `Table<TData>` | – |
+| `labels` | `Record<string, string>` | – |
+| `className` | `string` | – |
+
+### DataTablePagination
+
+Previous, next and page buttons, with the selection count before them when `showSelection` is set. Takes every prop of the native `<div>` apart from `children`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `table` | `Table<TData>` | – |
+| `label` | `string` | `"Pagination"` |
+| `showSelection` | `boolean` | `false` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"table-container"` on the wrapper, `"data-table"` on the table, `"data-table-column-header"`, `"data-table-select-all"`, `"data-table-select-row"`, `"data-table-filter"`, `"data-table-view-options"` or `"data-table-pagination"`; rows and cells keep their [Table](/docs/components/table#data-attributes) slots |
+| `data-variant` | On the wrapper, the `variant` |
+| `data-selected` | On a row, present when it's selected |
+| `data-sorted` | On a header's sort button, `"asc"` or `"desc"` while sorted |

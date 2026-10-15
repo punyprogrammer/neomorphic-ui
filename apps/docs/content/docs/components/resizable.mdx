@@ -1,0 +1,133 @@
+---
+title: Resizable
+description: Panels split by a groove that can be dragged, or moved with the keyboard, to share the space between them.
+component: resizable
+---
+
+<ComponentPreview name="resizable-demo" />
+
+## Usage
+
+Resizable is built on `react-resizable-panels`, an optional peer dependency. Install it alongside the library:
+
+<InstallCommand packages="react-resizable-panels" />
+
+```tsx
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "@neomorphic-react/ui/resizable";
+```
+
+```tsx
+<ResizablePanelGroup>
+  <ResizablePanel defaultSize="30" minSize="20">
+    Mailboxes
+  </ResizablePanel>
+  <ResizableHandle aria-label="Resize mailboxes" withHandle />
+  <ResizablePanel>Message</ResizablePanel>
+</ResizablePanelGroup>
+```
+
+The group fills its parent, so give the parent a height. Use resizable panels for layouts people tune to their work, such as a list beside a detail view or an editor above a terminal. For content that only needs to scroll, use a [Scroll Area](/docs/components/scroll-area); for a side panel that opens and closes, use a [Sidebar](/docs/components/sidebar) or a [Sheet](/docs/components/sheet).
+
+## Examples
+
+### Vertical
+
+`orientation="vertical"` stacks the panels, and the groove runs across the group. Up and down arrows move it.
+
+<ComponentPreview name="resizable-vertical" />
+
+### Grip and nested groups
+
+`withHandle` adds a raised grip to the groove, which presses in while it's dragged. A panel can hold a whole group of its own, here a map above a timetable.
+
+<ComponentPreview name="resizable-nested" />
+
+### Sizes and limits
+
+Numbers are pixels and strings are percentages: `defaultSize={180}` starts a panel at 180px, and `minSize="15"` stops it at 15% of the group. `minSize` and `maxSize` hold while dragging and while the group itself changes size. A panel without a `defaultSize` shares the space left over. `onResize` reports each panel's size in both units.
+
+<ComponentPreview name="resizable-sizes" />
+
+### Collapsible panels
+
+A `collapsible` panel snaps shut when it's dragged well below its `minSize`, down to `collapsedSize` (`"0%"` by default). Pressing Enter on the handle collapses it or opens it again. For a button, pass a ref from `usePanelRef` to `panelRef` and call `collapse()` and `expand()` on it.
+
+<ComponentPreview name="resizable-collapsible" />
+
+### In context
+
+A mail client. The message list has a range of 30% to 55%, so the message itself always keeps room to read. Each row is an [Item](/docs/components/item) rendered as a button, and the chosen one is raised and marked with `aria-current`.
+
+<ComponentPreview name="resizable-in-context" />
+
+## Accessibility
+
+- Each `ResizableHandle` is a `role="separator"` in the tab order. Its `aria-orientation` runs across the group (`vertical` in a horizontal group), and `aria-valuenow`, `aria-valuemin` and `aria-valuemax` give the size of the panel before it, which `aria-controls` points to.
+- Name every handle with `aria-label`, after the panel it resizes ("Resize mailboxes").
+- The arrow keys along the group move the handle by 5%. Home and End move it as far as the panels' limits allow, and Enter collapses or opens a `collapsible` panel before it. F6 moves focus to the next handle in the group, and Shift + F6 to the previous one.
+- Double-clicking a handle returns the panel beside it to its `defaultSize`. `disableDoubleClick` turns this off.
+- The groove turns `--primary` while it's hovered, focused or dragged, so its state doesn't rely on depth alone. Keyboard focus also shows a 2px `--ring` outline.
+- The grip's icon is decorative (`aria-hidden`).
+
+## API reference
+
+### ResizablePanelGroup
+
+Lays out the panels in a row or a column and fills its parent. Takes every prop of `react-resizable-panels`' [Group](https://react-resizable-panels.vercel.app/) and of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `defaultLayout` | `{ [panelId: string]: number }` | – |
+| `onLayoutChange` | `(layout) => void` | – |
+| `onLayoutChanged` | `(layout, meta) => void` | – |
+| `groupRef` | `Ref<GroupImperativeHandle>` | – |
+| `disabled` | `boolean` | `false` |
+| `disableCursor` | `boolean` | `false` |
+
+`onLayoutChange` fires on every move while dragging; `onLayoutChanged` fires once the pointer is released, which suits saving a layout. `react-resizable-panels` also exports a `useDefaultLayout` hook that saves and restores it for you.
+
+### ResizablePanel
+
+One panel. Takes every prop of `react-resizable-panels`' `Panel`. Its `className` styles a wrapper inside the panel that fills it and scrolls when the content overflows.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `defaultSize` | `number \| string` | Shares the space left over |
+| `minSize` | `number \| string` | `"0%"` |
+| `maxSize` | `number \| string` | `"100%"` |
+| `collapsible` | `boolean` | `false` |
+| `collapsedSize` | `number \| string` | `"0%"` |
+| `collapsedThreshold` | `number \| string` | Half the distance from `collapsedSize` to `minSize` |
+| `onResize` | `(size: { asPercentage: number; inPixels: number }, id, prevSize) => void` | – |
+| `panelRef` | `Ref<PanelImperativeHandle>` | – |
+| `id` | `string \| number` | – |
+| `disabled` | `boolean` | `false` |
+
+Sizes take a number of pixels, or a string: a bare number is a percentage, and `"px"`, `"%"`, `"em"`, `"rem"`, `"vh"` and `"vw"` units work too. The `panelRef` handle has `collapse()`, `expand()`, `getSize()`, `isCollapsed()` and `resize(size)`. Give panels an `id` when you save or set a layout, so sizes match the right panel.
+
+### ResizableHandle
+
+The groove between two panels. Takes every prop of `react-resizable-panels`' `Separator` and of the native `<div>`, apart from `role` and `tabIndex`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `withHandle` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `disableDoubleClick` | `boolean` | `false` |
+
+A `disabled` handle dims, leaves the tab order and can't be dragged.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"resizable-panel-group"`, `"resizable-panel"`, `"resizable-handle"` or `"resizable-handle-grip"` |
+| `data-separator` | On a handle, `"inactive"`, `"hover"`, `"active"` (while dragged), `"focus"` or `"disabled"` |
+| `data-group` | Present on the group |
+| `data-panel` | Present on each panel |
+| `data-disabled` | On a panel, present when disabled |

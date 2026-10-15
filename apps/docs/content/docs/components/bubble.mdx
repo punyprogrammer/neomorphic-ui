@@ -1,0 +1,129 @@
+---
+title: Bubble
+description: A chat bubble that hangs from one side of the conversation, with the corner nearest the sender tucked in.
+component: bubble
+---
+
+<ComponentPreview name="bubble-demo" />
+
+## Usage
+
+```tsx
+import {
+  Bubble,
+  BubbleContent,
+  BubbleGroup,
+  BubbleReactions,
+} from "@neomorphic-react/ui/bubble";
+```
+
+```tsx
+<Bubble variant="secondary">
+  <BubbleContent>Morning, did you get the tickets for Saturday?</BubbleContent>
+</Bubble>
+<Bubble align="end">
+  <BubbleContent>Yes, two seats in row F.</BubbleContent>
+</Bubble>
+```
+
+`Bubble` sets the variant and the side the bubble hangs from, and `BubbleContent` is the surface that holds the text. A bubble is at most 80% of the row wide and keeps the line breaks in its text. For the sender's avatar, name and time, put bubbles in a [Message](/docs/components/message). For a status line between turns, such as a date or "Maya joined", use a [Marker](/docs/components/marker).
+
+## Examples
+
+### Variants
+
+`default` fills with `--primary`, for your own messages. `secondary` is raised from the surface, for incoming ones. `muted` and `destructive` are pressed into the surface, `tinted` is a raised wash of `--primary`, and `outline` is a groove. `ghost` is bare text with no padding that takes the full width of the row, for long replies that read like a document.
+
+<ComponentPreview name="bubble-variants" />
+
+### Reactions
+
+`BubbleReactions` pins a raised pill to the bubble's edge. `side` puts it on the `bottom` (the default) or `top` edge, and `align` at the `end` (the default) or `start`. The bubble adds space on that side, so the pill doesn't overlap the next bubble. Emoji aren't read out well on their own: give the pill `role="img"` and an `aria-label` that says who reacted.
+
+<ComponentPreview name="bubble-reactions" />
+
+### Groups
+
+`BubbleGroup` stacks consecutive bubbles from one sender with a 6px gap. Leave a larger gap between groups so each sender's run reads as one turn.
+
+<ComponentPreview name="bubble-group" />
+
+### Suggested replies
+
+When the whole bubble is an action, render `BubbleContent` as a `<button>` or `<a>` with `render`. It gets a pointer cursor and start-aligned text, and the `default`, `secondary`, `tinted` and `outline` variants respond to hover or press. Group the suggestions with `role="group"` and an `aria-label`.
+
+<ComponentPreview name="bubble-suggestions" />
+
+### In context
+
+A booking chat in a [Card](/docs/components/card). The clinic's messages are a `BubbleGroup` of `secondary` bubbles, and the available times are `outline` bubbles rendered as buttons. Choosing one replaces them with your reply and a confirmation with a reaction.
+
+<ComponentPreview name="bubble-in-context" />
+
+## Accessibility
+
+- `Bubble`, `BubbleContent` and `BubbleGroup` render plain `<div>`s with no role, so the text is read as it is. Put the sender's name and the time in a [Message](/docs/components/message) header or footer so they're read too.
+- Give `BubbleReactions` `role="img"` and an `aria-label` such as "Liked by you and Maya", or put buttons with their own labels inside.
+- A `BubbleContent` rendered as a `<button>` is in the tab order and responds to Enter and Space. Keyboard focus shows a 2px `--ring` outline, offset from the bubble.
+- The `destructive` variant only changes colour and depth. Say in the text that the message failed and what to do next.
+- The tucked-in corner is decorative and doesn't convey who sent the message on its own.
+
+## API reference
+
+### Bubble
+
+One chat bubble: a `BubbleContent`, and optionally a `BubbleReactions`. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `align` | `"start" \| "end"` | `"start"` |
+| `variant` | `"default" \| "secondary" \| "muted" \| "tinted" \| "outline" \| "ghost" \| "destructive"` | `"default"` |
+
+`align="end"` moves the bubble to the end of a flex column and tucks in its bottom corner on that side. Inside a `Message` with `align="end"` the bubble moves to the end on its own, but set `align="end"` on the `Bubble` as well so the corner matches.
+
+### BubbleContent
+
+The bubble's surface, styled by the `Bubble`'s `variant`. Renders a `<div>` and takes every prop of the native `<div>`, plus `render`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### BubbleReactions
+
+A raised pill pinned to the bubble's edge. Takes every prop of the native `<div>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom"` | `"bottom"` |
+| `align` | `"start" \| "end"` | `"end"` |
+
+### BubbleGroup
+
+Consecutive bubbles from one sender, stacked in a column with a small gap. Takes every prop of the native `<div>`.
+
+### bubbleContentVariants
+
+```ts
+bubbleContentVariants(options?: {
+  variant?:
+    | "default"
+    | "secondary"
+    | "muted"
+    | "tinted"
+    | "outline"
+    | "ghost"
+    | "destructive";
+}): string;
+```
+
+Returns the class names of the surface. The corner and alignment classes only take effect inside a `Bubble`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"bubble"`, `"bubble-content"`, `"bubble-reactions"` or `"bubble-group"` |
+| `data-variant` | On the bubble, the `variant` |
+| `data-align` | On the bubble and on the reactions, the `align` |
+| `data-side` | On the reactions, the `side` |

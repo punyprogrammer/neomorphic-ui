@@ -1,0 +1,121 @@
+---
+title: Table
+description: Rows and columns of data with grooves between the rows, flat on the surface or in a raised panel or a well.
+component: table
+---
+
+<ComponentPreview name="table-demo" />
+
+## Usage
+
+```tsx
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@neomorphic-react/ui/table";
+```
+
+```tsx
+<Table aria-label="Invoices">
+  <TableHeader>
+    <TableRow>
+      <TableHead>Invoice</TableHead>
+      <TableHead className="text-end">Amount</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>INV-2041</TableCell>
+      <TableCell className="text-end">£1,240.00</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+Each part renders the matching native table element, so you write the rows and cells yourself. Use a table for data that's compared across rows and columns. For sorting, filtering and pages of rows, use a [Data Table](/docs/components/data-table), which draws its rows with these parts. For a list of things with actions, an [Item](/docs/components/item) list often reads better.
+
+## Examples
+
+### Variants
+
+`flat` (the default) sits on the surface. `raised` wraps the table in a raised panel and `inset` sinks it into a well. Both add a little padding around the table.
+
+<ComponentPreview name="table-variants" />
+
+### Caption and footer
+
+`TableCaption` names the table and sits under it. `TableFooter` holds summary rows such as a total, set off from the body by a groove and in a heavier weight.
+
+<ComponentPreview name="table-footer" />
+
+### Selected rows
+
+Set `data-selected` (or `aria-selected`) on a `TableRow` to mark it chosen: it takes a `--primary` tint and a bar at its leading edge. Put a [Checkbox](/docs/components/checkbox) in the first cell to choose rows, and a header checkbox that's `indeterminate` while some are chosen. A column whose header holds a checkbox shrinks to fit it.
+
+<ComponentPreview name="table-selection" />
+
+### Sticky header
+
+`stickyHeader` keeps the header row in view while the body scrolls. Give the wrapper a height through `containerProps`, such as `{ className: "max-h-64" }`. Use it with `flat` or `inset`: on `raised`, the header cells are transparent, so rows show through them as they scroll past.
+
+<ComponentPreview name="table-sticky-header" />
+
+### In context
+
+A team list in a card. The table stays `flat` because the card already raises it, and each row combines an [Avatar](/docs/components/avatar), a status [Chip](/docs/components/chip) and an icon-only [Button](/docs/components/button). The last column's header is visually hidden but still read out.
+
+<ComponentPreview name="table-in-context" />
+
+## Accessibility
+
+- The parts render native `<table>`, `<thead>`, `<tbody>`, `<tfoot>`, `<tr>`, `<th>`, `<td>` and `<caption>` elements, so screen readers can move by row and column and read each cell with its header.
+- Name the table with a `TableCaption` or an `aria-label`.
+- Give every column a header, even one holding only buttons. Hide its text visually with `sr-only` if it would clutter the table.
+- A selected row's tint and edge bar are visual. Keep a named checkbox in the row so the state is announced too.
+- The wrapper scrolls sideways when the table is wider than its container, but it doesn't take focus. If a wide table has nothing focusable in it, pass `tabIndex: 0`, `role: "region"` and an `aria-label` through `containerProps` so keyboard users can scroll it.
+- Rows tint under the pointer only on devices that can hover.
+
+## API reference
+
+### Table
+
+The `<table>`, inside a wrapper that scrolls sideways. Takes every prop of the native `<table>`; `className` goes to the table.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"flat" \| "raised" \| "inset"` | `"flat"` |
+| `stickyHeader` | `boolean` | `false` |
+| `containerProps` | `ComponentProps<"div">` | – |
+
+`containerProps` go to the wrapper, including its `className`.
+
+### TableHeader, TableBody and TableFooter
+
+The `<thead>`, `<tbody>` and `<tfoot>`. They take every prop of the native element. The last body row has no groove under it, and the footer has a groove above it.
+
+### TableRow
+
+The `<tr>`. Takes every prop of the native `<tr>`. Body rows tint on hover, and `data-selected` or `aria-selected` marks a row chosen.
+
+### TableHead and TableCell
+
+The `<th>` and `<td>`. They take every prop of the native element. Header cells are small, uppercase and muted. Neither wraps its text. A header holding a checkbox shrinks its column to fit it.
+
+### TableCaption
+
+The `<caption>`, shown under the table in muted text. Takes every prop of the native `<caption>`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"table-container"` on the wrapper, `"table"`, `"table-header"`, `"table-body"`, `"table-footer"`, `"table-row"`, `"table-head"`, `"table-cell"` or `"table-caption"` |
+| `data-variant` | On the wrapper, the `variant` |
+| `data-sticky-header` | On the table, present with `stickyHeader` |
+| `data-selected` | On a row, set by you to mark it chosen |

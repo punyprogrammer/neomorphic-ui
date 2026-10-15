@@ -1,0 +1,127 @@
+---
+title: Avatar
+description: A picture of a person or place in a raised frame, with initials or an icon until the picture loads.
+component: avatar
+primitive: https://base-ui.com/react/components/avatar
+---
+
+<ComponentPreview name="avatar-demo" />
+
+## Usage
+
+```tsx
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@neomorphic-react/ui/avatar";
+```
+
+```tsx
+<Avatar>
+  <AvatarImage alt="Ada Lovelace" src="/avatars/ada.jpg" />
+  <AvatarFallback>AL</AvatarFallback>
+</Avatar>
+```
+
+The image loads in the background and appears only once it has loaded. Until then, or if it fails, the fallback shows instead. Always add a fallback: initials, or an icon for someone with no name yet. To stop the initials flashing before a picture that loads quickly, set `delay` on `AvatarFallback`, in milliseconds.
+
+## Examples
+
+### Sizes
+
+`sm` is 32px, `md` (the default) 40px, `lg` 56px and `xl` 80px. The frame around the picture and the fallback's text size grow with it.
+
+<ComponentPreview name="avatar-sizes" />
+
+### Shapes
+
+`circle` (the default) is for people. `rounded` gives the frame and the picture rounded corners, for places, teams and other things that aren't a person.
+
+<ComponentPreview name="avatar-shapes" />
+
+### Status badge
+
+`AvatarBadge` puts a dot on the avatar's bottom corner, `--success` by default. Change its colour with a `bg-*` class. The dot is hidden from screen readers, so say the status in text as well, next to the name.
+
+<ComponentPreview name="avatar-badge" />
+
+### Group
+
+`AvatarGroup` overlaps avatars, and each raised frame keeps them visually apart. `AvatarGroupCount` shows how many more there are, in the same frame, and matches the size of the avatars in the group. Name the group with an `aria-label` that gives the full count.
+
+<ComponentPreview name="avatar-group" />
+
+### In context
+
+A trip's travellers in a [Card](/docs/components/card), one [Item](/docs/components/item) per person. A badge marks who's online, and the description says it in words. The last traveller has no picture, so their initials show.
+
+<ComponentPreview name="avatar-in-context" />
+
+## Accessibility
+
+- Base UI renders the avatar as a `<span>`, the picture as an `<img>` and the fallback as a `<span>`.
+- Give `AvatarImage` an `alt` that names the person. When their name is written beside the avatar, use `alt=""` so it isn't read twice.
+- Initials are all a fallback says. Where an avatar stands alone with no name beside it, add the name as visually hidden text (`sr-only`) inside the fallback.
+- `AvatarBadge` is `aria-hidden`. Say the status in text too, for example "Grace · online".
+- `AvatarGroup` has `role="group"`. Name it with `aria-label`, for example "6 travellers".
+
+## API reference
+
+### Avatar
+
+The frame. Takes every prop of Base UI's [Avatar.Root](https://base-ui.com/react/components/avatar).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` |
+| `shape` | `"circle" \| "rounded"` | `"circle"` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### AvatarImage
+
+The picture, cropped to fill the frame. It renders only once it has loaded. Takes every prop of Base UI's `Avatar.Image` and of the native `<img>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `src` | `string` | – |
+| `alt` | `string` | – |
+| `onLoadingStatusChange` | `(status: "idle" \| "loading" \| "loaded" \| "error") => void` | – |
+| `keepMounted` | `boolean` | `false` |
+
+### AvatarFallback
+
+Initials or an icon, centred and shown while there's no loaded picture. An icon without its own `size-*` class fills just over half the frame. Takes every prop of Base UI's `Avatar.Fallback`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `delay` | `number` | `0` |
+
+### AvatarBadge
+
+A status dot on the avatar's bottom corner, sized to the avatar. It goes inside `Avatar`, and is hidden from screen readers. Takes every prop of the native `<span>`.
+
+### AvatarGroup and AvatarGroupCount
+
+`AvatarGroup` overlaps the avatars inside it. `AvatarGroupCount` is the count at the end, such as "+3", in a raised frame sized to match the group's avatars. They take every prop of the native `<div>` and `<span>`.
+
+### avatarVariants
+
+```ts
+avatarVariants(options?: {
+  size?: "sm" | "md" | "lg" | "xl";
+  shape?: "circle" | "rounded";
+}): string;
+```
+
+Returns the frame's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"avatar"`, `"avatar-image"`, `"avatar-fallback"`, `"avatar-badge"`, `"avatar-group"` or `"avatar-group-count"` |
+| `data-size` | On the avatar, the `size` |
+| `data-shape` | On the avatar, the `shape` |
+| `data-starting-style`, `data-ending-style` | On the image, as it appears and before it's removed, for a transition |
+| `data-loading`, `data-error` | On the image with `keepMounted`, while it loads or after it fails |

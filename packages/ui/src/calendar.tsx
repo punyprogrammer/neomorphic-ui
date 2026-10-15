@@ -116,7 +116,7 @@ function CalendarDayButton({
 
 const NAV_BUTTON = cn(
   buttonVariants({ size: "sm", shape: "pill", iconOnly: true }),
-  "size-(--cell-size) aria-disabled:inset-shadow-neu-flat aria-disabled:cursor-not-allowed aria-disabled:bg-none aria-disabled:text-foreground/40 aria-disabled:shadow-neu-flat aria-disabled:hover:shadow-neu-flat"
+  "pointer-events-auto size-(--cell-size) aria-disabled:inset-shadow-neu-flat aria-disabled:cursor-not-allowed aria-disabled:bg-none aria-disabled:text-foreground/40 aria-disabled:shadow-neu-flat aria-disabled:hover:shadow-neu-flat"
 );
 
 // Short names keep the month pill narrow enough to sit between the nav buttons.
@@ -161,8 +161,10 @@ function Calendar({
           defaultClassNames.months
         ),
         month: cn("flex w-full flex-col gap-4", defaultClassNames.month),
+        // Spans the caption row, so it lets clicks through to the dropdowns
+        // and only its buttons take the pointer.
         nav: cn(
-          "absolute inset-x-0 top-0 z-10 flex items-center justify-between",
+          "pointer-events-none absolute inset-x-0 top-0 z-10 flex items-center justify-between",
           defaultClassNames.nav
         ),
         button_previous: cn(NAV_BUTTON, defaultClassNames.button_previous),

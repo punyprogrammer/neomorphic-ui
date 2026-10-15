@@ -1,0 +1,113 @@
+---
+title: Button Group
+description: Joins buttons into one raised slab, split by grooves, with segments that sink in while pressed.
+component: button-group
+---
+
+<ComponentPreview name="button-group-demo" />
+
+## Usage
+
+```tsx
+import { Button } from "@neomorphic-react/ui/button";
+import {
+  ButtonGroup,
+  ButtonGroupText,
+} from "@neomorphic-react/ui/button-group";
+```
+
+```tsx
+<ButtonGroup aria-label="Pagination">
+  <Button aria-label="Previous page" icon={<ChevronLeft />} size="sm" />
+  <ButtonGroupText>2 / 5</ButtonGroupText>
+  <Button aria-label="Next page" icon={<ChevronRight />} size="sm" />
+</ButtonGroup>
+```
+
+The group is one raised slab, like a single [Button](/docs/components/button). Its buttons drop their own shadow and fill, rest flat in the slab and sink into it while held. A groove separates each segment from the one before it.
+
+## Examples
+
+### Shape
+
+`shape` sets the slab's outer corners: `rounded` (the default) or `pill`. The first and last segments follow them, and the segments in between stay square.
+
+<ComponentPreview name="button-group-shapes" />
+
+### Text segments
+
+`ButtonGroupText` adds a non-interactive segment, such as a page readout or a quantity. Use `render` to give it a more specific element, like `<output>` for a value the buttons change. Disable a step at its bound rather than hiding it, so the layout doesn't jump.
+
+<ComponentPreview name="button-group-text" />
+
+### Pressed segments
+
+A button with `aria-pressed` stays sunk into the slab, which suits a toolbar of on/off formatting marks.
+
+<ComponentPreview name="button-group-pressed" />
+
+<Callout title="Single choice">
+  Each button in a group is its own tab stop. For a set of options where arrow keys should move between items, use [Toggle Group](/docs/components/toggle-group), which shares this slab.
+</Callout>
+
+### Vertical
+
+`orientation="vertical"` stacks the segments. The corners and grooves follow the axis.
+
+<ComponentPreview name="button-group-vertical" />
+
+### Sizes
+
+The group has no size of its own. It wraps whatever `size` its buttons use, so give every button in a group the same one.
+
+<ComponentPreview name="button-group-sizes" />
+
+### In context
+
+Quantity steppers in a shopping bag, each beside a button to remove the line.
+
+<ComponentPreview name="button-group-in-context" />
+
+## Accessibility
+
+- Renders a `<div role="group">`. Give it an `aria-label` that names what the buttons control.
+- The buttons keep their native behaviour: each is a separate tab stop, and Enter and Space activate it.
+- Icon-only segments have no visible text, so name each one with `aria-label`.
+- A segment with keyboard focus is stacked above its neighbours, so its focus outline isn't hidden behind the next segment.
+- When a text segment shows a value that changes, render it as an `<output>` or mark it `aria-live="polite"` so the change is announced.
+
+## API reference
+
+### ButtonGroup
+
+Renders a `<div>` and takes every prop of the native `<div>`. Use `render` to render a different element.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `shape` | `"rounded" \| "pill"` | `"rounded"` |
+
+The slab styles its direct children with `data-slot="button"` or `data-slot="toggle"`, so it works with [Button](/docs/components/button) and [Toggle](/docs/components/toggle) segments.
+
+### ButtonGroupText
+
+A non-interactive segment. Renders a `<span>` and takes every prop of the native `<span>`, plus `render`.
+
+### buttonGroupVariants
+
+```ts
+buttonGroupVariants(options?: {
+  orientation?: "horizontal" | "vertical";
+  shape?: "rounded" | "pill";
+}): string;
+```
+
+Returns the group's class names, for giving another container the same slab.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"button-group"`, or `"button-group-text"` on a text segment |
+| `data-orientation` | The `orientation` |
+| `data-shape` | The `shape` |

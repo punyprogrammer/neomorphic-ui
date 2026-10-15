@@ -1,0 +1,89 @@
+---
+title: Spinner
+description: A ring-shaped groove with an arc running around it, shown while something loads.
+component: spinner
+---
+
+<ComponentPreview name="spinner-demo" />
+
+## Usage
+
+```tsx
+import { Spinner } from "@neomorphic-react/ui/spinner";
+```
+
+```tsx
+<Spinner aria-label="Loading messages" />
+```
+
+The spinner is indeterminate: it shows that work is happening, not how much is left. When you know the amount, use [Progress](/docs/components/progress).
+
+## Examples
+
+### Sizes
+
+`sm` is 24px, `md` (the default) is 40px and `lg` is 64px. The groove deepens at `lg`.
+
+<ComponentPreview name="spinner-sizes" />
+
+### Colour
+
+The arc is `--primary`. Set `--spinner-fill` with an arbitrary property class to recolour it.
+
+<ComponentPreview name="spinner-colors" />
+
+### Standing in for content
+
+While a panel loads, put the spinner where the content will be and name it for what it's waiting on. The visible text repeats that name, so it's hidden from screen readers to avoid reading it twice.
+
+<ComponentPreview name="spinner-placeholder" />
+
+### In context
+
+Inside a status line, the text already says what's happening. The spinner sits in a `Marker`'s decorative icon slot, and `role="status"` on the marker announces the text.
+
+<ComponentPreview name="spinner-in-context" />
+
+<Callout title="Buttons have their own spinner">
+  For a button that's waiting on its action, use [Button](/docs/components/button)'s `isLoading` rather than placing a `Spinner` inside it. It keeps the button's size and focus, and sets `aria-busy`.
+</Callout>
+
+## Accessibility
+
+- The spinner has `role="status"` and is named "Loading". Pass `aria-label` to say what is loading.
+- With `aria-hidden`, it drops its role and name and is only decoration. Use this inside a control or region that already announces the wait.
+- The arc and the hub are decorative (`aria-hidden`).
+- The arc holds still when reduced motion is requested.
+
+## API reference
+
+### Spinner
+
+Renders a `<span>` and takes every prop of it, apart from `children`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `aria-label` | `string` | `"Loading"` |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### spinnerVariants
+
+```ts
+spinnerVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns the spinner's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"spinner"`, `"spinner-arc"` or `"spinner-hub"` |
+| `data-size` | On the root, the `size` |
+
+### CSS variables
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--spinner-fill` | `var(--color-primary)` | The arc's colour |

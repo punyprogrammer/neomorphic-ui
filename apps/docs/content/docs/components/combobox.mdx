@@ -1,0 +1,196 @@
+---
+title: Combobox
+description: A text field in a well that filters a raised list as you type, for one value or many.
+component: combobox
+primitive: https://base-ui.com/react/components/combobox
+---
+
+<ComponentPreview name="combobox-demo" />
+
+## Usage
+
+```tsx
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@neomorphic-react/ui/combobox";
+```
+
+```tsx
+const offices = ["Amsterdam", "Berlin", "Lisbon", "London"];
+
+<Combobox items={offices}>
+  <ComboboxInput aria-label="Office" placeholder="Search offices" showClear />
+  <ComboboxContent>
+    <ComboboxEmpty>No offices found.</ComboboxEmpty>
+    <ComboboxList>
+      {(office: string) => (
+        <ComboboxItem key={office} value={office}>
+          {office}
+        </ComboboxItem>
+      )}
+    </ComboboxList>
+  </ComboboxContent>
+</Combobox>
+```
+
+Pass `items` to `Combobox` and a render function to `ComboboxList`: the list then shows only the items that match the typed text, and `ComboboxEmpty` knows when nothing does. Use a combobox when the list is long enough that typing is quicker than scrolling. For a handful of options, use a [Select](/docs/components/select); for a search across actions or pages, use a [Command](/docs/components/command).
+
+## Examples
+
+### Groups
+
+Pass groups to `items`, each with a `value` and its own `items`. Render each group as a `ComboboxGroup` with a `ComboboxLabel`, and map its items in a `ComboboxCollection`. Groups with no matches drop out of the list as you type. Children of `ComboboxInput` go inside the well, so an `InputGroupAddon` adds a leading icon.
+
+<ComponentPreview name="combobox-groups" />
+
+### Multiple values
+
+`multiple` keeps an array of values. Show them as `ComboboxChip`s in a `ComboboxChips` well, with a `ComboboxChipsInput` after them, all inside a `ComboboxValue` render function. Get a ref from `useComboboxAnchor()`, put it on `ComboboxChips` and pass it to `ComboboxContent`'s `anchor`, so the list lines up with the whole well. Give each chip a `removeLabel` that names it.
+
+<ComponentPreview name="combobox-multiple" />
+
+### Searchable select
+
+For a select with a search box, put a `ComboboxValue` in a `ComboboxTrigger`, a raised button like the Select trigger, and the `ComboboxInput` inside `ComboboxContent`. `showTrigger={false}` drops the chevron from the search field. Opening the list moves focus to the search field.
+
+<ComponentPreview name="combobox-searchable-select" />
+
+### Sizes and shapes
+
+`size` on `ComboboxInput` is `sm` (32px), `md` (40px, the default) or `lg` (48px). `shape="pill"` rounds the well into a stadium. `className` on `ComboboxInput` goes to the well, so set its width there.
+
+<ComponentPreview name="combobox-sizes" />
+
+### Disabled and invalid
+
+- `disabled` on `ComboboxInput` dims the well and disables the field, the chevron and the clear button.
+- `aria-invalid` on `ComboboxInput` rings the well in `--destructive`. Point `aria-describedby` at the error message so it's read with the field.
+
+<ComponentPreview name="combobox-states" />
+
+### In context
+
+Sharing a document with people from a workspace. The items are `{ label, value }` objects, so the list filters by `label` with no extra props. The value is controlled with `value` and `onValueChange`, and the button counts the people chosen.
+
+<ComponentPreview name="combobox-in-context" />
+
+## Accessibility
+
+- The text field has `role="combobox"` and controls a `listbox` of `option`s. With `multiple`, the list is `aria-multiselectable`.
+- Typing filters the list. Arrow Down and Arrow Up open it and move the highlight, Enter chooses the highlighted option, and Escape closes the list.
+- Name the field with a `<label htmlFor>`, a `FieldLabel` or `aria-label`. On a `ComboboxTrigger`, use `aria-label` or a label; it also has `role="combobox"`.
+- `ComboboxEmpty` is a polite live region, so "no results" is announced.
+- `ComboboxChips` is a `toolbar`. From the start of the input, Arrow Left moves onto the chips; the arrow keys move between them, and Backspace or Delete removes the focused chip.
+- The chevron button is named "Show options" and the clear button "Clear". Each chip's remove button is named by `removeLabel`, "Remove" by default.
+- The chosen option is marked with a check and the `--primary` colour, not only by depth. The check, chevron and remove icons are decorative (`aria-hidden`).
+- Keyboard focus shows a 2px `--ring` outline around the well, the trigger or a chip.
+
+## API reference
+
+### Combobox
+
+Base UI's [Combobox.Root](https://base-ui.com/react/components/combobox) with no styling of its own, so it takes all of its props. It renders no element. The props you'll use most:
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `items` | `any[]` | – |
+| `value` | `any` | – |
+| `defaultValue` | `any` | – |
+| `onValueChange` | `(value, eventDetails) => void` | – |
+| `multiple` | `boolean` | `false` |
+| `inputValue` | `string` | – |
+| `onInputValueChange` | `(inputValue: string, eventDetails) => void` | – |
+| `filter` | `((item, query: string) => boolean) \| null` | Matches the item's label |
+| `itemToStringLabel` | `(value) => string` | – |
+| `autoHighlight` | `boolean` | `false` |
+| `name` | `string` | – |
+| `disabled` | `boolean` | `false` |
+| `required` | `boolean` | `false` |
+
+### ComboboxInput
+
+The text field, in an [Input Group](/docs/components/input-group) well, with a chevron button and an optional clear button at the end. Takes every prop of Base UI's `Combobox.Input`, apart from `className`, which must be a string and goes to the well. Its children go inside the well, such as an `InputGroupAddon`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"rounded" \| "pill"` | `"rounded"` |
+| `showTrigger` | `boolean` | `true` |
+| `showClear` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+| `className` | `string` | – |
+
+### ComboboxContent
+
+The list's raised card, portalled to the end of the document and as wide as the field. `align`, `alignOffset`, `anchor`, `side` and `sideOffset` go to Base UI's `Combobox.Positioner`; the remaining props go to `Combobox.Popup`, including `className`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `side` | `"top" \| "bottom" \| "left" \| "right" \| "inline-start" \| "inline-end"` | `"bottom"` |
+| `align` | `"start" \| "center" \| "end"` | `"start"` |
+| `sideOffset` | `number` | `8` |
+| `alignOffset` | `number` | `0` |
+| `anchor` | `RefObject<Element> \| Element` | The field or trigger |
+
+### ComboboxList and ComboboxItem
+
+`ComboboxList` scrolls the options; give it a render function over the filtered `items`. `ComboboxItem` is an option, with a check at its end while it's chosen. They take every prop of Base UI's `Combobox.List` and `Combobox.Item`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `any` | – |
+| `disabled` | `boolean` | `false` |
+
+### ComboboxEmpty
+
+Shown when nothing matches. It stays in the page, empty, the rest of the time, so screen readers hear the change. Takes every prop of Base UI's `Combobox.Empty`.
+
+### ComboboxGroup, ComboboxLabel, ComboboxCollection and ComboboxSeparator
+
+`ComboboxGroup` holds one group's `items` and `ComboboxLabel` names it. `ComboboxCollection` maps the group's filtered items through a render function. `ComboboxSeparator` is a groove between groups. They take every prop of Base UI's `Combobox.Group`, `Combobox.GroupLabel`, `Combobox.Collection` and `Combobox.Separator`.
+
+### ComboboxTrigger and ComboboxValue
+
+`ComboboxTrigger` is a raised button for a searchable select; the chevron is added for you. It takes every prop of Base UI's `Combobox.Trigger`. `ComboboxValue` shows the chosen item's label, or takes a render function over the value. It takes every prop of Base UI's `Combobox.Value`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` (trigger) | `"sm" \| "md" \| "lg"` | `"md"` |
+| `placeholder` (value) | `ReactNode` | – |
+
+### ComboboxClear
+
+The clear button that `showClear` adds. It renders only while there's a value. Takes every prop of Base UI's `Combobox.Clear`.
+
+### ComboboxChips, ComboboxChip and ComboboxChipsInput
+
+`ComboboxChips` is the well for `multiple`, and `ComboboxChipsInput` is the bare text field after the chips. `ComboboxChip` is a raised chip with a remove button. They take every prop of Base UI's `Combobox.Chips`, `Combobox.Chip` and `Combobox.Input`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `removeLabel` (chip) | `string` | `"Remove"` |
+| `showRemove` (chip) | `boolean` | `true` |
+
+### useComboboxAnchor
+
+```ts
+useComboboxAnchor(): RefObject<HTMLDivElement | null>;
+```
+
+Returns a ref to put on `ComboboxChips` and pass to `ComboboxContent`'s `anchor`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"input-group-control"` on the text field, `"combobox-trigger"`, `"combobox-clear"`, `"combobox-content"`, `"combobox-list"`, `"combobox-item"`, `"combobox-item-indicator"`, `"combobox-group"`, `"combobox-label"`, `"combobox-separator"`, `"combobox-empty"`, `"combobox-chips"`, `"combobox-chip"`, `"combobox-chip-remove"` or `"combobox-chips-input"` |
+| `data-size` | On `ComboboxTrigger`, the `size` |
+| `data-popup-open` | On the text field and the triggers, present while the list is open |
+| `data-highlighted` | On an item, present while it's highlighted by the pointer or the arrow keys |
+| `data-selected` | On an item, present when it's chosen |
+| `data-disabled` | On an item, the field or a trigger, present when disabled |

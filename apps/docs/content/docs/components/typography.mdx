@@ -1,0 +1,113 @@
+---
+title: Typography
+description: Text styles as components, from headings and body text to a quote in a shallow well and code pressed into the line.
+component: typography
+---
+
+<ComponentPreview name="typography-demo" />
+
+## Usage
+
+```tsx
+import {
+  TypographyH2,
+  TypographyInlineCode,
+  TypographyP,
+} from "@neomorphic-react/ui/typography";
+```
+
+```tsx
+<TypographyH2>Getting there</TypographyH2>
+<TypographyP>
+  Book a berth with <TypographyInlineCode>seat=lower</TypographyInlineCode> if you can.
+</TypographyP>
+```
+
+Use these parts for long-form text such as articles, help pages and release notes. Each part renders its own element with its style, and `render` swaps the element when the visual size and the document outline don't match. For the title and text inside a panel, use the parts of [Card](/docs/components/card) instead.
+
+## Examples
+
+### Headings
+
+`TypographyH1` to `TypographyH4` step down from `text-4xl` to `text-xl`. They use the `--font-heading` font when your theme sets one, and the body font otherwise. Headings have no top margin of their own, so add one with `className` where a section starts.
+
+<ComponentPreview name="typography-headings" />
+
+### Body text
+
+- `TypographyP` is body text. A paragraph that follows another element gets a top margin, so a run of paragraphs spaces itself.
+- `TypographyLead` is a larger, quieter intro paragraph.
+- `TypographyLarge` and `TypographySmall` set a line of text larger or smaller than the body, in `--foreground`.
+- `TypographyMuted` is small text in `--muted-foreground`, for notes and captions.
+
+<ComponentPreview name="typography-text" />
+
+### Lists, quotes and code
+
+`TypographyList` is a bulleted list with space around it; put `<li>` elements inside. `TypographyBlockquote` sets a quote in a shallow well, with a `--primary` rule at its start. `TypographyInlineCode` presses a short piece of code into the line, at a size relative to the text around it.
+
+<ComponentPreview name="typography-blocks" />
+
+### Changing the element
+
+Pick the part for how the text should look, then use `render` to pick the element it should be. Here a page title uses the `TypographyH2` style but renders an `<h1>`, and a date in the `TypographySmall` style is a `<time>`.
+
+<ComponentPreview name="typography-render" />
+
+`render` takes an element, such as `<time />`, or a function that renders one with the props it's given. For headings, the function form keeps linters that check for empty headings happy, because the text arrives through `props`.
+
+```tsx
+<TypographyH2 render={<h1 />}>Your trips</TypographyH2>
+<TypographyH2 render={(props) => <h1 {...props} />}>Your trips</TypographyH2>
+```
+
+### In context
+
+Release notes in a card. The `TypographyH3` style suits the card's size, and `render` makes it an `<h2>` so the outline still follows the page.
+
+<ComponentPreview name="typography-in-context" />
+
+## Accessibility
+
+- Each part renders a semantic element: headings are `<h1>` to `<h4>`, `TypographyList` is a `<ul>`, `TypographyBlockquote` is a `<blockquote>` and `TypographyInlineCode` is a `<code>`. Screen readers use these to navigate and announce the text.
+- Choose heading levels by the structure of the page, not by size. Use `render` to change the level and keep the style, rather than skipping levels.
+- `TypographyLarge` renders a `<div>` and `TypographySmall` a `<small>`. Neither is a heading; for a title, use a heading part.
+- `TypographyMuted` and `TypographyLead` use `--muted-foreground`. Keep important text in `--foreground` so it has the most contrast.
+
+## API reference
+
+### TypographyH1, TypographyH2, TypographyH3 and TypographyH4
+
+Render an `<h1>`, `<h2>`, `<h3>` and `<h4>`. Each takes every prop of its element, and `render`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### TypographyP, TypographyLead, TypographyLarge, TypographySmall and TypographyMuted
+
+`TypographyP`, `TypographyLead` and `TypographyMuted` render a `<p>`, `TypographyLarge` a `<div>` and `TypographySmall` a `<small>`. Each takes every prop of its element, and `render`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### TypographyBlockquote, TypographyList and TypographyInlineCode
+
+Render a `<blockquote>`, a `<ul>` and a `<code>`. Each takes every prop of its element, and `render`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `render` | `ReactElement \| (props, state) => ReactElement` | – |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"typography-h1"`, `"typography-h2"`, `"typography-h3"`, `"typography-h4"`, `"typography-p"`, `"typography-lead"`, `"typography-large"`, `"typography-small"`, `"typography-muted"`, `"typography-blockquote"`, `"typography-list"` or `"typography-inline-code"` |
+
+### CSS variables
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--font-heading` | The body font | The font of the four heading parts |

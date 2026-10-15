@@ -1,0 +1,125 @@
+---
+title: Button
+description: Raised from the surface at rest, pressed into it while held, flat when disabled.
+component: button
+primitive: https://base-ui.com/react/components/button
+---
+
+<ComponentPreview name="button-demo" />
+
+## Usage
+
+```tsx
+import { Button } from "@neomorphic-react/ui/button";
+```
+
+```tsx
+<Button variant="primary">Save changes</Button>
+```
+
+## Examples
+
+### Variants
+
+`default` and `destructive` are raised from the surface, `primary` is the dark fill for the main action on a screen, and `ghost` stays flat until it's hovered.
+
+<ComponentPreview name="button-variants" />
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the height, padding and icon size together.
+
+<ComponentPreview name="button-sizes" />
+
+### Icons
+
+Pass any element to `icon`: a lucide-react icon, an inline `<svg>` or an `<img>`. An SVG without its own `size-*` class is sized to match the button. `start` and `end` follow the writing direction, so they flip in right-to-left layouts; `top` and `bottom` stack the icon over or under the label.
+
+<ComponentPreview name="button-icon-positions" />
+
+### Icon only
+
+With an `icon` and no children, the button becomes a square icon tile. `shape="pill"` makes it a circle. An icon-only button has no visible text, so always give it an `aria-label`.
+
+<ComponentPreview name="button-icon-only" />
+
+### Toggle, loading and disabled
+
+- `aria-pressed` presses the button in, for a simple on/off action. For a toggle with its own state, use [Toggle](/docs/components/toggle).
+- `isLoading` shows a spinner over the content and blocks clicks. The button keeps its size and stays focusable, so focus isn't lost mid-submit.
+- `disabled` flattens the button and dims it.
+
+<ComponentPreview name="button-states" />
+
+### Colour
+
+Colour comes from theme tokens through `className`. A `bg-*` token class replaces the raised gradient, and the press, hover and disabled states keep working on top of it. Pair each fill with its `-foreground` token so the label keeps its contrast.
+
+<ComponentPreview name="button-colors" />
+
+<Callout title="Keep status colours for fills">
+  `--success` and `--warning` are fill colours. As text or icons on the raised surface they fall below the 3:1 minimum contrast, so use them as `bg-*` with their `-foreground` partner.
+</Callout>
+
+### As a link
+
+Base UI's `Button` always has `role="button"`, even when it renders another element. For navigation, keep a real link and style it with `buttonVariants()`, which takes the same `variant`, `size` and `shape` options.
+
+<ComponentPreview name="button-as-link" />
+
+```tsx
+import { buttonVariants } from "@neomorphic-react/ui/button";
+
+<a className={buttonVariants({ variant: "primary" })} href="/docs">
+  Read the docs
+</a>
+```
+
+## Accessibility
+
+- Renders a native `<button type="button">`, so Enter and Space activate it and it takes part in the tab order.
+- The icon is decorative (`aria-hidden`). When there is no visible label, name the button with `aria-label`.
+- While `isLoading`, the button sets `aria-busy` and uses `aria-disabled` instead of `disabled`, so it keeps focus.
+- Keyboard focus shows a 2px `--ring` outline, offset from the button so it never blends into the shadow.
+
+## API reference
+
+### Button
+
+Takes every prop of Base UI's [Button](https://base-ui.com/react/components/button) and of the native `<button>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"default" \| "primary" \| "destructive" \| "ghost"` | `"default"` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `shape` | `"pill" \| "rounded"` | `"pill"`, or `"rounded"` when icon-only |
+| `icon` | `ReactNode` | – |
+| `iconPosition` | `"start" \| "end" \| "top" \| "bottom"` | `"start"` |
+| `isLoading` | `boolean` | `false` |
+| `fullWidth` | `boolean` | `false` |
+| `disabled` | `boolean` | `false` |
+
+### buttonVariants
+
+```ts
+buttonVariants(options?: {
+  variant?: "default" | "primary" | "destructive" | "ghost";
+  size?: "sm" | "md" | "lg";
+  shape?: "pill" | "rounded";
+  iconOnly?: boolean;
+  fullWidth?: boolean;
+}): string;
+```
+
+Returns the button's class names, for styling a link or another element as a button.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"button"` |
+| `data-variant` | The `variant` |
+| `data-size` | The `size` |
+| `data-icon-only` | Present when there's an icon and no children |
+| `data-icon-position` | The `iconPosition`, when there's an icon |
+| `data-loading` | Present while `isLoading` |

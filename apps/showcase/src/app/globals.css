@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import "@neomorphic-react/ui/base.css";
+@import "@neomorphic-react/ui/theme.css";
+@import "./themes.css";
+
+/* The components ship Tailwind class names; scan them so their utilities
+   are generated. Relative to this file. */
+@source "../../../../packages/ui/src";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-display: var(--font-sans);
+}
+
+/* Now-playing equalizer bars; they stand still for reduced motion. */
+@keyframes eq {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@utility animate-eq {
+  animation: eq 0.9s ease-in-out infinite;
+  transform-origin: bottom;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    transform: scaleY(0.6);
+  }
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}

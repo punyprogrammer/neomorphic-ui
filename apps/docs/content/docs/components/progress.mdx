@@ -1,0 +1,124 @@
+---
+title: Progress
+description: A well in the surface with a raised fill that shows how far a task has got.
+component: progress
+primitive: https://base-ui.com/react/components/progress
+---
+
+<ComponentPreview name="progress-demo" />
+
+## Usage
+
+```tsx
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from "@neomorphic-react/ui/progress";
+```
+
+```tsx
+<Progress value={40}>
+  <div className="flex justify-between">
+    <ProgressLabel>Uploading</ProgressLabel>
+    <ProgressValue />
+  </div>
+</Progress>
+```
+
+`Progress` draws the track and the fill itself. Its children sit above the bar, so that's where `ProgressLabel` and `ProgressValue` go.
+
+## Examples
+
+### Sizes
+
+`sm` and `md` (the default) are thin rounded bars. `lg` is a deep, square-cornered bar, tall enough to print the value inside the fill.
+
+<ComponentPreview name="progress-sizes" />
+
+### Value inside
+
+`valueInside` prints the value inside the fill. While the fill is too narrow to hold it, the value moves just past the fill's end. It's meant for `size="lg"`.
+
+<ComponentPreview name="progress-value-inside" />
+
+<Callout title="Check the value's contrast">
+  The value inside the fill uses `--progress-fill-foreground`, or `--primary-foreground` when it isn't set. When you recolour the fill, make sure the pair still reaches 4.5:1.
+</Callout>
+
+### Indeterminate
+
+Pass `value={null}` while the amount of work is unknown. A short fill sweeps across the track instead, and holds still when reduced motion is requested.
+
+<ComponentPreview name="progress-indeterminate" />
+
+### Custom scale and format
+
+`min` and `max` set the scale, so `value` can be a step count or a size rather than a percentage. `format` takes `Intl.NumberFormat` options for the value; without it, the value is shown as a percentage. `getAriaValueText` sets what screen readers announce, and a function child of `ProgressValue` sets what's printed.
+
+<ComponentPreview name="progress-steps" />
+
+### In context
+
+A card of daily goals, each bar on its own scale through `max` and recoloured with `--progress-fill`. The figures beside each label are plain text, so `ProgressValue` isn't needed.
+
+<ComponentPreview name="progress-in-context" />
+
+## Accessibility
+
+- The root has `role="progressbar"` with `aria-valuemin`, `aria-valuemax` and `aria-valuenow`. While `value` is `null`, `aria-valuenow` is left out and `aria-valuetext` is "indeterminate progress".
+- `aria-valuetext` is the formatted value: a percentage by default, or the `format` you pass. Override it with `getAriaValueText`.
+- `ProgressLabel` names the bar. Without a visible label, put an `aria-label` on `Progress`.
+- The indeterminate sweep stops when reduced motion is requested.
+
+## API reference
+
+### Progress
+
+Takes every prop of Base UI's [Progress.Root](https://base-ui.com/react/components/progress).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `value` | `number \| null` | – |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `valueInside` | `boolean` | `false` |
+| `format` | `Intl.NumberFormatOptions` | – |
+| `getAriaValueText` | `(formattedValue: string, value: number \| null) => string` | – |
+| `locale` | `Intl.LocalesArgument` | – |
+
+`value` is required: pass `null` for an indeterminate bar.
+
+### ProgressLabel
+
+Names the progress bar. Takes every prop of Base UI's `Progress.Label`.
+
+### ProgressValue
+
+The value as a percentage, or formatted with the bar's `format`. Takes every prop of Base UI's `Progress.Value`; pass a function as its child, `(formattedValue, value) => ReactNode`, to print something else.
+
+### progressTrackVariants
+
+```ts
+progressTrackVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Returns the track's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"progress"`, `"progress-track"`, `"progress-indicator"`, `"progress-label"` or `"progress-value"` |
+| `data-size` | On the root, the `size` |
+| `data-progressing` | Present while `value` is below `max` |
+| `data-complete` | Present when `value` reaches `max` |
+| `data-indeterminate` | Present while `value` is `null` |
+
+### CSS variables
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--progress-fill` | `var(--color-primary)` | The fill's colour, darkening towards its start |
+| `--progress-fill-foreground` | `var(--color-primary-foreground)` | The colour of the value printed inside the fill with `valueInside` |

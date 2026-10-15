@@ -1,0 +1,99 @@
+---
+title: Scroll Area
+description: A scrolling region with a raised pill thumb in a groove, shown while you use it, and optional fades at edges with more to see.
+component: scroll-area
+primitive: https://base-ui.com/react/components/scroll-area
+---
+
+<ComponentPreview name="scroll-area-demo" />
+
+## Usage
+
+```tsx
+import { ScrollArea } from "@neomorphic-react/ui/scroll-area";
+```
+
+```tsx
+<ScrollArea className="h-72 w-56 rounded-xl" fade>
+  {stops.map((stop) => (
+    <p key={stop}>{stop}</p>
+  ))}
+</ScrollArea>
+```
+
+Use a scroll area for a region of a page that scrolls on its own, such as a long list in a card, a sidebar or a row of thumbnails, so its scrollbars match the rest of the interface. Give it a fixed height, or a width for a horizontal one; it fills no space of its own. For a whole page, let the browser scroll the document instead.
+
+## Examples
+
+### Horizontal
+
+`orientation="horizontal"` shows a scrollbar along the bottom instead of the side. Give the content `w-max` so it lays out in one row rather than wrapping.
+
+<ComponentPreview name="scroll-area-horizontal" />
+
+### Both directions
+
+`orientation="both"` shows both scrollbars, for content that's wider and taller than the area, such as a timetable. A scrollbar only appears when its direction overflows.
+
+<ComponentPreview name="scroll-area-both" />
+
+### Edge fades
+
+`fade` fades the content out at an edge that has more to scroll to, and the fade goes when you reach that edge. It works with a `vertical` or `horizontal` area, not with `both`.
+
+<ComponentPreview name="scroll-area-fade" />
+
+### In context
+
+A card of unread messages. The scroll area holds an [Item](/docs/components/item) list at a fixed height, so the card keeps its size however many messages arrive. `px-0` on the card content lets the area reach the card's sides.
+
+<ComponentPreview name="scroll-area-in-context" />
+
+## Accessibility
+
+- When the content overflows, the viewport joins the tab order, so keyboard users can focus it and scroll with the arrow keys, Page Up, Page Down, Home and End. It leaves the tab order again when there's nothing to scroll.
+- Keyboard focus on the viewport shows a 2px `--ring` outline inside its edge.
+- Content scrolls by wheel, touch and keyboard in any direction it overflows, whichever scrollbars `orientation` shows.
+- The scrollbars fade in while the pointer is over the area or it's scrolling. The thumb's position shows how far you've scrolled, not only its depth.
+
+## API reference
+
+### ScrollArea
+
+Takes every prop of Base UI's [ScrollArea.Root](https://base-ui.com/react/components/scroll-area), including `className`, which goes on the root. Its children go inside the viewport, and the scrollbars are rendered for you.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"vertical" \| "horizontal" \| "both"` | `"vertical"` |
+| `fade` | `boolean` | `false` |
+| `overflowEdgeThreshold` | `number \| { xStart?: number; xEnd?: number; yStart?: number; yEnd?: number }` | `0` |
+
+### ScrollBar
+
+The groove and thumb that `ScrollArea` renders. It needs a Base UI `ScrollArea.Root` around it, so you'll only use it when building your own scroll area from Base UI's parts. Takes every prop of Base UI's `ScrollArea.Scrollbar`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"vertical" \| "horizontal"` | `"vertical"` |
+| `keepMounted` | `boolean` | `false` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"scroll-area"`, `"scroll-area-viewport"`, `"scroll-area-scrollbar"` or `"scroll-area-thumb"` |
+| `data-has-overflow-x`, `data-has-overflow-y` | On the root, the viewport and the scrollbars, present when the content is wider or taller than the area |
+| `data-overflow-x-start`, `data-overflow-x-end` | Present when there's more to scroll to at that horizontal edge |
+| `data-overflow-y-start`, `data-overflow-y-end` | Present when there's more to scroll to at that vertical edge |
+| `data-scrolling` | Present while the area is scrolling |
+| `data-hovering` | On a scrollbar, present while the pointer is over the area |
+| `data-orientation` | On a scrollbar, `"vertical"` or `"horizontal"` |
+
+### CSS variables
+
+Set by Base UI on the viewport, and used by `fade`.
+
+| Variable | Description |
+| --- | --- |
+| `--scroll-area-overflow-x-start`, `--scroll-area-overflow-x-end` | The distance in pixels from the horizontal start or end edge |
+| `--scroll-area-overflow-y-start`, `--scroll-area-overflow-y-end` | The distance in pixels from the top or bottom edge |

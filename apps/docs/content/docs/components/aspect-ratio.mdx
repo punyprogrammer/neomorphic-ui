@@ -1,0 +1,69 @@
+---
+title: Aspect Ratio
+description: A frame that keeps an image, video or map at a fixed shape at any width, cropping media to fill it.
+component: aspect-ratio
+---
+
+<ComponentPreview name="aspect-ratio-demo" />
+
+## Usage
+
+```tsx
+import { AspectRatio } from "@neomorphic-react/ui/aspect-ratio";
+```
+
+```tsx
+<AspectRatio className="rounded-xl" ratio={16 / 9}>
+  <img alt="Lisbon at dusk" src="/lisbon.jpg" />
+</AspectRatio>
+```
+
+Use an aspect ratio frame when media should keep its shape as the layout resizes, such as a cover image in a card or a gallery of thumbnails. It also reserves the space before the media loads, so the page doesn't jump. The frame has no surface of its own; add corners and depth with `className`.
+
+## Examples
+
+### Ratios
+
+`ratio` is the width divided by the height, so `16 / 9` is a wide frame and `1` (the default) is a square. The frame takes the full width of its container and sets its height from that.
+
+<ComponentPreview name="aspect-ratio-ratios" />
+
+### Cropping
+
+An `<img>` or `<video>` that's a direct child fills the frame and is cropped to fit, from the centre. To keep a different part in view, change its position with a class such as `[&>img]:object-top`. Here a wide screenshot sits in square frames, cropped from the centre and from the top.
+
+<ComponentPreview name="aspect-ratio-crop" />
+
+### Other content
+
+Any other child keeps its own size, so give it `size-full` to fill the frame. Here a [Skeleton](/docs/components/skeleton) holds the space while an image loads, and a message stands in for a map that can't load.
+
+<ComponentPreview name="aspect-ratio-content" />
+
+### In context
+
+Cover images on a pair of [Card](/docs/components/card)s. The frame sits at the top of each card, and `pt-0` on the card lets it run to the card's edges, so both images line up whatever their source size.
+
+<ComponentPreview name="aspect-ratio-in-context" />
+
+## Accessibility
+
+- The frame is a plain `<div>` with no role, so it adds nothing to what screen readers read.
+- Give each image an `alt` that describes it, or `alt=""` when it's decorative and the text nearby says everything.
+- Cropping can cut off part of an image. When that part matters, such as text in a screenshot, choose the position with `object-*` or use a ratio closer to the source.
+
+## API reference
+
+### AspectRatio
+
+Renders a `<div>` and takes every prop of it. `ratio` sets its `aspect-ratio` style; an `aspectRatio` in `style` overrides it.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `ratio` | `number` | `1` |
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"aspect-ratio"` |

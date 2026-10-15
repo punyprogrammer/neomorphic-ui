@@ -1,0 +1,172 @@
+---
+title: Field
+description: A label, a description and an error message wrapped around one form control, and linked to it.
+component: field
+primitive: https://base-ui.com/react/components/field
+---
+
+<ComponentPreview name="field-demo" />
+
+## Usage
+
+```tsx
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@neomorphic-react/ui/field";
+import { Input } from "@neomorphic-react/ui/input";
+```
+
+```tsx
+<Field invalid={Boolean(error)}>
+  <FieldLabel>Email</FieldLabel>
+  <Input type="email" />
+  <FieldDescription>We'll send your tickets here.</FieldDescription>
+  {error ? <FieldError>{error}</FieldError> : null}
+</Field>
+```
+
+Put one control in each `Field`. Library controls built on Base UI are linked to the field for you: the `FieldLabel` names them, the `FieldDescription` and `FieldError` describe them, and `invalid` marks them invalid. That covers [Input](/docs/components/input), [Input Group](/docs/components/input-group)'s input, [Input OTP](/docs/components/input-otp), [Select](/docs/components/select), [Combobox](/docs/components/combobox), [Checkbox](/docs/components/checkbox), [Switch](/docs/components/switch), [Radio Group](/docs/components/radio-group) and [Slider](/docs/components/slider). For a control on its own, a plain [Label](/docs/components/label) is enough.
+
+## Examples
+
+### Any control
+
+`Input` and `Select` are linked to the field with no `id`s. [Textarea](/docs/components/textarea) and [Native Select](/docs/components/native-select) are native elements, so a `Field` can't see them: give the control an `id`, set the same value as the `FieldLabel`'s `htmlFor`, and point `aria-describedby` at the `FieldDescription`. `FieldGroup` stacks the fields with even spacing.
+
+<ComponentPreview name="field-controls" />
+
+### Orientation
+
+- `vertical` (the default) stacks the label, control and messages.
+- `horizontal` puts the control beside its label, for a checkbox, switch or radio item. Wrap the label and description in `FieldContent` to keep them together.
+- `responsive` is a column in a narrow `FieldGroup` and a row once the group is at least 28rem wide. It measures the group, not the window.
+
+<ComponentPreview name="field-orientation" />
+
+### Validation
+
+The field checks the control's native constraints, such as `required`, `minLength` and `type`, and runs `validate` with the value. Return a message to mark the field invalid, or `null` when it's fine. `validationMode` sets when this happens: `"onSubmit"` (the default), `"onBlur"` or `"onChange"`. A `FieldError` with no children shows the message from `validate`, or the browser's own; add `match`, such as `match="valueMissing"`, to show your own text for one failure.
+
+<ComponentPreview name="field-validation" />
+
+### Errors from a form library
+
+When a form library or your own state does the checking, set `invalid` on the `Field` and pass the messages to `FieldError`'s `errors`. It takes a list of `{ message }` objects, the shape form libraries such as React Hook Form and TanStack Form report errors in. Repeated messages are dropped, and more than one becomes a list.
+
+<ComponentPreview name="field-errors" />
+
+### Fieldsets and choice cards
+
+`FieldSet` groups related fields under a `FieldLegend`, which names the group. Use `variant="label"` on the legend when the group reads as one question. A `FieldLabel` wrapped around a whole `Field` becomes a raised card: a click anywhere on it toggles the control, and once it's checked the card presses in and gains a `--primary` edge. `FieldTitle` is the card's heading, since the card itself is the label.
+
+<ComponentPreview name="field-choice-cards" />
+
+### In context
+
+A booking form. Each control sits in its own `Field`, `FieldSet`s split the form into named groups, and `FieldSeparator` puts a heading on the groove between them. The radio group takes its name from the `Seat` legend.
+
+<ComponentPreview name="field-in-context" />
+
+## Accessibility
+
+- `FieldLabel` renders a `<label>` linked to the field's control, so the control takes the label's text as its name, and clicking the label focuses or toggles the control.
+- `FieldDescription` and a shown `FieldError` are added to the control's `aria-describedby`, so they're read with it.
+- `invalid` on the `Field`, or a failed check, sets `aria-invalid` on the control, which adds the control's `--destructive` ring.
+- `disabled` on the `Field` disables the control and dims the label.
+- `FieldSet` renders a `<fieldset>` named by its `FieldLegend`, so screen readers announce the group as you enter it.
+- In a choice card, the whole card is the label, so its title and description make up the control's name.
+- The groove in `FieldSeparator` is decorative; only its text is read.
+
+## API reference
+
+### Field
+
+One form field. Takes every prop of Base UI's [Field.Root](https://base-ui.com/react/components/field).
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `orientation` | `"vertical" \| "horizontal" \| "responsive"` | `"vertical"` |
+| `invalid` | `boolean` | – |
+| `disabled` | `boolean` | `false` |
+| `name` | `string` | – |
+| `validate` | `(value, formValues) => string \| string[] \| null \| Promise<…>` | – |
+| `validationMode` | `"onSubmit" \| "onBlur" \| "onChange"` | `"onSubmit"` |
+| `validationDebounceTime` | `number` | `0` |
+| `dirty` | `boolean` | – |
+| `touched` | `boolean` | – |
+
+`name` on the field wins over the control's own `name`. `validationDebounceTime` delays `validate` while typing when `validationMode` is `"onChange"`.
+
+### FieldLabel
+
+Names the field's control. Takes every prop of Base UI's `Field.Label`. Wrapped around a whole `Field`, it renders a plain `<label>` and becomes a choice card.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `htmlFor` | `string` | – |
+| `nativeLabel` | `boolean` | `true` |
+
+Set `htmlFor` only for a native control such as `Textarea` or `NativeSelect`. Base UI controls are linked for you.
+
+### FieldDescription
+
+Help text for the control. Takes every prop of Base UI's `Field.Description`. Outside a `Field`, such as under a `FieldLegend` or in a choice card, it's a plain `<p>`.
+
+### FieldError
+
+The error message. Takes every prop of Base UI's `Field.Error`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `errors` | `({ message?: string } \| undefined)[]` | – |
+| `match` | `boolean \| keyof ValidityState` | – |
+| `children` | `ReactNode` | – |
+
+With `children` or `errors`, the message is always shown, so render it only while the field is invalid. With neither, it shows the browser's or `validate`'s message whenever the field fails a check. `match` limits it to one validity state, such as `"valueMissing"`.
+
+### FieldContent and FieldTitle
+
+`FieldContent` stacks a label and description beside a horizontal field's control. `FieldTitle` is a heading styled like a label that isn't a `<label>`, for a choice card. Both take every prop of the native `<div>`.
+
+### FieldGroup
+
+Stacks fields with a 24px gap, or 16px when nested in another group. It's also the container that `orientation="responsive"` measures. Takes every prop of the native `<div>`.
+
+### FieldSet and FieldLegend
+
+`FieldSet` is a `<fieldset>` for related fields, and takes every prop of Base UI's [Fieldset.Root](https://base-ui.com/react/components/fieldset), including `disabled`. `FieldLegend` names it, and takes every prop of Base UI's `Fieldset.Legend`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"legend" \| "label"` | `"legend"` |
+
+`legend` is a section heading; `label` is the size of a `FieldLabel`.
+
+### FieldSeparator
+
+A groove between parts of a form, with optional text over it. Takes every prop of the native `<div>`.
+
+### fieldVariants
+
+```ts
+fieldVariants(options?: {
+  orientation?: "vertical" | "horizontal" | "responsive";
+}): string;
+```
+
+Returns the field's class names.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"field"`, `"field-label"`, `"field-description"`, `"field-error"`, `"field-content"`, `"field-title"`, `"field-group"`, `"field-set"`, `"field-legend"`, `"field-separator"` or `"field-separator-content"` |
+| `data-orientation` | On the field, the `orientation` |
+| `data-variant` | On the legend, the `variant` |
+| `data-content` | On the separator, present when it has text |
+| `data-disabled` | On the field or fieldset, present when disabled |
+| `data-valid`, `data-invalid` | On the field, the result of validation |
+| `data-dirty`, `data-touched`, `data-filled`, `data-focused` | On the field, present once the value has changed, once the control has been focused and left, while it has a value, or while it has focus |

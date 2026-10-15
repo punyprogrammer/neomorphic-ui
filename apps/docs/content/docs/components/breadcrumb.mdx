@@ -1,0 +1,118 @@
+---
+title: Breadcrumb
+description: The path to the current page as a row of links, with the current page pressed into the surface.
+component: breadcrumb
+---
+
+<ComponentPreview name="breadcrumb-demo" />
+
+## Usage
+
+```tsx
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@neomorphic-react/ui/breadcrumb";
+```
+
+```tsx
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Booking</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
+
+Use a breadcrumb at the top of a page that sits deep in a hierarchy, so people can see where they are and step back up. Ancestors are links in the muted text colour; the current page isn't a link. It doesn't replace the main navigation: for that, use a [Navigation Menu](/docs/components/navigation-menu) or a [Sidebar](/docs/components/sidebar). To move through pages of results, use [Pagination](/docs/components/pagination).
+
+## Examples
+
+### Custom separator
+
+`BreadcrumbSeparator` draws a chevron by default. Pass any icon or text as its children to replace it. An SVG inside it is sized to 14px.
+
+<ComponentPreview name="breadcrumb-separator" />
+
+### Collapsed
+
+When the trail is long, replace the middle items with `BreadcrumbEllipsis`. Put it inside a [Dropdown Menu](/docs/components/dropdown-menu) trigger so the hidden pages are still one click away. The ellipsis is named "More pages" for screen readers, which names the trigger too; give the trigger a focus outline with `className`.
+
+<ComponentPreview name="breadcrumb-collapsed" />
+
+### Icon
+
+An icon can stand in for a link's text, such as a house for the home page. Size it with a `size-*` class, mark it `aria-hidden`, and name the link with `aria-label`.
+
+<ComponentPreview name="breadcrumb-icon" />
+
+### In context
+
+A page header: the trail sits above the page title, with the page's actions at the end.
+
+<ComponentPreview name="breadcrumb-in-context" />
+
+## Accessibility
+
+- `Breadcrumb` renders a `<nav>` landmark named "Breadcrumb". If a page has two, give the second its own `aria-label`.
+- The trail is an ordered list. Separators are `aria-hidden` with `role="presentation"`, so screen readers count only the real items.
+- `BreadcrumbPage` carries `aria-current="page"`. Besides being pressed in, it's set in the foreground colour and a heavier weight than the links.
+- `BreadcrumbEllipsis` has a visually hidden "More pages" label, and its icon is decorative.
+- In right-to-left layouts, the default chevron points the other way.
+- Keyboard focus on a link shows a 2px `--ring` outline, offset from it. Links underline on hover.
+
+## API reference
+
+### Breadcrumb
+
+The landmark. Takes every prop of the native `<nav>`.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `aria-label` | `string` | `"Breadcrumb"` |
+
+### BreadcrumbList and BreadcrumbItem
+
+`BreadcrumbList` is the `<ol>` holding the trail, in small muted text that wraps onto more lines when it runs out of room. `BreadcrumbItem` is one `<li>` in it. They take every prop of the native `<ol>` and `<li>`.
+
+### BreadcrumbLink
+
+An ancestor page. Renders an `<a>` and takes every prop of the native `<a>`. `render` swaps the element, for a router link:
+
+```tsx
+import Link from "next/link";
+
+<BreadcrumbLink render={<Link href="/trips" />}>Trips</BreadcrumbLink>
+```
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `href` | `string` | – |
+| `render` | `ReactElement \| ((props) => ReactElement)` | – |
+
+### BreadcrumbPage
+
+The current page, pressed into the surface. Takes every prop of the native `<span>`.
+
+### BreadcrumbSeparator
+
+An `<li>` between items, hidden from assistive tech. Its children replace the chevron. Takes every prop of the native `<li>`.
+
+### BreadcrumbEllipsis
+
+Stands in for collapsed items, with a hidden "More pages" label. Takes every prop of the native `<span>`.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"breadcrumb"`, `"breadcrumb-list"`, `"breadcrumb-item"`, `"breadcrumb-link"`, `"breadcrumb-page"`, `"breadcrumb-separator"` or `"breadcrumb-ellipsis"` |

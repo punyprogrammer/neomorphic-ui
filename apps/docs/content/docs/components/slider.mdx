@@ -1,0 +1,137 @@
+---
+title: Slider
+description: A groove in the surface with a raised thumb you drag or step to pick a value or a range.
+component: slider
+primitive: https://base-ui.com/react/components/slider
+---
+
+<ComponentPreview name="slider-demo" />
+
+## Usage
+
+```tsx
+import { Slider, SliderLabel, SliderValue } from "@neomorphic-react/ui/slider";
+```
+
+```tsx
+<Slider defaultValue={30}>
+  <div className="flex justify-between">
+    <SliderLabel>Volume</SliderLabel>
+    <SliderValue />
+  </div>
+</Slider>
+```
+
+`Slider` draws the track, the fill and the thumbs itself. Its children sit above the track, so that's where `SliderLabel` and `SliderValue` go.
+
+## Examples
+
+### Range
+
+Pass an array to `value` or `defaultValue` for a range, with one thumb per value. Name each thumb with `getAriaLabel`, and keep the thumbs apart with `minStepsBetweenValues`. `format` takes `Intl.NumberFormat` options and is used by `SliderValue` and by screen readers.
+
+<ComponentPreview name="slider-range" />
+
+### Sizes
+
+`sm`, `md` (the default) and `lg` set the track's thickness and the thumb's size together.
+
+<ComponentPreview name="slider-sizes" />
+
+### Vertical
+
+`orientation="vertical"` stands the slider upright. It fills the height of its container and is at least 10rem tall, so give the container a height.
+
+<ComponentPreview name="slider-vertical" />
+
+### Colour
+
+The fill is `--primary`, fading towards the start of the track. Set `--slider-fill` with an arbitrary property class to recolour it.
+
+<ComponentPreview name="slider-colors" />
+
+<Callout title="Keep the fill visible">
+  The fill is the only thing that shows the value at a glance, so pick a `--slider-fill` with at least 3:1 contrast against the surface.
+</Callout>
+
+### Icons and disabled
+
+Icons at either end of the track are decoration, so hide them with `aria-hidden` and name the slider with `aria-label`. `disabled` dims the slider and its label and stops it responding to the pointer and the keyboard.
+
+<ComponentPreview name="slider-states" />
+
+### In context
+
+Controlled sliders in a player: `value` and `onValueChange` keep the position and volume in state, so the buttons and the timer move the thumb too.
+
+<ComponentPreview name="slider-in-context" />
+
+## Accessibility
+
+- Each thumb holds a native `<input type="range">`, so screen readers announce it as a slider with its value.
+- `SliderLabel` names every thumb. Without one, use `aria-label` on `Slider`, or `getAriaLabel` to name each thumb of a range.
+- Arrow keys move by `step`, Page Up and Page Down move by `largeStep`, and Home and End jump to `min` and `max`. A vertical slider sets `aria-orientation="vertical"`.
+- The thumb's grip grooves are decorative (`aria-hidden`).
+- Keyboard focus shows a `--ring` outline around the thumb, offset from its shadow.
+
+## API reference
+
+### Slider
+
+Takes every prop of Base UI's [Slider.Root](https://base-ui.com/react/components/slider). `aria-label` and `getAriaLabel` are passed on to the thumbs.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` |
+| `value` | `number \| number[]` | – |
+| `defaultValue` | `number \| number[]` | – |
+| `onValueChange` | `(value, eventDetails) => void` | – |
+| `onValueCommitted` | `(value, eventDetails) => void` | – |
+| `min` | `number` | `0` |
+| `max` | `number` | `100` |
+| `step` | `number` | `1` |
+| `largeStep` | `number` | `10` |
+| `minStepsBetweenValues` | `number` | `0` |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `format` | `Intl.NumberFormatOptions` | – |
+| `thumbAlignment` | `"center" \| "edge" \| "edge-client-only"` | `"edge"` |
+| `aria-label` | `string` | – |
+| `getAriaLabel` | `(index: number) => string` | – |
+| `name` | `string` | – |
+| `disabled` | `boolean` | `false` |
+
+`thumbAlignment="edge"` keeps the thumb inside the track at both ends.
+
+### SliderLabel
+
+Names the slider. Takes every prop of Base UI's `Slider.Label`.
+
+### SliderValue
+
+The current value, or both values of a range, formatted with the slider's `format`. Takes every prop of Base UI's `Slider.Value`.
+
+### sliderControlVariants, sliderTrackVariants and sliderThumbVariants
+
+```ts
+sliderControlVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+sliderTrackVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+sliderThumbVariants(options?: { size?: "sm" | "md" | "lg" }): string;
+```
+
+Return the class names of the control, the track and the thumb.
+
+### Data attributes
+
+| Attribute | Values |
+| --- | --- |
+| `data-slot` | `"slider"`, `"slider-control"`, `"slider-track"`, `"slider-indicator"`, `"slider-thumb"`, `"slider-label"` or `"slider-value"` |
+| `data-size` | On the root, the `size` |
+| `data-orientation` | `"horizontal"` or `"vertical"` |
+| `data-disabled` | Present when disabled |
+| `data-dragging` | Present while a thumb is being dragged |
+
+### CSS variables
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `--slider-fill` | `var(--color-primary)` | The fill's colour, at its brightest next to the thumb |
