@@ -8,7 +8,7 @@ insertions: 3737
 deletions: 12
 ---
 
-<!-- nav --> [← 0023](0023-add-input-and-input-groups.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0023](0023-add-input-and-input-groups.md) · [Index](README.md) · [0027 →](0027-add-phase-3-components.md)
 
 # 0025 · add-phase-2-components
 
