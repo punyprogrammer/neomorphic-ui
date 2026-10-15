@@ -8,7 +8,7 @@ insertions: 128
 deletions: 85
 ---
 
-<!-- nav --> [← 0039](0039-sync-with-remote.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0039](0039-sync-with-remote.md) · [Index](README.md) · [0041 →](0041-add-readme-badges-and-changelog-link.md)
 
 # 0040 · add-release-workflow
 

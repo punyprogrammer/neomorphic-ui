@@ -46,18 +46,20 @@ jobs:
 
       # With pending changesets: opens or updates the "Version packages" PR.
       # Without (that PR was just merged): `pnpm release` builds, checks the
-      # tarball, and publishes any version not yet on npm, then tags it and
-      # creates the GitHub release.
+      # tarball, and publishes any version not yet on npm, then the action
+      # pushes the tag and creates the GitHub release.
+      # v2 is the major for @changesets/cli v3: it reads the CLI's structured
+      # output to see what was published. v1 looks for "New tag:" lines that
+      # CLI v3 no longer prints, so it publishes but never tags or releases.
       - name: Version packages or publish
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
-          version: pnpm version-packages
-          publish: pnpm release
-          commit: "Version packages"
-          title: "Version packages"
-          createGithubReleases: true
+          version-script: pnpm version-packages
+          publish-script: pnpm release
+          commit-message: "Version packages"
+          pr-title: "Version packages"
+          create-github-releases: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # No NPM_TOKEN: publishing authenticates through the trusted
           # publisher. `pnpm publish` only attaches provenance when asked.
           NPM_CONFIG_PROVENANCE: "true"
