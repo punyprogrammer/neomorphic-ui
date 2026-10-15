@@ -1,10 +1,10 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { Kbd, KbdGroup } from "@neomorphic-ui/react/kbd";
+import { Button } from "@neomorphic-react/ui/button";
+import { Kbd, KbdGroup } from "@neomorphic-react/ui/kbd";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@neomorphic-ui/react/tooltip";
+} from "@neomorphic-react/ui/tooltip";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Save } from "lucide-react";
 import { expect, within } from "storybook/test";
@@ -19,7 +19,7 @@ const meta = {
 A keyboard key as a small raised cap. \`KbdGroup\` holds a chord or sequence.
 
 \`\`\`tsx
-import { Kbd, KbdGroup } from "@neomorphic-ui/react/kbd";
+import { Kbd, KbdGroup } from "@neomorphic-react/ui/kbd";
 
 <KbdGroup>
   <Kbd aria-label="Command">⌘</Kbd>

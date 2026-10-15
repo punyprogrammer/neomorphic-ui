@@ -1,4 +1,4 @@
-import { Surface } from "@neomorphic-ui/react/surface";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect } from "storybook/test";
 
@@ -14,7 +14,7 @@ from it (\`raised\`), pressed into it (\`inset\`) or level with it (\`flat\`).
 Every other component's depth comes from the same shadow scale.
 
 \`\`\`tsx
-import { Surface } from "@neomorphic-ui/react/surface";
+import { Surface } from "@neomorphic-react/ui/surface";
 
 <Surface className="p-6">Raised panel</Surface>
 <Surface elevation="inset" shape="pill" className="h-12 w-48" />

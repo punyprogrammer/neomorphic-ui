@@ -1,4 +1,4 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -14,7 +14,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@neomorphic-ui/react/dropdown-menu";
+} from "@neomorphic-react/ui/dropdown-menu";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Copy, MoreHorizontal, Pencil, Share2, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -35,7 +35,7 @@ sinks into the card; checked items carry a mark in the primary colour.
 \`\`\`tsx
 import {
   DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger,
-} from "@neomorphic-ui/react/dropdown-menu";
+} from "@neomorphic-react/ui/dropdown-menu";
 
 <DropdownMenu>
   <DropdownMenuTrigger render={<Button />}>Options</DropdownMenuTrigger>

@@ -1,4 +1,4 @@
-import { Button, buttonVariants } from "@neomorphic-ui/react/button";
+import { Button, buttonVariants } from "@neomorphic-react/ui/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   Archive,
@@ -61,7 +61,7 @@ disabled. Pass any icon element through \`icon\` and place it with
 \`iconPosition\`; with no children the button becomes an icon tile.
 
 \`\`\`tsx
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import { ArrowRight, House } from "lucide-react";
 
 <Button icon={<ArrowRight />} iconPosition="end">Sign in</Button>

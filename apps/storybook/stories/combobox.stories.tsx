@@ -14,13 +14,13 @@ import {
   ComboboxTrigger,
   ComboboxValue,
   useComboboxAnchor,
-} from "@neomorphic-ui/react/combobox";
+} from "@neomorphic-react/ui/combobox";
 import {
   Field,
   FieldDescription,
   FieldLabel,
-} from "@neomorphic-ui/react/field";
-import { InputGroupAddon } from "@neomorphic-ui/react/input-group";
+} from "@neomorphic-react/ui/field";
+import { InputGroupAddon } from "@neomorphic-react/ui/input-group";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { MapPin } from "lucide-react";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
@@ -62,7 +62,7 @@ chosen row takes a check and the primary colour.
 import {
   Combobox, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem,
   ComboboxList,
-} from "@neomorphic-ui/react/combobox";
+} from "@neomorphic-react/ui/combobox";
 
 <Combobox items={stations}>
   <ComboboxInput aria-label="From" placeholder="Search stations" showClear />

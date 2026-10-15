@@ -6,7 +6,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@neomorphic-ui/react/breadcrumb";
+} from "@neomorphic-react/ui/breadcrumb";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Slash } from "lucide-react";
 import { expect, within } from "storybook/test";
@@ -25,7 +25,7 @@ pressed into the surface and carries \`aria-current="page"\`.
 import {
   Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList,
   BreadcrumbPage, BreadcrumbSeparator,
-} from "@neomorphic-ui/react/breadcrumb";
+} from "@neomorphic-react/ui/breadcrumb";
 
 <Breadcrumb>
   <BreadcrumbList>

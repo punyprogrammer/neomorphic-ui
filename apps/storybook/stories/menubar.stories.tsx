@@ -7,7 +7,7 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@neomorphic-ui/react/menubar";
+} from "@neomorphic-react/ui/menubar";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -27,7 +27,7 @@ into the slab and takes the primary colour. Menus use the same item parts as
 \`\`\`tsx
 import {
   Menubar, MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger,
-} from "@neomorphic-ui/react/menubar";
+} from "@neomorphic-react/ui/menubar";
 
 <Menubar>
   <MenubarMenu>

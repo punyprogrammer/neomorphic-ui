@@ -1,6 +1,6 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { Checkbox } from "@neomorphic-ui/react/checkbox";
-import { Field, FieldGroup, FieldLabel } from "@neomorphic-ui/react/field";
+import { Button } from "@neomorphic-react/ui/button";
+import { Checkbox } from "@neomorphic-react/ui/checkbox";
+import { Field, FieldGroup, FieldLabel } from "@neomorphic-react/ui/field";
 import {
   Sheet,
   SheetClose,
@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@neomorphic-ui/react/sheet";
+} from "@neomorphic-react/ui/sheet";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -29,7 +29,7 @@ leaving the page.
 import {
   Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader,
   SheetTitle, SheetTrigger,
-} from "@neomorphic-ui/react/sheet";
+} from "@neomorphic-react/ui/sheet";
 
 <Sheet>
   <SheetTrigger render={<Button />}>Filters</SheetTrigger>

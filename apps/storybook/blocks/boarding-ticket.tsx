@@ -1,9 +1,9 @@
-import { Badge } from "@neomorphic-ui/react/badge";
-import { Button } from "@neomorphic-ui/react/button";
-import { Card, CardContent } from "@neomorphic-ui/react/card";
-import { Separator } from "@neomorphic-ui/react/separator";
-import { Surface } from "@neomorphic-ui/react/surface";
-import { cn } from "@neomorphic-ui/react/utils";
+import { Badge } from "@neomorphic-react/ui/badge";
+import { Button } from "@neomorphic-react/ui/button";
+import { Card, CardContent } from "@neomorphic-react/ui/card";
+import { Separator } from "@neomorphic-react/ui/separator";
+import { Surface } from "@neomorphic-react/ui/surface";
+import { cn } from "@neomorphic-react/ui/utils";
 import { Check, Plane, Wallet } from "lucide-react";
 import { useState } from "react";
 

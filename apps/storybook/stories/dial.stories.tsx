@@ -1,5 +1,5 @@
-import { Dial, type DialProps } from "@neomorphic-ui/react/dial";
-import { Surface } from "@neomorphic-ui/react/surface";
+import { Dial, type DialProps } from "@neomorphic-react/ui/dial";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Volume1, Volume2 } from "lucide-react";
 import { useState } from "react";
@@ -32,7 +32,7 @@ arrow keys, Page Up/Down, Home and End. From the kit's volume and thermostat
 knobs.
 
 \`\`\`tsx
-import { Dial } from "@neomorphic-ui/react/dial";
+import { Dial } from "@neomorphic-react/ui/dial";
 
 const [volume, setVolume] = useState(40);
 

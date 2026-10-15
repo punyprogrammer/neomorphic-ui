@@ -29,7 +29,7 @@ importers:
 
   apps/storybook:
     dependencies:
-      '@neomorphic-ui/react':
+      '@neomorphic-react/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@tanstack/react-table':
@@ -75,7 +75,7 @@ importers:
       '@fontsource/roboto':
         specifier: ^5.3.0
         version: 5.3.0
-      '@neomorphic-ui/typescript-config':
+      '@neomorphic-react/typescript-config':
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@storybook/addon-docs':
@@ -141,9 +141,12 @@ importers:
         specifier: ^3.7.0
         version: 3.7.0
     devDependencies:
-      '@neomorphic-ui/typescript-config':
+      '@neomorphic-react/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      '@tanstack/react-table':
+        specifier: ^8.21.3
+        version: 8.21.3(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       '@testing-library/jest-dom':
         specifier: ^7.0.1
         version: 7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.4)

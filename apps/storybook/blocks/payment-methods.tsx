@@ -1,5 +1,5 @@
-import { Badge } from "@neomorphic-ui/react/badge";
-import { Button } from "@neomorphic-ui/react/button";
+import { Badge } from "@neomorphic-react/ui/badge";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Card,
   CardAction,
@@ -7,8 +7,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@neomorphic-ui/react/card";
-import { Checkbox } from "@neomorphic-ui/react/checkbox";
+} from "@neomorphic-react/ui/card";
+import { Checkbox } from "@neomorphic-react/ui/checkbox";
 import {
   Item,
   ItemActions,
@@ -16,10 +16,10 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@neomorphic-ui/react/item";
-import { RadioGroup, RadioGroupItem } from "@neomorphic-ui/react/radio-group";
-import { Separator } from "@neomorphic-ui/react/separator";
-import { cn } from "@neomorphic-ui/react/utils";
+} from "@neomorphic-react/ui/item";
+import { RadioGroup, RadioGroupItem } from "@neomorphic-react/ui/radio-group";
+import { Separator } from "@neomorphic-react/ui/separator";
+import { cn } from "@neomorphic-react/ui/utils";
 import { Check, CreditCard, Plus } from "lucide-react";
 import { useId, useState } from "react";
 

@@ -1,8 +1,8 @@
-import { Slider, SliderLabel, SliderValue } from "@neomorphic-ui/react/slider";
-import { Surface } from "@neomorphic-ui/react/surface";
-import { Switch } from "@neomorphic-ui/react/switch";
-import { Toggle } from "@neomorphic-ui/react/toggle";
-import { cn } from "@neomorphic-ui/react/utils";
+import { Slider, SliderLabel, SliderValue } from "@neomorphic-react/ui/slider";
+import { Surface } from "@neomorphic-react/ui/surface";
+import { Switch } from "@neomorphic-react/ui/switch";
+import { Toggle } from "@neomorphic-react/ui/toggle";
+import { cn } from "@neomorphic-react/ui/utils";
 import {
   Bluetooth,
   Fingerprint,

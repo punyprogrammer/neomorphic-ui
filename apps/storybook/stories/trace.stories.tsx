@@ -1,5 +1,5 @@
-import { CodeBlock, CodeBlockContent } from "@neomorphic-ui/react/code-block";
-import { Spinner } from "@neomorphic-ui/react/spinner";
+import { CodeBlock, CodeBlockContent } from "@neomorphic-react/ui/code-block";
+import { Spinner } from "@neomorphic-react/ui/spinner";
 import {
   Trace,
   TraceCollapsible,
@@ -9,7 +9,7 @@ import {
   TraceIcon,
   TraceLine,
   TraceTitle,
-} from "@neomorphic-ui/react/trace";
+} from "@neomorphic-react/ui/trace";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CircleAlert, FileSearch, Globe, Terminal } from "lucide-react";
 import { expect, userEvent, within } from "storybook/test";
@@ -36,7 +36,7 @@ show its output under a groove.
 import {
   Trace, TraceCollapsible, TraceCollapsibleContent, TraceCollapsibleTrigger,
   TraceDescription, TraceIcon, TraceLine, TraceTitle,
-} from "@neomorphic-ui/react/trace";
+} from "@neomorphic-react/ui/trace";
 
 <Trace>
   <TraceLine status="running">

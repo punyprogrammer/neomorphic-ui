@@ -6,7 +6,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@neomorphic-ui/react/navigation-menu";
+} from "@neomorphic-react/ui/navigation-menu";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
 
@@ -29,7 +29,7 @@ it. The open trigger presses in and takes the primary colour.
 import {
   NavigationMenu, NavigationMenuContent, NavigationMenuItem,
   NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger,
-} from "@neomorphic-ui/react/navigation-menu";
+} from "@neomorphic-react/ui/navigation-menu";
 
 <NavigationMenu>
   <NavigationMenuList>

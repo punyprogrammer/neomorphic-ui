@@ -25,6 +25,7 @@ export default defineConfig((options) => ({
     "src/combobox.tsx",
     "src/command.tsx",
     "src/context-menu.tsx",
+    "src/data-table.tsx",
     "src/date-picker.tsx",
     "src/dial.tsx",
     "src/dialog.tsx",

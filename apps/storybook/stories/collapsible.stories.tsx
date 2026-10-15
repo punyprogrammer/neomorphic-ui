@@ -1,10 +1,10 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleIndicator,
   CollapsibleTrigger,
-} from "@neomorphic-ui/react/collapsible";
+} from "@neomorphic-react/ui/collapsible";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
@@ -23,7 +23,7 @@ animation, so the trigger can be any button and the region any content.
 \`\`\`tsx
 import {
   Collapsible, CollapsibleContent, CollapsibleIndicator, CollapsibleTrigger,
-} from "@neomorphic-ui/react/collapsible";
+} from "@neomorphic-react/ui/collapsible";
 
 <Collapsible>
   <CollapsibleTrigger render={<Button variant="ghost" />}>

@@ -1,4 +1,4 @@
-import { Textarea } from "@neomorphic-ui/react/textarea";
+import { Textarea } from "@neomorphic-react/ui/textarea";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
@@ -17,7 +17,7 @@ and adds the outline. Resizes vertically by default; \`autoResize\` grows it wit
 the text instead (where the browser supports \`field-sizing\`).
 
 \`\`\`tsx
-import { Textarea } from "@neomorphic-ui/react/textarea";
+import { Textarea } from "@neomorphic-react/ui/textarea";
 
 <label htmlFor="message">Message</label>
 <Textarea id="message" placeholder="Your message here…" />

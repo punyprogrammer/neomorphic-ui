@@ -1,6 +1,6 @@
-import { Button } from "@neomorphic-ui/react/button";
-import { PageIndicator } from "@neomorphic-ui/react/page-indicator";
-import { Surface } from "@neomorphic-ui/react/surface";
+import { Button } from "@neomorphic-react/ui/button";
+import { PageIndicator } from "@neomorphic-react/ui/page-indicator";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
@@ -17,7 +17,7 @@ The kit's three dots: which of several pages is showing. The other pages are
 wells pressed into the surface; the current one rises out of it, filled.
 
 \`\`\`tsx
-import { PageIndicator } from "@neomorphic-ui/react/page-indicator";
+import { PageIndicator } from "@neomorphic-react/ui/page-indicator";
 
 // Passive: an image named "Page 2 of 3".
 <PageIndicator count={3} value={1} />

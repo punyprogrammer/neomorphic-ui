@@ -2,8 +2,8 @@ import {
   Progress,
   ProgressLabel,
   ProgressValue,
-} from "@neomorphic-ui/react/progress";
-import { Surface } from "@neomorphic-ui/react/surface";
+} from "@neomorphic-react/ui/progress";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, within } from "storybook/test";
 
@@ -22,7 +22,7 @@ The kit's progress bar: a well with a raised fill that darkens toward its
 start. \`lg\` is the kit's deep bar and can print the value inside the fill.
 
 \`\`\`tsx
-import { Progress, ProgressLabel, ProgressValue } from "@neomorphic-ui/react/progress";
+import { Progress, ProgressLabel, ProgressValue } from "@neomorphic-react/ui/progress";
 
 <Progress value={40}>
   <div className="flex justify-between">

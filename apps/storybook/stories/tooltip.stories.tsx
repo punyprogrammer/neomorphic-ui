@@ -1,10 +1,10 @@
-import { Button } from "@neomorphic-ui/react/button";
+import { Button } from "@neomorphic-react/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@neomorphic-ui/react/tooltip";
+} from "@neomorphic-react/ui/tooltip";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Bookmark, Heart, Share2 } from "lucide-react";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
@@ -22,7 +22,7 @@ on the page's surface colour that scales in from its trigger.
 \`\`\`tsx
 import {
   Tooltip, TooltipContent, TooltipProvider, TooltipTrigger,
-} from "@neomorphic-ui/react/tooltip";
+} from "@neomorphic-react/ui/tooltip";
 
 <TooltipProvider>
   <Tooltip>

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Scaffolds a new @neomorphic-ui/react component.
+ * Scaffolds a new @neomorphic-react/ui component.
  *
  * Usage:
  *   pnpm add:component ToggleGroup
@@ -23,7 +23,7 @@ const ROOT = fileURLToPath(new URL("..", import.meta.url));
 const UI_DIR = join(ROOT, "packages/ui");
 const STORIES_DIR = join(ROOT, "apps/storybook/stories");
 const PREVIEW_CSS = join(ROOT, "apps/storybook/.storybook/preview.css");
-const PACKAGE = "@neomorphic-ui/react";
+const PACKAGE = "@neomorphic-react/ui";
 
 const CAMEL_BOUNDARY_RE = /([a-z0-9])([A-Z])/g;
 const SEPARATOR_RE = /[\s_]+/g;

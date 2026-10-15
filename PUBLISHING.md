@@ -1,4 +1,4 @@
-# Publishing `@neomorphic-ui/react` to npm
+# Publishing `@neomorphic-react/ui` to npm
 
 A step-by-step plan for the first public release and the automated releases
 after it. Work through the phases in order; each one ends in something you can
@@ -12,13 +12,13 @@ Checked on 15 Oct 2026:
 
 | Item | State |
 |---|---|
-| Package name | `@neomorphic-ui/react` is not on npm yet, so it's free. The `@neomorphic-ui` scope still has to be created as an npm organisation |
-| Version | `0.0.0`. The 19 pending changesets (all `minor` or `patch`) will bump it to **`0.1.0`** |
+| Package name | `@neomorphic-react/ui`. The `neomorphic-react` npm organisation exists (created 15 Oct 2026, no packages yet), so the name is reserved for you |
+| Version | `0.0.0`. The 21 pending changesets (all `minor` or `patch`) will bump it to **`0.1.0`** |
 | Build | `tsup` writes ESM and type declarations to `dist/`, one entry per component; entries keep `"use client"` |
-| Packed tarball | 220 KB (1.5 MB unpacked, 248 files). `pnpm pack` swaps the `exports` map to `dist/` through `publishConfig` and strips it, as intended |
-| Release script | `pnpm release` builds the package and runs `changeset publish` |
+| Packed tarball | 116 KB (549 KB unpacked, 179 files): `dist/`, the two stylesheets and `package.json`. `pnpm pack` swaps the `exports` map to `dist/` through `publishConfig` and strips it, as intended |
+| Release script | `pnpm release` builds the package, runs `pnpm check:pack` and then `changeset publish` |
 | Changesets config | `access: "public"`, private workspaces never versioned |
-| Dependencies | Runtime: Base UI, `cva`, `clsx`, `lucide-react`, `tailwind-merge`. Optional peers: `recharts`, `embla-carousel-react`, `react-resizable-panels`, `react-day-picker`, `shiki` (see Phase 1) |
+| Dependencies | Runtime: Base UI, `cva`, `clsx`, `lucide-react`, `tailwind-merge`. Optional peers: `recharts`, `embla-carousel-react`, `react-resizable-panels`, `react-day-picker`, `@tanstack/react-table`, `shiki` (see Phase 1) |
 | Missing | `LICENSE` file, package `README.md`, `repository`/`homepage`/`bugs`/`keywords` fields, a release workflow, an npm login on this machine |
 
 ---
@@ -27,17 +27,17 @@ Checked on 15 Oct 2026:
 
 Settle these first; several later steps depend on them.
 
-- [ ] **Scope.** Create the `neomorphic-ui` organisation on npm (free for
-  public packages). If the name is taken, pick another scope now: every import
-  in the stories, blocks, docs and changesets uses `@neomorphic-ui/react`.
-  (An unrelated, unscoped package called `neomorphic-ui` already exists; it
-  doesn't block the scope, but the similar name may confuse people searching.)
+- [x] **Scope and name.** The npm organisation is `neomorphic-react` and the
+  package is `@neomorphic-react/ui` (`import { Button } from
+  "@neomorphic-react/ui/button"`). The private workspaces use the same scope
+  (`@neomorphic-react/storybook`, `@neomorphic-react/typescript-config`).
+  The scope leaves room for later packages such as `@neomorphic-react/icons`.
 - [ ] **First version.** `0.1.0` (what the changesets produce) is recommended.
   While on `0.x`, breaking changes are `minor` bumps, as `.changeset/README.md`
   already says.
 - [x] **Heavy dependencies: optional peers.** `recharts`,
-  `embla-carousel-react`, `react-resizable-panels` and `react-day-picker` are
-  optional `peerDependencies` (like `shiki`), so installing the library no
+  `embla-carousel-react`, `react-resizable-panels`, `react-day-picker` and
+  `@tanstack/react-table` are optional `peerDependencies` (like `shiki`), so installing the library no
   longer downloads them. An app installs only the ones its components need:
 
   | Component | Install |
@@ -45,16 +45,18 @@ Settle these first; several later steps depend on them.
   | Calendar, Date Picker | `react-day-picker@^10` |
   | Carousel | `embla-carousel-react@^8` |
   | Chart | `recharts@^3` |
+  | Data Table | `@tanstack/react-table@^8` |
   | Resizable | `react-resizable-panels@^4` |
   | Code Block highlighting (`useHighlightedCode`) | `shiki@^4` |
 
   They stay in the package's `devDependencies` for its own build and tests, and
   in the Storybook app's `dependencies` (it renders every component). The build
   keeps them as external imports, so nothing is bundled.
-- [ ] **Node engines.** `"engines": { "node": ">=22" }` makes npm warn anyone
-  installing on Node 20. The library runs in the browser through a bundler, so
-  drop the field or relax it to `>=20`.
-- [ ] **Changelog.** The first `CHANGELOG.md` will list all 19 changesets.
+- [x] **Node engines: kept at `>=22`.** `"engines": { "node": ">=22" }` stays
+  as it is. Installs on Node 20 or older print an "unsupported engine" warning
+  (and fail only where `engine-strict` is on), so say in the README that
+  Node 22 or later is required.
+- [ ] **Changelog.** The first `CHANGELOG.md` will list all 21 changesets.
   Either keep them (full history) or replace them with one `minor` changeset
   summarising the first release.
 
@@ -82,25 +84,33 @@ All changes are in `packages/ui/`, unless noted.
   and copy it into `packages/ui/` (npm only packs files inside the package
   folder; `LICENSE` there is included automatically).
 - [ ] Mark the stylesheets as side effects. With `"sideEffects": false`, a
-  bundler such as webpack can drop `import "@neomorphic-ui/react/base.css"`
+  bundler such as webpack can drop `import "@neomorphic-react/ui/base.css"`
   when it's imported from JavaScript:
 
   ```json
   "sideEffects": ["**/*.css"]
   ```
 
-- [ ] Ship only what consumers need. `files` currently packs all 72 `.tsx`
-  sources (640 KB) because the CSS lives in `src/`. Narrow it to:
+- [x] Ship only what consumers need. `files` is narrowed to:
 
   ```json
   "files": ["dist", "src/*.css"]
   ```
 
+  The Storybook blocks (Music Player, Payment Methods, Newsletter Signup and
+  the rest) live in `apps/storybook/blocks/`, outside the package, and never
+  ship. `pnpm check:pack` (`scripts/check-pack.mjs`) dry-runs `npm pack` and
+  fails on any file outside `dist/*.{js,d.ts,css}`, `src/*.css`,
+  `package.json`, `README`, `LICENSE` and `CHANGELOG`, on any `blocks/`,
+  story or test path, and on a `publishConfig.exports` target missing from
+  the tarball. It runs in the CI `build` job and in `pnpm release`.
+
 - [x] Move the heavy dependencies to optional peers (Phase 1).
-- [ ] Apply the Phase 1 choice for `engines`.
+- [x] Keep `engines` at `node >=22` (Phase 1; no change needed).
 - [ ] Write `packages/ui/README.md` (it becomes the npm page). Include:
   - what the library is, with a screenshot
-  - install: `pnpm add @neomorphic-ui/react`, with React 19 as a peer
+  - install: `pnpm add @neomorphic-react/ui`, with React 19 as a peer and
+    Node 22 or later
   - the Tailwind v4 setup (below), which is the step people will miss
   - one usage example and a link to Storybook (Phase 7)
   - the optional peers table from Phase 1: which components need which extra
@@ -112,10 +122,10 @@ All changes are in `packages/ui/`, unless noted.
 
   ```css
   @import "tailwindcss";
-  @import "@neomorphic-ui/react/base.css";
-  @import "@neomorphic-ui/react/theme.css";
+  @import "@neomorphic-react/ui/base.css";
+  @import "@neomorphic-react/ui/theme.css";
 
-  @source "../node_modules/@neomorphic-ui/react/dist";
+  @source "../node_modules/@neomorphic-react/ui/dist";
   ```
 
   The `@source` path is relative to that CSS file; adjust it to reach
@@ -146,7 +156,7 @@ Install the real tarball into fresh apps before anything goes to npm.
   ```
 
 - [ ] **Vite + React 19 + Tailwind v4 app** (outside this repo):
-  `pnpm add /tmp/neu/neomorphic-ui-react-0.0.0.tgz`, add the CSS from Phase 2,
+  `pnpm add /tmp/neu/neomorphic-react-ui-0.0.0.tgz`, add the CSS from Phase 2,
   then render a Button, a Dialog, a Select and a Toast. Check:
   - the raised and inset shadows appear (if they don't, the `@source` line is
     wrong)
@@ -160,20 +170,21 @@ Install the real tarball into fresh apps before anything goes to npm.
 - [ ] Without `shiki` installed, `CodeBlock` must still render plain code; with
   it installed, `useHighlightedCode` must highlight.
 - [ ] Optional peers: a fresh install pulls in none of `recharts`,
-  `embla-carousel-react`, `react-resizable-panels` or `react-day-picker`, and
+  `embla-carousel-react`, `react-resizable-panels`, `react-day-picker` or
+  `@tanstack/react-table`, and
   `pnpm install` prints no missing-peer warnings for them. Importing
-  `@neomorphic-ui/react/chart` without `recharts` fails at build time with an
+  `@neomorphic-react/ui/chart` without `recharts` fails at build time with an
   unresolved-import error naming `recharts`; installing it fixes the build.
 - [ ] Optional dry run of the full flow: publish a prerelease to a throwaway
   tag (`pnpm changeset pre enter next`, version, publish, `pnpm changeset pre
-  exit`) and install `@neomorphic-ui/react@next`. Skip if the tarball tests
+  exit`) and install `@neomorphic-react/ui@next`. Skip if the tarball tests
   pass.
 
 ## Phase 4: npm account
 
 - [ ] Sign in to [npmjs.com](https://www.npmjs.com) and turn on two-factor
   authentication (required to publish).
-- [ ] Create the organisation from Phase 1 (**Add organization**, free plan).
+- [x] Create the organisation from Phase 1: `neomorphic-react`, free plan.
 - [ ] Log in locally: `npm login`, then `npm whoami` to confirm.
 
 ## Phase 5: First release (manual)
@@ -198,13 +209,13 @@ trusted publisher (Phase 6) to a package that already exists.
   git push --follow-tags
   ```
 
-  `changeset publish` creates the `@neomorphic-ui/react@0.1.0` git tag; pushing
+  `changeset publish` creates the `@neomorphic-react/ui@0.1.0` git tag; pushing
   it lets you draft a GitHub release from it.
 - [ ] Verify:
-  - [npmjs.com/package/@neomorphic-ui/react](https://www.npmjs.com/package/@neomorphic-ui/react)
+  - [npmjs.com/package/@neomorphic-react/ui](https://www.npmjs.com/package/@neomorphic-react/ui)
     shows `0.1.0`, the README and the files list
-  - `npm view @neomorphic-ui/react` lists the peer dependencies
-  - `pnpm add @neomorphic-ui/react` in the Phase 3 Vite app works from the
+  - `npm view @neomorphic-react/ui` lists the peer dependencies
+  - `pnpm add @neomorphic-react/ui` in the Phase 3 Vite app works from the
     registry
 
 If something is wrong, publish a fixed `0.1.1`. `npm unpublish` is only
@@ -268,7 +279,7 @@ From here on, merging to `main` handles versioning and publishing.
   ```
 
   If your version of `changesets/action` still insists on an `NPM_TOKEN`, create
-  a granular access token on npm (publish rights for `@neomorphic-ui/react`
+  a granular access token on npm (publish rights for `@neomorphic-react/ui`
   only, with an expiry date), store it as the `NPM_TOKEN` repository secret,
   and pass it in `env`.
 - [ ] In GitHub **Settings → Actions → General**, allow GitHub Actions to
@@ -291,7 +302,7 @@ From here on, merging to `main` handles versioning and publishing.
   link it from the README and the repo description.
 - [ ] Add npm version and licence badges to the README.
 - [ ] Update the ROADMAP: tick "Release workflow" in Phase 0 and "Publish
-  `@neomorphic-ui/react` to npm" under Later.
+  `@neomorphic-react/ui` to npm" under Later.
 - [ ] Announce: GitHub release notes for `0.1.0` summarising Phases 1–4.
 - [ ] Next on the ROADMAP: the docs site and the shadcn-compatible registry,
   both easier once the package is installable.

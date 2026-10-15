@@ -8,7 +8,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "@neomorphic-ui/react/select";
+} from "@neomorphic-react/ui/select";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Code, Megaphone, Palette, PenTool } from "lucide-react";
 import { expect, userEvent, waitFor, within } from "storybook/test";
@@ -74,7 +74,7 @@ whose highlighted item sinks in, and the chosen one carries a check.
 \`\`\`tsx
 import {
   Select, SelectContent, SelectItem, SelectLabel, SelectTrigger, SelectValue,
-} from "@neomorphic-ui/react/select";
+} from "@neomorphic-react/ui/select";
 
 const items = [
   { label: "Design", value: "design" },

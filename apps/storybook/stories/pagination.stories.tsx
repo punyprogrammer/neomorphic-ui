@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@neomorphic-ui/react/pagination";
+} from "@neomorphic-react/ui/pagination";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { expect, userEvent, within } from "storybook/test";
@@ -25,7 +25,7 @@ primary colour, and carries \`aria-current="page"\`.
 import {
   Pagination, PaginationContent, PaginationEllipsis, PaginationItem,
   PaginationLink, PaginationNext, PaginationPrevious,
-} from "@neomorphic-ui/react/pagination";
+} from "@neomorphic-react/ui/pagination";
 
 <Pagination>
   <PaginationContent>

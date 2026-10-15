@@ -26,8 +26,8 @@ measurement for web.
 ### Monorepo
 
 - [x] pnpm + Turborepo workspace (`apps/*`, `packages/*`)
-- [x] Biome via `ultracite`, shared `@neomorphic-ui/typescript-config`
-- [x] `@neomorphic-ui/react` package: tsup build, subpath exports, Vitest + jsdom
+- [x] Biome via `ultracite`, shared `@neomorphic-react/typescript-config`
+- [x] `@neomorphic-react/ui` package: tsup build, subpath exports, Vitest + jsdom
 - [x] Storybook 10 app on port 6007, theme background on canvas and docs
 - [x] `AGENTS.md` with neomorphic rules
 - [x] Git repository and first commit (`0001` initial-code-setup, pushed to `origin/main`)
@@ -124,7 +124,8 @@ then a component set on the Figma `Components` page.
 
 Full compositions from the kit, built only from Phase 1–2 components. Each
 block lives in `apps/storybook/blocks/` (copy-paste source until the registry
-lands) with its stories under `Blocks/` in Storybook.
+lands) with its stories under `Blocks/` in Storybook. Blocks are never part of
+the npm package; `pnpm check:pack` enforces it.
 
 | Done | Block | Kit reference | Figma |
 |---|---|---|---|
@@ -161,7 +162,7 @@ groups or earlier phases.
 - [x] Backdrop: `--neu-backdrop` (surface tint + light blur) for Dialog, Alert Dialog, Sheet and Drawer; `--z-*` tokens already exist in `base.css`
 - [x] `animate-neu-shimmer` utility for loading text and placeholders (Skeleton, Attachment, Trace, Marker), static under `prefers-reduced-motion` (`neu-shimmer` for surfaces, `neu-shimmer-text` for text)
 - [x] Chart tokens `--chart-1`…`--chart-5`, folded into the Phase 0 accent tokens (each at least 3:1 against the surface)
-- [x] New dependencies (each component on its own subpath so unused ones never ship): `embla-carousel-react` (Carousel), `react-resizable-panels` (Resizable), `recharts` (Chart), `@tanstack/react-table` (Data Table block only), `shiki` (optional highlighting for Code Block); all except `@tanstack/react-table` are optional peer dependencies of the package, installed only by apps that use those components
+- [x] New dependencies (each component on its own subpath so unused ones never ship): `embla-carousel-react` (Carousel), `react-resizable-panels` (Resizable), `recharts` (Chart), `@tanstack/react-table` (Data Table), `shiki` (optional highlighting for Code Block); all are optional peer dependencies of the package, installed only by apps that use those components
 - [x] Keep the "no Radix" rule: use Base UI Autocomplete instead of `cmdk`, Base UI Drawer instead of `vaul`, Base UI Toast instead of `sonner`
 
 ### 4a: Forms and text
@@ -231,7 +232,7 @@ groups or earlier phases.
 | [x] | Resizable: panel groups split by a groove handle (primary while hovered, focused or dragged) with an optional raised grip that presses in while dragged, keyboard resize, horizontal/vertical, sizes as pixels (numbers) or percentages (strings); 2 tests, 2 stories | `react-resizable-panels` v4 | ⛔ |
 | [x] | Carousel: track with raised round previous/next buttons and a `PageIndicator` (`CarouselIndicator`), horizontal/vertical, `opts` (loop, align) and `plugins` (autoplay off unless added), `gap`, arrow keys (RTL-aware), `onSlideChange`/`setApi`, labelled `region` with `aria-roledescription` carousel/slide, viewport padding so raised slides' shadows aren't clipped; 3 tests, 3 stories | `embla-carousel-react` | ⛔ |
 | [x] | Sidebar: raised side panel (`sidebar`/`floating`/`inset` variants, left/right), `SidebarProvider` (⌘B/Ctrl+B, `sidebar_state` cookie, controlled `open`), collapses `offcanvas` or to `icon`s with labels in tooltips, Sheet below `md`, header/footer/content/groups with label and action, menus with badge (inset pill), hover-only actions, sub-menus off a groove (wrap in Collapsible), rows rise on hover and the active row presses in, rail, skeleton rows; 6 tests, 5 stories | Sheet, Tooltip, Skeleton, Separator, Input | ⛔ |
-| [x] | Data Table: block in `apps/storybook/blocks/data-table.tsx` (like shadcn's guide, not a package component): raised Table, sortable ghost-button headers with `aria-sort`, passenger filter Input, column visibility Dropdown Menu, row selection Checkboxes with an indeterminate select-all, status Chips, row action menus, Pagination rendered as buttons; 2 stories | `@tanstack/react-table` + Table | ⛔ |
+| [x] | Data Table: `useDataTable` (sorting, filtering, pagination, selection and column visibility row models) and parts that draw it: raised `DataTable` with `aria-sort` headers, selected-row tint and an empty message; `DataTableColumnHeader` (ghost sort button, primary while sorted); `DataTableSelectAll`/`DataTableSelectRow` Checkboxes (indeterminate select-all); `DataTableFilter` Input; `DataTableViewOptions` column Dropdown Menu; `DataTablePagination` with ellipsis ranges and a live selection count; 6 tests, 2 stories (bookings example) | `@tanstack/react-table` (optional peer) + Table | ⛔ |
 | [x] | Chart: `ChartContainer` turns `ChartConfig` into `--color-*`, `--fill-*` (BarMeter gradient, darker at the base) and `--area-*` (fading) variables and styles axes, grid and cursor for the surface; small raised `ChartTooltipContent` (dot/line/dashed indicator, `hideLabel`/`hideIndicator`, `formatter`, `nameKey`/`labelKey`), `ChartLegendContent`; 4 tests, 6 stories (area, bar, line, pie, radar, radial) | `recharts` v3 | ⛔ |
 
 **4e progress: 5 / 5**
@@ -248,7 +249,7 @@ Message, Marker and Message Scroller.
 | [x] | Marker: inline status or note in a thread, default/border/separator (groove lines, no `role="separator"`), `MarkerIcon` (`aria-hidden`), `role="status"` with Spinner while streaming, `shimmer` on the text, `render` for a link or button; 3 tests, 3 stories | Separator, Spinner | ⛔ |
 | [x] | Attachment: raised file tile (idle sits in a well), idle/uploading/processing/error/done (errors stated in the description, shimmering title while busy), default/sm/xs, horizontal/vertical, icon or image media (dimmed until done), `AttachmentProgress`, corner actions, full-card `AttachmentTrigger` that presses the tile in, `AttachmentGroup` scroll row with snapping; uses native overflow rather than Scroll Area so the tiles' shadows aren't clipped; 4 tests, 5 stories | Progress, Button | ⛔ |
 | [x] | Trace: agent step list, `TraceLine` with running/pending/error status, icon, truncating title (shimmers while running), description, `TraceCollapsible` with a turning chevron and detail under a groove; 2 tests, 1 story | Collapsible, Spinner | ⛔ |
-| [x] | Code Block: inset code well, header with title and actions (copy with a "Copied" announcement, wrap toggle), floating actions shown on hover/focus, line numbers and `startLine`, wrap, highlighted/added/removed lines, `maxLines` with Show more/less, sm and destructive (error output) variants; highlighting in `useHighlightedCode` on its own subpath (`@neomorphic-ui/react/use-highlighted-code`; Shiki JS engine, core, languages and themes all loaded on first use; plain lines until ready); 7 tests, 5 stories | native, optional `shiki` peer | ⛔ |
+| [x] | Code Block: inset code well, header with title and actions (copy with a "Copied" announcement, wrap toggle), floating actions shown on hover/focus, line numbers and `startLine`, wrap, highlighted/added/removed lines, `maxLines` with Show more/less, sm and destructive (error output) variants; highlighting in `useHighlightedCode` on its own subpath (`@neomorphic-react/ui/use-highlighted-code`; Shiki JS engine, core, languages and themes all loaded on first use; plain lines until ready); 7 tests, 5 stories | native, optional `shiki` peer | ⛔ |
 | [x] | Message Scroller: chat scroll viewport (focusable "Messages" region, hidden until positioned) that opens at the latest turn (`last-anchor`/`end`/`start`), follows streamed output only while at the live edge (`autoScroll`), stops on wheel/touch/keyboard/scrollbar/selection, settles new `scrollAnchor` rows near the top with a peek of the row before, keeps position when history is prepended, `scrollToMessage`/`scrollToEnd`/`scrollToStart` via `useMessageScroller`, jump-to-latest raised button (inert while not needed), `role="log"`; headless scroll controller written here instead of Scroll Area (native scrolling keeps the spacer and anchoring maths simple); 5 tests, 3 stories | native, Button | ⛔ |
 | [x] | Questionnaire: multi-step form, one question per step as a fieldset, raised choice cards (radio or checkbox), freeform Input that replaces a single choice, Progress ("Question n of total"), previous/skip/next/submit, number-key shortcuts with Kbd hints, required and custom validation (announced, focus moves to the first choice), conditional (`when`) and resumable (`defaultValues`/`defaultActiveItem`) steps, Enter in a text answer moves on; headless state written here (shadcn uses `@shadcn/react`); 5 tests, 3 stories | Field, Radio Group, Checkbox, Progress, Kbd | ⛔ |
 
@@ -265,7 +266,7 @@ The Phase 3 chat thread block now uses Bubble, Message, Marker (the "Today" sepa
 - [x] Decide on overlays not in the kit: Popover, DropdownMenu, Modal, Drawer, Toast, Alert (planned in Phase 4)
 - [ ] Docs site (Fumadocs) with demos and LLMs.txt
 - [ ] shadcn-compatible registry
-- [ ] Publish `@neomorphic-ui/react` to npm (step-by-step plan in [`PUBLISHING.md`](PUBLISHING.md))
+- [ ] Publish `@neomorphic-react/ui` to npm (step-by-step plan in [`PUBLISHING.md`](PUBLISHING.md))
 - [ ] Figma Code Connect mappings (requires Figma Organization or Enterprise plan)
 - [ ] Dark theme
 

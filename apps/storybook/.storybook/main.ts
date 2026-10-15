@@ -20,7 +20,7 @@ function baseUiEntries() {
     if (file.endsWith(".tsx") && !file.endsWith(".test.tsx")) {
       const source = readFileSync(join(UI_SRC, file), "utf8");
       for (const [, entry] of source.matchAll(BASE_UI_IMPORT)) {
-        entries.add(`@neomorphic-ui/react > ${entry}`);
+        entries.add(`@neomorphic-react/ui > ${entry}`);
       }
     }
   }
@@ -61,9 +61,9 @@ const config: StorybookConfig = {
           "shiki/langs",
           "shiki/themes",
           "tailwind-merge",
-          "@neomorphic-ui/react > embla-carousel-react",
-          "@neomorphic-ui/react > react-resizable-panels",
-          "@neomorphic-ui/react > recharts",
+          "@neomorphic-react/ui > embla-carousel-react",
+          "@neomorphic-react/ui > react-resizable-panels",
+          "@neomorphic-react/ui > recharts",
           ...baseUiEntries(),
         ],
       },

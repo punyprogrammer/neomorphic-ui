@@ -1,5 +1,5 @@
-import { RadioGroup, RadioGroupItem } from "@neomorphic-ui/react/radio-group";
-import { Surface } from "@neomorphic-ui/react/surface";
+import { RadioGroup, RadioGroupItem } from "@neomorphic-react/ui/radio-group";
+import { Surface } from "@neomorphic-react/ui/surface";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
@@ -31,7 +31,7 @@ The kit's radio: an empty choice is a round well, the chosen one rises with a
 dark dot. Arrow keys move the choice; Tab leaves the group.
 
 \`\`\`tsx
-import { RadioGroup, RadioGroupItem } from "@neomorphic-ui/react/radio-group";
+import { RadioGroup, RadioGroupItem } from "@neomorphic-react/ui/radio-group";
 
 <RadioGroup aria-label="Plan" defaultValue="pro" name="plan">
   <label className="flex items-center gap-3">

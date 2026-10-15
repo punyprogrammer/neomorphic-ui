@@ -3,8 +3,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@neomorphic-ui/react/accordion";
-import { Card, CardContent } from "@neomorphic-ui/react/card";
+} from "@neomorphic-react/ui/accordion";
+import { Card, CardContent } from "@neomorphic-react/ui/card";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, waitFor, within } from "storybook/test";
 
@@ -25,7 +25,7 @@ colour.
 \`\`\`tsx
 import {
   Accordion, AccordionContent, AccordionItem, AccordionTrigger,
-} from "@neomorphic-ui/react/accordion";
+} from "@neomorphic-react/ui/accordion";
 
 <Accordion defaultValue={["bags"]}>
   <AccordionItem value="bags">

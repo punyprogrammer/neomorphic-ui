@@ -9,8 +9,8 @@ import {
   AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@neomorphic-ui/react/alert-dialog";
-import { Button } from "@neomorphic-ui/react/button";
+} from "@neomorphic-react/ui/alert-dialog";
+import { Button } from "@neomorphic-react/ui/button";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Trash2 } from "lucide-react";
 import { expect, screen, userEvent, waitFor, within } from "storybook/test";
@@ -30,7 +30,7 @@ import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
   AlertDialogTitle, AlertDialogTrigger,
-} from "@neomorphic-ui/react/alert-dialog";
+} from "@neomorphic-react/ui/alert-dialog";
 
 <AlertDialog>
   <AlertDialogTrigger render={<Button variant="destructive" />}>Cancel trip</AlertDialogTrigger>
