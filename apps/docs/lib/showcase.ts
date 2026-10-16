@@ -69,22 +69,6 @@ export const themePresets: {
 
 export const showcaseApps: ShowcaseApp[] = [
   {
-    slug: "chat",
-    label: "Assistant",
-    title: "Still",
-    theme: "haze",
-    description:
-      "A calm AI chat: streaming replies, thinking steps, files, code, a check-in form and tuning controls.",
-  },
-  {
-    slug: "shop",
-    label: "Shop",
-    title: "Kiln",
-    theme: "pearl",
-    description:
-      "A storefront with a hero carousel, categories, a product grid, a bag and FAQs.",
-  },
-  {
     slug: "podcasts",
     label: "Podcasts",
     title: "Lull",
@@ -99,6 +83,22 @@ export const showcaseApps: ShowcaseApp[] = [
     theme: "linen",
     description:
       "A playable felt piano with knobs, faders, presets, pedals and a level meter.",
+  },
+  {
+    slug: "chat",
+    label: "Assistant",
+    title: "Still",
+    theme: "haze",
+    description:
+      "A calm AI chat: streaming replies, thinking steps, files, code, a check-in form and tuning controls.",
+  },
+  {
+    slug: "shop",
+    label: "Shop",
+    title: "Kiln",
+    theme: "pearl",
+    description:
+      "A storefront with a hero carousel, categories, a product grid, a bag and FAQs.",
   },
   {
     slug: "fitness",

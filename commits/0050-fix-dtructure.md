@@ -8,7 +8,7 @@ insertions: 1
 deletions: 2
 ---
 
-<!-- nav --> [← 0049](0049-fix-showcase-rewrites-falling-back-to-localhost-on-vercel.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0049](0049-fix-showcase-rewrites-falling-back-to-localhost-on-vercel.md) · [Index](README.md) · [0054 →](0054-update-doc-design.md)
 
 # 0050 · fix-dtructure
 

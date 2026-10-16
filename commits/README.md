@@ -35,3 +35,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0048 | 2026-10-16 | [initial-docs](0048-initial-docs.md) | 680 | +50415 −90 |
 | 0049 | 2026-10-16 | [Fix showcase rewrites falling back to localhost on Vercel.](0049-fix-showcase-rewrites-falling-back-to-localhost-on-vercel.md) | 2 | +13 −4 |
 | 0050 | 2026-10-16 | [fix-dtructure](0050-fix-dtructure.md) | 1 | +1 −2 |
+| 0054 | 2026-10-16 | [update-doc-design](0054-update-doc-design.md) | 6 | +758 −34 |
