@@ -246,7 +246,7 @@ export function Storefront() {
   }
 
   return (
-    <div className="grid gap-16">
+    <div className="grid min-w-0 gap-16">
       <StoreHeader
         cart={cart}
         onBrowse={browse}
@@ -302,19 +302,22 @@ function StoreHeader({
   const count = Object.values(cart).reduce((sum, n) => sum + n, 0);
 
   return (
-    <header className="grid gap-5">
+    <header className="grid min-w-0 gap-5">
       <Surface
-        className="flex items-center justify-center gap-2 rounded-full px-4 py-2 text-muted-foreground text-sm"
+        className="flex w-full min-w-0 items-center justify-center gap-2 rounded-full px-3 py-2 text-center text-muted-foreground text-xs sm:px-4 sm:text-sm"
         depth="sm"
         elevation="inset"
       >
-        <Truck aria-hidden="true" className="size-4" />
-        Free shipping over ${FREE_SHIPPING} and free returns for 30 days
+        <Truck aria-hidden="true" className="size-4 shrink-0" />
+        <span className="sm:hidden">Free shipping over ${FREE_SHIPPING}</span>
+        <span className="hidden sm:inline">
+          Free shipping over ${FREE_SHIPPING} and free returns for 30 days
+        </span>
       </Surface>
 
-      <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+      <div className="flex min-w-0 flex-wrap items-center gap-x-6 gap-y-4 sm:gap-x-8">
         <Link
-          className="font-display font-semibold text-3xl text-foreground tracking-tight"
+          className="font-display font-semibold text-2xl text-foreground tracking-tight sm:text-3xl"
           href="/shop"
         >
           Kiln
@@ -341,8 +344,8 @@ function StoreHeader({
           </ul>
         </nav>
 
-        <div className="ms-auto flex flex-1 items-center justify-end gap-3">
-          <InputGroup className="max-w-72">
+        <div className="ms-auto flex min-w-0 flex-1 basis-full items-center justify-end gap-2 sm:basis-auto sm:gap-3">
+          <InputGroup className="min-w-0 max-w-none flex-1 sm:max-w-72">
             <InputGroupAddon>
               <Search />
             </InputGroupAddon>
@@ -565,6 +568,7 @@ function Hero({ onBrowse }: { onBrowse: (category: Filter) => void }) {
   return (
     <Carousel
       aria-label="Featured collections"
+      className="min-w-0 overflow-hidden"
       gap="3rem"
       onBlurCapture={() => setHovered(false)}
       onFocusCapture={() => setHovered(true)}
@@ -584,7 +588,7 @@ function Hero({ onBrowse }: { onBrowse: (category: Filter) => void }) {
                 <p className="font-medium text-muted-foreground text-xs uppercase tracking-[0.2em]">
                   {slide.eyebrow}
                 </p>
-                <h2 className="text-balance font-display text-4xl text-foreground leading-tight md:text-5xl">
+                <h2 className="text-balance font-display text-3xl text-foreground leading-tight sm:text-4xl md:text-5xl">
                   {slide.title}
                 </h2>
                 <p className="max-w-sm text-muted-foreground leading-relaxed">
@@ -637,7 +641,7 @@ function Hero({ onBrowse }: { onBrowse: (category: Filter) => void }) {
 
 function Perks() {
   return (
-    <ul className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {PERKS.map(({ icon: Icon, title, body }) => (
         <li key={title}>
           <Surface className="flex h-full items-center gap-4 p-4" depth="sm">
@@ -673,10 +677,15 @@ function SectionHeading({
   return (
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div className="grid gap-1">
-        <h2 className="font-display text-3xl text-foreground" id={id}>
+        <h2
+          className="font-display text-2xl text-foreground sm:text-3xl"
+          id={id}
+        >
           {title}
         </h2>
-        <p className="text-muted-foreground">{description}</p>
+        <p className="text-muted-foreground text-sm sm:text-base">
+          {description}
+        </p>
       </div>
       {action}
     </div>
@@ -691,7 +700,7 @@ function Categories({ onBrowse }: { onBrowse: (category: Filter) => void }) {
         id="categories"
         title="Shop by category"
       />
-      <ul className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {CATEGORIES.map((category) => {
           const photo = CATEGORY_PHOTOS[category.id];
           const count = CATALOG.filter(
@@ -898,17 +907,20 @@ function ProductGrid({
           </p>
         </div>
         <Tabs
+          className="min-w-0 max-w-full"
           onValueChange={(value) => onFilter(value as Filter)}
           value={filter}
         >
-          <TabsList aria-label="Category">
-            <TabsTrigger value="all">All</TabsTrigger>
-            {CATEGORIES.map((category) => (
-              <TabsTrigger key={category.id} value={category.id}>
-                {category.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
+          <div className="overflow-x-auto">
+            <TabsList aria-label="Category" className="min-w-max">
+              <TabsTrigger value="all">All</TabsTrigger>
+              {CATEGORIES.map((category) => (
+                <TabsTrigger key={category.id} value={category.id}>
+                  {category.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
         </Tabs>
       </div>
 

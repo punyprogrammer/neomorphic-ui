@@ -171,7 +171,7 @@ export function SmartHome() {
   }
 
   return (
-    <div className="grid gap-10">
+    <div className="grid min-w-0 gap-10">
       <PageHeader
         actions={
           <ToggleGroup
@@ -199,11 +199,13 @@ export function SmartHome() {
       />
 
       <Tabs onValueChange={(value) => setRoom(value as Room)} value={room}>
-        <TabsList aria-label="Room">
-          <TabsTrigger value="living">Living room</TabsTrigger>
-          <TabsTrigger value="bedroom">Bedroom</TabsTrigger>
-          <TabsTrigger value="kitchen">Kitchen</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto">
+          <TabsList aria-label="Room" className="min-w-max">
+            <TabsTrigger value="living">Living room</TabsTrigger>
+            <TabsTrigger value="bedroom">Bedroom</TabsTrigger>
+            <TabsTrigger value="kitchen">Kitchen</TabsTrigger>
+          </TabsList>
+        </div>
       </Tabs>
 
       <div className="grid gap-8 lg:grid-cols-3">
@@ -292,7 +294,7 @@ export function SmartHome() {
 
         <section
           aria-label="Devices"
-          className="grid grid-cols-2 content-start gap-6 lg:col-span-2 xl:grid-cols-3"
+          className="grid grid-cols-1 content-start gap-4 sm:grid-cols-2 sm:gap-6 lg:col-span-2 xl:grid-cols-3"
         >
           {devices.map(({ key, label, icon: Icon, tone }) => {
             const pressed = on[room].includes(key);

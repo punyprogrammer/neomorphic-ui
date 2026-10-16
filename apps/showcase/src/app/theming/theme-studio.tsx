@@ -260,7 +260,7 @@ export function ThemeStudio() {
   const code = css(vars);
 
   return (
-    <div className="grid gap-10">
+    <div className="grid min-w-0 gap-10">
       <PageHeader
         actions={
           <Button

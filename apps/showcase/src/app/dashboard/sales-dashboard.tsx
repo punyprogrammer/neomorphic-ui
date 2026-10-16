@@ -235,7 +235,7 @@ export function SalesDashboard() {
   const total = CHANNELS.reduce((sum, c) => sum + c.revenue, 0);
 
   return (
-    <div className="grid gap-8">
+    <div className="grid min-w-0 gap-8">
       <PageHeader
         actions={
           <>
@@ -244,7 +244,10 @@ export function SalesDashboard() {
               onValueChange={(value) => setRange(value as string)}
               value={range}
             >
-              <SelectTrigger aria-label="Date range" className="w-48">
+              <SelectTrigger
+                aria-label="Date range"
+                className="w-full min-w-0 sm:w-48"
+              >
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

@@ -130,7 +130,7 @@ export function Checkout() {
   }
 
   return (
-    <div className="grid gap-10">
+    <div className="grid min-w-0 gap-10">
       <PageHeader
         description="Secure checkout. You won't be charged until you place the order."
         eyebrow="Atelier"
@@ -169,13 +169,15 @@ export function Checkout() {
               <span
                 className={
                   current
-                    ? "font-medium text-foreground"
-                    : "text-muted-foreground"
+                    ? "hidden font-medium text-foreground sm:inline"
+                    : "hidden text-muted-foreground sm:inline"
                 }
               >
                 {label}
               </span>
-              {index < STEPS.length - 1 ? <Separator className="w-8" /> : null}
+              {index < STEPS.length - 1 ? (
+                <Separator className="hidden w-8 sm:block" />
+              ) : null}
             </li>
           );
         })}

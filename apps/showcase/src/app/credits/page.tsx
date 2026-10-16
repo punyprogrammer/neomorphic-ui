@@ -10,7 +10,7 @@ export const metadata: Metadata = { title: "Photo credits" };
 
 export default function CreditsPage() {
   return (
-    <main className="w-full flex-1 px-4 py-8 sm:px-6 lg:px-10">
+    <main className="w-full min-w-0 flex-1 overflow-x-clip px-4 py-8 sm:px-6 lg:px-10">
       <div className="grid gap-10">
         <PageHeader
           description="Every photograph in the showcase is CC0 (public domain) from StockSnap, found through Openverse. Attribution isn't required, but the photographers deserve it."

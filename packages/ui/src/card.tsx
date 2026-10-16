@@ -89,7 +89,7 @@ function CardHeader({ className, ...props }: CardPartProps) {
   return (
     <div
       className={cn(
-        "grid auto-rows-min items-start gap-1 px-(--card-spacing) has-data-[slot=card-action]:grid-cols-[1fr_auto]",
+        "grid auto-rows-min items-start gap-1 px-(--card-spacing) has-data-[slot=card-action]:grid-cols-1 has-data-[slot=card-action]:sm:grid-cols-[1fr_auto]",
         className
       )}
       data-slot="card-header"
@@ -126,7 +126,7 @@ function CardAction({ className, ...props }: CardPartProps) {
   return (
     <div
       className={cn(
-        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
+        "col-start-1 row-start-auto self-start justify-self-start sm:col-start-2 sm:row-span-2 sm:row-start-1 sm:justify-self-end",
         className
       )}
       data-slot="card-action"
@@ -148,7 +148,10 @@ function CardContent({ className, ...props }: CardPartProps) {
 function CardFooter({ className, ...props }: CardPartProps) {
   return (
     <div
-      className={cn("flex items-center gap-3 px-(--card-spacing)", className)}
+      className={cn(
+        "flex flex-wrap items-center gap-3 px-(--card-spacing)",
+        className
+      )}
       data-slot="card-footer"
       {...props}
     />

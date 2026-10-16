@@ -51,7 +51,7 @@ describe("Card", () => {
       </Card>
     );
     expect(part("card-header")).toHaveClass(
-      "has-data-[slot=card-action]:grid-cols-[1fr_auto]"
+      "has-data-[slot=card-action]:sm:grid-cols-[1fr_auto]"
     );
     expect(part("card-title")).toHaveTextContent("Bali");
     expect(part("card-description")).toHaveTextContent("7 nights");

@@ -190,7 +190,7 @@ export function FitnessApp() {
     SESSION_TYPES.find((type) => type.value === session[0])?.label ?? "Run";
 
   return (
-    <div className="grid gap-10">
+    <div className="grid min-w-0 gap-10">
       <PageHeader
         actions={
           <>
@@ -209,7 +209,8 @@ export function FitnessApp() {
               size="lg"
               variant="primary"
             >
-              Start workout
+              <span className="sm:hidden">Start</span>
+              <span className="hidden sm:inline">Start workout</span>
             </Button>
           </>
         }

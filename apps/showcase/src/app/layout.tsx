@@ -21,7 +21,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body suppressHydrationWarning>
         {/* Popups portal to the end of <body>; isolating the app keeps them
             stacked above everything in it. */}
-        <div className="isolate flex min-h-dvh flex-col">
+        <div className="isolate flex min-h-dvh min-w-0 flex-col overflow-x-clip">
           <TooltipProvider>{children}</TooltipProvider>
         </div>
         <Toaster position="bottom-right" />

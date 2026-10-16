@@ -154,9 +154,9 @@ export function SocialFeed() {
   const [feed, setFeed] = useState("for-you");
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[16rem_minmax(0,1fr)_18rem]">
-      {/* Profile and navigation */}
-      <aside className="grid content-start gap-8">
+    <div className="grid min-w-0 gap-8 lg:grid-cols-[16rem_minmax(0,1fr)_18rem]">
+      {/* Profile and navigation — desktop sidebar */}
+      <aside className="hidden content-start gap-8 lg:grid">
         <Card size="sm">
           <CardContent className="grid justify-items-center gap-3 text-center">
             <Avatar size="xl">
@@ -213,7 +213,30 @@ export function SocialFeed() {
       </aside>
 
       {/* Feed */}
-      <section aria-label="Feed" className="grid content-start gap-8" id="feed">
+      <section
+        aria-label="Feed"
+        className="grid min-w-0 content-start gap-8"
+        id="feed"
+      >
+        <nav
+          aria-label="Sections"
+          className="flex gap-1 overflow-x-auto pb-1 lg:hidden"
+        >
+          {NAV.map(({ label, icon: Icon, current, count }) => (
+            <Button
+              aria-current={current ? "page" : undefined}
+              aria-label={count ? `${label}, ${count}` : label}
+              className="shrink-0 normal-case tracking-normal aria-[current=page]:shadow-neu-lg"
+              icon={<Icon />}
+              key={label}
+              size="sm"
+              variant={current ? "default" : "ghost"}
+            >
+              {label}
+            </Button>
+          ))}
+        </nav>
+
         <div className="flex gap-5 overflow-x-auto px-2 pt-2 pb-4">
           {STORIES.map(({ name, avatar, seen }) => (
             <button
@@ -301,9 +324,9 @@ export function SocialFeed() {
         ))}
       </section>
 
-      {/* Trends and suggestions */}
-      <aside className="grid content-start gap-8">
-        <Card size="sm">
+      {/* Trends and suggestions — tablet+ */}
+      <aside className="grid content-start gap-8 max-lg:contents lg:grid">
+        <Card className="max-lg:order-last" size="sm">
           <CardHeader>
             <h2 className="font-semibold text-foreground">Trending today</h2>
           </CardHeader>

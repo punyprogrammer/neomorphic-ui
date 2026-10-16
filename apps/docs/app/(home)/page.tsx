@@ -53,19 +53,21 @@ export default function HomePage() {
     <>
       <section className="mx-auto grid max-w-4xl justify-items-center gap-6 px-4 pt-16 pb-12 text-center sm:pt-24">
         <Link
-          className="group inset-shadow-neu-flat inline-flex items-center gap-2 rounded-full bg-neu-convex py-1 ps-1 pe-3 text-muted-foreground text-sm shadow-neu-sm outline-none transition-shadow hover:shadow-neu focus-visible:outline-2 focus-visible:outline-ring/50"
+          className="group inset-shadow-neu-flat inline-flex max-w-full flex-wrap items-center justify-center gap-2 rounded-full bg-neu-convex py-1 ps-1 pe-3 text-muted-foreground text-sm shadow-neu-sm outline-none transition-shadow hover:shadow-neu focus-visible:outline-2 focus-visible:outline-ring/50"
           href="/docs/components"
         >
           <span className="rounded-full bg-primary px-2 py-0.5 font-medium text-primary-foreground text-xs">
             v{siteConfig.version}
           </span>
-          {siteConfig.componentCount} components, with chat and agent parts
+          <span className="text-start">
+            {siteConfig.componentCount} components, with chat and agent parts
+          </span>
           <ArrowRightIcon
             aria-hidden="true"
-            className="size-3.5 transition-transform group-hover:translate-x-0.5"
+            className="size-3.5 shrink-0 transition-transform group-hover:translate-x-0.5"
           />
         </Link>
-        <h1 className="text-balance font-semibold text-4xl text-foreground tracking-tight sm:text-6xl">
+        <h1 className="text-balance font-semibold text-3xl text-foreground tracking-tight sm:text-6xl">
           Soft interfaces that rise out of the page
         </h1>
         <p className="max-w-2xl text-balance text-lg text-muted-foreground leading-relaxed">

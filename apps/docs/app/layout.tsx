@@ -64,7 +64,7 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <div className="app-root relative flex min-h-svh flex-col">
+        <div className="app-root relative flex min-h-svh min-w-0 flex-col overflow-x-clip">
           {children}
           <Toaster />
         </div>

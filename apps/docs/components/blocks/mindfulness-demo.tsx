@@ -49,21 +49,152 @@ const SESSION = {
 const clock = (seconds: number) =>
   `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
 
-interface MindfulnessDemoProps {
+interface PanelProps {
   className?: string;
+}
+
+/**
+ * Mindfulness discovery phone: recessed search, recommended cards, courses.
+ */
+function MindfulnessHome({ className }: PanelProps) {
+  const id = useId();
+  const [query, setQuery] = useState("");
+
+  return (
+    <Surface
+      className={cn(
+        "mx-auto grid h-full w-full max-w-sm gap-5 rounded-[2rem] p-5",
+        BLUE,
+        className
+      )}
+      render={<section aria-labelledby={`${id}-home`} />}
+    >
+      <div className="flex items-center justify-between">
+        <Button
+          aria-label="Open menu"
+          icon={<Menu />}
+          shape="rounded"
+          size="sm"
+          variant="ghost"
+        />
+        <h2 className="sr-only" id={`${id}-home`}>
+          Mindfulness home
+        </h2>
+        <Avatar size="sm">
+          <AvatarImage alt="" src={portrait(35)} />
+          <AvatarFallback>You</AvatarFallback>
+        </Avatar>
+      </div>
+
+      <div className="flex items-center gap-3">
+        <div className="relative min-w-0 flex-1">
+          <Search
+            aria-hidden="true"
+            className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+          />
+          <Input
+            aria-label="Search for mindfulness"
+            className="ps-10"
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search for mindfulness"
+            shape="pill"
+            type="search"
+            value={query}
+          />
+        </div>
+        <Button
+          aria-label="Filter"
+          icon={<SlidersHorizontal />}
+          shape="rounded"
+          size="md"
+        />
+      </div>
+
+      <div className="grid gap-3">
+        <div className="flex items-baseline justify-between">
+          <h3 className="font-semibold text-foreground">Recommended</h3>
+          <button
+            className="font-medium text-[oklch(0.5_0.16_262)] text-sm"
+            type="button"
+          >
+            See all
+          </button>
+        </div>
+        <ul className="grid grid-cols-2 gap-3">
+          {RECOMMENDED.map((item) => (
+            <li key={item.title}>
+              <Surface className="grid gap-2 overflow-hidden rounded-2xl p-2.5">
+                <img
+                  alt=""
+                  className="aspect-square w-full rounded-xl object-cover"
+                  height={120}
+                  src={scenicThumb(item.hue)}
+                  width={120}
+                />
+                <div className="grid gap-0.5 px-0.5">
+                  <p className="truncate font-medium text-foreground text-sm">
+                    {item.title}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {item.duration}
+                  </p>
+                </div>
+              </Surface>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="grid gap-3">
+        <div className="flex items-baseline justify-between">
+          <h3 className="font-semibold text-foreground">Courses</h3>
+          <button
+            className="font-medium text-[oklch(0.5_0.16_262)] text-sm"
+            type="button"
+          >
+            See all
+          </button>
+        </div>
+        <ul className="grid gap-3">
+          {COURSES.map((course) => (
+            <li key={course.title}>
+              <Surface className="flex items-center gap-3 rounded-2xl p-2.5">
+                <img
+                  alt=""
+                  className="size-14 shrink-0 rounded-xl object-cover"
+                  height={56}
+                  src={scenicThumb(course.hue)}
+                  width={56}
+                />
+                <div className="grid min-w-0 gap-0.5">
+                  <p className="truncate font-medium text-foreground text-sm">
+                    {course.title}
+                  </p>
+                  <p className="text-muted-foreground text-xs">
+                    {course.duration}
+                  </p>
+                </div>
+              </Surface>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Surface>
+  );
+}
+
+interface MindfulnessPlayerProps extends PanelProps {
   defaultPlaying?: boolean;
 }
 
 /**
- * Mindfulness discovery + now-playing pair, matching the soft blue reference
- * phones: recessed search, recommended cards, courses list, and a seek player.
+ * Now-playing phone: art frame, seek slider, rewind / pause / forward.
  */
-function MindfulnessDemo({
+function MindfulnessPlayer({
   className,
   defaultPlaying = false,
-}: MindfulnessDemoProps) {
+}: MindfulnessPlayerProps) {
   const id = useId();
-  const [query, setQuery] = useState("");
   const [position, setPosition] = useState(261);
   const [playing, setPlaying] = useState(defaultPlaying);
   const [liked, setLiked] = useState(true);
@@ -88,225 +219,108 @@ function MindfulnessDemo({
   }
 
   return (
-    <div
-      className={cn("grid w-full gap-8 lg:grid-cols-2", BLUE, className)}
-      data-slot="mindfulness-demo"
+    <Surface
+      className={cn(
+        "mx-auto grid h-full w-full max-w-sm content-start gap-6 rounded-[2rem] p-5",
+        BLUE,
+        className
+      )}
+      render={<section aria-labelledby={`${id}-player`} />}
     >
-      <Surface
-        className="mx-auto grid w-full max-w-sm gap-5 rounded-[2rem] p-5"
-        render={<section aria-labelledby={`${id}-home`} />}
-      >
-        <div className="flex items-center justify-between">
-          <Button
-            aria-label="Open menu"
-            icon={<Menu />}
-            shape="rounded"
-            size="sm"
-            variant="ghost"
-          />
-          <h2 className="sr-only" id={`${id}-home`}>
-            Mindfulness home
-          </h2>
-          <Avatar size="sm">
-            <AvatarImage alt="" src={portrait(35)} />
-            <AvatarFallback>You</AvatarFallback>
-          </Avatar>
-        </div>
-
-        <div className="flex items-center gap-3">
-          <div className="relative min-w-0 flex-1">
-            <Search
-              aria-hidden="true"
-              className="pointer-events-none absolute start-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-            />
-            <Input
-              aria-label="Search for mindfulness"
-              className="ps-10"
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Search for mindfulness"
-              shape="pill"
-              type="search"
-              value={query}
-            />
-          </div>
-          <Button
-            aria-label="Filter"
-            icon={<SlidersHorizontal />}
-            shape="rounded"
-            size="md"
-          />
-        </div>
-
-        <div className="grid gap-3">
-          <div className="flex items-baseline justify-between">
-            <h3 className="font-semibold text-foreground">Recommended</h3>
-            <button
-              className="font-medium text-[oklch(0.5_0.16_262)] text-sm"
-              type="button"
-            >
-              See all
-            </button>
-          </div>
-          <ul className="grid grid-cols-2 gap-3">
-            {RECOMMENDED.map((item) => (
-              <li key={item.title}>
-                <Surface className="grid gap-2 overflow-hidden rounded-2xl p-2.5">
-                  <img
-                    alt=""
-                    className="aspect-square w-full rounded-xl object-cover"
-                    height={120}
-                    src={scenicThumb(item.hue)}
-                    width={120}
-                  />
-                  <div className="grid gap-0.5 px-0.5">
-                    <p className="truncate font-medium text-foreground text-sm">
-                      {item.title}
-                    </p>
-                    <p className="text-muted-foreground text-xs">
-                      {item.duration}
-                    </p>
-                  </div>
-                </Surface>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="grid gap-3">
-          <div className="flex items-baseline justify-between">
-            <h3 className="font-semibold text-foreground">Courses</h3>
-            <button
-              className="font-medium text-[oklch(0.5_0.16_262)] text-sm"
-              type="button"
-            >
-              See all
-            </button>
-          </div>
-          <ul className="grid gap-3">
-            {COURSES.map((course) => (
-              <li key={course.title}>
-                <Surface className="flex items-center gap-3 rounded-2xl p-2.5">
-                  <img
-                    alt=""
-                    className="size-14 shrink-0 rounded-xl object-cover"
-                    height={56}
-                    src={scenicThumb(course.hue)}
-                    width={56}
-                  />
-                  <div className="grid min-w-0 gap-0.5">
-                    <p className="truncate font-medium text-foreground text-sm">
-                      {course.title}
-                    </p>
-                    <p className="text-muted-foreground text-xs">
-                      {course.duration}
-                    </p>
-                  </div>
-                </Surface>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Surface>
-
-      <Surface
-        className="mx-auto grid w-full max-w-sm content-start gap-6 rounded-[2rem] p-5"
-        render={<section aria-labelledby={`${id}-player`} />}
-      >
-        <div className="flex items-center justify-between">
-          <Button
-            aria-label="Back"
-            icon={<ArrowLeft />}
-            shape="rounded"
-            size="sm"
-            variant="ghost"
-          />
-          <p className="font-semibold text-foreground text-xs uppercase tracking-[0.14em]">
-            Playing now
-          </p>
-          <Toggle
-            aria-label="Favourite"
-            className="[--toggle-on:oklch(0.55_0.17_262)]"
-            iconFill
-            onPressedChange={setLiked}
-            pressed={liked}
-            size="sm"
-          >
-            <Heart />
-          </Toggle>
-        </div>
-
-        <Surface
-          className="mx-auto aspect-square w-[min(100%,14rem)] overflow-hidden p-3"
-          elevation="inset"
+      <div className="flex items-center justify-between">
+        <Button
+          aria-label="Back"
+          icon={<ArrowLeft />}
           shape="rounded"
-          style={{ borderRadius: "42% 48% 40% 52% / 48% 40% 52% 44%" }}
+          size="sm"
+          variant="ghost"
+        />
+        <p className="font-semibold text-foreground text-xs uppercase tracking-[0.14em]">
+          Playing now
+        </p>
+        <Toggle
+          aria-label="Favourite"
+          className="[--toggle-on:oklch(0.55_0.17_262)]"
+          iconFill
+          onPressedChange={setLiked}
+          pressed={liked}
+          size="sm"
         >
-          <img
-            alt=""
-            className="size-full object-cover"
-            height={240}
-            src={skyScene()}
-            style={{ borderRadius: "inherit" }}
-            width={240}
-          />
-        </Surface>
+          <Heart />
+        </Toggle>
+      </div>
 
-        <div className="grid justify-items-center gap-1 text-center">
-          <h2
-            className="font-semibold text-2xl text-foreground tracking-tight"
-            id={`${id}-player`}
-          >
-            {SESSION.title}
-          </h2>
-          <p className="text-muted-foreground text-sm">{SESSION.subtitle}</p>
-        </div>
-
-        <div className="grid gap-2">
-          <div className="flex justify-between text-muted-foreground text-xs tabular-nums">
-            <span>{clock(position)}</span>
-            <span>{clock(SESSION.duration)}</span>
-          </div>
-          <Slider
-            aria-label="Seek"
-            max={SESSION.duration}
-            onValueChange={(value) => setPosition(value as number)}
-            size="sm"
-            value={position}
-          />
-        </div>
-
-        <div className="flex items-center justify-center gap-6">
-          <Button
-            aria-label="Rewind 15 seconds"
-            icon={<RotateCcw className="text-[oklch(0.5_0.16_262)]" />}
-            onClick={() => seekBy(-15)}
-            shape="pill"
-            size="md"
-          />
-          <Toggle
-            aria-label={playing ? "Pause" : "Play"}
-            className="size-16 text-[oklch(0.5_0.16_262)]"
-            onPressedChange={setPlaying}
-            pressed={playing}
-          >
-            {playing ? (
-              <Pause className="size-6 fill-current" />
-            ) : (
-              <Play className="size-6 fill-current" />
-            )}
-          </Toggle>
-          <Button
-            aria-label="Forward 15 seconds"
-            icon={<RotateCw className="text-[oklch(0.5_0.16_262)]" />}
-            onClick={() => seekBy(15)}
-            shape="pill"
-            size="md"
-          />
-        </div>
+      <Surface
+        className="mx-auto aspect-square w-[min(100%,14rem)] overflow-hidden p-3"
+        elevation="inset"
+        shape="rounded"
+        style={{ borderRadius: "42% 48% 40% 52% / 48% 40% 52% 44%" }}
+      >
+        <img
+          alt=""
+          className="size-full object-cover"
+          height={240}
+          src={skyScene()}
+          style={{ borderRadius: "inherit" }}
+          width={240}
+        />
       </Surface>
-    </div>
+
+      <div className="grid justify-items-center gap-1 text-center">
+        <h2
+          className="font-semibold text-2xl text-foreground tracking-tight"
+          id={`${id}-player`}
+        >
+          {SESSION.title}
+        </h2>
+        <p className="text-muted-foreground text-sm">{SESSION.subtitle}</p>
+      </div>
+
+      <div className="grid gap-2">
+        <div className="flex justify-between text-muted-foreground text-xs tabular-nums">
+          <span>{clock(position)}</span>
+          <span>{clock(SESSION.duration)}</span>
+        </div>
+        <Slider
+          aria-label="Seek"
+          max={SESSION.duration}
+          onValueChange={(value) => setPosition(value as number)}
+          size="sm"
+          value={position}
+        />
+      </div>
+
+      <div className="flex items-center justify-center gap-6">
+        <Button
+          aria-label="Rewind 15 seconds"
+          icon={<RotateCcw className="text-[oklch(0.5_0.16_262)]" />}
+          onClick={() => seekBy(-15)}
+          shape="pill"
+          size="md"
+        />
+        <Toggle
+          aria-label={playing ? "Pause" : "Play"}
+          className="size-16 text-[oklch(0.5_0.16_262)]"
+          onPressedChange={setPlaying}
+          pressed={playing}
+        >
+          {playing ? (
+            <Pause className="size-6 fill-current" />
+          ) : (
+            <Play className="size-6 fill-current" />
+          )}
+        </Toggle>
+        <Button
+          aria-label="Forward 15 seconds"
+          icon={<RotateCw className="text-[oklch(0.5_0.16_262)]" />}
+          onClick={() => seekBy(15)}
+          shape="pill"
+          size="md"
+        />
+      </div>
+    </Surface>
   );
 }
 
-export type { MindfulnessDemoProps };
-export { MindfulnessDemo };
+export type { MindfulnessPlayerProps, PanelProps as MindfulnessPanelProps };
+export { MindfulnessHome, MindfulnessPlayer };

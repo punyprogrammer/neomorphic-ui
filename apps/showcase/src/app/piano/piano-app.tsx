@@ -366,7 +366,7 @@ export function PianoApp() {
   const PresetIcon = PRESET_ICONS[preset.id];
 
   return (
-    <div className="grid gap-8">
+    <div className="grid min-w-0 gap-8">
       <PageHeader
         actions={
           <>
@@ -519,7 +519,7 @@ export function PianoApp() {
               <div className="grid justify-items-center gap-4">
                 <Dial
                   aria-label="Dynamics"
-                  className={`size-52! ${BRASS}`}
+                  className={`size-40! sm:size-52! ${BRASS}`}
                   getAriaValueText={(value) =>
                     `${dynamicMark(value / 100).word}, ${value} percent`
                   }

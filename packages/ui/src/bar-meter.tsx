@@ -12,7 +12,7 @@ import { cn } from "./utils";
 
 // The size sets the bars' width; their height is `--bar-meter-height`, which
 // a consumer can override on the group.
-const barMeterVariants = cva("flex items-end", {
+const barMeterVariants = cva("flex w-full min-w-0 items-end", {
   variants: {
     size: {
       sm: "gap-3 [--bar-meter-height:6rem] [--bar-meter-width:0.5rem]",

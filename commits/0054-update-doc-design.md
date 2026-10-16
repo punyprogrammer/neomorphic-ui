@@ -8,7 +8,7 @@ insertions: 758
 deletions: 34
 ---
 
-<!-- nav --> [← 0050](0050-fix-dtructure.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0050](0050-fix-dtructure.md) · [Index](README.md) · [0055 →](0055-add-responsiveness.md)
 
 # 0054 · update-doc-design
 

@@ -40,7 +40,7 @@ const RUNTIME = `document.documentElement.style
 
 export default function Home() {
   return (
-    <main className="mx-auto grid w-full max-w-7xl flex-1 gap-16 px-4 py-14 sm:px-6">
+    <main className="mx-auto grid w-full min-w-0 max-w-7xl flex-1 gap-16 overflow-x-clip px-4 py-14 sm:px-6">
       <section className="grid justify-items-center gap-6 text-center">
         <Chip icon={<Sparkles />} variant="inset">
           @neomorphic-react/ui 0.1

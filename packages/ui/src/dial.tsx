@@ -61,7 +61,7 @@ const dialVariants = cva(
       size: {
         sm: "size-24 text-sm",
         md: "size-32 text-base",
-        lg: "size-40 text-lg",
+        lg: "size-36 text-base sm:size-40 sm:text-lg",
       },
     },
     defaultVariants: {

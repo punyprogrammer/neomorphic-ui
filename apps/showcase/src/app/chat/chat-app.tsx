@@ -271,7 +271,7 @@ function Header({
         >
           <SelectTrigger
             aria-label="Model"
-            className={cn("w-36", QUIET)}
+            className={cn("w-28 min-w-0 sm:w-36", QUIET)}
             size="sm"
           >
             <SelectValue />

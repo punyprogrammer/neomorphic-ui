@@ -74,7 +74,7 @@ function MeetingHub({ className }: MeetingHubProps) {
   return (
     <Surface
       className={cn(
-        "mx-auto grid w-full max-w-3xl gap-8 rounded-[2rem] p-6 sm:grid-cols-2 sm:items-stretch sm:p-8",
+        "mx-auto grid h-full w-full max-w-lg gap-6 rounded-[2rem] p-5 sm:grid-cols-2 sm:items-stretch sm:gap-8 sm:p-6",
         className
       )}
       render={<section aria-labelledby={`${id}-title`} />}
