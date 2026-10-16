@@ -8,7 +8,7 @@ insertions: 50415
 deletions: 90
 ---
 
-<!-- nav --> [← 0046](0046-deploy-storybook-to-github-pages-and-finish-phase-7.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0046](0046-deploy-storybook-to-github-pages-and-finish-phase-7.md) · [Index](README.md) · [0049 →](0049-fix-showcase-rewrites-falling-back-to-localhost-on-vercel.md)
 
 # 0048 · initial-docs
 

@@ -84,9 +84,11 @@ Create the showcase first, because the docs project needs its URL.
 - [ ] **Add New → Project → Import** `punyprogrammer/neomorphic-ui`.
 - [ ] **Project name:** `neomorphic-showcase`. Its production URL becomes
   `https://neomorphic-showcase.vercel.app`.
-- [ ] **Root Directory:** `apps/showcase`. Vercel spots the pnpm workspace,
-  installs from the repository root and builds the app. Leave "Include files
-  outside the root directory" on, as the app imports `packages/ui`.
+- [ ] **Root Directory:** `apps/showcase`. Vercel spots the pnpm workspace
+  (`pnpm-workspace.yaml`), installs from the repository root and builds the
+  app. Newer Vercel UIs no longer show "Include files outside the root
+  directory"; for a pnpm monorepo that is the default, and the app still
+  reaches `packages/ui`.
 - [ ] **Framework preset:** Next.js. Leave the build and output commands as
   they are.
 - [ ] **Node.js version** (Settings → Build and Deployment): `22.x` or later.
@@ -189,6 +191,7 @@ The domain goes on the **docs** project only. The showcase keeps its
 | --- | --- |
 | `/showcase/...` returns a Vercel login page | `SHOWCASE_URL` points at a protected preview URL; use the production URL |
 | `/showcase/...` is a 404 on the docs domain | `SHOWCASE_URL` is missing or has a trailing slash, or the showcase deployment failed |
+| `/showcase/...` returns `DNS_HOSTNAME_RESOLVED_PRIVATE` | Build fell back to `localhost` — set `SHOWCASE_URL` as **Config** (not Secret/Sensitive), redeploy docs, or rely on the `VERCEL` fallback in `apps/docs/next.config.mjs` |
 | Showcase pages load without styles or scripts | The showcase was deployed without `basePath`, so its `/_next` files aren't under `/showcase` |
 | Showcase images are broken | A new image path skipped `asset()` from `src/lib/base-path.ts` |
 | Install fails with a pnpm version error | `ENABLE_EXPERIMENTAL_COREPACK=1` is missing |
