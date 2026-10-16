@@ -8,7 +8,7 @@ insertions: 13
 deletions: 4
 ---
 
-<!-- nav --> [← 0048](0048-initial-docs.md) · [Index](README.md) · latest →
+<!-- nav --> [← 0048](0048-initial-docs.md) · [Index](README.md) · [0050 →](0050-fix-dtructure.md)
 
 # 0049 · Fix showcase rewrites falling back to localhost on Vercel.
 

@@ -8,8 +8,7 @@ const CARD =
   "inset-shadow-neu-flat group grid content-start gap-1 rounded-xl bg-neu-convex p-4 shadow-neu-sm outline-none transition-shadow hover:shadow-neu focus-visible:outline-2 focus-visible:outline-ring/50 focus-visible:outline-offset-2";
 
 /**
- * Every component by group. Those with a docs page link to it; the rest link
- * to their Storybook page until their docs page lands.
+ * Every component by group, each linking to its docs page.
  */
 export function ComponentsIndex() {
   return (

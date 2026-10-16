@@ -34,3 +34,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0046 | 2026-10-15 | [Deploy Storybook to GitHub Pages and finish Phase 7](0046-deploy-storybook-to-github-pages-and-finish-phase-7.md) | 6 | +81 −37 |
 | 0048 | 2026-10-16 | [initial-docs](0048-initial-docs.md) | 680 | +50415 −90 |
 | 0049 | 2026-10-16 | [Fix showcase rewrites falling back to localhost on Vercel.](0049-fix-showcase-rewrites-falling-back-to-localhost-on-vercel.md) | 2 | +13 −4 |
+| 0050 | 2026-10-16 | [fix-dtructure](0050-fix-dtructure.md) | 1 | +1 −2 |
