@@ -37,3 +37,4 @@ Regenerate one commit with `pnpm docs:commit --rev <sha>`, or all of them with `
 | 0050 | 2026-10-16 | [fix-dtructure](0050-fix-dtructure.md) | 1 | +1 −2 |
 | 0054 | 2026-10-16 | [update-doc-design](0054-update-doc-design.md) | 6 | +758 −34 |
 | 0055 | 2026-10-16 | [add-responsiveness](0055-add-responsiveness.md) | 31 | +652 −457 |
+| 0056 | 2026-10-16 | [add-storybook-readme](0056-add-storybook-readme.md) | 1 | +51 −0 |
